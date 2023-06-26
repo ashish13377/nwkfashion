@@ -25,7 +25,7 @@ const onSale = () => {
                     <div className="content-top">
                       <div className="content-top-left">
                         <h4 className="title">
-                          <a href="#">2 Piece Shirt Set</a>
+                          <a href="#">lorem epsum</a>
                         </h4>
                         <div className="ratting">
                           <i className="fa fa-star" />
@@ -37,7 +37,7 @@ const onSale = () => {
                       </div>
                       <div className="content-top-right">
                         <span className="price">
-                          $13 <span className="old">$28</span>
+                          $ <span className="old">$</span>
                         </span>
                       </div>
                     </div>
@@ -60,7 +60,7 @@ const onSale = () => {
                     <div className="content-top">
                       <div className="content-top-left">
                         <h4 className="title">
-                          <a href="#">Kelly Shirt Set</a>
+                          <a href="#">lorem epsum</a>
                         </h4>
                         <div className="ratting">
                           <i className="fa fa-star" />
@@ -72,7 +72,7 @@ const onSale = () => {
                       </div>
                       <div className="content-top-right">
                         <span className="price">
-                          $09 <span className="old">$25</span>
+                          $ <span className="old">$</span>
                         </span>
                       </div>
                     </div>
@@ -104,10 +104,10 @@ const onSale = () => {
                     </a>
                     <div className="content text-center">
                       <h4 className="title">
-                        <a href="single-product.html">Skily Girld Dress</a>
+                        <a href="single-product.html">lorem epsum</a>
                       </h4>
                       <span className="price">
-                        $19 <span className="old">$35</span>
+                        $<span className="old">$</span>
                       </span>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -129,10 +129,10 @@ const onSale = () => {
                     </a>
                     <div className="content text-center">
                       <h4 className="title">
-                        <a href="single-product.html">Kelly Shirt Set</a>
+                        <a href="single-product.html">lorem epsum</a>
                       </h4>
                       <span className="price">
-                        $08 <span className="old">$25</span>
+                        $ <span className="old">$</span>
                       </span>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -154,10 +154,10 @@ const onSale = () => {
                     </a>
                     <div className="content text-center">
                       <h4 className="title">
-                        <a href="single-product.html">Sleeveless Tops</a>
+                        <a href="single-product.html">lorem epsum</a>
                       </h4>
                       <span className="price">
-                        $05 <span className="old">$12</span>
+                        $<span className="old">$</span>
                       </span>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -179,10 +179,10 @@ const onSale = () => {
                     </a>
                     <div className="content text-center">
                       <h4 className="title">
-                        <a href="single-product.html">Babysuit Bundle</a>
+                        <a href="single-product.html">lorem epsum</a>
                       </h4>
                       <span className="price">
-                        $25 <span className="old">$45</span>
+                        $ <span className="old">$</span>
                       </span>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -204,10 +204,10 @@ const onSale = () => {
                     </a>
                     <div className="content text-center">
                       <h4 className="title">
-                        <a href="single-product.html">Xshuai Baby Frock</a>
+                        <a href="single-product.html">lorem epsum</a>
                       </h4>
                       <span className="price">
-                        $13 <span className="old">$28</span>
+                        $<span className="old">$</span>
                       </span>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -229,10 +229,10 @@ const onSale = () => {
                     </a>
                     <div className="content text-center">
                       <h4 className="title">
-                        <a href="single-product.html">Stylish Hat</a>
+                        <a href="single-product.html">lorem epsum</a>
                       </h4>
                       <span className="price">
-                        $03 <span className="old">$10</span>
+                        $ <span className="old">$</span>
                       </span>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -254,10 +254,10 @@ const onSale = () => {
                     </a>
                     <div className="content text-center">
                       <h4 className="title">
-                        <a href="single-product.html">Aolvo Kids Munch</a>
+                        <a href="single-product.html">lorem epsum</a>
                       </h4>
                       <span className="price">
-                        $25 <span className="old">$35</span>
+                        $<span className="old">$</span>
                       </span>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -279,10 +279,10 @@ const onSale = () => {
                     </a>
                     <div className="content text-center">
                       <h4 className="title">
-                        <a href="single-product.html">Tmart Baby Dress</a>
+                        <a href="single-product.html">lorem epsum</a>
                       </h4>
                       <span className="price">
-                        $48 <span className="old">$65</span>
+                        $ <span className="old">$</span>
                       </span>
                       <div className="ratting">
                         <i className="fa fa-star" />

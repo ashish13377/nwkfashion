@@ -70,8 +70,12 @@ export default function header() {
                     <a href="my-account.html">My Account</a>
                   </p>
                   <p>
-                    <a href="login-register.html">Register</a>
-                    <a href="login-register.html">Login</a>
+                    <Link link to="/loginRegisterPage">
+                      Register
+                    </Link>
+                    <Link link to="/loginRegisterPage">
+                      Login
+                    </Link>
                   </p>
                 </div>
                 {/* Header Shop Links End */}

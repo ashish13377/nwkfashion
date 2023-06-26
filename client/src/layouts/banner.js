@@ -34,7 +34,7 @@ const banner = () => {
                   alt="Banner Image"
                 />
                 <div className="content bg-theme-one">
-                  <h1>New Toy’s for your Baby</h1>
+                  <h1>lorem epsum</h1>
                 </div>
                 <span className="banner-offer">25% off</span>
               </a>
@@ -48,10 +48,7 @@ const banner = () => {
                   />
                 </a>
                 <div className="content">
-                  <h1>
-                    Trendy <br />
-                    Collections
-                  </h1>
+                  <h1>lorem epsum</h1>
                   <a href="#" data-hover="SHOP NOW">
                     SHOP NOW
                   </a>

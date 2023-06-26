@@ -18,10 +18,7 @@ const Hero = () => {
             >
               {/* Hero Content */}
               <div className="hero-content">
-                <h1>
-                  Get 35% off <br />
-                  Latest Baby Product
-                </h1>
+                <h1>lorem epsum</h1>
                 <a href="#">SHOP NOW</a>
               </div>
             </div>
@@ -37,10 +34,7 @@ const Hero = () => {
             >
               {/* Hero Content */}
               <div className="hero-content">
-                <h1>
-                  Get 35% off <br />
-                  Latest Baby Product
-                </h1>
+                <h1>lorem epsum</h1>
                 <a href="#">SHOP NOW</a>
               </div>
             </div>

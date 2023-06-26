@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const popularProducts = () => {
   return (
@@ -30,7 +31,9 @@ const popularProducts = () => {
                   <div className="content">
                     <div className="content-left">
                       <h4 className="title">
-                        <a href="single-product.html">Tmart Baby Dress</a>
+                        <Link link to="/singleProductPage">
+                          lorem epsum
+                        </Link>
                       </h4>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -53,7 +56,7 @@ const popularProducts = () => {
                       </h5>
                     </div>
                     <div className="content-right">
-                      <span className="price">$25</span>
+                      <span className="price">$</span>
                     </div>
                   </div>
                 </div>
@@ -77,7 +80,9 @@ const popularProducts = () => {
                   <div className="content">
                     <div className="content-left">
                       <h4 className="title">
-                        <a href="single-product.html">Jumpsuit Outfits</a>
+                        <Link link to="/singleProductPage">
+                          lorem epsum
+                        </Link>
                       </h4>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -100,7 +105,7 @@ const popularProducts = () => {
                       </h5>
                     </div>
                     <div className="content-right">
-                      <span className="price">$09</span>
+                      <span className="price">$</span>
                     </div>
                   </div>
                 </div>
@@ -124,7 +129,9 @@ const popularProducts = () => {
                   <div className="content">
                     <div className="content-left">
                       <h4 className="title">
-                        <a href="single-product.html">Smart Shirt</a>
+                        <Link link to="/singleProductPage">
+                          lorem epsum
+                        </Link>
                       </h4>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -147,7 +154,7 @@ const popularProducts = () => {
                       </h5>
                     </div>
                     <div className="content-right">
-                      <span className="price">$18</span>
+                      <span className="price">$</span>
                     </div>
                   </div>
                 </div>
@@ -171,7 +178,9 @@ const popularProducts = () => {
                   <div className="content">
                     <div className="content-left">
                       <h4 className="title">
-                        <a href="single-product.html">Kids Shoe</a>
+                        <Link link to="/singleProductPage">
+                          lorem epsum
+                        </Link>
                       </h4>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -194,7 +203,7 @@ const popularProducts = () => {
                       </h5>
                     </div>
                     <div className="content-right">
-                      <span className="price">$15</span>
+                      <span className="price">$</span>
                     </div>
                   </div>
                 </div>
@@ -218,7 +227,9 @@ const popularProducts = () => {
                   <div className="content">
                     <div className="content-left">
                       <h4 className="title">
-                        <a href="single-product.html"> Bowknot Bodysuit</a>
+                        <Link link to="/singleProductPage">
+                          lorem epsum
+                        </Link>
                       </h4>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -241,7 +252,7 @@ const popularProducts = () => {
                       </h5>
                     </div>
                     <div className="content-right">
-                      <span className="price">$12</span>
+                      <span className="price">$</span>
                     </div>
                   </div>
                 </div>
@@ -265,7 +276,9 @@ const popularProducts = () => {
                   <div className="content">
                     <div className="content-left">
                       <h4 className="title">
-                        <a href="single-product.html">Striped T-Shirt</a>
+                        <Link link to="/singleProductPage">
+                          lorem epsum
+                        </Link>
                       </h4>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -288,7 +301,7 @@ const popularProducts = () => {
                       </h5>
                     </div>
                     <div className="content-right">
-                      <span className="price">$12</span>
+                      <span className="price">$</span>
                     </div>
                   </div>
                 </div>
@@ -312,7 +325,9 @@ const popularProducts = () => {
                   <div className="content">
                     <div className="content-left">
                       <h4 className="title">
-                        <a href="single-product.html">Kislen Jak Tops</a>
+                        <Link link to="/singleProductPage">
+                          lorem epsum
+                        </Link>
                       </h4>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -335,7 +350,7 @@ const popularProducts = () => {
                       </h5>
                     </div>
                     <div className="content-right">
-                      <span className="price">$29</span>
+                      <span className="price">$</span>
                     </div>
                   </div>
                 </div>
@@ -359,7 +374,9 @@ const popularProducts = () => {
                   <div className="content">
                     <div className="content-left">
                       <h4 className="title">
-                        <a href="single-product.html">Lattic Shirt</a>
+                        <Link link to="/singleProductPage">
+                          lorem epsum
+                        </Link>
                       </h4>
                       <div className="ratting">
                         <i className="fa fa-star" />
@@ -382,7 +399,7 @@ const popularProducts = () => {
                       </h5>
                     </div>
                     <div className="content-right">
-                      <span className="price">$08</span>
+                      <span className="price">$</span>
                     </div>
                   </div>
                 </div>
