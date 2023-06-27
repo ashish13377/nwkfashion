@@ -67,7 +67,9 @@ export default function header() {
                 {/* Header Shop Links Start */}
                 <div className="header-top-right">
                   <p>
-                    <a href="my-account.html">My Account</a>
+                    <Link link to="/myAccountPage">
+                      My Account
+                    </Link>
                   </p>
                   <p>
                     <Link link to="/loginRegisterPage">
