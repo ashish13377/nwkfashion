@@ -8,9 +8,25 @@
     "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "ashish",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^10.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment-timezone": "^0.5.41",
+    "mongoose": "^6.0.5",
+    "multer": "^1.4.3",
+    "node-localstorage": "^2.2.1",
+    "nodemailer": "^6.7.0",
+    "nodemon": "^2.0.13",
+    "razorpay": "^2.0.7",
+    "shortid": "^2.2.16",
+    "twilio": "^3.69.0"
   }
 }
