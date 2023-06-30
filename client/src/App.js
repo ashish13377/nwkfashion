@@ -4,15 +4,21 @@ import Home from "./pages/home";
 import SingleProductPage from "./pages/singleProductPage";
 import LoginRegisterPage from "./pages/loginRegisterPage";
 import MyAccountPage from "./pages/myAccountPage";
+
+
+export const serverAPILocal = "http://localhost:5904/api";
+
 function App() {
   return (
     <div className="main-wrapper">
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/singleProductPage" element={<SingleProductPage />} />
-          <Route path="/loginRegisterPage" element={<LoginRegisterPage />} />
-          <Route path="/myAccountPage" element={<MyAccountPage />} />
+        
+            <Route path="/" element={<Home />} />
+            <Route path="/singleProductPage" element={<SingleProductPage />} />
+            <Route path="/loginRegisterPage" element={<LoginRegisterPage />} />
+            <Route path="/myAccountPage" element={<MyAccountPage />} />
+       
         </Routes>
       </Router>
     </div>

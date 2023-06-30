@@ -1,6 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
-export default function header() {
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+export default function Header() {
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("user"));
+    setUser(data);
+    if (!data) {
+      navigate("/loginRegisterPage");
+    }
+  }, []);
+
   return (
     <div>
       {" "}
@@ -63,25 +74,40 @@ export default function header() {
                 </ul>
                 {/* Header Language Currency End */}
               </div>
-              <div className="col mt-10 mb-10">
-                {/* Header Shop Links Start */}
-                <div className="header-top-right">
-                  <p>
-                    <Link link to="/myAccountPage">
-                      My Account
-                    </Link>
-                  </p>
-                  <p>
-                    <Link link to="/loginRegisterPage">
-                      Register
-                    </Link>
-                    <Link link to="/loginRegisterPage">
-                      Login
-                    </Link>
-                  </p>
+              {!user ? (
+                <div className="col mt-10 mb-10">
+                  {/* Header Shop Links Start */}
+                  <div className="header-top-right">
+                    <p>
+                      <Link link to="/myAccountPage">
+                        My Account
+                      </Link>
+                    </p>
+                    <p>
+                      <Link link to="/loginRegisterPage">
+                        Register
+                      </Link>
+                      <Link link to="/loginRegisterPage">
+                        Login
+                      </Link>
+                    </p>
+                  </div>
+                  {/* Header Shop Links End */}
                 </div>
-                {/* Header Shop Links End */}
-              </div>
+              ) : (
+                <div className="col mt-10 mb-10">
+                  {/* Header Shop Links Start */}
+                  <div className="header-top-right">
+                    <p>
+                      <Link link to="/myAccountPage">
+                        Hello, {user.username}
+                      </Link>
+                    </p>
+                    
+                  </div>
+                  {/* Header Shop Links End */}
+                </div>
+              )}
             </div>
           </div>
         </div>

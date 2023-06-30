@@ -1,6 +1,17 @@
-import React from "react";
+import React, {useEffect, useState}from "react";
+import { useNavigate  } from "react-router-dom";
 
-const myAccountRightContents = () => {
+const MyAccountRightContents = () => {
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+ 
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("user"))
+    setUser(data)
+    if (!data) {
+      navigate("/loginRegisterPage");
+    }
+  }, []);
   return (
     <div>
       <div className="tab-content" id="myaccountContent">
@@ -14,8 +25,8 @@ const myAccountRightContents = () => {
             <h3>Dashboard</h3>
             <div className="welcome">
               <p>
-                Hello, <strong>Alex Tuntuni</strong> (If Not{" "}
-                <strong>Tuntuni !</strong>
+                Hello, <strong>{user.name}</strong> (If Not{" "}
+                <strong>{user.username} !</strong>
                 <a href="login-register.html" className="logout">
                   {" "}
                   Logout
@@ -233,4 +244,4 @@ const myAccountRightContents = () => {
   );
 };
 
-export default myAccountRightContents;
+export default MyAccountRightContents;

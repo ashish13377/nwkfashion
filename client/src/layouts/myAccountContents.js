@@ -2,6 +2,7 @@ import React from "react";
 import MyAccountLeftContents from "./myAccountLeftContents";
 import MyAccountRightContents from "./myAccountRightContents";
 const MyAccountContent = () => {
+  
   return (
     <div>
       <div>

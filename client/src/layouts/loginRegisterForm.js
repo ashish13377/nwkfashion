@@ -1,71 +1,94 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { serverAPILocal } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const LoginRegisterForm = () => {
+  const navigate = useNavigate();
+  // login
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
+  //registerName
   const [registerName, setRegisterName] = useState("");
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-
-    // Basic validation for login
-    if (!loginEmail || !loginPassword) {
-      alert("Please enter both email and password");
-      return;
-    }
-
-    // Create a data object to send to the server
     const loginData = {
-      email: loginEmail,
+      username: loginEmail,
       password: loginPassword,
     };
 
-    // Send the loginData to the server
-    fetch("/loginEndpoint", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(loginData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the server
-        console.log("Login response:", data);
-
-        // Reset the form
-        setLoginEmail("");
-        setLoginPassword("");
-      })
-      .catch((error) => {
-        console.log("Error occurred:", error);
+    if (loginEmail === "") {
+      toast.warning("Email is required!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
       });
+    } else if (loginPassword === "") {
+      toast.warning("password is required!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+    } else {
+      try {
+        const loginres = await axios.post(
+          `${serverAPILocal}/users/login`,
+          loginData,
+          {
+            withCredentials: true,
+          }
+        );
+        localStorage.setItem("jwt", JSON.stringify(loginres.data.token));
+        localStorage.setItem("user", JSON.stringify(loginres.data.userLogin));
+        // console.log(loginres.data.message)
+        if (loginres.status === 200) {
+          const mess = loginres.data.message;
+          toast.success(mess, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light",
+          });
+          setTimeout(() => {
+            navigate("/myAccountPage");
+          }, 2500);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+      }
+    }
   };
 
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-
-    // Basic validation for registration
-    if (
-      !registerName ||
-      !registerUsername ||
-      !registerEmail ||
-      !registerPassword ||
-      !confirmPassword
-    ) {
-      alert("Please fill in all fields");
-      return;
-    }
-
-    if (registerPassword !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
 
     // Create a data object to send to the server
     const registerData = {
@@ -73,35 +96,100 @@ const LoginRegisterForm = () => {
       username: registerUsername,
       email: registerEmail,
       password: registerPassword,
+      cfpassword: confirmPassword,
     };
 
-    // Send the registerData to the server
-    fetch("/registerEndpoint", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(registerData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the server
-        console.log("Registration response:", data);
-
-        // Reset the form
-        setRegisterName("");
-        setRegisterUsername("");
-        setRegisterEmail("");
-        setRegisterPassword("");
-        setConfirmPassword("");
-      })
-      .catch((error) => {
-        console.log("Error occurred:", error);
+    if (registerName === "") {
+      toast.warning("Register Name is required!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
       });
+    } else if (registerUsername === "") {
+      toast.warning("Username is required!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+    } else if (registerEmail === "") {
+      toast.warning("Email is required!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+    } else if (registerPassword === "") {
+      toast.warning("Password is required!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+    } else if (registerPassword != confirmPassword) {
+      toast.warning("Password are not matching! 😒", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+    } else {
+      try {
+        const loginres = await axios.post(
+          `${serverAPILocal}/users/register`,
+          registerData,
+          {
+            withCredentials: true,
+          }
+        );
+        console.log(loginres);
+        if (loginres.status === 200) {
+          const mess = loginres.data.message;
+          toast.success(mess, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light",
+          });
+        }
+      } catch (error) {
+        toast.error(error.response.data.error, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+      }
+    }
   };
 
   return (
     <div>
+      <div>
+        <ToastContainer />
+      </div>
       <div className="page-section section section-padding">
         <div className="container">
           <div className="row mbn-40">
@@ -151,9 +239,11 @@ const LoginRegisterForm = () => {
                 </div>
               </div>
             </div>
+
             <div className="col-lg-2 col-12 mb-40 text-center d-none d-lg-block">
               <span className="login-register-separator" />
             </div>
+
             <div className="col-lg-6 col-12 mb-40 ms-auto">
               <div className="login-register-form-wrap">
                 <h3>Register</h3>

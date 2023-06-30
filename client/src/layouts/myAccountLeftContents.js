@@ -1,6 +1,57 @@
-import React from "react";
+import React, {useEffect, useState}from "react";
+import { useNavigate  } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { serverAPILocal } from "../App";
 
-const myAccountLeftContents = () => {
+const MyAccountLeftContents = () => {
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+
+  const logout = async (e) => {
+		e.preventDefault();
+		try {
+			const res = await axios.get(`${serverAPILocal}/users/logout`, {
+				withCredentials: true,
+			});
+			if (res.status === 200) {
+				localStorage.removeItem("jwt");
+				localStorage.removeItem("user");
+				toast.success(res.data.message, {
+					position: "top-center",
+					autoClose: 2000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					theme: "light",
+				});
+				setTimeout(() => {
+					navigate("/");
+				}, 2500);
+			}
+		} catch (err) {
+			toast.error(err.response.data.message, {
+				position: "top-center",
+				autoClose: 2000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				theme: "light",
+			});
+		};
+	}
+
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("user"))
+    setUser(data)
+    if (!data) {
+      navigate("/loginRegisterPage");
+    }
+  }, []);
   return (
     <div>
       <div className="myaccount-tab-menu nav" role="tablist">
@@ -23,12 +74,13 @@ const myAccountLeftContents = () => {
         <a href="#account-info" data-bs-toggle="tab">
           <i className="fa fa-user" /> Account Details
         </a>
-        <a href="login-register.html">
+        <a href="login-register.html" onClick={logout}>
           <i className="fa fa-sign-out" /> Logout
         </a>
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
-export default myAccountLeftContents;
+export default MyAccountLeftContents;

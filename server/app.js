@@ -21,6 +21,10 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 
+app.get("/", (req, res) =>{
+    res.json({message: "Hello from this side 😂"})
+})
+
 app.use("/api/users", userRoutes);
 
 

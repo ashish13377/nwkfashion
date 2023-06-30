@@ -8,6 +8,8 @@ const keysecret = process.env.JWT_TOKEN
 
 
 const registerUser = async (req, res) => {
+    
+    // console.log(name, email, username, password, cfpassword );
     const { name, email, username, password, cfpassword } = req.body;
 
     if (!name || !email || !password || !username || !cfpassword) {
@@ -27,7 +29,7 @@ const registerUser = async (req, res) => {
             const user = new User({ name, email, username, password, cfpassword });
             await user.save();
 
-            res.status(201).json({ message: "User Registered Succesfully" })
+            res.status(200).json({ message: "User Registered Succesfully 😊!" })
         }
 
     } catch (error) {
@@ -51,6 +53,7 @@ const loginUser = async (req, res) => {
         }
         if (userLogin) {
             const isMatch = await bcrypt.compare(password, userLogin.password);
+
             if (!isMatch) {
                 res.status(422).json({ message: "Invalid Password" });
             } else {
@@ -69,25 +72,27 @@ const loginUser = async (req, res) => {
         }
     } catch (error) {
         res.status(422).json({ message: "Invalid Credentials" });
+        
     }
 }
 
-// const logOut = async (req, res) => {
-//     try {
-//         req.rootUser.tokens = req.rootUser.tokens.filter((curelem) => {
-//             return curelem.token !== req.token
-//         });
+const logOut = async (req, res) => {
+    try {
+    
+        req.rootUser.tokens = req.rootUser.tokens.filter((curelem) => {
+            return curelem.token !== req.token
+        });
 
-//         res.clearCookie("jwt", { path: "/" });
+        res.clearCookie("jwt", { path: "/" });
 
-//         req.rootUser.save();
+        req.rootUser.save();
 
-//         res.status(200).json({ message: "Logout " })
+        res.status(200).json({ message: "Logout " })
 
-//     } catch (error) {
-//         res.status(401).json({ status: 401, error })
-//     }
-// }
+    } catch (error) {
+        res.status(401).json({ status: 401, error })
+    }
+}
 
 
 // const islogin = (req, res) => {
@@ -99,6 +104,7 @@ const loginUser = async (req, res) => {
 module.exports = {
     registerUser,
     loginUser,
+    logOut,
 };
 
 
