@@ -4,13 +4,13 @@ export default function Header() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("user"));
-    setUser(data);
-    if (!data) {
-      navigate("/loginRegisterPage");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const data = JSON.parse(localStorage.getItem("user"));
+  //   setUser(data);
+  //   if (!data) {
+  //     navigate("/loginRegisterPage");
+  //   }
+  // }, []);
 
   return (
     <div>
@@ -24,10 +24,7 @@ export default function Header() {
               <div className="col mt-10 mb-10 d-none d-md-flex">
                 {/* Header Top Left Start */}
                 <div className="header-top-left">
-                  <p>Welcome to Jadusona</p>
-                  <p>
-                    Hotline: <a href="tel:0123456789">0123 456 789</a>
-                  </p>
+                  <p>NWK FASHION</p>
                 </div>
                 {/* Header Top Left End */}
               </div>
@@ -103,7 +100,6 @@ export default function Header() {
                         Hello, {user.username}
                       </Link>
                     </p>
-                    
                   </div>
                   {/* Header Shop Links End */}
                 </div>
@@ -120,7 +116,7 @@ export default function Header() {
                 {/* Logo Start */}
                 <div className="header-logo">
                   <Link Link to="/">
-                    <img src="assets/images/logo.png" alt="Jadusona" />
+                    <img src="" alt="logo" />
                   </Link>
                 </div>
                 {/* Logo End */}
@@ -181,34 +177,28 @@ export default function Header() {
                         <a href="shop.html">SHOP</a>
                         <ul className="sub-menu">
                           <li>
-                            <a href="shop.html">Shop</a>
+                            <Link to="/shopPage">Kurtas & Suits</Link>
                           </li>
                           <li>
-                            <a href="shop-left-sidebar.html">
-                              Shop Left Sidebar
-                            </a>
+                            <Link to="/shopPage">Kurtis, Tunics & Tops</Link>
                           </li>
                           <li>
-                            <a href="shop-right-sidebar.html">
-                              Shop Right Sidebar
-                            </a>
+                            <Link to="/shopPage">Sarees</Link>
                           </li>
                           <li>
-                            <a href="single-product.html">Single Product</a>
+                            <Link to="/shopPage">Ethnic Wear</Link>
                           </li>
                           <li>
-                            <a href="single-product-left-sidebar.html">
-                              Single Product Left Sidebar
-                            </a>
+                            <Link to="/shopPage">
+                              Leggings, Salwars & Churidars
+                            </Link>
                           </li>
                           <li>
-                            <a href="single-product-right-sidebar.html">
-                              Single Product Right Sidebar
-                            </a>
+                            <Link to="/shopPage">Skirts & Palazzos</Link>
                           </li>
                         </ul>
                       </li>
-                      <li>
+                      {/* <li>
                         <a href="#">PAGES</a>
                         <ul className="sub-menu">
                           <li>
@@ -232,7 +222,7 @@ export default function Header() {
                             <a href="404.html">404 Error</a>
                           </li>
                         </ul>
-                      </li>
+                      </li> */}
 
                       <li>
                         <a href="contact.html">CONTACT</a>
