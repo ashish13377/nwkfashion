@@ -1,4 +1,6 @@
 import React from "react";
+import OnSaleProducts from "./onSaleProducts";
+import BestDealCarousel from "./bestDealCaraousel";
 
 const onSale = () => {
   return (
@@ -6,7 +8,7 @@ const onSale = () => {
       <div className="product-section section section-padding pt-0">
         <div className="container">
           <div className="row mbn-40">
-            <div className="col-lg-4 col-md-6 col-12 mb-40">
+            {/* <div className="col-lg-4 col-md-6 col-12 mb-40">
               <div className="row">
                 <div className="section-title text-start col mb-30">
                   <h1>Best Deal</h1>
@@ -85,7 +87,8 @@ const onSale = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
+            <BestDealCarousel />
             <div className="col-lg-8 col-md-6 col-12 ps-3 ps-lg-4 ps-xl-5 mb-40">
               <div className="row">
                 <div className="section-title text-start col mb-30">
@@ -93,208 +96,8 @@ const onSale = () => {
                   <p>All featured product find here</p>
                 </div>
               </div>
-              <div className="small-product-slider row row-7 mbn-40">
-                <div className="col mb-40">
-                  <div className="on-sale-product">
-                    <a href="single-product.html" className="image">
-                      <img
-                        src="assets/images/product/on-sale-1.jpg"
-                        alt="Image"
-                      />
-                    </a>
-                    <div className="content text-center">
-                      <h4 className="title">
-                        <a href="single-product.html">lorem epsum</a>
-                      </h4>
-                      <span className="price">
-                        $<span className="old">$</span>
-                      </span>
-                      <div className="ratting">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star-half-o" />
-                        <i className="fa fa-star-o" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col mb-40">
-                  <div className="on-sale-product">
-                    <a href="single-product.html" className="image">
-                      <img
-                        src="assets/images/product/on-sale-2.jpg"
-                        alt="Image"
-                      />
-                    </a>
-                    <div className="content text-center">
-                      <h4 className="title">
-                        <a href="single-product.html">lorem epsum</a>
-                      </h4>
-                      <span className="price">
-                        $ <span className="old">$</span>
-                      </span>
-                      <div className="ratting">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star-o" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col mb-40">
-                  <div className="on-sale-product">
-                    <a href="single-product.html" className="image">
-                      <img
-                        src="assets/images/product/on-sale-3.jpg"
-                        alt="Image"
-                      />
-                    </a>
-                    <div className="content text-center">
-                      <h4 className="title">
-                        <a href="single-product.html">lorem epsum</a>
-                      </h4>
-                      <span className="price">
-                        $<span className="old">$</span>
-                      </span>
-                      <div className="ratting">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col mb-40">
-                  <div className="on-sale-product">
-                    <a href="single-product.html" className="image">
-                      <img
-                        src="assets/images/product/on-sale-4.jpg"
-                        alt="Image"
-                      />
-                    </a>
-                    <div className="content text-center">
-                      <h4 className="title">
-                        <a href="single-product.html">lorem epsum</a>
-                      </h4>
-                      <span className="price">
-                        $ <span className="old">$</span>
-                      </span>
-                      <div className="ratting">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star-half-o" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col mb-40">
-                  <div className="on-sale-product">
-                    <a href="single-product.html" className="image">
-                      <img
-                        src="assets/images/product/on-sale-5.jpg"
-                        alt="Image"
-                      />
-                    </a>
-                    <div className="content text-center">
-                      <h4 className="title">
-                        <a href="single-product.html">lorem epsum</a>
-                      </h4>
-                      <span className="price">
-                        $<span className="old">$</span>
-                      </span>
-                      <div className="ratting">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col mb-40">
-                  <div className="on-sale-product">
-                    <a href="single-product.html" className="image">
-                      <img
-                        src="assets/images/product/on-sale-6.jpg"
-                        alt="Image"
-                      />
-                    </a>
-                    <div className="content text-center">
-                      <h4 className="title">
-                        <a href="single-product.html">lorem epsum</a>
-                      </h4>
-                      <span className="price">
-                        $ <span className="old">$</span>
-                      </span>
-                      <div className="ratting">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star-half-o" />
-                        <i className="fa fa-star-o" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col mb-40">
-                  <div className="on-sale-product">
-                    <a href="single-product.html" className="image">
-                      <img
-                        src="assets/images/product/on-sale-7.jpg"
-                        alt="Image"
-                      />
-                    </a>
-                    <div className="content text-center">
-                      <h4 className="title">
-                        <a href="single-product.html">lorem epsum</a>
-                      </h4>
-                      <span className="price">
-                        $<span className="old">$</span>
-                      </span>
-                      <div className="ratting">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star-half-o" />
-                        <i className="fa fa-star-o" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col mb-40">
-                  <div className="on-sale-product">
-                    <a href="single-product.html" className="image">
-                      <img
-                        src="assets/images/product/on-sale-8.jpg"
-                        alt="Image"
-                      />
-                    </a>
-                    <div className="content text-center">
-                      <h4 className="title">
-                        <a href="single-product.html">lorem epsum</a>
-                      </h4>
-                      <span className="price">
-                        $ <span className="old">$</span>
-                      </span>
-                      <div className="ratting">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star-half-o" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
+              <OnSaleProducts />
             </div>
           </div>
         </div>
