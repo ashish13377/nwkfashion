@@ -4,6 +4,8 @@ const cors = require("cors");
 const dotenv = require('dotenv').config()
 const bodyparser = require("body-parser");
 const userRoutes = require("./routes/userRoutes.js")
+const productRoutes = require('./routes/productRoutes.js');
+const categoryRoutes = require('./routes/categoryRoutes.js');
 const connectMongo = require("./config/db/db.js")
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 5904;
@@ -14,6 +16,9 @@ app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
 }))
+
+// Other middleware and configurations
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -26,6 +31,9 @@ app.get("/", (req, res) =>{
 })
 
 app.use("/api/users", userRoutes);
+// Use the '/api/products' routes
+app.use('/api/products', productRoutes);
+app.use('/api/categories', categoryRoutes);
 
 
 app.listen(PORT, () => {
