@@ -165,6 +165,25 @@ const createCategory = async (req, res) => {
     }
 };
 
+// Get all products by category name
+const getProductsByCategory = async (req, res) => {
+    try {
+        const categoryName = req.params.categoryName;
+        const category = await Category.findOne({ name: categoryName });
+
+        if (!category) {
+            return res.status(404).json({ error: 'Category not found' });
+        }
+
+        const products = await Product.find({ categoryId: category._id });
+        res.json(products);
+    } catch (error) {
+        console.error('Error fetching products by category:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
 module.exports = {
     getAllProducts,
     getProductById,
@@ -174,4 +193,5 @@ module.exports = {
     getAllCate,
     getCategoryById,
     createCategory,
+    getProductsByCategory
 };
