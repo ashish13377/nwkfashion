@@ -18,6 +18,6 @@ router.put('/:productId', productController.updateProduct);
 router.delete('/:productId', productController.deleteProduct);
 
 // Get all products by category name
-router.get('/products/category/:categoryName', getProductsByCategory); 
+router.get('/category/:categoryName', productController.getProductsByCategory); 
 
 module.exports = router;
