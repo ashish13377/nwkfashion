@@ -1,7 +1,24 @@
-import React from "react";
 import { Link } from "react-router-dom";
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { serverAPILocal } from "../App";
 const PopularProducts = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${serverAPILocal}/products`);
+        setData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(data);
+
   const products = [
     {
       imageSrc: "assets/images/product/product-1.jpg",
@@ -83,7 +100,7 @@ const PopularProducts = () => {
             </div>
           </div>
           <div className="row mbn-40">
-            {products.map((product, index) => (
+            {data.map((product, index) => (
               <div
                 className="col-xl-3 col-lg-4 col-md-6 col-12 mb-40"
                 key={index}
