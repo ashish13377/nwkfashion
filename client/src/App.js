@@ -17,7 +17,7 @@ function App() {
           <Route path="/singleProductPage" element={<SingleProductPage />} />
           <Route path="/loginRegisterPage" element={<LoginRegisterPage />} />
           <Route path="/myAccountPage" element={<MyAccountPage />} />
-          <Route path="/shopPage" element={<ShopPage />} />
+          <Route path="/:category" element={<ShopPage />} />
         </Routes>
       </Router>
     </div>

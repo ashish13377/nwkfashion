@@ -177,24 +177,24 @@ export default function Header() {
                         <a href="shop.html">SHOP</a>
                         <ul className="sub-menu">
                           <li>
-                            <Link to="/shopPage">Kurtas & Suits</Link>
+                            <Link to="/Kurtas">Kurtas & Suits</Link>
                           </li>
                           <li>
-                            <Link to="/shopPage">Kurtis, Tunics & Tops</Link>
+                            <Link to="/Kurtis">Kurtis, Tunics & Tops</Link>
                           </li>
                           <li>
-                            <Link to="/shopPage">Sarees</Link>
+                            <Link to="/Sarees">Sarees</Link>
                           </li>
                           <li>
-                            <Link to="/shopPage">Ethnic Wear</Link>
+                            <Link to="/Ethnic">Ethnic Wear</Link>
                           </li>
                           <li>
-                            <Link to="/shopPage">
+                            <Link to="/Leggings">
                               Leggings, Salwars & Churidars
                             </Link>
                           </li>
                           <li>
-                            <Link to="/shopPage">Skirts & Palazzos</Link>
+                            <Link to="/Skirts">Skirts & Palazzos</Link>
                           </li>
                         </ul>
                       </li>

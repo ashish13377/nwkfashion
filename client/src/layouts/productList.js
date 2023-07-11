@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-
+import { Link } from "react-router-dom";
 // Product item component
 const ProductItem = ({ imageSrc, title, price, rating, colors }) => (
   <div className="col-xl-4 col-md-6 col-12 mb-40">
     <div className="product-item">
       <div className="product-inner">
         <div className="image">
-          <img src={imageSrc} alt={title} />
+          <img src={"assets/images/product/product-1.jpg"} alt={title} />
           <div className="image-overlay">
             <div className="action-buttons">
               <button>add to cart</button>
@@ -17,7 +17,9 @@ const ProductItem = ({ imageSrc, title, price, rating, colors }) => (
         <div className="content">
           <div className="content-left">
             <h4 className="title">
-              <a href="single-product.html">{title}</a>
+              <Link link to="/singleProductPage">
+                {title}
+              </Link>
             </h4>
             <div className="rating">
               {Array.from({ length: rating }, (_, index) => (
@@ -50,198 +52,198 @@ const ProductItem = ({ imageSrc, title, price, rating, colors }) => (
 );
 
 // Product list component
-const ProductList = () => {
-  const products = [
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "doop",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Dupatta",
-      price: "$25",
-      rating: 3.5,
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-    },
-  ];
+const ProductList = ({ products, loading }) => {
+  // const products = [
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "doop",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  //   {
+  //     imageSrc: "assets/images/product/product-1.jpg",
+  //     title: "Dupatta",
+  //     price: "$25",
+  //     rating: 3.5,
+  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
+  //   },
+  // ];
 
   const productsPerPage = 9; // Number of products to display per page
   const totalPages = Math.ceil(products.length / productsPerPage); // Calculate total pages
