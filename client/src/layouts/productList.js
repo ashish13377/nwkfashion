@@ -1,250 +1,58 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 // Product item component
-const ProductItem = ({ imageSrc, title, price, rating, colors }) => (
-  <div className="col-xl-4 col-md-6 col-12 mb-40">
-    <div className="product-item">
-      <div className="product-inner">
-        <div className="image">
-          <img src={"assets/images/product/product-1.jpg"} alt={title} />
-          <div className="image-overlay">
-            <div className="action-buttons">
-              <button>add to cart</button>
-              <button>add to wishlist</button>
+const ProductItem = ({ imageSrc, title, price, rating, colors }) => {
+  return (
+    <div className="col-xl-4 col-md-6 col-12 mb-40">
+      <div className="product-item">
+        <div className="product-inner">
+          <div className="image">
+            <img src={imageSrc} alt={title} />
+            <div className="image-overlay">
+              <div className="action-buttons">
+                <button>add to cart</button>
+                <button>add to wishlist</button>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="content">
-          <div className="content-left">
-            <h4 className="title">
-              <Link link to="/singleProductPage">
-                {title}
-              </Link>
-            </h4>
-            <div className="rating">
-              {Array.from({ length: rating }, (_, index) => (
-                <i key={index} className="fa fa-star" />
-              ))}
-              {Array.from({ length: 5 - rating }, (_, index) => (
-                <i key={index} className="fa fa-star-o" />
-              ))}
+          <div className="content">
+            <div className="content-left">
+              <h4 className="title">
+                <Link to="/singleProductPage">{title}</Link>
+              </h4>
+              <div className="rating">
+                {Array.from({ length: rating }, (_, index) => (
+                  <i key={index} className="fa fa-star" />
+                ))}
+                {Array.from({ length: 5 - rating }, (_, index) => (
+                  <i key={index} className="fa fa-star-o" />
+                ))}
+              </div>
+              <h5 className="size">
+                Size: <span>S</span>
+                <span>M</span>
+                <span>L</span>
+                <span>XL</span>
+              </h5>
+              <h5 className="color">
+                Color:
+                {colors.map((color, index) => (
+                  <span key={index} style={{ backgroundColor: color }} />
+                ))}
+              </h5>
             </div>
-            <h5 className="size">
-              Size: <span>S</span>
-              <span>M</span>
-              <span>L</span>
-              <span>XL</span>
-            </h5>
-            <h5 className="color">
-              Color:
-              {colors.map((color, index) => (
-                <span key={index} style={{ backgroundColor: color }} />
-              ))}
-            </h5>
-          </div>
-          <div className="content-right">
-            <span className="price">{price}</span>
+            <div className="content-right">
+              <span className="price">{price}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Product list component
 const ProductList = ({ products, loading }) => {
-  // const products = [
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "doop",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  //   {
-  //     imageSrc: "assets/images/product/product-1.jpg",
-  //     title: "Dupatta",
-  //     price: "$25",
-  //     rating: 3.5,
-  //     colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-  //   },
-  // ];
-
   const productsPerPage = 9; // Number of products to display per page
   const totalPages = Math.ceil(products.length / productsPerPage); // Calculate total pages
 
