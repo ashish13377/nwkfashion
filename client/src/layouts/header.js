@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 export default function Header() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+  const cartItemsCount = useSelector((state) => state.cart.length);
 
   // useEffect(() => {
   //   const data = JSON.parse(localStorage.getItem("user"));
@@ -158,10 +160,10 @@ export default function Header() {
                     </a>
                   </div>
                   <div className="header-mini-cart">
-                    <a href="cart.html">
-                      <img src="assets/images/icons/cart.png" alt="Cart" />{" "}
-                      <span>02($250)</span>
-                    </a>
+                    <Link to="/cart">
+                      <img src="assets/images/icons/cart.png" alt="Cart" />
+                      <span>{cartItemsCount}</span>
+                    </Link>
                   </div>
                 </div>
                 {/* Header Advance Search End */}

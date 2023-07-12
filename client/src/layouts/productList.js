@@ -1,16 +1,25 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../utils/cartSlice";
 // Product item component
 const ProductItem = ({ imageSrc, title, price, rating, colors }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    const product = { imageSrc, title, price, rating, colors };
+    dispatch(addToCart(product));
+  };
   return (
     <div className="col-xl-4 col-md-6 col-12 mb-40">
       <div className="product-item">
         <div className="product-inner">
           <div className="image">
-            <img src={imageSrc} alt={title} />
+            {/* imageSrc */}
+            <img src={"assets/images/product/product-1.jpg"} alt={title} />
             <div className="image-overlay">
               <div className="action-buttons">
-                <button>add to cart</button>
+                <button onClick={handleAddToCart}>add to cart</button>
                 <button>add to wishlist</button>
               </div>
             </div>
