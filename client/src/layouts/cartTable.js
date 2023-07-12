@@ -1,29 +1,19 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart } from "../utils/cartSlice";
+
 const CartTable = () => {
-  const initialProducts = [
-    {
-      id: 1,
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Tmart Baby Dress",
-      price: "$25",
-      quantity: 1,
-      subtotal: "$25",
-    },
-    {
-      id: 2,
-      imageSrc: "assets/images/product/product-2.jpg",
-      title: "Jumpsuit Outfits",
-      price: "$09",
-      quantity: 1,
-      subtotal: "$09",
-    },
-  ];
+  const products = useSelector((state) => state.cart.products);
+  console.log(products);
 
-  const [products, setProducts] = useState(initialProducts);
+  const dispatch = useDispatch();
 
-  const handleRemove = (id) => {
-    const updatedProducts = products.filter((product) => product.id !== id);
-    setProducts(updatedProducts);
+  const handleRemove = (event, _id) => {
+    event.preventDefault();
+
+    dispatch(removeFromCart(_id));
+
+    console.log(products);
   };
 
   return (
@@ -45,35 +35,41 @@ const CartTable = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {products.map((product) => (
-                      <tr key={product.id}>
-                        <td className="pro-thumbnail">
-                          <a href="/">
-                            <img src={product.imageSrc} alt="" />
-                          </a>
-                        </td>
-                        <td className="pro-title">
-                          <a href="/">{product.title}</a>
-                        </td>
-                        <td className="pro-price">
-                          <span className="amount">{product.price}</span>
-                        </td>
-                        <td className="pro-quantity">
-                          <div className="pro-qty">
-                            <input
-                              type="text"
-                              defaultValue={product.quantity}
-                            />
-                          </div>
-                        </td>
-                        <td className="pro-subtotal">{product.subtotal}</td>
-                        <td className="pro-remove">
-                          <a href="/" onClick={() => handleRemove(product.id)}>
-                            ×
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
+                    {products &&
+                      products.map((product) => (
+                        <tr key={product._id}>
+                          <td className="pro-thumbnail">
+                            <a href="/">
+                              <img src={product.imageSrc} alt="" />
+                            </a>
+                          </td>
+                          <td className="pro-title">
+                            <a href="/">{product.title}</a>
+                          </td>
+                          <td className="pro-price">
+                            <span className="amount">{product.price}</span>
+                          </td>
+                          <td className="pro-quantity">
+                            <div className="pro-qty">
+                              <input
+                                type="text"
+                                defaultValue={product.quantity}
+                              />
+                            </div>
+                          </td>
+                          <td className="pro-subtotal">{product.subtotal}</td>
+                          <td className="pro-remove">
+                            <a
+                              href="/"
+                              onClick={(event) =>
+                                handleRemove(event, product._id)
+                              }
+                            >
+                              ×
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>

@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
 // Product item component
-const ProductItem = ({ imageSrc, title, price, rating, colors }) => {
+const ProductItem = ({ _id, imageSrc, title, price, rating, colors }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    const product = { imageSrc, title, price, rating, colors };
+    const product = { _id, imageSrc, title, price, rating, colors };
+
     dispatch(addToCart(product));
   };
   return (

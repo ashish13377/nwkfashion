@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 export default function Header() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const cartItemsCount = useSelector((state) => state.cart.length);
+  const cartItemsCount = useSelector((state) => state.cart.products.length);
 
   // useEffect(() => {
   //   const data = JSON.parse(localStorage.getItem("user"));
