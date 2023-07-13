@@ -38,7 +38,8 @@ const sidebarProducts = [
 const SidebarProduct = ({ imageSrc, title, price, oldPrice, rating }) => (
   <div className="sidebar-product">
     <a href="single-product.html" className="image">
-      <img src={imageSrc} alt="" />
+      {/* imageSrc */}
+      <img src={"assets/images/product/product-3.jpg"} alt="" />
     </a>
     <div className="content">
       <Link link to="/singleProductPage" className="title">
