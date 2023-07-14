@@ -1,6 +1,7 @@
 import React from "react";
 
-const singleProductDescription = () => {
+const SingleProductDescription = ({ productDetails }) => {
+  console.log(productDetails);
   const product = {
     title: "Lorem epsum",
     price: "$",
@@ -186,4 +187,4 @@ const singleProductDescription = () => {
   );
 };
 
-export default singleProductDescription;
+export default SingleProductDescription;
