@@ -5,6 +5,7 @@ import SingleProductPage from "./pages/singleProductPage";
 import LoginRegisterPage from "./pages/loginRegisterPage";
 import MyAccountPage from "./pages/myAccountPage";
 import ShopPage from "./pages/shopPage";
+import CartPage from "./pages/cartPage";
 
 export const serverAPILocal = "http://localhost:5904/api";
 
@@ -17,7 +18,8 @@ function App() {
           <Route path="/singleProductPage" element={<SingleProductPage />} />
           <Route path="/loginRegisterPage" element={<LoginRegisterPage />} />
           <Route path="/myAccountPage" element={<MyAccountPage />} />
-          <Route path="/shopPage" element={<ShopPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/:category" element={<ShopPage />} />
         </Routes>
       </Router>
     </div>

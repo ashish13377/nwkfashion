@@ -1,7 +1,7 @@
 import React from "react";
 import ProductList from "./productList";
 
-const ShopRightPart = () => {
+const ShopRightPart = ({ products, loading }) => {
   return (
     <div className="row">
       <div className="col-12">
@@ -17,7 +17,7 @@ const ShopRightPart = () => {
           </select>
         </div>
       </div>
-      <ProductList />
+      <ProductList products={products} loading={loading} />
     </div>
   );
 };
