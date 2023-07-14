@@ -28,8 +28,56 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   categoryId: {
-    type: mongoose.Schema.Types.ObjectId,  // Stores the ID of the category the product belongs to
-    ref: 'Category',  // References the 'Category' model
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true,
+  },
+  categoryName: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  availability: {
+    type: String,
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+  },
+  socialMedia: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      icon: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+  compositions: {
+    type: String,
+    required: true,
+  },
+  styles: {
+    type: String,
+    required: true,
+  },
+  properties: {
+    type: String,
+    required: true,
+  },
+  zoomImage: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
     required: true,
   },
 });
