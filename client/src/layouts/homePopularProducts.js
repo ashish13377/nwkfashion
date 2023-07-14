@@ -2,92 +2,36 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { serverAPILocal } from "../App";
+
 const PopularProducts = () => {
-  const [data, setData] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const productIds = [
+      "64ab9d2979afebbac80a8544",
+      "64ab9d3279afebbac80a8547",
+      "64ab9d3279afebbac80a854a",
+      "64ab9d3379afebbac80a854d",
+      "64ab9d3479afebbac80a8550",
+      "64ab9d3579afebbac80a8553",
+      "64ab9d3579afebbac80a8556",
+      "64ab9d3679afebbac80a8559",
+    ]; // Manually provide the product IDs
+
+    const fetchFilteredProducts = async () => {
       try {
         const response = await axios.get(`${serverAPILocal}/products`);
-        setData(response.data);
+        const filteredProducts = response.data.filter((product) =>
+          productIds.includes(product._id)
+        );
+        setFilteredProducts(filteredProducts);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchData();
+    fetchFilteredProducts();
   }, []);
-  console.log(data);
-
-  const products = [
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Lorem Epsum 1",
-      rating: 4,
-      sizes: ["S", "M", "L", "XL"],
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-      price: "$",
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Lorem Epsum 1",
-      rating: 4,
-      sizes: ["S", "M", "L", "XL"],
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-      price: "$",
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Lorem Epsum 1",
-      rating: 4,
-      sizes: ["S", "M", "L", "XL"],
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-      price: "$",
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Lorem Epsum 1",
-      rating: 4,
-      sizes: ["S", "M", "L", "XL"],
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-      price: "$",
-    },
-
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Lorem Epsum 1",
-      rating: 4,
-      sizes: ["S", "M", "L", "XL"],
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-      price: "$",
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Lorem Epsum 1",
-      rating: 4,
-      sizes: ["S", "M", "L", "XL"],
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-      price: "$",
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Lorem Epsum 1",
-      rating: 4,
-      sizes: ["S", "M", "L", "XL"],
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-      price: "$",
-    },
-    {
-      imageSrc: "assets/images/product/product-1.jpg",
-      title: "Lorem Epsum 1",
-      rating: 4,
-      sizes: ["S", "M", "L", "XL"],
-      colors: ["#ffb2b0", "#0271bc", "#efc87c", "#00c183"],
-      price: "$",
-    },
-
-    // Add more products as needed
-  ];
 
   return (
     <div>
@@ -100,7 +44,7 @@ const PopularProducts = () => {
             </div>
           </div>
           <div className="row mbn-40">
-            {data.map((product, index) => (
+            {filteredProducts.map((product, index) => (
               <div
                 className="col-xl-3 col-lg-4 col-md-6 col-12 mb-40"
                 key={index}
@@ -108,7 +52,10 @@ const PopularProducts = () => {
                 <div className="product-item">
                   <div className="product-inner">
                     <div className="image">
-                      <img src={product.imageSrc} alt="Product" />
+                      <img
+                        src={"assets/images/product/product-3.jpg"}
+                        alt="Product"
+                      />
                       <div className="image-overlay">
                         <div className="action-buttons">
                           <button>add to cart</button>

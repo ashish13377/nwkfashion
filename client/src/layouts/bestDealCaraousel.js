@@ -1,25 +1,9 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { serverAPILocal } from "../App";
-
-const products = [
-  {
-    imageSrc: "assets/images/product/best-deal-1.jpg",
-    title: "lorem epsum",
-    rating: 4.5,
-    price: "",
-  },
-  {
-    imageSrc: "assets/images/product/best-deal-2.jpg",
-    title: "lorem epsum",
-    rating: 4,
-    price: "",
-  },
-];
+import React, { useState, useEffect } from "react";
 
 const Rating = ({ value }) => {
   return (
@@ -31,12 +15,13 @@ const Rating = ({ value }) => {
     </div>
   );
 };
+
 const BestDealItem = ({ imageSrc, title, rating, price }) => {
   return (
     <div className="slide-item">
       <div className="best-deal-product">
         <div className="image">
-          <img src={imageSrc} alt="Image" />
+          <img src={"assets/images/product/product-3.jpg"} alt="Image" />
         </div>
         <div className="content-top">
           <div className="content-top-left">
@@ -63,21 +48,25 @@ const BestDealItem = ({ imageSrc, title, rating, price }) => {
 };
 
 const BestDealCarousel = () => {
-  const [data, setData] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const productIds = ["64ab9d2979afebbac80a8544", "64ab9d3279afebbac80a8547"]; // Manually provide the product IDs
+
+    const fetchFilteredProducts = async () => {
       try {
         const response = await axios.get(`${serverAPILocal}/products`);
-        setData(response.data);
+        const filteredProducts = response.data.filter((product) =>
+          productIds.includes(product._id)
+        );
+        setFilteredProducts(filteredProducts);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchData();
+    fetchFilteredProducts();
   }, []);
-  console.log(data);
 
   const settings = {
     dots: false,
@@ -98,7 +87,7 @@ const BestDealCarousel = () => {
         </div>
       </div>
       <Slider {...settings} className="best-deal-slider w-100">
-        {data.map((product, index) => (
+        {filteredProducts.map((product, index) => (
           <BestDealItem key={index} {...product} />
         ))}
       </Slider>
