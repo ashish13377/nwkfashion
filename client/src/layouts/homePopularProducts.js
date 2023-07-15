@@ -3,11 +3,16 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
 
+import { addToWishlist } from "../utils/wishlistSlice";
 const PopularProducts = ({ products }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
+    console.log(product);
+  };
+  const handleAddToWishlist = (product) => {
+    dispatch(addToWishlist(product));
     console.log(product);
   };
 
@@ -54,7 +59,9 @@ const PopularProducts = ({ products }) => {
                           <button onClick={() => handleAddToCart(product)}>
                             add to cart
                           </button>
-                          <button>add to wishlist</button>
+                          <button onClick={() => handleAddToWishlist(product)}>
+                            add to wishlist
+                          </button>
                         </div>
                       </div>
                     </div>

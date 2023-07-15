@@ -1,6 +1,22 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromWishlist } from "../utils/wishlistSlice";
+import { addToCart } from "../utils/cartSlice";
 
 const WishlistTable = () => {
+  const products = useSelector((state) => state.wishlist.wishlists);
+  const dispatch = useDispatch();
+
+  const handleRemove = (event, _id) => {
+    event.preventDefault();
+    dispatch(removeFromWishlist(_id));
+  };
+
+  const handleAddToCart = (event, product) => {
+    event.preventDefault();
+    dispatch(addToCart(product));
+  };
+
   return (
     <div>
       <div className="page-section section section-padding">
@@ -21,60 +37,45 @@ const WishlistTable = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td className="pro-thumbnail">
-                          <a href="#">
-                            <img
-                              src="assets/images/product/product-1.jpg"
-                              alt
-                            />
-                          </a>
-                        </td>
-                        <td className="pro-title">
-                          <a href="#">Tmart Baby Dress</a>
-                        </td>
-                        <td className="pro-price">
-                          <span className="amount">$25</span>
-                        </td>
-                        <td className="pro-quantity">
-                          <div className="pro-qty">
-                            <input type="text" defaultValue={1} />
-                          </div>
-                        </td>
-                        <td className="pro-add-cart">
-                          <a href="#">add to cart</a>
-                        </td>
-                        <td className="pro-remove">
-                          <a href="#">×</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="pro-thumbnail">
-                          <a href="#">
-                            <img
-                              src="assets/images/product/product-2.jpg"
-                              alt
-                            />
-                          </a>
-                        </td>
-                        <td className="pro-title">
-                          <a href="#">Jumpsuit Outfits</a>
-                        </td>
-                        <td className="pro-price">
-                          <span className="amount">$09</span>
-                        </td>
-                        <td className="pro-quantity">
-                          <div className="pro-qty">
-                            <input type="text" defaultValue={1} />
-                          </div>
-                        </td>
-                        <td className="pro-add-cart">
-                          <a href="#">add to cart</a>
-                        </td>
-                        <td className="pro-remove">
-                          <a href="#">×</a>
-                        </td>
-                      </tr>
+                      {products &&
+                        products.map((product) => (
+                          <tr key={product._id}>
+                            <td className="pro-thumbnail">
+                              <a href="#">
+                                <img src={product.image} alt={product.title} />
+                              </a>
+                            </td>
+                            <td className="pro-title">
+                              <a href="#">{product.title}</a>
+                            </td>
+                            <td className="pro-price">
+                              <span className="amount">{product.price}</span>
+                            </td>
+                            <td className="pro-quantity">
+                              <div className="pro-qty">
+                                <input type="text" defaultValue={1} />
+                              </div>
+                            </td>
+                            <td className="pro-add-cart">
+                              <button
+                                onClick={(event) =>
+                                  handleAddToCart(event, product)
+                                }
+                              >
+                                add to cart
+                              </button>
+                            </td>
+                            <td className="pro-remove">
+                              <button
+                                onClick={(event) =>
+                                  handleRemove(event, product._id)
+                                }
+                              >
+                                ×
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>
@@ -83,7 +84,6 @@ const WishlistTable = () => {
           </form>
         </div>
       </div>
-      ;
     </div>
   );
 };

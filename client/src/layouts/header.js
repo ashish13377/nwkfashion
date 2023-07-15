@@ -5,7 +5,9 @@ export default function Header() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
   const cartItemsCount = useSelector((state) => state.cart.products.length);
-
+  const wishlistItemsCount = useSelector(
+    (state) => state.wishlist.wishlists.length
+  );
   // useEffect(() => {
   //   const data = JSON.parse(localStorage.getItem("user"));
   //   setUser(data);
@@ -151,13 +153,13 @@ export default function Header() {
                     </div>
                   </div>
                   <div className="header-wishlist">
-                    <a href="wishlist.html">
+                    <Link to="/wishlistPage">
                       <img
                         src="assets/images/icons/wishlist.png"
                         alt="Wishlist"
                       />{" "}
-                      <span>02</span>
-                    </a>
+                      <span>{wishlistItemsCount}</span>
+                    </Link>
                   </div>
                   <div className="header-mini-cart">
                     <Link to="/cart">
