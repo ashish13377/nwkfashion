@@ -47,26 +47,15 @@ const BestDealItem = ({ imageSrc, title, rating, price }) => {
   );
 };
 
-const BestDealCarousel = () => {
-  const [filteredProducts, setFilteredProducts] = useState([]);
+const BestDealCarousel = ({ products }) => {
+  const productIdsToRender = [
+    "64ab9d2979afebbac80a8544",
+    "64ab9d3279afebbac80a8547",
+  ];
 
-  useEffect(() => {
-    const productIds = ["64ab9d2979afebbac80a8544", "64ab9d3279afebbac80a8547"]; // Manually provide the product IDs
-
-    const fetchFilteredProducts = async () => {
-      try {
-        const response = await axios.get(`${serverAPILocal}/products`);
-        const filteredProducts = response.data.filter((product) =>
-          productIds.includes(product._id)
-        );
-        setFilteredProducts(filteredProducts);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchFilteredProducts();
-  }, []);
+  const filteredProducts = products.filter((product) =>
+    productIdsToRender.includes(product._id)
+  );
 
   const settings = {
     dots: false,

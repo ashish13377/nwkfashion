@@ -2,46 +2,39 @@ import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
+const products = [
+  {
+    imageSrc: "assets/images/hero/hero-1.jpg",
+    title: "Product 1",
+    buttonText: "Shop Now",
+  },
+  {
+    imageSrc: "assets/images/hero/hero-2.jpg",
+    title: "Product 2",
+    buttonText: "Shop Now",
+  },
+];
+
 const Hero = () => {
   return (
-    <div>
-      <div className="hero-section section">
-        {/* Hero Slider Start */}
-        <Carousel>
-          {/* Slide 1 */}
-          <div>
+    <div className="hero-section section">
+      <Carousel>
+        {products.map((product, index) => (
+          <div key={index}>
             <div
               className="hero-item"
               style={{
-                backgroundImage: "url(assets/images/hero/hero-1.jpg)",
+                backgroundImage: `url(${product.imageSrc})`,
               }}
             >
-              {/* Hero Content */}
               <div className="hero-content">
-                <h1>lorem epsum</h1>
-                <a href="#">SHOP NOW</a>
+                <h1>{product.title}</h1>
+                <a href="#">{product.buttonText}</a>
               </div>
             </div>
           </div>
-
-          {/* Slide 2 */}
-          <div>
-            <div
-              className="hero-item"
-              style={{
-                backgroundImage: "url(assets/images/hero/hero-2.jpg)",
-              }}
-            >
-              {/* Hero Content */}
-              <div className="hero-content">
-                <h1>lorem epsum</h1>
-                <a href="#">SHOP NOW</a>
-              </div>
-            </div>
-          </div>
-        </Carousel>
-        {/* Hero Slider End */}
-      </div>
+        ))}
+      </Carousel>
     </div>
   );
 };

@@ -3,32 +3,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { serverAPILocal } from "../App";
 
-const OnSaleProducts = () => {
-  const [filteredProducts, setFilteredProducts] = useState([]);
+const OnSaleProducts = ({ products }) => {
+  const productIdsToRender = [
+    "64ab9d2979afebbac80a8544",
+    "64ab9d3279afebbac80a8547",
+    "64ab9d3279afebbac80a854a",
+    "64ab9d3379afebbac80a854d",
+  ];
 
-  useEffect(() => {
-    const productIds = [
-      "64ab9d2979afebbac80a8544",
-      "64ab9d3279afebbac80a8547",
-      "64ab9d3279afebbac80a854a",
-      "64ab9d3379afebbac80a854d",
-      "64ab9d3479afebbac80a8550",
-    ]; // Manually provide the product IDs
-
-    const fetchFilteredProducts = async () => {
-      try {
-        const response = await axios.get(`${serverAPILocal}/products`);
-        const filteredProducts = response.data.filter((product) =>
-          productIds.includes(product._id)
-        );
-        setFilteredProducts(filteredProducts);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchFilteredProducts();
-  }, []);
+  const filteredProducts = products.filter((product) =>
+    productIdsToRender.includes(product._id)
+  );
 
   return (
     <div>

@@ -1,37 +1,30 @@
 import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { serverAPILocal } from "../App";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../utils/cartSlice";
 
-const PopularProducts = () => {
-  const [filteredProducts, setFilteredProducts] = useState([]);
+const PopularProducts = ({ products }) => {
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const productIds = [
-      "64ab9d2979afebbac80a8544",
-      "64ab9d3279afebbac80a8547",
-      "64ab9d3279afebbac80a854a",
-      "64ab9d3379afebbac80a854d",
-      "64ab9d3479afebbac80a8550",
-      "64ab9d3579afebbac80a8553",
-      "64ab9d3579afebbac80a8556",
-      "64ab9d3679afebbac80a8559",
-    ]; // Manually provide the product IDs
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+    console.log(product);
+  };
 
-    const fetchFilteredProducts = async () => {
-      try {
-        const response = await axios.get(`${serverAPILocal}/products`);
-        const filteredProducts = response.data.filter((product) =>
-          productIds.includes(product._id)
-        );
-        setFilteredProducts(filteredProducts);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const productIdsToRender = [
+    "64ab9d2979afebbac80a8544",
+    "64ab9d3279afebbac80a8547",
+    "64ab9d3279afebbac80a854a",
+    "64ab9d3379afebbac80a854d",
+    "64ab9d3479afebbac80a8550",
+    "64ab9d3579afebbac80a8553",
+    "64ab9d3579afebbac80a8556",
+    "64ab9d3679afebbac80a8559",
+  ]; // Manually provide the product IDs to render
 
-    fetchFilteredProducts();
-  }, []);
+  const filteredProducts = products.filter((product) =>
+    productIdsToRender.includes(product._id)
+  );
 
   return (
     <div>
@@ -58,7 +51,9 @@ const PopularProducts = () => {
                       />
                       <div className="image-overlay">
                         <div className="action-buttons">
-                          <button>add to cart</button>
+                          <button onClick={() => handleAddToCart(product)}>
+                            add to cart
+                          </button>
                           <button>add to wishlist</button>
                         </div>
                       </div>

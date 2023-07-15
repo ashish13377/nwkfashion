@@ -64,7 +64,7 @@ export default function Home() {
         <>
           <PopularProducts products={data} />
           <OnSale products={data} />
-          <Feature products={data} />
+          <Feature />
         </>
       )}
       <Footer />
