@@ -6,7 +6,7 @@ import LoginRegisterPage from "./pages/loginRegisterPage";
 import MyAccountPage from "./pages/myAccountPage";
 import ShopPage from "./pages/shopPage";
 import CartPage from "./pages/cartPage";
-
+import WishlistPage from "./pages/wishlistPage";
 export const serverAPILocal = "http://localhost:5904/api";
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
           <Route path="/myAccountPage" element={<MyAccountPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/:category" element={<ShopPage />} />
+          <Route path="/wishlistPage" element={<WishlistPage />} />
         </Routes>
       </Router>
     </div>
