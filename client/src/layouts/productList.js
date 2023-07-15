@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
+import { addToWishlist } from "../utils/wishlistSlice";
 // Product item component
 const ProductItem = ({ _id, imageSrc, title, price, rating, colors }) => {
   const dispatch = useDispatch();
@@ -11,6 +12,12 @@ const ProductItem = ({ _id, imageSrc, title, price, rating, colors }) => {
 
     dispatch(addToCart(product));
   };
+  const handleAddToWishlist = () => {
+    const product = { _id, imageSrc, title, price, rating, colors };
+    dispatch(addToWishlist(product));
+    console.log(product);
+  };
+
   return (
     <div className="col-xl-4 col-md-6 col-12 mb-40">
       <div className="product-item">
@@ -21,7 +28,7 @@ const ProductItem = ({ _id, imageSrc, title, price, rating, colors }) => {
             <div className="image-overlay">
               <div className="action-buttons">
                 <button onClick={handleAddToCart}>add to cart</button>
-                <button>add to wishlist</button>
+                <button onClick={handleAddToWishlist}>add to wishlist</button>
               </div>
             </div>
           </div>
