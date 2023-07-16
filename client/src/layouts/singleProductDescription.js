@@ -1,5 +1,5 @@
 import React from "react";
-
+import ReactImageMagnify from "react-image-magnify";
 const SingleProductDescription = ({ productDetails }) => {
   console.log(productDetails);
   const product = {
@@ -21,8 +21,8 @@ const SingleProductDescription = ({ productDetails }) => {
     styles: "Casual",
     properties: "Short Sleeve",
     rating: 4,
-    zoomImage: "assets/images/product/product-zoom-1.jpg",
-    image: "assets/images/product/product-big-1.jpg",
+    zoomImage: "assets/images/product/product-zoom-1.webp",
+    image: "assets/images/product/product-big-1.webp",
   };
 
   return (
@@ -33,9 +33,20 @@ const SingleProductDescription = ({ productDetails }) => {
             <div className="row row-20 mb-10">
               <div className="col-lg-6 col-12 mb-40">
                 <div className="pro-large-img mb-10 fix easyzoom easyzoom--overlay easyzoom--with-thumbnails">
-                  <a href={product.zoomImage}>
-                    <img src={product.image} alt="" />
-                  </a>
+                  <ReactImageMagnify
+                    {...{
+                      smallImage: {
+                        alt: "",
+                        isFluidWidth: true,
+                        src: product.image,
+                      },
+                      largeImage: {
+                        src: product.zoomImage,
+                        width: 1200,
+                        height: 1800,
+                      },
+                    }}
+                  />
                 </div>
               </div>
               <div className="col-lg-6 col-12 mb-40">
