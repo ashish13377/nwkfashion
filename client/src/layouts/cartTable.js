@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../utils/cartSlice";
-
+import { Link } from "react-router-dom";
 const CartTable = () => {
   const products = useSelector((state) => state.cart.products);
   console.log(products);
@@ -115,7 +115,7 @@ const CartTable = () => {
                   </tbody>
                 </table>
                 <div className="proceed-to-checkout section mt-30">
-                  <a href="/">Proceed to Checkout</a>
+                  <Link to="/checkoutPage">Proceed to checkout</Link>
                 </div>
               </div>
             </div>
