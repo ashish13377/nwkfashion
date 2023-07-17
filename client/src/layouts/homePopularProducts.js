@@ -50,7 +50,11 @@ const PopularProducts = ({ products }) => {
                 <div className="product-item">
                   <div className="product-inner">
                     <div className="image">
-                      <img src={product.imageSrc} alt="Product" />
+                      {/* product.imageSrc */}
+                      <img
+                        src={"assets/images/product/product-3.jpg"}
+                        alt="Product"
+                      />
                       <div className="image-overlay">
                         <div className="action-buttons">
                           <button onClick={() => handleAddToCart(product)}>
@@ -91,10 +95,6 @@ const PopularProducts = ({ products }) => {
                             <span key={i} style={{ backgroundColor: color }} />
                           ))}
                         </h5>
-                        {/* test */}
-                        <button onClick={() => handleAddToCart(product)}>
-                          add to cart
-                        </button>
                       </div>
                       <div className="content-right">
                         <span className="price">{product.price}</span>

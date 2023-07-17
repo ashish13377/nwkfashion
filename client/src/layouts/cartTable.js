@@ -16,6 +16,25 @@ const CartTable = () => {
     console.log(products);
   };
 
+  const calculateSubtotal = () => {
+    let subtotal = 0;
+
+    products.forEach((product) => {
+      const price = parseFloat(product.price.replace("$", ""));
+
+      subtotal += price;
+    });
+
+    return subtotal;
+  };
+  const shippingCost = 10;
+
+  const calculateTotal = () => {
+    const subtotal = calculateSubtotal();
+    // Replace with your shipping cost calculation
+
+    return subtotal + shippingCost;
+  };
   return (
     <div className="page-section section section-padding">
       <div className="container">
@@ -78,14 +97,18 @@ const CartTable = () => {
                     <tr className="cart-subtotal">
                       <th>Subtotal</th>
                       <td>
-                        <span className="amount">$306.00</span>
+                        <span className="amount">${calculateSubtotal()}</span>
                       </td>
                     </tr>
+                    <th>Delivery charge</th>
+                    <td>
+                      <span className="amount">+${shippingCost}</span>
+                    </td>
                     <tr className="order-total">
                       <th>Total</th>
                       <td>
                         <strong>
-                          <span className="amount">$306.00</span>
+                          <span className="amount">${calculateTotal()}</span>
                         </strong>
                       </td>
                     </tr>
