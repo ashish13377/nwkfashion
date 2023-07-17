@@ -5,6 +5,7 @@ import { addToCart } from "../utils/cartSlice";
 
 const WishlistTable = () => {
   const products = useSelector((state) => state.wishlist.wishlists);
+  console.log(products);
   const dispatch = useDispatch();
 
   const handleRemove = (event, _id) => {
@@ -42,7 +43,10 @@ const WishlistTable = () => {
                           <tr key={product._id}>
                             <td className="pro-thumbnail">
                               <a href="#">
-                                <img src={product.image} alt={product.title} />
+                                <img
+                                  src={product.imageSrc}
+                                  alt={product.title}
+                                />
                               </a>
                             </td>
                             <td className="pro-title">

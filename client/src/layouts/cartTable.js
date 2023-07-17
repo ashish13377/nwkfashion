@@ -29,8 +29,7 @@ const CartTable = () => {
                       <th className="pro-thumbnail">Image</th>
                       <th className="pro-title">Product</th>
                       <th className="pro-price">Price</th>
-                      <th className="pro-quantity">Quantity</th>
-                      <th className="pro-subtotal">Total</th>
+
                       <th className="pro-remove">Remove</th>
                     </tr>
                   </thead>
@@ -40,7 +39,7 @@ const CartTable = () => {
                         <tr key={product._id}>
                           <td className="pro-thumbnail">
                             <a href="/">
-                              <img src={product.imageSrc} alt="" />
+                              <img src={product.imageSrc} alt="productImage" />
                             </a>
                           </td>
                           <td className="pro-title">
@@ -49,15 +48,7 @@ const CartTable = () => {
                           <td className="pro-price">
                             <span className="amount">{product.price}</span>
                           </td>
-                          <td className="pro-quantity">
-                            <div className="pro-qty">
-                              <input
-                                type="text"
-                                defaultValue={product.quantity}
-                              />
-                            </div>
-                          </td>
-                          <td className="pro-subtotal">{product.subtotal}</td>
+
                           <td className="pro-remove">
                             <a
                               href="/"
@@ -78,15 +69,6 @@ const CartTable = () => {
               <div className="cart-buttons mb-30">
                 <a href="/">Continue Shopping</a>
               </div>
-              {/* <div className="cart-coupon">
-                <h4>Coupon</h4>
-                <p>Enter your coupon code if you have one.</p>
-                
-                <div className="cuppon-form">
-                  <input type="text" placeholder="Coupon code" />
-                  <input type="submit" defaultValue="Apply Coupon" />
-                </div>
-              </div> */}
             </div>
             <div className="col-lg-4 col-md-5 col-12 mb-40">
               <div className="cart-total fix">

@@ -24,7 +24,7 @@ const ProductItem = ({ _id, imageSrc, title, price, rating, colors }) => {
         <div className="product-inner">
           <div className="image">
             {/* imageSrc */}
-            <img src={"assets/images/product/product-1.jpg"} alt={title} />
+            <img src={imageSrc} alt={title} />
             <div className="image-overlay">
               <div className="action-buttons">
                 <button onClick={handleAddToCart}>add to cart</button>
