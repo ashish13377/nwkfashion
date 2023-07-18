@@ -49,8 +49,8 @@ const BestDealItem = ({ imageSrc, title, rating, price }) => {
 
 const BestDealCarousel = ({ products }) => {
   const productIdsToRender = [
-    "64ab9d2979afebbac80a8544",
-    "64ab9d3279afebbac80a8547",
+    "64b646e0c86d90418da9258d",
+    "64b646e4c86d90418da92594",
   ];
 
   const filteredProducts = products.filter((product) =>

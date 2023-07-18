@@ -60,10 +60,14 @@ const SidebarProduct = ({ imageSrc, title, price, oldPrice, rating }) => (
 
 const SidebarProductList = ({ products, loading }) => {
   const SelectedProductIds = [
-    "64ab9d2979afebbac80a8544",
-    "64ab9d3279afebbac80a8547",
+    "64b646e0c86d90418da9258d",
+    "64b646e4c86d90418da92594",
     "64ab9d3279afebbac80a854a",
     "64ab9d3379afebbac80a854d",
+    "64b64796c86d90418da92601",
+    "64b6479cc86d90418da92608",
+    "64b64747c86d90418da925c7",
+    "64b6474ac86d90418da925ce",
   ];
 
   return (

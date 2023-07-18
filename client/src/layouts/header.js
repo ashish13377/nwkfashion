@@ -189,17 +189,6 @@ export default function Header() {
                           <li>
                             <Link to="/Sarees">Sarees</Link>
                           </li>
-                          <li>
-                            <Link to="/Ethnic">Ethnic Wear</Link>
-                          </li>
-                          <li>
-                            <Link to="/Leggings">
-                              Leggings, Salwars & Churidars
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/Skirts">Skirts & Palazzos</Link>
-                          </li>
                         </ul>
                       </li>
                       {/* <li>
