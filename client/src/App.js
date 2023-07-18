@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import SingleProductPage from "./pages/singleProductPage";
 import LoginRegisterPage from "./pages/loginRegisterPage";
@@ -20,7 +20,7 @@ function App() {
           <Route path="/myAccountPage" element={<MyAccountPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/:category" element={<ShopPage />} />{" "}
-          <Route path="/:category/:productId" element={<SingleProductPage />} />
+          <Route path="/products/:productId" element={<SingleProductPage />} />
           <Route path="/wishlistPage" element={<WishlistPage />} />
           <Route path="/checkoutPage" element={<CheckoutPage />} />
         </Routes>

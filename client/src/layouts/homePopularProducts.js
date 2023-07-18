@@ -70,10 +70,7 @@ const PopularProducts = ({ products }) => {
                     <div className="content">
                       <div className="content-left">
                         <h4 className="title">
-                          <Link
-                            link
-                            to={`/${product.categoryName}/${product._id}`}
-                          >
+                          <Link to={`/products/${product._id}`}>
                             {product.title}
                           </Link>
                         </h4>
