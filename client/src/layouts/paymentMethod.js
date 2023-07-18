@@ -17,6 +17,7 @@ const PaymentMethod = ({
   const handleMethodChange = (event) => {
     setSelectedMethod(event.target.value);
   };
+  console.log(selectedMethod);
 
   const handlePlaceOrder = () => {
     // Perform place order logic here
@@ -67,7 +68,7 @@ const PaymentMethod = ({
               checked={selectedMethod === "upi"}
               onChange={handleMethodChange}
             />
-            <label htmlFor="payment_paypal">UPI</label>
+            <label htmlFor="payment_upi">UPI</label>
             <p data-method="upi">
               Please send a Check to Store name with Store Street, Store Town,
               Store State, Store Postcode, Store Country.
