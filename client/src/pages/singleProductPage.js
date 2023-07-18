@@ -10,7 +10,7 @@ import axios from "axios";
 
 export default function SingleProductPage() {
   const { productId } = useParams();
-
+  const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
   useEffect(() => {
     const fetchProduct = async () => {
@@ -19,8 +19,10 @@ export default function SingleProductPage() {
           `${serverAPILocal}/products/${productId}`
         );
         setProduct(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching product:", error);
+        setLoading(false);
       }
     };
 
@@ -31,7 +33,7 @@ export default function SingleProductPage() {
     <div>
       <Header />
       <SingleProductHero />
-      <SingleProductDescription productDetails={product} />
+      <SingleProductDescription productDetails={product} loading={loading} />
 
       <Footer />
     </div>

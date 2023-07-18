@@ -30,6 +30,7 @@ const PopularProducts = ({ products }) => {
   const filteredProducts = products.filter((product) =>
     productIdsToRender.includes(product._id)
   );
+  console.log(filteredProducts);
 
   return (
     <div>
@@ -69,7 +70,10 @@ const PopularProducts = ({ products }) => {
                     <div className="content">
                       <div className="content-left">
                         <h4 className="title">
-                          <Link link to="/singleProductPage">
+                          <Link
+                            link
+                            to={`/${product.categoryName}/${product._id}`}
+                          >
                             {product.title}
                           </Link>
                         </h4>

@@ -16,12 +16,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/:category/:productId" element={<SingleProductPage />} /> */}
-          <Route path="/singleProductPage" element={<SingleProductPage />} />
           <Route path="/loginRegisterPage" element={<LoginRegisterPage />} />
           <Route path="/myAccountPage" element={<MyAccountPage />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/:category" element={<ShopPage />} />
+          <Route path="/:category" element={<ShopPage />} />{" "}
+          <Route path="/:category/:productId" element={<SingleProductPage />} />
           <Route path="/wishlistPage" element={<WishlistPage />} />
           <Route path="/checkoutPage" element={<CheckoutPage />} />
         </Routes>
