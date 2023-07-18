@@ -1,30 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const CardTotal = () => {
-  const products = useSelector((state) => state.cart.products);
-
-  const calculateSubtotal = () => {
-    let subtotal = 0;
-
-    products.forEach((product) => {
-      const price = parseFloat(product.price.replace("$", ""));
-
-      subtotal += price;
-    });
-
-    return subtotal;
-  };
-
-  const shippingCost = 10;
-
-  const calculateTotal = () => {
-    const subtotal = calculateSubtotal();
-    // Replace with your shipping cost calculation
-
-    return subtotal + shippingCost;
-  };
-
+const CardTotal = ({
+  products,
+  shippingCost,
+  calculateSubtotal,
+  calculateTotal,
+}) => {
   return (
     <div>
       <div className="col-12 mb-40">
@@ -42,13 +24,13 @@ const CardTotal = () => {
             ))}
           </ul>
           <p>
-            Sub Total <span>${calculateSubtotal()}</span>
+            Sub Total <span>${calculateSubtotal}</span>
           </p>
           <p>
             Shipping Fee <span>${shippingCost}</span>
           </p>
           <h4>
-            Grand Total <span>${calculateTotal()}</span>
+            Grand Total <span>${calculateTotal}</span>
           </h4>
         </div>
       </div>

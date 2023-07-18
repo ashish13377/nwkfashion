@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 
-const PaymentMethod = () => {
+const PaymentMethod = ({
+  formData,
+  products,
+  shippingCost,
+  calculateSubtotal,
+  calculateTotal,
+}) => {
+  console.log(formData);
+  console.log(products);
+  console.log(shippingCost);
+  console.log(calculateSubtotal);
+  console.log(calculateTotal);
+  const [selectedMethod, setSelectedMethod] = useState("");
+
+  const handleMethodChange = (event) => {
+    setSelectedMethod(event.target.value);
+  };
+
+  const handlePlaceOrder = () => {
+    // Perform place order logic here
+    console.log("Place order clicked");
+  };
+
   return (
     <div>
-      {" "}
       <div className="col-12 mb-40">
         <h4 className="checkout-title">Payment Method</h4>
         <div className="checkout-payment-method">
@@ -12,7 +33,9 @@ const PaymentMethod = () => {
               type="radio"
               id="payment_bank"
               name="payment-method"
-              defaultValue="bank"
+              value="bank"
+              checked={selectedMethod === "bank"}
+              onChange={handleMethodChange}
             />
             <label htmlFor="payment_bank">Direct Bank Transfer</label>
             <p data-method="bank">
@@ -25,7 +48,9 @@ const PaymentMethod = () => {
               type="radio"
               id="payment_cash"
               name="payment-method"
-              defaultValue="cash"
+              value="cash"
+              checked={selectedMethod === "cash"}
+              onChange={handleMethodChange}
             />
             <label htmlFor="payment_cash">Cash on Delivery</label>
             <p data-method="cash">
@@ -36,12 +61,14 @@ const PaymentMethod = () => {
           <div className="single-method">
             <input
               type="radio"
-              id="payment_paypal"
+              id="payment_upi"
               name="payment-method"
-              defaultValue="paypal"
+              value="upi"
+              checked={selectedMethod === "upi"}
+              onChange={handleMethodChange}
             />
-            <label htmlFor="payment_paypal">Paypal</label>
-            <p data-method="paypal">
+            <label htmlFor="payment_paypal">UPI</label>
+            <p data-method="upi">
               Please send a Check to Store name with Store Street, Store Town,
               Store State, Store Postcode, Store Country.
             </p>
@@ -54,7 +81,9 @@ const PaymentMethod = () => {
             </label>
           </div>
         </div>
-        <button className="place-order">Place order</button>
+        <button className="place-order" onClick={handlePlaceOrder}>
+          Place order
+        </button>
       </div>
     </div>
   );
