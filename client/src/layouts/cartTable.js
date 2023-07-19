@@ -29,12 +29,6 @@ const CartTable = () => {
   };
   const shippingCost = 10;
 
-  const calculateTotal = () => {
-    const subtotal = calculateSubtotal();
-    // Replace with your shipping cost calculation
-
-    return subtotal + shippingCost;
-  };
   return (
     <div className="page-section section section-padding">
       <div className="container">
@@ -95,21 +89,9 @@ const CartTable = () => {
                 <table>
                   <tbody>
                     <tr className="cart-subtotal">
-                      <th>Subtotal</th>
-                      <td>
-                        <span className="amount">${calculateSubtotal()}</span>
-                      </td>
-                    </tr>
-                    <th>Delivery charge</th>
-                    <td>
-                      <span className="amount">+${shippingCost}</span>
-                    </td>
-                    <tr className="order-total">
                       <th>Total</th>
                       <td>
-                        <strong>
-                          <span className="amount">${calculateTotal()}</span>
-                        </strong>
+                        <span className="amount">${calculateSubtotal()}</span>
                       </td>
                     </tr>
                   </tbody>
