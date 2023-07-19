@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
-
 import { addToWishlist } from "../utils/wishlistSlice";
+
 const PopularProducts = ({ products }) => {
   const dispatch = useDispatch();
 

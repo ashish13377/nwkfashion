@@ -1,6 +1,21 @@
 import React from "react";
 import ReactImageMagnify from "react-image-magnify";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../utils/cartSlice";
+import { addToWishlist } from "../utils/wishlistSlice";
+
 const SingleProductDescription = ({ productDetails, loading }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (productDetails) => {
+    dispatch(addToCart(productDetails));
+    console.log(productDetails);
+  };
+  const handleAddToWishlist = (productDetails) => {
+    dispatch(addToWishlist(productDetails));
+    console.log(productDetails);
+  };
+
   console.log(productDetails);
   const product = {
     title: "Lorem epsum",
@@ -111,24 +126,30 @@ const SingleProductDescription = ({ productDetails, loading }) => {
                           </div>
                         </div>
                         <div className="actions">
-                          <button>
+                          <button
+                            onClick={() => handleAddToCart(productDetails)}
+                          >
                             <i className="ti-shopping-cart" />
                             <span>ADD TO CART</span>
                           </button>
 
-                          <button className="box" data-tooltip="Wishlist">
+                          <button
+                            onClick={() => handleAddToWishlist(productDetails)}
+                            className="box"
+                            data-tooltip="Wishlist"
+                          >
                             <i className="ti-heart" />
                           </button>
                         </div>
 
-                        <div className="share">
+                        {/* <div className="share">
                           <h5>Share: </h5>
                           {productDetails.socialMedia.map((media, index) => (
                             <a key={index} href="#">
                               <i className={media.icon} />
                             </a>
                           ))}
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
