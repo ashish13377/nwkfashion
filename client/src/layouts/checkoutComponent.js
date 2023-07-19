@@ -26,25 +26,44 @@ const CheckoutComponent = () => {
 
   const products = useSelector((state) => state.cart.products);
 
+  const shippingCostThreshold = 1000; // The order total above which free shipping is applicable
+  const shippingCost = 100; // Flat shipping cost for orders below the shippingCostThreshold
+
+  // GST percentages for different categories
+  const gstPercentages = {
+    clothing: 5,
+    leather_goods: 18,
+  };
+
   const calculateSubtotal = () => {
     let subtotal = 0;
 
     products.forEach((product) => {
       const price = parseFloat(product.price.replace("$", ""));
-
       subtotal += price;
     });
 
     return subtotal;
   };
 
-  const shippingCost = 10;
-
   const calculateTotal = () => {
     const subtotal = calculateSubtotal();
-    // Replace with your shipping cost calculation
+    // Calculate shipping cost based on the order total
+    const shippingFee = subtotal >= shippingCostThreshold ? 0 : shippingCost;
 
-    return subtotal + shippingCost;
+    // Calculate GST based on the category of products
+    let totalGST = 0;
+    products.forEach((product) => {
+      const productType = product.productType;
+      if (gstPercentages.hasOwnProperty(productType)) {
+        const gstPercentage = gstPercentages[productType];
+        const price = parseFloat(product.price.replace("$", ""));
+        const gst = (price * gstPercentage) / 100;
+        totalGST += gst;
+      }
+    });
+
+    return subtotal + shippingFee + totalGST;
   };
 
   return (
@@ -64,6 +83,7 @@ const CheckoutComponent = () => {
                     {/* Cart Total */}
                     <CardTotal
                       products={products}
+                      shippingCostThreshold={shippingCostThreshold}
                       shippingCost={shippingCost}
                       calculateSubtotal={calculateSubtotal()}
                       calculateTotal={calculateTotal()}
