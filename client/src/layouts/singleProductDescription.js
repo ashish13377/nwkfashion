@@ -206,11 +206,7 @@ const SingleProductDescription = ({ productDetails, loading }) => {
                             More info
                           </a>
                         </li>
-                        <li>
-                          <a href="#data-sheet" data-bs-toggle="tab">
-                            Data sheet
-                          </a>
-                        </li>
+
                         <li>
                           <a href="#reviews" data-bs-toggle="tab">
                             Reviews
@@ -239,24 +235,7 @@ const SingleProductDescription = ({ productDetails, loading }) => {
                         </p>
                         ...
                       </div>
-                      <div className="pro-info-tab tab-pane" id="data-sheet">
-                        <table className="table-data-sheet">
-                          <tbody>
-                            <tr className="odd">
-                              <td>Compositions</td>
-                              <td>{product.compositions}</td>
-                            </tr>
-                            <tr className="even">
-                              <td>Styles</td>
-                              <td>{product.styles}</td>
-                            </tr>
-                            <tr className="odd">
-                              <td>Properties</td>
-                              <td>{product.properties}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+
                       <div className="pro-info-tab tab-pane" id="reviews">
                         <a href="#">Be the first to write your review!</a>
                       </div>
