@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactImageMagnify from "react-image-magnify";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
@@ -33,6 +33,7 @@ const SingleProductDescription = ({ productDetails, loading }) => {
   };
 
   console.log(productDetails);
+
   const product = {
     title: "Lorem epsum",
     price: "$",
@@ -40,7 +41,20 @@ const SingleProductDescription = ({ productDetails, loading }) => {
       "enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora inform",
     availability: "In Stock",
     quantity: 1,
-    colors: ["#ff502e", "#fff600", "#1b2436"],
+    colors: [
+      {
+        color: "black",
+        zoomImage: "assets/images/product/product-zoom-black.jpeg",
+      },
+      {
+        color: "blue",
+        zoomImage: "assets/images/product/product-zoom-blue.jpeg",
+      },
+      {
+        color: "violet",
+        zoomImage: "assets/images/product/product-zoom-violet.jpeg",
+      },
+    ],
     tags: ["Electronic", "Smartphone", "Phone", "Charger", "Powerbank"],
     socialMedia: [
       { name: "Facebook", icon: "fa fa-facebook" },
@@ -52,8 +66,11 @@ const SingleProductDescription = ({ productDetails, loading }) => {
     styles: "Casual",
     properties: "Short Sleeve",
     rating: 4,
-    zoomImage: "assets/images/product/product-zoom-1.webp",
-    image: "assets/images/product/product-big-1.webp",
+  };
+  const [selectedColor, setSelectedColor] = useState(product.colors[0].color);
+  console.log(selectedColor);
+  const handleColorClick = (color) => {
+    setSelectedColor(color);
   };
 
   return (
@@ -75,10 +92,14 @@ const SingleProductDescription = ({ productDetails, loading }) => {
                             smallImage: {
                               alt: "",
                               isFluidWidth: true,
-                              src: product.image,
+                              src: product.colors.find(
+                                (item) => item.color === selectedColor
+                              )?.zoomImage,
                             },
                             largeImage: {
-                              src: product.zoomImage,
+                              src: product.colors.find(
+                                (item) => item.color === selectedColor
+                              )?.zoomImage,
                               width: 1200,
                               height: 1800,
                             },
@@ -132,10 +153,13 @@ const SingleProductDescription = ({ productDetails, loading }) => {
                           <div className="colors">
                             <h5>Color:</h5>
                             <div className="color-options">
-                              {productDetails.colors.map((color, index) => (
+                              {product.colors.map((colorObj, index) => (
                                 <button
                                   key={index}
-                                  style={{ backgroundColor: color }}
+                                  style={{ backgroundColor: colorObj.color }}
+                                  onClick={() =>
+                                    handleColorClick(colorObj.color)
+                                  }
                                 />
                               ))}
                             </div>
