@@ -4,6 +4,22 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
 import { addToWishlist } from "../utils/wishlistSlice";
 
+const LoadingSpinner = () => {
+  return (
+    <div
+      style={{
+        position: "relative",
+        top: "50%",
+        left: "50%",
+      }}
+    >
+      <div className="spinner-border text-primary" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  );
+};
+
 const SingleProductDescription = ({ productDetails, loading }) => {
   const dispatch = useDispatch();
 
@@ -43,7 +59,7 @@ const SingleProductDescription = ({ productDetails, loading }) => {
   return (
     <div>
       {loading ? (
-        <>loading</>
+        <LoadingSpinner />
       ) : (
         <>
           {" "}
