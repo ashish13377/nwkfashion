@@ -43,15 +43,15 @@ const SingleProductDescription = ({ productDetails, loading }) => {
     quantity: 1,
     colors: [
       {
-        color: "black",
+        color: "#2e3246",
         zoomImage: "assets/images/product/product-zoom-black.jpeg",
       },
       {
-        color: "blue",
+        color: "#0d6669",
         zoomImage: "assets/images/product/product-zoom-blue.jpeg",
       },
       {
-        color: "violet",
+        color: "#38132d",
         zoomImage: "assets/images/product/product-zoom-violet.jpeg",
       },
     ],
