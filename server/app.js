@@ -6,7 +6,9 @@ const bodyparser = require("body-parser");
 const userRoutes = require("./routes/userRoutes.js")
 const productRoutes = require('./routes/productRoutes.js');
 const categoryRoutes = require('./routes/categoryRoutes.js');
-const connectMongo = require("./config/db/db.js")
+const orderRoutes = require('./routes/orderRoutes.js');
+const paymentRoutes = require('./routes/paymentRoutes.js');
+const connectMongo = require("./config/db/db.js");
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 5904;
 const URL = `http://localhost:${PORT}/`
@@ -34,7 +36,8 @@ app.use("/api/users", userRoutes);
 // Use the '/api/products' routes
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
-
+app.use('/api', orderRoutes);
+app.use('/api', paymentRoutes);
 
 app.listen(PORT, () => {
     console.log(
