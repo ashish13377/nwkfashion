@@ -58,12 +58,15 @@ const orderSchema = new mongoose.Schema({
         ref: 'User', 
         required: true 
     },
-    productID: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Product', 
-        required: true 
-    },
-    productDetails: {
+    productID: [
+        { 
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Product', 
+            required: true 
+        }
+    ],
+    productDetails: [
+      {
         product: { 
             type: String, 
             required: true 
@@ -76,7 +79,8 @@ const orderSchema = new mongoose.Schema({
             type: Number, 
             required: true 
         },
-    },
+      },
+    ],
 });
 
 const Order = mongoose.model('Order', orderSchema);
