@@ -28,239 +28,174 @@ const getProductById = async (req, res) => {
 };
 
 // Create a new product
-// const createProduct = async (req, res) => {
-//     try {
-//         const { imageSrc, title, rating, sizes, colors, price, categoryName } = req.body;
-
-//         if (!imageSrc || !title || !rating || !sizes || !colors || !price || !categoryName) {
-//             return res.status(422).json({ error: 'Please enter all the required fields' });
-//         }
-
-//         const category = await Category.findOne({ name: categoryName });
-//         if (!category) {
-//             return res.status(404).json({ error: 'Category not found' });
-//         }
-
-//         const product = new Product({
-//             imageSrc,
-//             title,
-//             rating,
-//             sizes,
-//             colors,
-//             price,
-//             categoryId: category._id,
-//         });
-
-//         const createdProduct = await product.save();
-//         res.status(201).json(createdProduct);
-//     } catch (error) {
-//         console.error('Error creating product:', error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// };
-
 const createProduct = async (req, res) => {
     try {
-      const {
-        imageSrc,
-        title,
-        rating,
-        sizes,
-        colors,
-        price,
-        categoryId,
-        categoryName,
-        description,
-        availability,
-        quantity,
-        socialMedia,
-        compositions,
-        styles,
-        properties,
-        zoomImage,
-        image,
-      } = req.body;
-  
-      if (
-        !imageSrc ||
-        !title ||
-        !rating ||
-        !sizes ||
-        !colors ||
-        !price ||
-        !categoryId ||
-        !categoryName ||
-        !description ||
-        !availability ||
-        !quantity ||
-        !socialMedia ||
-        !compositions ||
-        !styles ||
-        !properties ||
-        !zoomImage ||
-        !image
-      ) {
-        return res.status(422).json({ error: 'Please enter all the required fields' });
-      }
-  
-      const category = await Category.findById(categoryId);
-      if (!category) {
-        return res.status(404).json({ error: 'Category not found' });
-      }
-  
-      const product = new Product({
-        imageSrc,
-        title,
-        rating,
-        sizes,
-        colors,
-        price,
-        categoryId: category._id,
-        categoryName,
-        description,
-        availability,
-        quantity,
-        socialMedia,
-        compositions,
-        styles,
-        properties,
-        zoomImage,
-        image,
-      });
-  
-      const createdProduct = await product.save();
-      res.status(201).json(createdProduct);
+        const {
+            imageSrc,
+            title,
+            rating,
+            sizes,
+            colors,
+            price,
+            categoryId,
+            categoryName,
+            description,
+            availability,
+            quantity,
+            socialMedia,
+            compositions,
+            styles,
+            properties,
+            zoomImage,
+            image,
+            productType,
+        } = req.body;
+
+        if (
+            !imageSrc ||
+            !title ||
+            !rating ||
+            !sizes ||
+            !colors ||
+            !price ||
+            !categoryId ||
+            !categoryName ||
+            !description ||
+            !availability ||
+            !quantity ||
+            !socialMedia ||
+            !compositions ||
+            !styles ||
+            !properties ||
+            !zoomImage ||
+            !image ||
+            !productType
+        ) {
+            return res.status(422).json({ error: 'Please enter all the required fields' });
+        }
+
+        const category = await Category.findById(categoryId);
+        if (!category) {
+            return res.status(404).json({ error: 'Category not found' });
+        }
+
+        const product = new Product({
+            imageSrc,
+            title,
+            rating,
+            sizes,
+            colors,
+            price,
+            categoryId: category._id,
+            categoryName,
+            description,
+            availability,
+            quantity,
+            socialMedia,
+            compositions,
+            styles,
+            properties,
+            zoomImage,
+            image,
+            productType,
+        });
+
+        const createdProduct = await product.save();
+        res.status(201).json(createdProduct);
     } catch (error) {
-      console.error('Error creating product:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Error creating product:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-  };
-  
+};
 
 // Update a product by ID
-// const updateProduct = async (req, res) => {
-//     try {
-//         const productId = req.params.productId;
-//         const { imageSrc, title, rating, sizes, colors, price, categoryName } = req.body;
-
-//         if (!imageSrc || !title || !rating || !sizes || !colors || !price || !categoryName) {
-//             return res.status(422).json({ error: 'Please enter all the required fields' });
-//         }
-
-//         const category = await Category.findOne({ name: categoryName });
-//         if (!category) {
-//             return res.status(404).json({ error: 'Category not found' });
-//         }
-
-//         const updatedProduct = await Product.findByIdAndUpdate(
-//             productId,
-//             {
-//                 imageSrc,
-//                 title,
-//                 rating,
-//                 sizes,
-//                 colors,
-//                 price,
-//                 categoryId: category._id,
-//             },
-//             { new: true }
-//         );
-
-//         if (!updatedProduct) {
-//             return res.status(404).json({ error: 'Product not found' });
-//         }
-
-//         res.json(updatedProduct);
-//     } catch (error) {
-//         console.error('Error updating product:', error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// };
 const updateProduct = async (req, res) => {
     try {
-      const productId = req.params.productId;
-      const {
-        imageSrc,
-        title,
-        rating,
-        sizes,
-        colors,
-        price,
-        categoryId,
-        categoryName,
-        description,
-        availability,
-        quantity,
-        socialMedia,
-        compositions,
-        styles,
-        properties,
-        zoomImage,
-        image,
-      } = req.body;
-  
-      if (
-        !imageSrc ||
-        !title ||
-        !rating ||
-        !sizes ||
-        !colors ||
-        !price ||
-        !categoryId ||
-        !categoryName ||
-        !description ||
-        !availability ||
-        !quantity ||
-        !socialMedia ||
-        !compositions ||
-        !styles ||
-        !properties ||
-        !zoomImage ||
-        !image
-      ) {
-        return res.status(422).json({ error: 'Please enter all the required fields' });
-      }
-  
-      const category = await Category.findById(categoryId);
-      if (!category) {
-        return res.status(404).json({ error: 'Category not found' });
-      }
-  
-      const updatedProduct = await Product.findByIdAndUpdate(
-        productId,
-        {
-          imageSrc,
-          title,
-          rating,
-          sizes,
-          colors,
-          price,
-          categoryId: category._id,
-          categoryName,
-          description,
-          availability,
-          quantity,
-          socialMedia,
-          compositions,
-          styles,
-          properties,
-          zoomImage,
-          image,
-        },
-        { new: true }
-      );
-  
-      if (!updatedProduct) {
-        return res.status(404).json({ error: 'Product not found' });
-      }
-  
-      res.json(updatedProduct);
+        const productId = req.params.productId;
+        const {
+            imageSrc,
+            title,
+            rating,
+            sizes,
+            colors,
+            price,
+            categoryId,
+            categoryName,
+            description,
+            availability,
+            quantity,
+            socialMedia,
+            compositions,
+            styles,
+            properties,
+            zoomImage,
+            image,
+            productType,
+        } = req.body;
+
+        if (
+            !imageSrc ||
+            !title ||
+            !rating ||
+            !sizes ||
+            !colors ||
+            !price ||
+            !categoryId ||
+            !categoryName ||
+            !description ||
+            !availability ||
+            !quantity ||
+            !socialMedia ||
+            !compositions ||
+            !styles ||
+            !properties ||
+            !zoomImage ||
+            !image ||
+            !productType
+        ) {
+            return res.status(422).json({ error: 'Please enter all the required fields' });
+        }
+
+        const category = await Category.findById(categoryId);
+        if (!category) {
+            return res.status(404).json({ error: 'Category not found' });
+        }
+
+        const updatedProduct = await Product.findByIdAndUpdate(
+            productId,
+            {
+                imageSrc,
+                title,
+                rating,
+                sizes,
+                colors,
+                price,
+                categoryId: category._id,
+                categoryName,
+                description,
+                availability,
+                quantity,
+                socialMedia,
+                compositions,
+                styles,
+                properties,
+                zoomImage,
+                image,
+                productType,
+            },
+            { new: true }
+        );
+
+        if (!updatedProduct) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        res.json(updatedProduct);
     } catch (error) {
-      console.error('Error updating product:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Error updating product:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-  };
-  
+};
 
 // Delete a product by ID
 const deleteProduct = async (req, res) => {
@@ -282,15 +217,13 @@ const deleteProduct = async (req, res) => {
 // Get all categories
 const getAllCate = async (req, res) => {
     try {
-      const categories = await Category.find();
-      console.log(categories)
-    //   res.json(categories);
+        const categories = await Category.find();
+        res.json(categories);
     } catch (error) {
-      console.error('Error fetching categories:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Error fetching categories:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-  };
-  
+};
 
 // Get a specific category by ID
 const getCategoryById = async (req, res) => {
@@ -346,7 +279,6 @@ const getProductsByCategory = async (req, res) => {
     }
 };
 
-
 module.exports = {
     getAllProducts,
     getProductById,
@@ -356,5 +288,5 @@ module.exports = {
     getAllCate,
     getCategoryById,
     createCategory,
-    getProductsByCategory
+    getProductsByCategory,
 };

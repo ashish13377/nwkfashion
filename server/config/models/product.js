@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 // Define Product schema
 const productSchema = new mongoose.Schema({
   imageSrc: {
@@ -19,10 +18,18 @@ const productSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
-  colors: {
-    type: [String],
-    required: true,
-  },
+  colors: [
+    {
+      color: {
+        type: String,
+        required: true,
+      },
+      zoomImage: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   price: {
     type: String,
     required: true,
@@ -77,6 +84,10 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   image: {
+    type: String,
+    required: true,
+  },
+  productType: {
     type: String,
     required: true,
   },
