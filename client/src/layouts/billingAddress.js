@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
 const BillingAddress = ({ formData, onFormDataChange }) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
-    onFormDataChange(name, value);
+    const updatedAddress = { ...formData.address, [name]: value };
+    onFormDataChange("address", updatedAddress);
   };
+
   return (
     <div className="col-lg-7">
       {/* Address */}
@@ -16,7 +18,7 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             <input
               type="text"
               name="firstName"
-              value={formData.firstName}
+              value={formData.address.firstName}
               placeholder="First Name"
               onChange={handleChange}
             />
@@ -26,7 +28,7 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             <input
               type="text"
               name="lastName"
-              value={formData.lastName}
+              value={formData.address.lastName}
               placeholder="Last Name"
               onChange={handleChange}
             />
@@ -36,7 +38,7 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             <input
               type="email"
               name="email"
-              value={formData.email}
+              value={formData.address.email}
               placeholder="Email Address"
               onChange={handleChange}
             />
@@ -46,7 +48,7 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             <input
               type="text"
               name="phone"
-              value={formData.phone}
+              value={formData.address.phone}
               placeholder="Phone number"
               onChange={handleChange}
             />
@@ -57,14 +59,14 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             <input
               type="text"
               name="addressLine1"
-              value={formData.addressLine1}
+              value={formData.address.addressLine1}
               placeholder="Address line 1"
               onChange={handleChange}
             />
             <input
               type="text"
               name="addressLine2"
-              value={formData.addressLine2}
+              value={formData.address.addressLine2}
               placeholder="Address line 2"
               onChange={handleChange}
             />
@@ -74,7 +76,7 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             <select
               className="nice-select"
               name="country"
-              value={formData.country}
+              value={formData.address.country}
               onChange={handleChange}
             >
               <option>Bangladesh</option>
@@ -89,7 +91,7 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             <input
               type="text"
               name="city"
-              value={formData.city}
+              value={formData.address.city}
               placeholder="Town/City"
               onChange={handleChange}
             />
@@ -99,7 +101,7 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             <input
               type="text"
               name="state"
-              value={formData.state}
+              value={formData.address.state}
               placeholder="State"
               onChange={handleChange}
             />
@@ -109,7 +111,7 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             <input
               type="text"
               name="zipCode"
-              value={formData.zipCode}
+              value={formData.address.zipCode}
               placeholder="Zip Code"
               onChange={handleChange}
             />

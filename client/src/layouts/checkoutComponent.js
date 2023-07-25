@@ -4,27 +4,48 @@ import CardTotal from "./cardTotal";
 import PaymentMethod from "./paymentMethod";
 import { useSelector } from "react-redux";
 
-
 const CheckoutComponent = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    addressLine1: "",
-    addressLine2: "",
-    country: "",
-    city: "",
-    state: "",
-    zipCode: "",
+    address: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      addressLine1: "",
+      addressLine2: "",
+      country: "",
+      city: "",
+      state: "",
+      zipCode: "",
+    },
+    paymentMethod: "Credit Card",
   });
 
   const handleChange = (fieldName, value) => {
-    setFormData({
-      ...formData,
-      [fieldName]: value,
-    });
+    // If the fieldName contains a dot (.), it means it's a nested field
+    // We need to update the nested state appropriately
+    if (fieldName.includes(".")) {
+      const [parentField, nestedField] = fieldName.split(".");
+      setFormData({
+        ...formData,
+        address: {
+          ...formData.address,
+          [parentField]: {
+            ...formData.address[parentField],
+            [nestedField]: value,
+          },
+        },
+      });
+    } else {
+      // If it's not a nested field, directly update the state
+      setFormData({
+        ...formData,
+        [fieldName]: value,
+      });
+    }
   };
+
+  console.log(formData);
 
   const products = useSelector((state) => state.cart.products);
 
@@ -68,9 +89,6 @@ const CheckoutComponent = () => {
     return subtotal + shippingFee + totalGST;
   };
 
-
-
-
   return (
     <div>
       <div>
@@ -97,6 +115,7 @@ const CheckoutComponent = () => {
                     <PaymentMethod
                       formData={formData}
                       products={products}
+                      onFormDataChange={handleChange}
                       shippingCost={shippingCost}
                       calculateSubtotal={calculateSubtotal()}
                       calculateTotal={calculateTotal()}
