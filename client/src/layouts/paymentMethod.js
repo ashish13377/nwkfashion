@@ -11,6 +11,7 @@ const PaymentMethod = ({
   calculateSubtotal,
   calculateTotal,
 }) => {
+  const calculateTotalInPaise = calculateTotal * 100;
   // console.log(formData);
   // console.log(products);
   // console.log(shippingCost);
@@ -77,7 +78,7 @@ const PaymentMethod = ({
     try {
       // Make an API call to the server to get the Razorpay order ID
       const response = await axios.post(`${serverAPILocal}/createOrder`, {
-        amount: 100000, // Replace with the actual total price (in paise)
+        amount: calculateTotalInPaise, // Replace with the actual total price (in paise)
       });
 
       // Initialize Razorpay payment dialog
@@ -178,7 +179,7 @@ const PaymentMethod = ({
             </label>
           </div>
         </div>
-        <a className="place-order" onClick={handlePlaceOrder}>
+        <a className="place-order" onClick={checkoutHandler}>
           Place order
         </a>
       </div>
