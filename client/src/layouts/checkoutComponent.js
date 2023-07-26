@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BillingAddress from "./billingAddress";
 import CardTotal from "./cardTotal";
 import PaymentMethod from "./paymentMethod";
 import { useSelector } from "react-redux";
 
 const CheckoutComponent = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const products = useSelector((state) => state.cart.products);
   const [formData, setFormData] = useState({
     address: {
       firstName: "",
@@ -18,8 +20,25 @@ const CheckoutComponent = () => {
       state: "",
       zipCode: "",
     },
-    paymentMethod: "Credit Card",
+    paymentMethod: "",
+    userId: user ? user._id : "",
+    productID: [],
+    productDetails: [], // Initialize productDetails as an empty array
   });
+
+  useEffect(() => {
+    const productIDs = products.map((product) => product._id);
+    const productDetails = products.map((product) => ({
+      productID: product._id,
+      name: product.name,
+      price: product.price,
+    }));
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      productID: productIDs,
+      productDetails: productDetails,
+    }));
+  }, [products]);
 
   const handleChange = (fieldName, value) => {
     // If the fieldName contains a dot (.), it means it's a nested field
@@ -46,8 +65,6 @@ const CheckoutComponent = () => {
   };
 
   console.log(formData);
-
-  const products = useSelector((state) => state.cart.products);
 
   const shippingCostThreshold = 1000; // The order total above which free shipping is applicable
   const shippingCost = 100; // Flat shipping cost for orders below the shippingCostThreshold
