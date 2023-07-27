@@ -8,15 +8,15 @@ const CheckoutComponent = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const products = useSelector((state) => state.cart.products);
   const [formData, setFormData] = useState({
+    razorpay: "",
     address: {
       firstName: "",
       lastName: "",
-      email: "",
-      phone: "",
-      addressLine1: "",
-      addressLine2: "",
+      emailAddress: "",
+      phoneNo: "",
+      address: "",
       country: "",
-      city: "",
+      townCity: "",
       state: "",
       zipCode: "",
     },
@@ -64,7 +64,7 @@ const CheckoutComponent = () => {
     }
   };
 
-  console.log(formData);
+  // console.log(formData);
 
   const shippingCostThreshold = 1000; // The order total above which free shipping is applicable
   const shippingCost = 100; // Flat shipping cost for orders below the shippingCostThreshold
