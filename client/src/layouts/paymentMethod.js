@@ -68,12 +68,6 @@ const PaymentMethod = ({
 
   const [orderDetails, setOrderDetails] = useState(null);
 
-  // const
-  const dataSet = {
-    name: "ashish",
-    titel: "gandu",
-  };
-
   const checkoutHandler = async () => {
     try {
       // Make an API call to the server to get the Razorpay order ID
@@ -97,11 +91,15 @@ const PaymentMethod = ({
               // console.log(res.data.message);
               setOrderDetails(response.data.id);
               if (res.status === 200) {
-                Swal.fire(
-                  "Payment successful!",
-                  `You got${res.data}!`,
-                  "success"
-                );
+                // const res = await axios.post(`${serverAPI}/users/login`, user,);
+                const res = axios.post(`${serverAPILocal}/orders`, formData)
+                if(res.status === 201){
+                  Swal.fire(
+                    "Payment successful!",
+                    `You got${res.data}!`,
+                    "success"
+                  );
+                }
               }
               // // Set order details in state to display in the modal
               // // setOrderDetails(res.data.order);
