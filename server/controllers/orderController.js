@@ -28,9 +28,12 @@ async function createOrder(req, res) {
       productDetails: req.body.productDetails,
     };
 
-    const order = await Order.create(orderData);
+    const order = new Order(orderData);
+    await order.save();
+
     res.status(201).json(order);
   } catch (err) {
+    console.error('Error creating order:', err);
     res.status(500).json({ error: 'Unable to create order' });
   }
 }
