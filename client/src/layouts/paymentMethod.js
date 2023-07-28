@@ -14,7 +14,7 @@ const PaymentMethod = ({
   console.log(formData);
   const calculateTotalInPaise = calculateTotal * 100;
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
+
   const [selectedMethod, setSelectedMethod] = useState("");
 
   const handleChange = (event) => {
@@ -66,12 +66,12 @@ const PaymentMethod = ({
             });
         },
         prefill: {
-          name: user.name, // Replace with user's name
-          email: user.email, // Replace with user's email
-          contact: user?.phone, // Replace with user's contact number
+          name: formData.address.firstName + " " + formData.address.lastName, // Replace with user's name
+          email: formData.address.emailAddress, // Replace with user's email
+          contact: formData.address.phoneNo, // Replace with user's contact number
         },
       };
-
+      console.log(options);
       const rzp1 = new window.Razorpay(options);
       rzp1.open();
     } catch (error) {
