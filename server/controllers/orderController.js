@@ -1,10 +1,10 @@
 // controllers/orderController.js
-const Order = require('../config/models/order'); // Assuming the path to the order.js file
-
+const Order = require("../config/models/order"); // Assuming the path to the order.js file
 
 // Create a new order
 async function createOrder(req, res) {
   try {
+    console.log(req.body);
     const lastOrder = await Order.findOne({}, {}, { sort: { orderID: -1 } });
     let lastOrderIDNumber = 0;
 
@@ -16,7 +16,7 @@ async function createOrder(req, res) {
     }
 
     const newOrderNumber = lastOrderIDNumber + 1;
-    const newOrderID = `OIDNWK${String('0000000' + newOrderNumber).slice(-7)}`;
+    const newOrderID = `OIDNWK${String("0000000" + newOrderNumber).slice(-7)}`;
 
     const orderData = {
       orderID: newOrderID,
@@ -30,11 +30,11 @@ async function createOrder(req, res) {
 
     const order = new Order(orderData);
     await order.save();
-
+    console.log(orderData);
     res.status(201).json(order);
   } catch (err) {
-    console.error('Error creating order:', err);
-    res.status(500).json({ error: 'Unable to create order' });
+    console.error("Error creating order:", err);
+    res.status(500).json({ error: "Unable to create order" });
   }
 }
 
@@ -44,7 +44,7 @@ async function getAllOrders(req, res) {
     const orders = await Order.find();
     res.json(orders);
   } catch (err) {
-    res.status(500).json({ error: 'Unable to fetch orders' });
+    res.status(500).json({ error: "Unable to fetch orders" });
   }
 }
 
@@ -53,24 +53,26 @@ async function getOrderById(req, res) {
   try {
     const order = await Order.findById(req.params.orderId);
     if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
+      return res.status(404).json({ message: "Order not found" });
     }
     res.json(order);
   } catch (err) {
-    res.status(500).json({ error: 'Unable to fetch order' });
+    res.status(500).json({ error: "Unable to fetch order" });
   }
 }
 
 // Update an order
 async function updateOrder(req, res) {
   try {
-    const order = await Order.findByIdAndUpdate(req.params.orderId, req.body, { new: true });
+    const order = await Order.findByIdAndUpdate(req.params.orderId, req.body, {
+      new: true,
+    });
     if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
+      return res.status(404).json({ message: "Order not found" });
     }
     res.json(order);
   } catch (err) {
-    res.status(500).json({ error: 'Unable to update order' });
+    res.status(500).json({ error: "Unable to update order" });
   }
 }
 
@@ -79,11 +81,11 @@ async function deleteOrder(req, res) {
   try {
     const order = await Order.findByIdAndDelete(req.params.orderId);
     if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
+      return res.status(404).json({ message: "Order not found" });
     }
-    res.json({ message: 'Order deleted successfully' });
+    res.json({ message: "Order deleted successfully" });
   } catch (err) {
-    res.status(500).json({ error: 'Unable to delete order' });
+    res.status(500).json({ error: "Unable to delete order" });
   }
 }
 
@@ -94,7 +96,9 @@ async function getOrdersByUserId(req, res) {
     const orders = await Order.find({ userId });
     res.json(orders);
   } catch (err) {
-    res.status(500).json({ error: 'Unable to fetch orders for the specified user' });
+    res
+      .status(500)
+      .json({ error: "Unable to fetch orders for the specified user" });
   }
 }
 

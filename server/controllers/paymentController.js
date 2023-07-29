@@ -6,8 +6,8 @@ const Order = require("../config/models/order");
 
 // Set up your Razorpay instance (replace <YOUR_RAZORPAY_KEY_ID> and <YOUR_RAZORPAY_KEY_SECRET> with your actual keys)
 const razorpay = new Razorpay({
-  key_id: "rzp_test_EwqiwaZj1igBp2",
-  key_secret: "xzTvHGJFpiQC4vrr1rB872PG",
+  key_id: "rzp_test_LyQl8cyV8Y1ACw",
+  key_secret: "MEUwA5dXwpQMcLggdReCQr7O",
 });
 
 // Function to generate the Razorpay order
@@ -33,14 +33,16 @@ const confirmPayment = (req, res) => {
   console.log(paymentData);
   // // Verify the payment using Razorpay's utility function
   const generatedSignature = crypto
-    .createHmac("sha256", "M0oIEXdGMcZ2nsO3uXKHe3vr")
+    .createHmac("sha256", "MEUwA5dXwpQMcLggdReCQr7O")
     .update(
       paymentData.razorpay_order_id + "|" + paymentData.razorpay_payment_id
     )
     .digest("hex");
 
   if (generatedSignature === paymentData.razorpay_signature) {
-    res.status(200).json({ message: "Payment successful and order saved!" });
+    res
+      .status(200)
+      .json({ message: "Payment successful and order saved!", paymentData });
   }
 };
 
