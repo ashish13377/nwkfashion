@@ -8,7 +8,7 @@ const CheckoutComponent = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const products = useSelector((state) => state.cart.products);
   const [formData, setFormData] = useState({
-    razorpay: "",
+    razorpay: null,
     address: {
       firstName: "",
       lastName: "",
@@ -26,6 +26,8 @@ const CheckoutComponent = () => {
     productDetails: [], // Initialize productDetails as an empty array
   });
 
+  console.log(formData);
+
   useEffect(() => {
     const productIDs = products.map((product) => product._id);
     const productDetails = products.map((product) => ({
@@ -40,7 +42,8 @@ const CheckoutComponent = () => {
     }));
   }, [products]);
 
-  const handleChange = (fieldName, value) => {
+  const handleChange = (fieldName, value, orderDetails) => {
+    console.log("orderDetails", orderDetails);
     // If the fieldName contains a dot (.), it means it's a nested field
     // We need to update the nested state appropriately
     if (fieldName.includes(".")) {
@@ -60,8 +63,11 @@ const CheckoutComponent = () => {
       setFormData({
         ...formData,
         [fieldName]: value,
+        razorpay: orderDetails,
       });
     }
+
+    // Set the orderDetails in formData's razorpay key
   };
 
   // console.log(formData);
@@ -129,6 +135,7 @@ const CheckoutComponent = () => {
                       calculateTotal={calculateTotal()}
                     />
                     {/* Payment Method */}
+
                     <PaymentMethod
                       formData={formData}
                       products={products}

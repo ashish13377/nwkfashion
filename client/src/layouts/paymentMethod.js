@@ -11,7 +11,6 @@ const PaymentMethod = ({
   calculateSubtotal,
   calculateTotal,
 }) => {
-  console.log(formData);
   const calculateTotalInPaise = calculateTotal * 100;
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -19,7 +18,7 @@ const PaymentMethod = ({
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    onFormDataChange(name, value);
+    onFormDataChange(name, value, orderDetails); // Pass the orderDetails to the parent component
   };
 
   const handleMethodChange = (event) => {
@@ -32,15 +31,16 @@ const PaymentMethod = ({
   };
 
   const [orderDetails, setOrderDetails] = useState(null);
-
+  console.log(orderDetails);
   const checkoutHandler = async () => {
     try {
       // Make an API call to the server to get the Razorpay order ID
       const response = await axios.post(`${serverAPILocal}/createOrder`, {
         amount: calculateTotalInPaise, // Replace with the actual total price (in paise)
       });
-
+      setOrderDetails(response.data.id);
       // Initialize Razorpay payment dialog
+
       const options = {
         key: "rzp_test_LyQl8cyV8Y1ACw",
         amount: response.data.amount,
@@ -57,14 +57,26 @@ const PaymentMethod = ({
                 .post(`${serverAPILocal}/orders`, formData)
                 .then((res) => {
                   // Handle the response data here
+
                   console.log(res.data);
+                  Swal.fire(
+                    "Payment successful!",
+
+                    "success"
+                  );
                 })
                 .catch((error) => {
                   // Handle any errors that occurred during the request
-                  console.error(error);
+                  console.error("Error during payment confirmation:", error);
+                  Swal.fire(
+                    "Payment failed",
+                    "There was an error processing your payment",
+                    "error"
+                  );
                 });
             });
         },
+
         prefill: {
           name: formData.address.firstName + " " + formData.address.lastName, // Replace with user's name
           email: formData.address.emailAddress, // Replace with user's email
@@ -76,6 +88,7 @@ const PaymentMethod = ({
       rzp1.open();
     } catch (error) {
       console.error("Error during checkout:", error);
+      Swal.fire("Error", "There was an error processing your payment", "error");
     }
   };
 
@@ -137,7 +150,7 @@ const PaymentMethod = ({
             </label>
           </div>
         </div>
-        <a className="place-order" onClick={checkoutHandler}>
+        <a className="place-order" onClick={() => checkoutHandler()}>
           Place order
         </a>
       </div>
