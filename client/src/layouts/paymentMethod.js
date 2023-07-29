@@ -6,11 +6,13 @@ import withReactContent from "sweetalert2-react-content";
 const PaymentMethod = ({
   formData,
   onFormDataChange,
+  onOrderDetailsChange,
   products,
   shippingCost,
   calculateSubtotal,
   calculateTotal,
 }) => {
+  console.log(formData);
   const calculateTotalInPaise = calculateTotal * 100;
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -18,7 +20,7 @@ const PaymentMethod = ({
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    onFormDataChange(name, value, orderDetails); // Pass the orderDetails to the parent component
+    onFormDataChange(name, value); // Pass the orderDetails to the parent component
   };
 
   const handleMethodChange = (event) => {
@@ -30,17 +32,15 @@ const PaymentMethod = ({
     console.log("Place order clicked");
   };
 
-  const [orderDetails, setOrderDetails] = useState(null);
-  console.log(orderDetails);
   const checkoutHandler = async () => {
     try {
       // Make an API call to the server to get the Razorpay order ID
       const response = await axios.post(`${serverAPILocal}/createOrder`, {
         amount: calculateTotalInPaise, // Replace with the actual total price (in paise)
       });
-      setOrderDetails(response.data.id);
-      // Initialize Razorpay payment dialog
 
+      // Initialize Razorpay payment dialog
+      onOrderDetailsChange(response.data.id);
       const options = {
         key: "rzp_test_LyQl8cyV8Y1ACw",
         amount: response.data.amount,
@@ -58,7 +58,7 @@ const PaymentMethod = ({
                 .then((res) => {
                   // Handle the response data here
 
-                  console.log(res.data);
+                  // console.log(res.data);
                   Swal.fire(
                     "Payment successful!",
 

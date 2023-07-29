@@ -42,8 +42,7 @@ const CheckoutComponent = () => {
     }));
   }, [products]);
 
-  const handleChange = (fieldName, value, orderDetails) => {
-    console.log("orderDetails", orderDetails);
+  const handleChange = (fieldName, value) => {
     // If the fieldName contains a dot (.), it means it's a nested field
     // We need to update the nested state appropriately
     if (fieldName.includes(".")) {
@@ -63,11 +62,18 @@ const CheckoutComponent = () => {
       setFormData({
         ...formData,
         [fieldName]: value,
-        razorpay: orderDetails,
       });
     }
 
     // Set the orderDetails in formData's razorpay key
+  };
+
+  const handleOrderDetailsChange = (orderDetails) => {
+    // Set the orderDetails in formData's razorpay key
+    setFormData({
+      ...formData,
+      razorpay: orderDetails,
+    });
   };
 
   // console.log(formData);
@@ -140,6 +146,7 @@ const CheckoutComponent = () => {
                       formData={formData}
                       products={products}
                       onFormDataChange={handleChange}
+                      onOrderDetailsChange={handleOrderDetailsChange}
                       shippingCost={shippingCost}
                       calculateSubtotal={calculateSubtotal()}
                       calculateTotal={calculateTotal()}
