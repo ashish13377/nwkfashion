@@ -114,7 +114,6 @@ const CheckoutComponent = () => {
         totalGST += gst;
       }
     });
-
     return subtotal + shippingFee + totalGST;
   };
 

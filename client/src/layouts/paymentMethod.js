@@ -14,6 +14,7 @@ const PaymentMethod = ({
 }) => {
   console.log(formData);
   const calculateTotalInPaise = calculateTotal * 100;
+  console.log("amount:", calculateTotalInPaise);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [selectedMethod, setSelectedMethod] = useState("");
