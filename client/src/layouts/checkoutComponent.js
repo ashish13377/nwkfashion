@@ -8,15 +8,15 @@ const CheckoutComponent = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const products = useSelector((state) => state.cart.products);
   const [formData, setFormData] = useState({
+    razorpay: null,
     address: {
       firstName: "",
       lastName: "",
-      email: "",
-      phone: "",
-      addressLine1: "",
-      addressLine2: "",
+      emailAddress: "",
+      phoneNo: "",
+      address: "",
       country: "",
-      city: "",
+      townCity: "",
       state: "",
       zipCode: "",
     },
@@ -25,6 +25,8 @@ const CheckoutComponent = () => {
     productID: [],
     productDetails: [], // Initialize productDetails as an empty array
   });
+
+  console.log(formData);
 
   useEffect(() => {
     const productIDs = products.map((product) => product._id);
@@ -62,9 +64,19 @@ const CheckoutComponent = () => {
         [fieldName]: value,
       });
     }
+
+    // Set the orderDetails in formData's razorpay key
   };
 
-  console.log(formData);
+  const handleOrderDetailsChange = (orderDetails) => {
+    // Set the orderDetails in formData's razorpay key
+    setFormData({
+      ...formData,
+      razorpay: orderDetails,
+    });
+  };
+
+  // console.log(formData);
 
   const shippingCostThreshold = 1000; // The order total above which free shipping is applicable
   const shippingCost = 100; // Flat shipping cost for orders below the shippingCostThreshold
@@ -102,7 +114,6 @@ const CheckoutComponent = () => {
         totalGST += gst;
       }
     });
-
     return subtotal + shippingFee + totalGST;
   };
 
@@ -129,10 +140,12 @@ const CheckoutComponent = () => {
                       calculateTotal={calculateTotal()}
                     />
                     {/* Payment Method */}
+
                     <PaymentMethod
                       formData={formData}
                       products={products}
                       onFormDataChange={handleChange}
+                      onOrderDetailsChange={handleOrderDetailsChange}
                       shippingCost={shippingCost}
                       calculateSubtotal={calculateSubtotal()}
                       calculateTotal={calculateTotal()}

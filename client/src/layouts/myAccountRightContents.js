@@ -1,17 +1,38 @@
-import React, {useEffect, useState}from "react";
-import { useNavigate  } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MyAccountRightContents = () => {
   const [user, setUser] = useState({});
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
- 
+
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("user"))
-    setUser(data)
+    const data = JSON.parse(localStorage.getItem("user"));
+    setUser(data);
     if (!data) {
       navigate("/loginRegisterPage");
     }
+    console.log(data);
   }, []);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    // Include the password values in your API call or data submission logic
+    const formData = {
+      name: user.name,
+      email: user.email,
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+      confirmPassword: confirmPassword,
+    };
+
+    // Perform your API call or data submission here
+    // Example: axios.post("/api/updateAccount", formData)
+  };
+
   return (
     <div>
       <div className="tab-content" id="myaccountContent">
@@ -102,45 +123,7 @@ const MyAccountRightContents = () => {
         </div>
         {/* Single Tab Content End */}
         {/* Single Tab Content Start */}
-        <div className="tab-pane fade" id="download" role="tabpanel">
-          <div className="myaccount-content">
-            <h3>Downloads</h3>
-            <div className="myaccount-table table-responsive text-center">
-              <table className="table table-bordered">
-                <thead className="thead-light">
-                  <tr>
-                    <th>Product</th>
-                    <th>Date</th>
-                    <th>Expire</th>
-                    <th>Download</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Moisturizing Oil</td>
-                    <td>Aug 22, 2022</td>
-                    <td>Yes</td>
-                    <td>
-                      <a href="#" className="btn btn-dark btn-round">
-                        Download File
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Katopeno Altuni</td>
-                    <td>Sep 12, 2022</td>
-                    <td>Never</td>
-                    <td>
-                      <a href="#" className="btn btn-dark btn-round">
-                        Download File
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+
         {/* Single Tab Content End */}
         {/* Single Tab Content Start */}
         <div className="tab-pane fade" id="payment-method" role="tabpanel">
@@ -180,21 +163,13 @@ const MyAccountRightContents = () => {
             <div className="account-details-form">
               <form action="#">
                 <div className="row">
-                  <div className="col-lg-6 col-12 mb-30">
-                    <input
-                      id="first-name"
-                      placeholder="First Name"
-                      type="text"
-                    />
-                  </div>
-                  <div className="col-lg-6 col-12 mb-30">
-                    <input id="last-name" placeholder="Last Name" type="text" />
-                  </div>
                   <div className="col-12 mb-30">
                     <input
                       id="display-name"
                       placeholder="Display Name"
                       type="text"
+                      value={user.name}
+                      readOnly
                     />
                   </div>
                   <div className="col-12 mb-30">
@@ -202,6 +177,8 @@ const MyAccountRightContents = () => {
                       id="email"
                       placeholder="Email Address"
                       type="email"
+                      value={user.email}
+                      readOnly
                     />
                   </div>
                   <div className="col-12 mb-30">
@@ -212,6 +189,8 @@ const MyAccountRightContents = () => {
                       id="current-pwd"
                       placeholder="Current Password"
                       type="password"
+                      value={currentPassword}
+                      onChange={(e) => setCurrentPassword(e.target.value)}
                     />
                   </div>
                   <div className="col-lg-6 col-12 mb-30">
@@ -219,6 +198,8 @@ const MyAccountRightContents = () => {
                       id="new-pwd"
                       placeholder="New Password"
                       type="password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
                     />
                   </div>
                   <div className="col-lg-6 col-12 mb-30">
@@ -226,10 +207,15 @@ const MyAccountRightContents = () => {
                       id="confirm-pwd"
                       placeholder="Confirm Password"
                       type="password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                   </div>
                   <div className="col-12">
-                    <button className="btn btn-dark btn-round btn-lg">
+                    <button
+                      className="btn btn-dark btn-round btn-lg"
+                      type="submit"
+                    >
                       Save Changes
                     </button>
                   </div>

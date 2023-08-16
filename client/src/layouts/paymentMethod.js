@@ -6,55 +6,22 @@ import withReactContent from "sweetalert2-react-content";
 const PaymentMethod = ({
   formData,
   onFormDataChange,
+  onOrderDetailsChange,
   products,
   shippingCost,
   calculateSubtotal,
   calculateTotal,
 }) => {
+  console.log(formData);
   const calculateTotalInPaise = calculateTotal * 100;
-  // console.log(formData);
-  // console.log(products);
-  // console.log(shippingCost);
-  // console.log(calculateSubtotal);
-  // console.log(calculateTotal);
-
-  // sample_orders.json
-  // {
-  //   "orderID": "OIDNWK0000001",
-  //   "razorpay": "sample_razorpay_1",
-  //   "address": {
-  //     "firstName": "John",
-  //     "lastName": "Doe",
-  //     "emailAddress": "john.doe@example.com",
-  //     "phoneNo": "1234567890",
-  //     "address": "123 Main Street",
-  //     "country": "USA",
-  //     "townCity": "New York",
-  //     "state": "NY",
-  //     "zipCode": "10001"
-  //   },
-  //   "paymentMethod": "Credit Card",
-  //   "userId": "user_id_1",
-  //   "productID": ["product_id_1", "product_id_2"],
-  //   "productDetails": [
-  //     {
-  //       "product": "Sample Product 1",
-  //       "name": "Product 1",
-  //       "price": 19.99
-  //     },
-  //     {
-  //       "product": "Sample Product 2",
-  //       "name": "Product 2",
-  //       "price": 29.99
-  //     }
-  //   ]
-  // }
+  console.log("amount:", calculateTotalInPaise);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [selectedMethod, setSelectedMethod] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    onFormDataChange(name, value);
+    onFormDataChange(name, value); // Pass the orderDetails to the parent component
   };
 
   const handleMethodChange = (event) => {
@@ -66,8 +33,6 @@ const PaymentMethod = ({
     console.log("Place order clicked");
   };
 
-  const [orderDetails, setOrderDetails] = useState(null);
-
   const checkoutHandler = async () => {
     try {
       // Make an API call to the server to get the Razorpay order ID
@@ -76,8 +41,9 @@ const PaymentMethod = ({
       });
 
       // Initialize Razorpay payment dialog
+      onOrderDetailsChange(response.data.id);
       const options = {
-        key: "rzp_test_vlhj7iddgURf8a",
+        key: "rzp_test_LyQl8cyV8Y1ACw",
         amount: response.data.amount,
         currency: response.data.currency,
         name: "NWK FASHION",
@@ -88,34 +54,42 @@ const PaymentMethod = ({
           axios
             .post(`${serverAPILocal}/confirmPayment`, response)
             .then((res) => {
-              // console.log(res.data.message);
-              setOrderDetails(response.data.id);
-              if (res.status === 200) {
-                // const res = await axios.post(`${serverAPI}/users/login`, user,);
-                const res = axios.post(`${serverAPILocal}/orders`, formData)
-                if(res.status === 201){
+              axios
+                .post(`${serverAPILocal}/orders`, formData)
+                .then((res) => {
+                  // Handle the response data here
+
+                  // console.log(res.data);
                   Swal.fire(
                     "Payment successful!",
-                    `You got${res.data}!`,
+
                     "success"
                   );
-                }
-              }
-              // // Set order details in state to display in the modal
-              // // setOrderDetails(res.data.order);
+                })
+                .catch((error) => {
+                  // Handle any errors that occurred during the request
+                  console.error("Error during payment confirmation:", error);
+                  Swal.fire(
+                    "Payment failed",
+                    "There was an error processing your payment",
+                    "error"
+                  );
+                });
             });
         },
+
         prefill: {
-          name: "Ashish kumar", // Replace with user's name
-          email: "john.doe@example.com", // Replace with user's email
-          contact: "6204477640", // Replace with user's contact number
+          name: formData.address.firstName + " " + formData.address.lastName, // Replace with user's name
+          email: formData.address.emailAddress, // Replace with user's email
+          contact: formData.address.phoneNo, // Replace with user's contact number
         },
       };
-
+      console.log(options);
       const rzp1 = new window.Razorpay(options);
       rzp1.open();
     } catch (error) {
       console.error("Error during checkout:", error);
+      Swal.fire("Error", "There was an error processing your payment", "error");
     }
   };
 
@@ -177,7 +151,7 @@ const PaymentMethod = ({
             </label>
           </div>
         </div>
-        <a className="place-order" onClick={checkoutHandler}>
+        <a className="place-order" onClick={() => checkoutHandler()}>
           Place order
         </a>
       </div>

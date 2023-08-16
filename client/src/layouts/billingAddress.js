@@ -34,11 +34,11 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             />
           </div>
           <div className="col-md-6 col-12 mb-5">
-            <label>Email Address*</label>
+            <label>email Address*</label>
             <input
               type="email"
-              name="email"
-              value={formData.address.email}
+              name="emailAddress"
+              value={formData.address.emailAddress}
               placeholder="Email Address"
               onChange={handleChange}
             />
@@ -47,8 +47,8 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             <label>Phone no*</label>
             <input
               type="text"
-              name="phone"
-              value={formData.address.phone}
+              name="phoneNo"
+              value={formData.address.phoneNo}
               placeholder="Phone number"
               onChange={handleChange}
             />
@@ -58,16 +58,9 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             <label>Address*</label>
             <input
               type="text"
-              name="addressLine1"
-              value={formData.address.addressLine1}
-              placeholder="Address line 1"
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              name="addressLine2"
-              value={formData.address.addressLine2}
-              placeholder="Address line 2"
+              name="address"
+              value={formData.address.address}
+              placeholder="Address"
               onChange={handleChange}
             />
           </div>
@@ -90,8 +83,8 @@ const BillingAddress = ({ formData, onFormDataChange }) => {
             <label>Town/City*</label>
             <input
               type="text"
-              name="city"
-              value={formData.address.city}
+              name="townCity"
+              value={formData.address.townCity}
               placeholder="Town/City"
               onChange={handleChange}
             />
