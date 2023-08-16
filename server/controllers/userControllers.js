@@ -94,17 +94,26 @@ const logOut = async (req, res) => {
     }
 }
 
+// Get all users
+async function getAllUsers(req, res) {
+    try {
+      const users = await User.find();
+      res.json(users);
+    } catch (err) {
+      res.status(500).json({ error: 'Unable to fetch users' });
+    }
+  }
 
 // const islogin = (req, res) => {
 //     console.log(req.rootUser);
 //     res.status(200).json({ msg: "User is logged in", user: req.rootUser, });
-
 // }
 
 module.exports = {
     registerUser,
     loginUser,
     logOut,
+    getAllUsers
 };
 
 
