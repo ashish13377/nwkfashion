@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+// order.js
+const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
   orderID: {
@@ -8,7 +9,8 @@ const orderSchema = new mongoose.Schema({
   },
   razorpay: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
   },
   address: {
     firstName: {
@@ -83,6 +85,6 @@ const orderSchema = new mongoose.Schema({
   }
 });
 
-const Order = mongoose.model('Order', orderSchema);
+const Order = mongoose.model("Order", orderSchema);
 
 module.exports = Order;
