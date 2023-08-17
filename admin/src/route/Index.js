@@ -16,6 +16,7 @@ import EcomCustomerDetails from "../pages/panel/e-commerce/customer/CustomerDeta
 import EcomIntegration from "../pages/panel/e-commerce/integration/Integration";
 import EcomSettings from "../pages/panel/e-commerce/settings/Settings";
 import EcomDashboard from "../pages/panel/e-commerce/index";
+import WhatsappConfig from "../pages/panel/e-commerce/whatsapp/whatsappConfig";
 
 import Component from "../pages/components/Index";
 import Accordian from "../pages/components/Accordions";
@@ -180,6 +181,8 @@ const Router = () => {
         <Route path={`${process.env.PUBLIC_URL}/support`} element={<EcomSupport />} />
         <Route path={`${process.env.PUBLIC_URL}/settings`} element={<EcomSettings />} />
         <Route path={`${process.env.PUBLIC_URL}/integration`} element={<EcomIntegration />} />
+        <Route path={`${process.env.PUBLIC_URL}/whatsapp-config`} element={<WhatsappConfig />} />
+
         <Route element={<CustomerProvider />} >
           <Route path="customer" element={<EcomCustomer />}></Route>y
           <Route path="customer-details/:customerId" element={<EcomCustomerDetails />}></Route>y

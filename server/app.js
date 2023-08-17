@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require('dotenv').config()
 const bodyparser = require("body-parser");
 const userRoutes = require("./routes/userRoutes.js")
+const userAdmin = require('./routes/adminUserRoutes.js')
 const productRoutes = require('./routes/productRoutes.js');
 const categoryRoutes = require('./routes/categoryRoutes.js');
 const orderRoutes = require('./routes/orderRoutes.js');
@@ -33,6 +34,7 @@ app.get("/", (req, res) =>{
 })
 
 app.use("/api/users", userRoutes);
+app.use("/api/admin", userAdmin);
 // Use the '/api/products' routes
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);

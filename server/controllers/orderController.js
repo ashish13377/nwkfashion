@@ -102,6 +102,24 @@ async function getOrdersByUserId(req, res) {
   }
 }
 
+// Update an order
+async function updateOrder(req, res) {
+  try {
+    const orderId = req.params.orderId;
+    const updates = req.body;
+    
+    const order = await Order.findByIdAndUpdate(orderId, updates, { new: true });
+    
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ error: 'Unable to update order' });
+  }
+}
+
 module.exports = {
   createOrder,
   getAllOrders,
@@ -109,4 +127,5 @@ module.exports = {
   updateOrder,
   deleteOrder,
   getOrdersByUserId,
+  updateOrder,
 };

@@ -5,6 +5,7 @@ import Icon from "../../components/icon/Icon";
 import classNames from "classnames";
 
 const MenuHeading = ({ heading }) => {
+  
   return (
     <li className="nk-menu-heading">
       <h6 className="overline-title text-primary-alt">{heading}</h6>
@@ -258,7 +259,7 @@ const MenuSub = ({ icon, link, text, sub, sidebarToggle, mobileView, ...props })
 
 const Menu = ({ sidebarToggle, mobileView }) => {
   const [data, setMenuData] = useState(menu);
-
+  
   useEffect(() => {
     data.forEach((item, index) => {
       if (item.panel) {
