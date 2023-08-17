@@ -1,6 +1,6 @@
 // adminUserController.js
 
-const AdminUser = require('../models/adminUserModel');
+const AdminUser = require('../config/models/adminUser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
