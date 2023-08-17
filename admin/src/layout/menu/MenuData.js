@@ -22,22 +22,21 @@ const menu = [
     text: "Customers",
     link: "/customer",
   },
-  {
-    icon: "chat-fill",
-    text: "Support",
-    link: "/support",
-  },
-  {
-    icon: "file-docs",
-    text: "AML / KYCs",
-    link: "/kyc-list-regular",
-  },
+  // {
+  //   icon: "chat-fill",
+  //   text: "Support",
+  //   link: "/support",
+  // },
+  // {
+  //   icon: "file-docs",
+  //   text: "AML / KYCs",
+  //   link: "/kyc-list-regular",
+  // },
   {
     icon: "file-docs",
     text: "Invoice List",
     link: "/invoice-list",
   },
-
 
   // {
   //   heading: "Pre-built Pages",
