@@ -5,6 +5,7 @@ import Icon from "../../components/icon/Icon";
 import classNames from "classnames";
 
 const MenuHeading = ({ heading }) => {
+
   return (
     <li className="nk-menu-heading">
       <h6 className="overline-title text-primary-alt">{heading}</h6>
@@ -259,7 +260,8 @@ const MenuSub = ({ icon, link, text, sub, sidebarToggle, mobileView, ...props })
 
 const Menu = ({ sidebarToggle, mobileView }) => {
   const [data, setMenuData] = useState(menu);
-
+  const userData = JSON.parse(localStorage.getItem("user"));
+  const userRole = userData ? userData.role : null;
   useEffect(() => {
     data.forEach((item, index) => {
       if (item.panel) {
@@ -290,6 +292,8 @@ const Menu = ({ sidebarToggle, mobileView }) => {
             sidebarToggle={sidebarToggle}
           />
         ) : (
+           // Conditional rendering based on user's role
+           (!userRole || userRole === "admin" || item.text === "Dashboard" || item.text === "Orders") && (
           <MenuItem
             key={item.text}
             link={item.link}
@@ -302,6 +306,7 @@ const Menu = ({ sidebarToggle, mobileView }) => {
             sidebarToggle={sidebarToggle}
             mobileView={mobileView}
           />
+        )
         )
       )}
     </ul>

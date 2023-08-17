@@ -4,15 +4,23 @@ import Logo from "../../images/logo.png";
 import LogoDark from "../../images/logo-dark.png";
 import Head from "../../layout/head/Head";
 import AuthFooter from "./AuthFooter";
+import { Row, Col } from "reactstrap";
+import Dropzone from "react-dropzone";
+import { Image, Transformation } from "cloudinary-react";
+import axios from "axios";
+import { serverAPI } from "../..";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import {
   Block,
-  BlockContent,
-  BlockDes,
   BlockHead,
+  BlockHeadContent,
   BlockTitle,
-  Button,
-  Icon,
+  BlockDes,
+  BackTo,
   PreviewCard,
+  Button,
 } from "../../components/Component";
 import { Spinner } from "reactstrap";
 import { useForm } from "react-hook-form";
@@ -21,137 +29,440 @@ import { Link } from "react-router-dom";
 const Register = () => {
   const [passState, setPassState] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const navigate = useNavigate();
-  const handleFormSubmit = () => {
-    setLoading(true);
-    setTimeout(() => {
-      navigate(`${process.env.PUBLIC_URL}/auth-success`);
-    }, 1000);
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    whatsappNumber: '',
+    dateofbirth: '',
+    countryofResidence: '',
+    permanentAddress: '',
+    pinCode: '',
+    city: '',
+    verification: '',
+  });
+
+  const [checked, setChecked] = useState();
+  function handleChangeChecked(e) {
+    const isChecked = e.target.checked;
+    setChecked(isChecked);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      termsandcondition: isChecked,
+    }));
+  }
+
+
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
+
+  const [frontSide, setFrontSide] = useState(null);
+  const [backSide, setBackSide] = useState(null);
+  const [passportPicture, setPassportPicture] = useState(null);
+
+  const [preview, setPreview] = useState(null);
+
+  const uploadToCloudinary = async (file, resourceType) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "ypfu9qmr");
+    formData.append("resource_type", resourceType);
+
+    const response = await axios.post(
+      "https://api.cloudinary.com/v1_1/dy4hpcssz/auto/upload",
+      formData
+    );
+
+    return response.data.secure_url;
+  };
+
+  const handleDropChange = async (acceptedFiles, fileFieldName) => {
+    const file = acceptedFiles[0];
+    if (fileFieldName === "frontSide") {
+      setFrontSide(file);
+      const frontSideUrl = await uploadToCloudinary(file, "image");
+      if (frontSideUrl) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          aadharCardFont: frontSideUrl,
+        }));
+        console.log("Front Side URL:", frontSideUrl);
+      }
+    } else if (fileFieldName === "backSide") {
+      setBackSide(file);
+      const backSideUrl = await uploadToCloudinary(file, "image");
+      if (backSideUrl) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          aadharCardBack: backSideUrl,
+        }));
+        console.log("Back Side URL:", backSideUrl);
+      }
+    } else if (fileFieldName === "passportPicture") {
+      setPassportPicture(file);
+      const passportPictureUrl = await uploadToCloudinary(file, "image");
+      if (passportPictureUrl) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          profilePicture: passportPictureUrl,
+        }));
+        console.log("Passport Picture URL:", passportPictureUrl);
+      }
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+
+  const handleFileUpload = async (event) => {
+    setLoading(true);
+    event.preventDefault();
+    try {
+      const response = await axios.post(`${serverAPI}admin/register`, {
+        ...formData,
+      });
+      if (response.status === 201) {
+        toast.success(response.data.message, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+
+        setTimeout(() => {
+          setLoading(false);
+          setFrontSide(null);
+          setBackSide(null);
+          setPassportPicture(null);
+        }, 1990);
+
+        
+      }
+
+      console.log("API Response:", response.data);
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+      setTimeout(() => {
+        setLoading(false);
+      }, 1990);
+    }
+
+  }
+
+
+
+
+  // const navigate = useNavigate();
+  // const handleFormSubmit = () => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     navigate(`${process.env.PUBLIC_URL}/auth-success`);
+  //   }, 1000);
+  // };
   return <>
     <Head title="Register" />
-      <Block className="nk-block-middle nk-auth-body  wide-xs">
-        <div className="brand-logo pb-4 text-center">
-          <Link to={`${process.env.PUBLIC_URL}/`} className="logo-link">
-            <img className="logo-light logo-img logo-img-lg" src={Logo} alt="logo" />
-            <img className="logo-dark logo-img logo-img-lg" src={LogoDark} alt="logo-dark" />
-          </Link>
-        </div>
-        <PreviewCard className="card-bordered" bodyClass="card-inner-lg">
-          <BlockHead>
-            <BlockContent>
-              <BlockTitle tag="h4">Register</BlockTitle>
-              <BlockDes>
-                <p>Create New Dashlite Account</p>
-              </BlockDes>
-            </BlockContent>
-          </BlockHead>
-          <form className="is-alter" onSubmit={handleSubmit(handleFormSubmit)}>
-            <div className="form-group">
-              <label className="form-label" htmlFor="name">
-                Name
-              </label>
-              <div className="form-control-wrap">
-                <input
-                  type="text"
-                  id="name"
-                  {...register('name', { required: true })}
-                  placeholder="Enter your name"
-                  className="form-control-lg form-control" />
-                {errors.name && <p className="invalid">This field is required</p>}
-              </div>
-            </div>
-            <div className="form-group">
-              <div className="form-label-group">
-                <label className="form-label" htmlFor="default-01">
-                  Email or Username
+    <Block className="nk-block-middle nk-auth-body  wide-sm" >
+      <div className="brand-logo pb-4 text-center">
+        <Link to={`${process.env.PUBLIC_URL}/`} className="logo-link">
+          <img className="logo-light logo-img logo-img-lg" src={Logo} alt="logo" />
+          <img className="logo-dark logo-img logo-img-lg" src={LogoDark} alt="logo-dark" />
+        </Link>
+      </div>
+      <BlockHead>
+        <BlockHeadContent className="brand-logo text-center">
+          <BlockTitle tag="h5">Basic Form Style S-2</BlockTitle>
+          <p>You can alow display form in column as example below.</p>
+        </BlockHeadContent>
+      </BlockHead>
+      <PreviewCard>
+        <form >
+          <Row className="g-4">
+            <Col lg="6">
+              <div className="form-group">
+                <label className="form-label" htmlFor="full-name-1">
+                  First Name
                 </label>
+                <div className="form-control-wrap">
+                  <input type="text" id="full-name-1"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange} className="form-control" />
+                </div>
               </div>
-              <div className="form-control-wrap">
-                <input
-                  type="text"
-                  bssize="lg"
-                  id="default-01"
-                  {...register('email', { required: true })}
-                  className="form-control-lg form-control"
-                  placeholder="Enter your email address or username" />
-                {errors.email && <p className="invalid">This field is required</p>}
-              </div>
-            </div>
-            <div className="form-group">
-              <div className="form-label-group">
-                <label className="form-label" htmlFor="password">
-                  Passcode
+            </Col>
+            <Col lg="6">
+              <div className="form-group">
+                <label className="form-label" htmlFor="email-address-1">
+                  Last Name
                 </label>
+                <div className="form-control-wrap">
+                  <input type="text" id="email-address-1"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className="form-control" />
+                </div>
               </div>
-              <div className="form-control-wrap">
-                <a
-                  href="#password"
-                  onClick={(ev) => {
-                    ev.preventDefault();
-                    setPassState(!passState);
-                  }}
-                  className={`form-icon lg form-icon-right passcode-switch ${passState ? "is-hidden" : "is-shown"}`}
-                >
-                  <Icon name="eye" className="passcode-icon icon-show"></Icon>
+            </Col>
+            <Col lg="6">
+              <div className="form-group">
+                <label className="form-label" htmlFor="phone-no-1">
+                  Phone Number
+                </label>
+                <div className="form-control-wrap">
+                  <input type="number" id="phone-no-1"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    className="form-control" />
+                </div>
+              </div>
+            </Col>
+            <Col lg="6">
+              <div className="form-group">
+                <label className="form-label" htmlFor="pay-amount-1">
+                  WhatsApp Number
+                </label>
+                <div className="form-control-wrap">
+                  <input type="number" id="pay-amount-1"
+                    name="whatsappNumber"
+                    value={formData.whatsappNumber}
+                    onChange={handleChange}
+                    className="form-control" />
+                </div>
+              </div>
+            </Col>
+            <Col lg="6">
+              <div className="form-group">
+                <label className="form-label" htmlFor="phone-no-1">
+                  Email address
+                </label>
+                <div className="form-control-wrap">
+                  <input type="email" id="phone-no-1"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="form-control" />
+                </div>
+              </div>
+            </Col>
+            <Col lg="6">
+              <div className="form-group">
+                <label className="form-label" htmlFor="pay-amount-1">
+                  Date of Birth
+                </label>
+                <div className="form-control-wrap">
+                  <input type="date" id="pay-amount-1"
+                    name="dateofbirth"
+                    value={formData.dateofbirth}
+                    onChange={handleChange}
+                    className="form-control" />
+                </div>
+              </div>
+            </Col>
+            <Col lg="6">
+              <div className="form-group">
+                <label className="form-label" htmlFor="phone-no-1">
+                  Country of Residence
+                </label>
+                <div className="form-control-wrap">
+                  <input type="text" id="phone-no-1"
+                    name="countryofResidence"
+                    value={formData.countryofResidence}
+                    onChange={handleChange}
+                    className="form-control" />
+                </div>
+              </div>
+            </Col>
+            <Col lg="6">
+              <div className="form-group">
+                <label className="form-label" htmlFor="pay-amount-1">
+                  Permanent Address
+                </label>
+                <div className="form-control-wrap">
+                  <input type="text" id="pay-amount-1"
+                    name="permanentAddress"
+                    value={formData.permanentAddress}
+                    onChange={handleChange}
+                    className="form-control" />
+                </div>
+              </div>
+            </Col>
+            <Col lg="6">
+              <div className="form-group">
+                <label className="form-label" htmlFor="phone-no-1">
+                  Pincode
+                </label>
+                <div className="form-control-wrap">
+                  <input type="number" id="phone-no-1"
+                    name="pinCode"
+                    value={formData.pinCode}
+                    onChange={handleChange}
+                    className="form-control" />
+                </div>
+              </div>
+            </Col>
+            <Col lg="6">
+              <div className="form-group">
+                <label className="form-label" htmlFor="pay-amount-1">
+                  City
+                </label>
+                <div className="form-control-wrap">
+                  <input type="text" id="pay-amount-1"
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                    className="form-control" />
+                </div>
+              </div>
+            </Col>
+            <Col lg="6">
+              {/* Front Side Dropzone */}
+              <div className="form-group">
+                <label className="form-label">Aadhar card </label>
+                <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles, "frontSide")}>
+                  {({ getRootProps, getInputProps }) => (
+                    <section>
+                      <div {...getRootProps()} className="dropzone upload-zone dz-clickable">
+                        <input {...getInputProps()} />
+                        {frontSide ? (
+                          <div className="dz-preview dz-processing dz-image-preview dz-error dz-complete">
+                            <div className="dz-image">
+                              <img src={URL.createObjectURL(frontSide)} alt="FrontSide" />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="dz-message">
+                            <span className="dz-message-text">Drag and drop Front Side (Image)</span>
+                            <span className="dz-message-or">or</span>
+                            <a style={{
+                              padding: "7px 18px", background: "#fc3e84", color: "#ffff", fontFamily: "DM Sans, sans-serif", fontWeight: "700", fontSize: "0.8125rem", borderRadius: "6px"
+                            }} color="primary">SELECT</a>
+                          </div>
+                        )}
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
+              </div>
+            </Col>
 
-                  <Icon name="eye-off" className="passcode-icon icon-hide"></Icon>
-                </a>
-                <input
-                  type={passState ? "text" : "password"}
-                  id="password"
-                  {...register('passcode', { required: "This field is required" })}
-                  placeholder="Enter your passcode"
-                  className={`form-control-lg form-control ${passState ? "is-hidden" : "is-shown"}`} />
-                {errors.passcode && <span className="invalid">{errors.passcode.message}</span>}
+            <Col lg="6">
+              {/* Back Side Dropzone */}
+              <div className="form-group">
+                <label className="form-label" style={{ color: "#ffff" }}>. </label>
+
+                <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles, "backSide")}>
+                  {({ getRootProps, getInputProps }) => (
+                    <section>
+                      <div {...getRootProps()} className="dropzone upload-zone dz-clickable">
+                        <input {...getInputProps()} />
+                        {backSide ? (
+                          <div className="dz-preview dz-processing dz-image-preview dz-error dz-complete">
+                            <div className="dz-image">
+                              <img src={URL.createObjectURL(backSide)} alt="BackSide" />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="dz-message">
+                            <span className="dz-message-text">Drag and drop Back Side (Image)</span>
+                            <span className="dz-message-or">or</span>
+                            <a style={{
+                              padding: "7px 18px", background: "#fc3e84", color: "#ffff", fontFamily: "DM Sans, sans-serif", fontWeight: "700", fontSize: "0.8125rem", borderRadius: "6px"
+                            }} color="primary">SELECT</a>
+                          </div>
+                        )}
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
               </div>
-            </div>
-            <div className="form-group">
-              <Button type="submit" color="primary" size="lg" className="btn-block">
-                {loading ? <Spinner size="sm" color="light" /> : "Register"}
-              </Button>
-            </div>
-          </form>
-          <div className="form-note-s2 text-center pt-4">
-            {" "}
-            Already have an account?{" "}
-            <Link to={`${process.env.PUBLIC_URL}/auth-login`}>
-              <strong>Sign in instead</strong>
-            </Link>
-          </div>
-          <div className="text-center pt-4 pb-3">
-            <h6 className="overline-title overline-title-sap">
-              <span>OR</span>
-            </h6>
-          </div>
-          <ul className="nav justify-center gx-8">
-            <li className="nav-item">
-              <a
-                className="nav-link"
-                href="#socials"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                }}
-              >
-                Facebook
+            </Col>
+
+            <Col lg="6">
+              {/* Passport Picture Dropzone */}
+              <div className="form-group">
+                <label className="form-label">Profile Picture</label>
+                <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles, "passportPicture")}>
+                  {({ getRootProps, getInputProps }) => (
+                    <section>
+                      <div {...getRootProps()} className="dropzone upload-zone dz-clickable">
+                        <input {...getInputProps()} />
+                        {passportPicture ? (
+                          <div className="dz-preview dz-processing dz-image-preview dz-error dz-complete">
+                            <div className="dz-image">
+                              <img src={URL.createObjectURL(passportPicture)} alt="PassportPicture" />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="dz-message" >
+                            <span className="dz-message-text">Drag and drop Passport Picture (Image)</span>
+                            <span className="dz-message-or">or</span>
+                            <a style={{
+                              padding: "7px 18px", background: "#fc3e84", color: "#ffff", fontFamily: "DM Sans, sans-serif", fontWeight: "700", fontSize: "0.8125rem", borderRadius: "6px"
+                            }} color="primary" >SELECT</a>
+                          </div>
+                        )}
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
+              </div>
+            </Col>
+
+            <Col lg="6">
+
+            </Col>
+
+            <Col lg="6">
+              <div className="form-group">
+                <label className="form-label">Terms and Conditions</label>
+                <ul className="custom-control-group g-3 align-center">
+                  <li>
+                    <div className="custom-control custom-control-sm custom-checkbox">
+                      <input type="checkbox" className="custom-control-input" id="com-email-1"
+                        name="termsandcondition"
+                        onChange={handleChangeChecked} />
+                      <label className="custom-control-label" htmlFor="com-email-1">
+                        I agree to the SalonEase terms and conditions
+                      </label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </Col>
+
+            <Col xl="12">
+              <a style={{
+                padding: "11px 24px", background: "#fc3e84", color: "#ffff", fontFamily: "DM Sans, sans-serif", fontWeight: "700", fontSize: "0.8125rem", borderRadius: "6px", fontSize: "15px", cursor: "pointer"
+              }} color="primary" size="lg" onClick={handleFileUpload}>
+                 {loading ? <Spinner size="sm" color="light" /> : "Save Information"}
               </a>
-            </li>
-            <li className="nav-item">
-              <a
-                className="nav-link"
-                href="#socials"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                }}
-              >
-                Google
-              </a>
-            </li>
-          </ul>
-        </PreviewCard>
-      </Block>
-      <AuthFooter />
+            </Col>
+          </Row>
+        </form>
+      </PreviewCard>
+    </Block>
+    <AuthFooter />
+    <ToastContainer />
   </>;
 };
 export default Register;
