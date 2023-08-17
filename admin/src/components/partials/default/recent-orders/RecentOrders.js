@@ -1,6 +1,11 @@
 import React from "react";
 import { Card, Badge } from "reactstrap";
-import { DataTableHead, DataTableRow, DataTableItem, UserAvatar } from "../../../Component";
+import {
+  DataTableHead,
+  DataTableRow,
+  DataTableItem,
+  UserAvatar,
+} from "../../../Component";
 import { recentOrderData } from "./OrderData";
 
 const RecentOrders = () => {
@@ -42,7 +47,12 @@ const RecentOrders = () => {
             </DataTableRow>
             <DataTableRow size="sm">
               <div className="user-card">
-                <UserAvatar className="sm" theme={item.theme} text={item.initial} image={item.img}></UserAvatar>
+                <UserAvatar
+                  className="sm"
+                  theme={item.theme}
+                  text={item.initial}
+                  image={item.img}
+                ></UserAvatar>
                 <div className="user-name">
                   <span className="tb-lead">{item.name}</span>
                 </div>
@@ -60,7 +70,11 @@ const RecentOrders = () => {
               <Badge
                 className="badge-dot badge-dot-xs"
                 color={
-                  item.status === "Paid" ? "success" : item.status === "Due" ? "warning" : "danger"
+                  item.status === "Paid"
+                    ? "success"
+                    : item.status === "Due"
+                    ? "warning"
+                    : "danger"
                 }
               >
                 {item.status}
