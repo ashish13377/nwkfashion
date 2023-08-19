@@ -37,7 +37,6 @@ const menu = [
     text: "Invoice List",
     link: "/invoice-list",
   },
-<<<<<<< HEAD
 
   // {
   //   heading: "Pre-built Pages",
@@ -577,13 +576,6 @@ const menu = [
   //     },
   //   ],
   // },
-=======
-  {
-    icon: "whatsapp",
-    text: "WhatsApp Config",
-    link: "/whatsapp-config",
-  },
->>>>>>> 8f6880860ec529edc1fdb1833d6e15644e132d8a
   {
     icon: "tag-alt-fill",
     text: "Email Template",

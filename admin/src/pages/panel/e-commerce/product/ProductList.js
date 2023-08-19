@@ -26,12 +26,12 @@ import { useForm } from "react-hook-form";
 import ProductH from "../../../../images/product/h.png";
 import Dropzone from "react-dropzone";
 import { Modal, ModalBody } from "reactstrap";
-import axios from 'axios';
+import axios from "axios";
 import { serverAPI } from "../../../..";
 import { Spinner } from "reactstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const ProductList = () => {
   const [data, setData] = useState([]);
@@ -39,15 +39,16 @@ const ProductList = () => {
   const [itemPerPage] = useState(7);
   const getProductdata = async () => {
     // Make the API call to fetch the product
-    await axios.get(`${serverAPI}services`)
-      .then(response => {
+    await axios
+      .get(`${serverAPI}services`)
+      .then((response) => {
         // Assuming the response data is in the format you provided
         setData(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching product:', error);
+      .catch((error) => {
+        console.error("Error fetching product:", error);
       });
-  }
+  };
   useEffect(() => {
     getProductdata();
   }, []); // Fetch subcategories when selected category changes
@@ -75,19 +76,19 @@ const ProductList = () => {
     subNo: " ",
   });
 
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState("");
 
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
 
   const handleAddServer = () => {
-    if (inputText !== '') {
+    if (inputText !== "") {
       setFormData((prevFormData) => ({
         ...prevFormData,
         subService: [...prevFormData.subService, inputText],
       }));
-      setInputText('');
+      setInputText("");
     }
   };
 
@@ -116,34 +117,34 @@ const ProductList = () => {
     });
   };
 
-
-
   useEffect(() => {
     // Make the API call to fetch the categories
-    axios.get(`${serverAPI}categories`)
-      .then(response => {
+    axios
+      .get(`${serverAPI}categories`)
+      .then((response) => {
         // Assuming the response data is in the format you provided
         setCategories(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching categories:', error);
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
       });
 
     // Make the API call to fetch the subcategories based on selected category
     if (formData.category) {
-      axios.get(`${serverAPI}subcategories/${formData.category}`)
-        .then(response => {
+      axios
+        .get(`${serverAPI}subcategories/${formData.category}`)
+        .then((response) => {
           // Assuming the response data is in the format you provided
           setSubcategories(response.data);
         })
-        .catch(error => {
-          console.error('Error fetching subcategories:', error);
+        .catch((error) => {
+          console.error("Error fetching subcategories:", error);
         });
     }
   }, [formData.category]); // Fetch subcategories when selected category changes
 
   const handleCategoryChange = (selectedOption) => {
-    const selectedCategory = categories.find(category => category.name === selectedOption.label);
+    const selectedCategory = categories.find((category) => category.name === selectedOption.label);
     // Update the category field and categoryId in formData with the selected category
     setFormData({
       ...formData,
@@ -155,7 +156,7 @@ const ProductList = () => {
   };
 
   const handleCategoryChanges = (selectedOption) => {
-    const selectedCategory = categories.find(category => category.name === selectedOption.label);
+    const selectedCategory = categories.find((category) => category.name === selectedOption.label);
     // Update the category field in formData with the selected category
     setSubFormData({
       ...subFormData,
@@ -164,7 +165,7 @@ const ProductList = () => {
   };
 
   const handleSubcategoryChange = (selectedOption) => {
-    const selectedSubcategory = subcategories.find(subcategory => subcategory.name === selectedOption.label);
+    const selectedSubcategory = subcategories.find((subcategory) => subcategory.name === selectedOption.label);
     // Update the subcategory field and subcategoryId in formData with the selected subcategory
     setFormData({
       ...formData,
@@ -178,7 +179,6 @@ const ProductList = () => {
     add: false,
     category: false,
     subcategory: false,
-
   });
 
   const sidebarRef = useRef(null);
@@ -189,7 +189,6 @@ const ProductList = () => {
       add: type === "add" ? !prevState.add : false,
       category: type === "category" ? !prevState.category : false,
       subcategory: type === "subcategory" ? !prevState.subcategory : false,
-
     }));
   };
 
@@ -227,13 +226,13 @@ const ProductList = () => {
     const discountPercentage = Number(formData.discount);
 
     // Calculate the price after discount
-    const discountedPrice = actualPrice - (actualPrice * (discountPercentage / 100));
+    const discountedPrice = actualPrice - actualPrice * (discountPercentage / 100);
 
     // Ensure the calculated price is not less than 0
     const finalPrice = Math.max(discountedPrice, 0);
 
     // Update the formData with the calculated price
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
       price: finalPrice,
     }));
@@ -345,14 +344,13 @@ const ProductList = () => {
   // const [updateId, setUpdateId] = useState();
   // Function to convert tags array to a string representation
   const tagsToString = (tagsArray) => {
-    return tagsArray.join(', ');
+    return tagsArray.join(", ");
   };
   // function that loads the want to editted data
   const onEditClick = (_id) => {
     setUpdateId(_id);
     data.forEach((item) => {
       if (item._id === _id) {
-
         setFormData({
           subcategory: item.subcategory,
           subcategoryId: item.subcategoryId,
@@ -378,7 +376,6 @@ const ProductList = () => {
     });
   };
 
-
   const onEditClickCat = (_id) => {
     setCatId(_id);
     categories.forEach((categories) => {
@@ -391,19 +388,17 @@ const ProductList = () => {
     });
   };
 
-
-
   const handleTagChange = (event) => {
     const inputValue = event.target.value;
-    const tags = inputValue.split(', ');
+    const tags = inputValue.split(", ");
     setFormData((prevFormData) => ({
       ...prevFormData,
-      tags: tags
+      tags: tags,
     }));
   };
 
   useEffect(() => {
-    reset(formData)
+    reset(formData);
   }, [formData]);
 
   // selects all the products
@@ -430,13 +425,13 @@ const ProductList = () => {
   const deleteProduct = async (_id) => {
     try {
       const result = await Swal.fire({
-        title: 'Confirm Deletion',
-        text: 'Are you sure you want to delete this Product?',
-        icon: 'warning',
+        title: "Confirm Deletion",
+        text: "Are you sure you want to delete this Product?",
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, delete it!',
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
       });
 
       if (result.isConfirmed) {
@@ -444,16 +439,14 @@ const ProductList = () => {
           withCredentials: true,
         });
         if (res.status === 204) {
-          Swal.fire('Deleted!', 'The category has been deleted.', 'success');
+          Swal.fire("Deleted!", "The category has been deleted.", "success");
           setTimeout(() => {
             getProductdata();
           }, 1990);
         }
       }
-
-
     } catch (error) {
-      console.error('Error adding the product:', error);
+      console.error("Error adding the product:", error);
       toast.error(error.response.data.message, {
         position: "top-center",
         autoClose: 2000,
@@ -487,13 +480,10 @@ const ProductList = () => {
       formDataForCloudinary.append("file", file);
       formDataForCloudinary.append("upload_preset", uploadPreset);
 
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
-        {
-          method: "POST",
-          body: formDataForCloudinary, // Use the formDataForCloudinary variable
-        }
-      );
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/upload`, {
+        method: "POST",
+        body: formDataForCloudinary, // Use the formDataForCloudinary variable
+      });
 
       const data = await response.json();
 
@@ -515,13 +505,10 @@ const ProductList = () => {
       formDataForCloudinary.append("file", file);
       formDataForCloudinary.append("upload_preset", uploadPreset);
 
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
-        {
-          method: "POST",
-          body: formDataForCloudinary, // Use the formDataForCloudinary variable
-        }
-      );
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/upload`, {
+        method: "POST",
+        body: formDataForCloudinary, // Use the formDataForCloudinary variable
+      });
 
       const data = await response.json();
 
@@ -534,11 +521,15 @@ const ProductList = () => {
     }
   };
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const [loading, setLoading] = useState(false);
   const handleAddProduct = async () => {
-
     const requiredFields = [
       "subcategory",
       "category",
@@ -554,10 +545,10 @@ const ProductList = () => {
       "after_service_instructions",
     ];
 
-    const emptyFields = requiredFields.filter(field => formData[field] === '');
+    const emptyFields = requiredFields.filter((field) => formData[field] === "");
 
     if (emptyFields.length > 0) {
-      const missingFields = emptyFields.join(', ');
+      const missingFields = emptyFields.join(", ");
       toast.warn(`Please fill in the following fields: ${missingFields}`, {
         position: "top-center",
         autoClose: 2000,
@@ -592,7 +583,7 @@ const ProductList = () => {
         }
       } catch (error) {
         // If there's an error while adding the product, you can display an error message.
-        console.error('Error adding the product:', error);
+        console.error("Error adding the product:", error);
 
         toast.error("Error adding the product. Please try again later.", {
           position: "top-center",
@@ -605,19 +596,15 @@ const ProductList = () => {
         });
       }
     }
-
   };
 
   const handleAddCategory = async () => {
+    const requiredFields = ["name"];
 
-    const requiredFields = [
-      "name",
-    ];
-
-    const emptyFields = requiredFields.filter(field => catFormData[field] === '');
+    const emptyFields = requiredFields.filter((field) => catFormData[field] === "");
 
     if (emptyFields.length > 0) {
-      const missingFields = emptyFields.join(', ');
+      const missingFields = emptyFields.join(", ");
       toast.warn(`Please fill in the following fields: ${missingFields}`, {
         position: "top-center",
         autoClose: 2000,
@@ -646,15 +633,15 @@ const ProductList = () => {
           });
           setTimeout(() => {
             setLoading(false);
-            setCatFormData({ name: " " })
+            setCatFormData({ name: " " });
             resetForm();
-            window.location.reload(false)
+            window.location.reload(false);
             getProductdata();
           }, 1990);
         }
       } catch (error) {
         // If there's an error while adding the product, you can display an error message.
-        console.error('Error adding the product:', error);
+        console.error("Error adding the product:", error);
         toast.error(error.response.data.message, {
           position: "top-center",
           autoClose: 2000,
@@ -666,24 +653,19 @@ const ProductList = () => {
         });
         setTimeout(() => {
           setLoading(false);
-          setCatFormData({ name: " " })
+          setCatFormData({ name: " " });
         }, 1990);
       }
     }
-
   };
 
   const handleAddSubCategory = async () => {
+    const requiredFields = ["name", "category"];
 
-    const requiredFields = [
-      "name",
-      "category",
-    ];
-
-    const emptyFields = requiredFields.filter(field => subFormData[field] === '');
+    const emptyFields = requiredFields.filter((field) => subFormData[field] === "");
 
     if (emptyFields.length > 0) {
-      const missingFields = emptyFields.join(', ');
+      const missingFields = emptyFields.join(", ");
       toast.warn(`Please fill in the following fields: ${missingFields}`, {
         position: "top-center",
         autoClose: 2000,
@@ -712,15 +694,15 @@ const ProductList = () => {
           });
           setTimeout(() => {
             setLoading(false);
-            setSubFormData({ name: " ", category: " " })
+            setSubFormData({ name: " ", category: " " });
             resetForm();
-            window.location.reload(false)
+            window.location.reload(false);
             getProductdata();
           }, 1990);
         }
       } catch (error) {
         // If there's an error while adding the product, you can display an error message.
-        console.error('Error adding the product:', error);
+        console.error("Error adding the product:", error);
         toast.error(error.response.data.message, {
           position: "top-center",
           autoClose: 2000,
@@ -732,17 +714,17 @@ const ProductList = () => {
         });
         setTimeout(() => {
           setLoading(false);
-          setSubFormData({ name: " ", category: " " })
+          setSubFormData({ name: " ", category: " " });
           resetForm();
         }, 1990);
       }
     }
-
   };
 
   const [selectedProduct, setSelectedProduct] = useState(null); // New state to hold the selected product
 
-  const openDetailsModal = (product) => { // Function to open the details modal and set the selected product
+  const openDetailsModal = (product) => {
+    // Function to open the details modal and set the selected product
     setSelectedProduct(product);
     setView((prevState) => ({ ...prevState, details: true }));
   };
@@ -765,9 +747,8 @@ const ProductList = () => {
   // };
 
   const handleFormSubmit = async () => {
-
     try {
-      const res = await axios.put(`${serverAPI}services/${updateId}`, formData)
+      const res = await axios.put(`${serverAPI}services/${updateId}`, formData);
       if (res.status === 200) {
         toast.success("Product update successfully! 🥳", {
           position: "top-center",
@@ -781,12 +762,12 @@ const ProductList = () => {
         setTimeout(() => {
           setLoading(false);
           resetForm();
-          window.location.reload(false)
+          window.location.reload(false);
           getProductdata();
         }, 1990);
       }
     } catch (error) {
-      console.error('Error adding the product:', error);
+      console.error("Error adding the product:", error);
       toast.error(error.response.data.message, {
         position: "top-center",
         autoClose: 2000,
@@ -802,32 +783,31 @@ const ProductList = () => {
       }, 1990);
     }
 
-
     closeModalss();
   };
   const handleDelete = async (categoryId, categoriesName) => {
     try {
       const result = await Swal.fire({
-        title: 'Confirm Deletion',
+        title: "Confirm Deletion",
         text: `Are you sure you want to delete this ${categoriesName}?`,
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, delete it!',
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
       });
 
       if (result.isConfirmed) {
         const res = await axios.delete(`${serverAPI}categories/${categoryId}`);
         if (res.status === 200) {
           setCategories((prevCategories) => prevCategories.filter((category) => category._id !== categoryId));
-          Swal.fire('Deleted!', 'The category has been deleted.', 'success');
+          Swal.fire("Deleted!", "The category has been deleted.", "success");
           resetCatForm();
           resetsubForm();
         }
       }
     } catch (error) {
-      console.error('Error adding the product:', error);
+      console.error("Error adding the product:", error);
       toast.error(error.response.data.message, {
         position: "top-center",
         autoClose: 2000,
@@ -846,26 +826,28 @@ const ProductList = () => {
   const handleDeletesub = async (subcategoryId, subcategoriName) => {
     try {
       const result = await Swal.fire({
-        title: 'Confirm Deletion',
+        title: "Confirm Deletion",
         text: `Are you sure you want to delete ${subcategoriName} ?`,
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, delete it!',
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
       });
 
       if (result.isConfirmed) {
         const res = await axios.delete(`${serverAPI}subcategories/${subcategoryId}`);
         if (res.status === 200) {
-          setSubcategories((prevSubcategories) => prevSubcategories.filter((subcategories) => subcategories._id !== subcategoryId));
-          Swal.fire('Deleted!', 'The category has been deleted.', 'success');
+          setSubcategories((prevSubcategories) =>
+            prevSubcategories.filter((subcategories) => subcategories._id !== subcategoryId)
+          );
+          Swal.fire("Deleted!", "The category has been deleted.", "success");
           resetCatForm();
           resetsubForm();
         }
       }
     } catch (error) {
-      console.error('Error adding the product:', error);
+      console.error("Error adding the product:", error);
       toast.error(error.response.data.message, {
         position: "top-center",
         autoClose: 2000,
@@ -881,10 +863,9 @@ const ProductList = () => {
     }
   };
 
-
   const handelEditCat = async () => {
     try {
-      const res = await axios.put(`${serverAPI}categories/${catId}`, catFormData)
+      const res = await axios.put(`${serverAPI}categories/${catId}`, catFormData);
       if (res.status === 200) {
         toast.success("Categories update successfully! 🥳", {
           position: "top-center",
@@ -900,12 +881,12 @@ const ProductList = () => {
           resetCatForm();
           resetsubForm();
           resetForm();
-          window.location.reload(false)
+          window.location.reload(false);
           getProductdata();
         }, 1990);
       }
     } catch (error) {
-      console.error('Error adding the product:', error);
+      console.error("Error adding the product:", error);
       toast.error(error.response.data.message, {
         position: "top-center",
         autoClose: 2000,
@@ -921,9 +902,8 @@ const ProductList = () => {
       }, 1990);
     }
 
-
     closeModalss();
-  }
+  };
 
   return (
     <React.Fragment>
@@ -967,7 +947,7 @@ const ProductList = () => {
                         className="toggle btn-icon d-md-none"
                         color="primary"
                         onClick={() => {
-                          toggle("category");;
+                          toggle("category");
                         }}
                       >
                         <Icon name="col-view"></Icon>
@@ -977,14 +957,13 @@ const ProductList = () => {
                         className="toggle d-none d-md-inline-flex"
                         color="primary"
                         onClick={() => {
-                          toggle("category");;
+                          toggle("category");
                         }}
                       >
                         <Icon name="plus"></Icon>
                         <span>Add Category</span>
                       </Button>
                     </li>
-
 
                     <li className="nk-block-tools-opt">
                       <Button
@@ -1008,7 +987,6 @@ const ProductList = () => {
                         <span>Add Subcategory</span>
                       </Button>
                     </li>
-
 
                     <li className="nk-block-tools-opt">
                       <Button
@@ -1088,7 +1066,7 @@ const ProductList = () => {
                       <DropdownMenu end>
                         <ul className="link-list-opt no-bdr">
                           <li>
-                            <DropdownItem tag="a" href="#edit" >
+                            <DropdownItem tag="a" href="#edit">
                               {/* onClick={(ev) => ev.preventDefault()} */}
                               <Icon name="edit"></Icon>
                               <span>Edit Selected</span>
@@ -1098,10 +1076,10 @@ const ProductList = () => {
                             <DropdownItem
                               tag="a"
                               href="#remove"
-                            // onClick={(ev) => {
-                            //   ev.preventDefault();
-                            //   selectorDeleteProduct();
-                            // }}
+                              // onClick={(ev) => {
+                              //   ev.preventDefault();
+                              //   selectorDeleteProduct();
+                              // }}
                             >
                               <Icon name="trash"></Icon>
                               <span>Remove Selected</span>
@@ -1114,126 +1092,123 @@ const ProductList = () => {
                 </ul>
               </DataTableRow>
             </DataTableHead>
-            {currentItems.length > 0 ? (
-              currentItems.map((item) => {
+            {currentItems.length > 0
+              ? currentItems.map((item) => {
+                  return (
+                    <DataTableItem key={item._id}>
+                      <DataTableRow className="nk-tb-col-check">
+                        <div className="custom-control custom-control-sm custom-checkbox notext">
+                          <input
+                            type="checkbox"
+                            className="custom-control-input"
+                            defaultChecked={item.check}
+                            id={item._id}
+                            key={Math.random()}
+                            onChange={(e) => onSelectChange(e, item._id)}
+                          />
+                          <label className="custom-control-label" htmlFor={item._id}></label>
+                        </div>
+                      </DataTableRow>
 
-                return (
-                  <DataTableItem key={item._id}>
-                    <DataTableRow className="nk-tb-col-check">
-                      <div className="custom-control custom-control-sm custom-checkbox notext">
-                        <input
-                          type="checkbox"
-                          className="custom-control-input"
-                          defaultChecked={item.check}
-                          id={item._id}
-                          key={Math.random()}
-                          onChange={(e) => onSelectChange(e, item._id)}
-                        />
-                        <label className="custom-control-label" htmlFor={item._id}></label>
-                      </div>
-                    </DataTableRow>
-
-                    <DataTableRow size="sm">
-                      <span className="tb-product">
-                        <img src={item.image ? item.image : ProductH} alt="product" className="thumb" />
-                        <span className="title">{item.service_name}</span>
-                      </span>
-                    </DataTableRow>
-                    <DataTableRow>
-                      <span className="tb-sub">₹ {item.actual_price}</span>
-                    </DataTableRow>
-                    <DataTableRow>
-                      <span className="tb-sub">{item.discount} %</span>
-                    </DataTableRow>
-                    <DataTableRow>
-                      <span className="tb-sub">₹ {item.price}</span>
-                    </DataTableRow>
-                    <DataTableRow>
-                      <span className="tb-sub">{item.time}</span>
-                    </DataTableRow>
-                    <DataTableRow size="md">
-                      <span className="tb-sub">
-                        {typeof item.category === 'string'
-                          ? item.category // If category is a string, display it directly
-                          : item.category && item.category.label
-                            ? item.category.label // If category is an object with 'label' property, display the label
-                            : ' ' // Handle the case where category is neither a string nor an object with 'label'
-                        }
-                      </span>
-                    </DataTableRow>
-                    <DataTableRow size="md">
-                      <span className="tb-sub">
-                        {item.subcategory} {/* Display the category label */}
-                      </span>
-                    </DataTableRow>
-                    <DataTableRow className="nk-tb-col-tools">
-                      <ul className="nk-tb-actions gx-1 my-n1">
-                        <li className="me-n1">
-                          <UncontrolledDropdown>
-                            <DropdownToggle
-                              tag="a"
-                              href="#more"
-                              onClick={(ev) => ev.preventDefault()}
-                              className="dropdown-toggle btn btn-icon btn-trigger"
-                            >
-                              <Icon name="more-h"></Icon>
-                            </DropdownToggle>
-                            <DropdownMenu end>
-                              <ul className="link-list-opt no-bdr">
-                                <li>
-                                  <DropdownItem
-                                    tag="a"
-                                    href="#edit"
-                                    onClick={(ev) => {
-                                      ev.preventDefault();
-                                      onEditClick(item._id);
-                                      openModal('edit');
-                                    }}
-                                  >
-                                    <Icon name="edit"></Icon>
-                                    <span>Edit Product</span>
-                                  </DropdownItem>
-                                </li>
-                                <li>
-                                  <DropdownItem
-                                    tag="a"
-                                    href="#view"
-                                    onClick={(ev) => {
-                                      ev.preventDefault();
-                                      onEditClick(item._id);
-                                      openDetailsModal(item); // Pass the product data to openDetailsModal
-                                    }}
-                                  >
-                                    <Icon name="eye"></Icon>
-                                    <span>View Product</span>
-                                  </DropdownItem>
-                                </li>
-                                <li>
-                                  <DropdownItem
-                                    tag="a"
-                                    href="#remove"
-                                    onClick={(ev) => {
-                                      ev.preventDefault();
-                                      deleteProduct(item._id);
-                                    }}
-                                  >
-                                    <Icon name="trash"></Icon>
-                                    <span>Remove Product</span>
-                                  </DropdownItem>
-                                </li>
-                              </ul>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </li>
-                      </ul>
-                    </DataTableRow>
-                  </DataTableItem>
-                );
-              })
-            ) : (
-              null
-            )}
-
+                      <DataTableRow size="sm">
+                        <span className="tb-product">
+                          <img src={item.image ? item.image : ProductH} alt="product" className="thumb" />
+                          <span className="title">{item.service_name}</span>
+                        </span>
+                      </DataTableRow>
+                      <DataTableRow>
+                        <span className="tb-sub">₹ {item.actual_price}</span>
+                      </DataTableRow>
+                      <DataTableRow>
+                        <span className="tb-sub">{item.discount} %</span>
+                      </DataTableRow>
+                      <DataTableRow>
+                        <span className="tb-sub">₹ {item.price}</span>
+                      </DataTableRow>
+                      <DataTableRow>
+                        <span className="tb-sub">{item.time}</span>
+                      </DataTableRow>
+                      <DataTableRow size="md">
+                        <span className="tb-sub">
+                          {
+                            typeof item.category === "string"
+                              ? item.category // If category is a string, display it directly
+                              : item.category && item.category.label
+                              ? item.category.label // If category is an object with 'label' property, display the label
+                              : " " // Handle the case where category is neither a string nor an object with 'label'
+                          }
+                        </span>
+                      </DataTableRow>
+                      <DataTableRow size="md">
+                        <span className="tb-sub">
+                          {item.subcategory} {/* Display the category label */}
+                        </span>
+                      </DataTableRow>
+                      <DataTableRow className="nk-tb-col-tools">
+                        <ul className="nk-tb-actions gx-1 my-n1">
+                          <li className="me-n1">
+                            <UncontrolledDropdown>
+                              <DropdownToggle
+                                tag="a"
+                                href="#more"
+                                onClick={(ev) => ev.preventDefault()}
+                                className="dropdown-toggle btn btn-icon btn-trigger"
+                              >
+                                <Icon name="more-h"></Icon>
+                              </DropdownToggle>
+                              <DropdownMenu end>
+                                <ul className="link-list-opt no-bdr">
+                                  <li>
+                                    <DropdownItem
+                                      tag="a"
+                                      href="#edit"
+                                      onClick={(ev) => {
+                                        ev.preventDefault();
+                                        onEditClick(item._id);
+                                        openModal("edit");
+                                      }}
+                                    >
+                                      <Icon name="edit"></Icon>
+                                      <span>Edit Product</span>
+                                    </DropdownItem>
+                                  </li>
+                                  <li>
+                                    <DropdownItem
+                                      tag="a"
+                                      href="#view"
+                                      onClick={(ev) => {
+                                        ev.preventDefault();
+                                        onEditClick(item._id);
+                                        openDetailsModal(item); // Pass the product data to openDetailsModal
+                                      }}
+                                    >
+                                      <Icon name="eye"></Icon>
+                                      <span>View Product</span>
+                                    </DropdownItem>
+                                  </li>
+                                  <li>
+                                    <DropdownItem
+                                      tag="a"
+                                      href="#remove"
+                                      onClick={(ev) => {
+                                        ev.preventDefault();
+                                        deleteProduct(item._id);
+                                      }}
+                                    >
+                                      <Icon name="trash"></Icon>
+                                      <span>Remove Product</span>
+                                    </DropdownItem>
+                                  </li>
+                                </ul>
+                              </DropdownMenu>
+                            </UncontrolledDropdown>
+                          </li>
+                        </ul>
+                      </DataTableRow>
+                    </DataTableItem>
+                  );
+                })
+              : null}
           </div>
           <PreviewAltCard>
             {data.length > 0 ? (
@@ -1249,11 +1224,9 @@ const ProductList = () => {
               </div>
             )}
           </PreviewAltCard>
-
         </Block>
 
-        <Modal isOpen={currentModal === 'edit'}
-          toggle={closeModalss} className="modal-dialog-centered" size="lg">
+        <Modal isOpen={currentModal === "edit"} toggle={closeModalss} className="modal-dialog-centered" size="lg">
           <ModalBody>
             <a href="#cancel" className="close">
               {" "}
@@ -1261,14 +1234,14 @@ const ProductList = () => {
                 name="cross-sm"
                 onClick={(ev) => {
                   ev.preventDefault();
-                  closeModalss()
+                  closeModalss();
                 }}
               ></Icon>
             </a>
             <div className="p-2">
               <h5 className="title">Update Product</h5>
               <div className="mt-4">
-                <form >
+                <form>
                   <Row className="g-3">
                     <Col size="12">
                       <div className="form-group">
@@ -1280,7 +1253,8 @@ const ProductList = () => {
                             type="text"
                             className="form-control"
                             value={formData.service_name}
-                            onChange={(e) => setFormData({ ...formData, service_name: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, service_name: e.target.value })}
+                          />
                         </div>
                       </div>
                     </Col>
@@ -1294,7 +1268,8 @@ const ProductList = () => {
                             type="text"
                             className="form-control"
                             value={formData.description}
-                            onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                          />
                         </div>
                       </div>
                     </Col>
@@ -1308,7 +1283,8 @@ const ProductList = () => {
                             type="number"
                             className="form-control"
                             value={formData.actual_price}
-                            onChange={(e) => setFormData({ ...formData, actual_price: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, actual_price: e.target.value })}
+                          />
                         </div>
                       </div>
                     </Col>
@@ -1322,7 +1298,8 @@ const ProductList = () => {
                             type="number"
                             className="form-control"
                             value={formData.discount}
-                            onChange={(e) => setFormData({ ...formData, discount: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, discount: e.target.value })}
+                          />
                         </div>
                       </div>
                     </Col>
@@ -1336,7 +1313,8 @@ const ProductList = () => {
                             type="number"
                             className="form-control"
                             value={formData.price}
-                            onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                          />
                         </div>
                       </div>
                     </Col>
@@ -1350,7 +1328,8 @@ const ProductList = () => {
                             type="text"
                             className="form-control"
                             value={formData.time}
-                            onChange={(e) => setFormData({ ...formData, time: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                          />
                         </div>
                       </div>
                     </Col>
@@ -1363,7 +1342,7 @@ const ProductList = () => {
                           <RSelect
                             name="category"
                             isMulti={false}
-                            options={categories.map(category => ({ value: category._id, label: category.name }))}
+                            options={categories.map((category) => ({ value: category._id, label: category.name }))}
                             onChange={handleCategoryChange}
                             value={formData.category ? { value: formData.category, label: formData.category } : null}
                           />
@@ -1379,9 +1358,14 @@ const ProductList = () => {
                           <RSelect
                             name="category"
                             isMulti={false}
-                            options={subcategories.map(subcategory => ({ value: subcategory._id, label: subcategory.name }))}
+                            options={subcategories.map((subcategory) => ({
+                              value: subcategory._id,
+                              label: subcategory.name,
+                            }))}
                             onChange={handleSubcategoryChange}
-                            value={formData.subcategory ? { value: formData.subcategory, label: formData.subcategory } : null}
+                            value={
+                              formData.subcategory ? { value: formData.subcategory, label: formData.subcategory } : null
+                            }
                           />
                         </div>
                       </div>
@@ -1396,7 +1380,8 @@ const ProductList = () => {
                             type="text"
                             className="form-control"
                             value={tagsToString(formData.tags)} // Convert the tags array to a string and set it as the input value
-                            onChange={handleTagChange} />
+                            onChange={handleTagChange}
+                          />
                         </div>
                       </div>
                     </Col>
@@ -1410,7 +1395,8 @@ const ProductList = () => {
                             type="text"
                             className="form-control"
                             value={formData.recommended_for}
-                            onChange={(e) => setFormData({ ...formData, recommended_for: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, recommended_for: e.target.value })}
+                          />
                         </div>
                       </div>
                     </Col>
@@ -1424,7 +1410,8 @@ const ProductList = () => {
                             type="text"
                             className="form-control"
                             value={formData.what_we_will_bring}
-                            onChange={(e) => setFormData({ ...formData, what_we_will_bring: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, what_we_will_bring: e.target.value })}
+                          />
                         </div>
                       </div>
                     </Col>
@@ -1438,7 +1425,8 @@ const ProductList = () => {
                             type="text"
                             className="form-control"
                             value={formData.pre_requirements}
-                            onChange={(e) => setFormData({ ...formData, pre_requirements: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, pre_requirements: e.target.value })}
+                          />
                         </div>
                       </div>
                     </Col>
@@ -1452,44 +1440,52 @@ const ProductList = () => {
                             type="text"
                             className="form-control"
                             value={formData.after_service_instructions}
-                            onChange={(e) => setFormData({ ...formData, after_service_instructions: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, after_service_instructions: e.target.value })}
+                          />
                         </div>
                       </div>
                     </Col>
                     <Col md="12">
                       <div className="form-group">
                         <label className="form-label" htmlFor="SKU">
-                          User Select Number of Service <sanp style={{ color: "red" }}>  * for Package </sanp>
+                          User Select Number of Service <sanp style={{ color: "red" }}> * for Package </sanp>
                         </label>
                         <div className="form-control-wrap">
                           <input
                             type="number"
                             className="form-control"
                             value={formData.subNo}
-                            onChange={(e) => setFormData({ ...formData, subNo: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, subNo: e.target.value })}
+                          />
                         </div>
                       </div>
                     </Col>
                     <Col md="12">
                       <div className="form-group">
                         <label className="form-label" htmlFor="SKU">
-                          Add Sub-Services <sanp style={{ color: "red" }}>  * for Package </sanp>
+                          Add Sub-Services <sanp style={{ color: "red" }}> * for Package </sanp>
                         </label>
                         <div className="form-control-wrap">
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={inputText}
-                            onChange={handleInputChange} />
-
-
+                          <input type="text" className="form-control" value={inputText} onChange={handleInputChange} />
                         </div>
-
                       </div>
-                      <a style={{
-                        marginTop: "5px",
-                        padding: "11px 24px", background: "#fc3e84", color: "#ffff", fontFamily: "DM Sans, sans-serif", fontWeight: "700", fontSize: "0.8125rem", borderRadius: "6px", fontSize: "15px", cursor: "pointer"
-                      }} color="primary" size="lg" onClick={handleAddServer}>
+                      <a
+                        style={{
+                          marginTop: "5px",
+                          padding: "11px 24px",
+                          background: "#fc3e84",
+                          color: "#ffff",
+                          fontFamily: "DM Sans, sans-serif",
+                          fontWeight: "700",
+                          fontSize: "0.8125rem",
+                          borderRadius: "6px",
+                          fontSize: "15px",
+                          cursor: "pointer",
+                        }}
+                        color="primary"
+                        size="lg"
+                        onClick={handleAddServer}
+                      >
                         Add Sub Service
                       </a>
 
@@ -1503,7 +1499,10 @@ const ProductList = () => {
                       <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
                         {({ getRootProps, getInputProps }) => (
                           <section>
-                            <div {...getRootProps()} className="dropzone upload-zone small bg-lighter my-2 dz-clickable">
+                            <div
+                              {...getRootProps()}
+                              className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
+                            >
                               <input {...getInputProps()} />
                               {formData.image ? (
                                 <div className="dz-preview dz-processing dz-image-preview dz-complete">
@@ -1521,9 +1520,22 @@ const ProductList = () => {
                     </Col>
 
                     <Col xl="12">
-                      <a style={{
-                        padding: "11px 24px", background: "#fc3e84", color: "#ffff", fontFamily: "DM Sans, sans-serif", fontWeight: "700", fontSize: "0.8125rem", borderRadius: "6px", fontSize: "15px", cursor: "pointer"
-                      }} color="primary" size="lg" onClick={handleFormSubmit}>
+                      <a
+                        style={{
+                          padding: "11px 24px",
+                          background: "#fc3e84",
+                          color: "#ffff",
+                          fontFamily: "DM Sans, sans-serif",
+                          fontWeight: "700",
+                          fontSize: "0.8125rem",
+                          borderRadius: "6px",
+                          fontSize: "15px",
+                          cursor: "pointer",
+                        }}
+                        color="primary"
+                        size="lg"
+                        onClick={handleFormSubmit}
+                      >
                         {loading ? <Spinner size="sm" color="light" /> : "Add Product"}
                       </a>
                     </Col>
@@ -1534,8 +1546,7 @@ const ProductList = () => {
           </ModalBody>
         </Modal>
 
-        <Modal isOpen={currentModal === 'editCat'}
-          toggle={closeModalss} className="modal-dialog-centered" size="lg">
+        <Modal isOpen={currentModal === "editCat"} toggle={closeModalss} className="modal-dialog-centered" size="lg">
           <ModalBody>
             <a href="#cancel" className="close">
               {" "}
@@ -1543,14 +1554,14 @@ const ProductList = () => {
                 name="cross-sm"
                 onClick={(ev) => {
                   ev.preventDefault();
-                  closeModalss()
+                  closeModalss();
                 }}
               ></Icon>
             </a>
             <div className="p-2">
               <h5 className="title">Edit Category</h5>
               <div className="mt-4">
-                <form >
+                <form>
                   <Row className="g-3">
                     <Col size="12">
                       <div className="form-group">
@@ -1562,7 +1573,8 @@ const ProductList = () => {
                             type="text"
                             className="form-control"
                             value={catFormData.name}
-                            onChange={(e) => setCatFormData({ ...catFormData, name: e.target.value })} />
+                            onChange={(e) => setCatFormData({ ...catFormData, name: e.target.value })}
+                          />
                         </div>
                       </div>
                     </Col>
@@ -1570,7 +1582,10 @@ const ProductList = () => {
                       <Dropzone onDrop={(acceptedFiless) => handleDropChanges(acceptedFiless)}>
                         {({ getRootProps, getInputProps }) => (
                           <section>
-                            <div {...getRootProps()} className="dropzone upload-zone small bg-lighter my-2 dz-clickable">
+                            <div
+                              {...getRootProps()}
+                              className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
+                            >
                               <input {...getInputProps()} />
                               {catFormData.image ? (
                                 <div className="dz-preview dz-processing dz-image-preview dz-complete">
@@ -1587,9 +1602,22 @@ const ProductList = () => {
                       </Dropzone>
                     </Col>
                     <Col xl="12">
-                      <a style={{
-                        padding: "11px 24px", background: "#fc3e84", color: "#ffff", fontFamily: "DM Sans, sans-serif", fontWeight: "700", fontSize: "0.8125rem", borderRadius: "6px", fontSize: "15px", cursor: "pointer"
-                      }} color="primary" size="lg" onClick={handelEditCat}>
+                      <a
+                        style={{
+                          padding: "11px 24px",
+                          background: "#fc3e84",
+                          color: "#ffff",
+                          fontFamily: "DM Sans, sans-serif",
+                          fontWeight: "700",
+                          fontSize: "0.8125rem",
+                          borderRadius: "6px",
+                          fontSize: "15px",
+                          cursor: "pointer",
+                        }}
+                        color="primary"
+                        size="lg"
+                        onClick={handelEditCat}
+                      >
                         {loading ? <Spinner size="sm" color="light" /> : "Update Category"}
                       </a>
                     </Col>
@@ -1600,8 +1628,7 @@ const ProductList = () => {
           </ModalBody>
         </Modal>
 
-        <Modal isOpen={view.details}
-          toggle={closeModals} className="modal-dialog-centered" size="lg">
+        <Modal isOpen={view.details} toggle={closeModals} className="modal-dialog-centered" size="lg">
           {/* Modal content for "View Product" */}
           {selectedProduct && (
             <ModalBody>
@@ -1673,11 +1700,14 @@ const ProductList = () => {
                   </Col>
                   <Col lg={6}>
                     <span className="sub-text">Tags</span>
-                    <span className="caption-text"> {selectedProduct.tags.map((tag, index) => (
-                      <Badge key={index} className="me-1" color="secondary">
-                        {tag}
-                      </Badge>
-                    ))}</span>
+                    <span className="caption-text">
+                      {" "}
+                      {selectedProduct.tags.map((tag, index) => (
+                        <Badge key={index} className="me-1" color="secondary">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </span>
                   </Col>
 
                   {/* Add more product details here */}
@@ -1687,13 +1717,11 @@ const ProductList = () => {
           )}
         </Modal>
 
-
-
-
         <div ref={sidebarRef}>
           <SimpleBar
-            className={`nk-add-product toggle-slide toggle-slide-right toggle-screen-any ${(view.add || view.category || view.subcategory) ? "content-active" : ""
-              }`}
+            className={`nk-add-product toggle-slide toggle-slide-right toggle-screen-any ${
+              view.add || view.category || view.subcategory ? "content-active" : ""
+            }`}
             style={{ width: "500px" }}
           >
             {view.category && (
@@ -1708,7 +1736,7 @@ const ProductList = () => {
                 </BlockHead>
                 {/* Add Category form inputs */}
                 <Block>
-                  <form >
+                  <form>
                     <Row className="g-3">
                       <Col size="12">
                         <div className="form-group">
@@ -1720,7 +1748,8 @@ const ProductList = () => {
                               type="text"
                               className="form-control"
                               value={catFormData.name}
-                              onChange={(e) => setCatFormData({ ...catFormData, name: e.target.value })} />
+                              onChange={(e) => setCatFormData({ ...catFormData, name: e.target.value })}
+                            />
                           </div>
                         </div>
                       </Col>
@@ -1728,7 +1757,10 @@ const ProductList = () => {
                         <Dropzone onDrop={(acceptedFiless) => handleDropChanges(acceptedFiless)}>
                           {({ getRootProps, getInputProps }) => (
                             <section>
-                              <div {...getRootProps()} className="dropzone upload-zone small bg-lighter my-2 dz-clickable">
+                              <div
+                                {...getRootProps()}
+                                className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
+                              >
                                 <input {...getInputProps()} />
                                 {catFormData.image ? (
                                   <div className="dz-preview dz-processing dz-image-preview dz-complete">
@@ -1745,15 +1777,27 @@ const ProductList = () => {
                         </Dropzone>
                       </Col>
                       <Col xl="12">
-                        <a style={{
-                          padding: "11px 24px", background: "#fc3e84", color: "#ffff", fontFamily: "DM Sans, sans-serif", fontWeight: "700", fontSize: "0.8125rem", borderRadius: "6px", fontSize: "15px", cursor: "pointer"
-                        }} color="primary" size="lg" onClick={handleAddCategory}>
+                        <a
+                          style={{
+                            padding: "11px 24px",
+                            background: "#fc3e84",
+                            color: "#ffff",
+                            fontFamily: "DM Sans, sans-serif",
+                            fontWeight: "700",
+                            fontSize: "0.8125rem",
+                            borderRadius: "6px",
+                            fontSize: "15px",
+                            cursor: "pointer",
+                          }}
+                          color="primary"
+                          size="lg"
+                          onClick={handleAddCategory}
+                        >
                           {loading ? <Spinner size="sm" color="light" /> : "Add Category"}
                         </a>
                       </Col>
                     </Row>
                   </form>
-
                 </Block>
                 <Block>
                   <BlockHead>
@@ -1765,36 +1809,38 @@ const ProductList = () => {
                     <Row className="g-3" key={categories._id}>
                       <Col size="6">
                         <div className="form-group">
-                          <small className="text-primary" style={{ fontSize: '15px' }}>
+                          <small className="text-primary" style={{ fontSize: "15px" }}>
                             {categories.name}
                           </small>
                         </div>
                       </Col>
                       <Col size="1">
                         <div className="form-group">
-                          <div className="form-control-wrap" onClick={() => handleDelete(categories._id, categories.name)}>
-                            <Icon name="trash-alt" style={{ fontSize: '17px', color: 'red', cursor: "pointer" }} />
+                          <div
+                            className="form-control-wrap"
+                            onClick={() => handleDelete(categories._id, categories.name)}
+                          >
+                            <Icon name="trash-alt" style={{ fontSize: "17px", color: "red", cursor: "pointer" }} />
                           </div>
                         </div>
                       </Col>
 
                       <Col size="1">
                         <div className="form-group">
-                          <div className="form-control-wrap"
+                          <div
+                            className="form-control-wrap"
                             onClick={(ev) => {
                               ev.preventDefault();
                               onEditClickCat(categories._id);
-                              openModal('editCat'); // Pass the product data to openDetailsModal
+                              openModal("editCat"); // Pass the product data to openDetailsModal
                             }}
                           >
-                            <Icon name="edit" style={{ fontSize: '17px', color: 'blue' }} />
+                            <Icon name="edit" style={{ fontSize: "17px", color: "blue" }} />
                           </div>
                         </div>
                       </Col>
-
                     </Row>
                   ))}
-
                 </Block>
               </>
             )}
@@ -1811,7 +1857,7 @@ const ProductList = () => {
                 </BlockHead>
                 {/* Add Subcategory form inputs */}
                 <Block>
-                  <form >
+                  <form>
                     <Row className="g-3">
                       <Col size="12">
                         <div className="form-group">
@@ -1823,7 +1869,8 @@ const ProductList = () => {
                               type="text"
                               className="form-control"
                               value={subFormData.name}
-                              onChange={(e) => setSubFormData({ ...subFormData, name: e.target.value })} />
+                              onChange={(e) => setSubFormData({ ...subFormData, name: e.target.value })}
+                            />
                           </div>
                         </div>
                       </Col>
@@ -1833,27 +1880,42 @@ const ProductList = () => {
                             Category
                           </label>
                           <div className="form-control-wrap">
-
                             <RSelect
                               name="category"
                               isMulti={false}
-                              options={categories.map(category => ({ value: category._id, label: category.name }))}
+                              options={categories.map((category) => ({ value: category._id, label: category.name }))}
                               onChange={handleCategoryChanges}
-                              value={subFormData.category ? { value: subFormData.category, label: subFormData.category } : null}
+                              value={
+                                subFormData.category
+                                  ? { value: subFormData.category, label: subFormData.category }
+                                  : null
+                              }
                             />
                           </div>
                         </div>
                       </Col>
                       <Col xl="12">
-                        <a style={{
-                          padding: "11px 24px", background: "#fc3e84", color: "#ffff", fontFamily: "DM Sans, sans-serif", fontWeight: "700", fontSize: "0.8125rem", borderRadius: "6px", fontSize: "15px", cursor: "pointer"
-                        }} color="primary" size="lg" onClick={handleAddSubCategory}>
+                        <a
+                          style={{
+                            padding: "11px 24px",
+                            background: "#fc3e84",
+                            color: "#ffff",
+                            fontFamily: "DM Sans, sans-serif",
+                            fontWeight: "700",
+                            fontSize: "0.8125rem",
+                            borderRadius: "6px",
+                            fontSize: "15px",
+                            cursor: "pointer",
+                          }}
+                          color="primary"
+                          size="lg"
+                          onClick={handleAddSubCategory}
+                        >
                           {loading ? <Spinner size="sm" color="light" /> : "Add Subcategory"}
                         </a>
                       </Col>
                     </Row>
                   </form>
-
                 </Block>
                 <Block>
                   <BlockHead>
@@ -1865,8 +1927,7 @@ const ProductList = () => {
                     <RSelect
                       name="category"
                       isMulti={false}
-
-                      options={categories.map(category => ({ value: category._id, label: category.name }))}
+                      options={categories.map((category) => ({ value: category._id, label: category.name }))}
                       onChange={handleCategoryChange}
                       value={formData.category ? { value: formData.category, label: formData.category } : null}
                     />
@@ -1876,306 +1937,347 @@ const ProductList = () => {
                     <Row className="g-3" key={subcategori._id}>
                       <Col size="6">
                         <div className="form-group">
-                          <small className="text-primary" style={{ fontSize: '15px' }}>
+                          <small className="text-primary" style={{ fontSize: "15px" }}>
                             {subcategori.name}
                           </small>
                         </div>
                       </Col>
                       <Col size="1">
                         <div className="form-group">
-                          <div className="form-control-wrap" onClick={() => handleDeletesub(subcategori._id, subcategori.name)}>
-                            <Icon name="trash-alt" style={{ fontSize: '17px', color: 'red', cursor: "pointer" }} />
+                          <div
+                            className="form-control-wrap"
+                            onClick={() => handleDeletesub(subcategori._id, subcategori.name)}
+                          >
+                            <Icon name="trash-alt" style={{ fontSize: "17px", color: "red", cursor: "pointer" }} />
                           </div>
                         </div>
                       </Col>
                     </Row>
                   ))}
-
                 </Block>
               </>
             )}
 
+            {view.add && !view.category && !view.subcategory && (
+              <>
+                <BlockHead>
+                  <BlockHeadContent>
+                    <BlockTitle tag="h5">Add Product</BlockTitle>
+                    <BlockDes>
+                      <p>Add information or update product.</p>
+                    </BlockDes>
+                  </BlockHeadContent>
+                </BlockHead>
+                <Block>
+                  <form>
+                    <Row className="g-3">
+                      <Col size="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="product-title">
+                            Service Name
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={formData.service_name}
+                              onChange={(e) => setFormData({ ...formData, service_name: e.target.value })}
+                            />
+                          </div>
+                        </div>
+                      </Col>
+                      <Col md="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="regular-price">
+                            Description
+                          </label>
+                          <div className="form-control-wrap">
+                            <textarea
+                              type="text"
+                              className="form-control"
+                              value={formData.description}
+                              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                            />
+                          </div>
+                        </div>
+                      </Col>
+                      <Col md="6">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="sale-price">
+                            Actual Price (in ₹)
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                              type="number"
+                              className="form-control"
+                              value={formData.actual_price}
+                              onChange={(e) => setFormData({ ...formData, actual_price: e.target.value })}
+                            />
+                          </div>
+                        </div>
+                      </Col>
+                      <Col md="6">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="stock">
+                            Discount (in %)
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                              type="number"
+                              className="form-control"
+                              value={formData.discount}
+                              onChange={(e) => setFormData({ ...formData, discount: e.target.value })}
+                            />
+                          </div>
+                        </div>
+                      </Col>
+                      <Col md="6">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="SKU">
+                            Price (in ₹)
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                              type="number"
+                              className="form-control"
+                              value={formData.price}
+                              onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                            />
+                          </div>
+                        </div>
+                      </Col>
+                      <Col md="6">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="SKU">
+                            Time
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                              type="number"
+                              className="form-control"
+                              value={formData.time}
+                              onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                            />
+                          </div>
+                        </div>
+                      </Col>
 
-            {view.add && !view.category && !view.subcategory && (<>
+                      <Col size="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="category">
+                            Category
+                          </label>
+                          <div className="form-control-wrap">
+                            <RSelect
+                              name="category"
+                              isMulti={false}
+                              options={categories.map((category) => ({ value: category._id, label: category.name }))}
+                              onChange={handleCategoryChange}
+                              value={formData.category ? { value: formData.category, label: formData.category } : null}
+                            />
+                          </div>
+                        </div>
+                      </Col>
+                      <Col size="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="category">
+                            Subcategory
+                          </label>
+                          <div className="form-control-wrap">
+                            <RSelect
+                              name="category"
+                              isMulti={false}
+                              options={subcategories.map((subcategory) => ({
+                                value: subcategory._id,
+                                label: subcategory.name,
+                              }))}
+                              onChange={handleSubcategoryChange}
+                              value={
+                                formData.subcategory
+                                  ? { value: formData.subcategory, label: formData.subcategory }
+                                  : null
+                              }
+                            />
+                          </div>
+                        </div>
+                      </Col>
 
-              <BlockHead>
-                <BlockHeadContent>
-                  <BlockTitle tag="h5">Add Product</BlockTitle>
-                  <BlockDes>
-                    <p>Add information or update product.</p>
-                  </BlockDes>
-                </BlockHeadContent>
-              </BlockHead>
-              <Block >
-                <form >
-                  <Row className="g-3">
-                    <Col size="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="product-title">
-                          Service Name
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={formData.service_name}
-                            onChange={(e) => setFormData({ ...formData, service_name: e.target.value })} />
+                      <Col md="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="SKU">
+                            Tags
+                          </label>
+                          <div className="form-control-wrap">
+                            <input type="text" className="form-control" onChange={handleTagChange} />
+                          </div>
                         </div>
-                      </div>
-                    </Col>
-                    <Col md="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="regular-price">
-                          Description
-                        </label>
-                        <div className="form-control-wrap">
-                          <textarea
-                            type="text"
-                            className="form-control"
-                            value={formData.description}
-                            onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
+                      </Col>
+                      <Col md="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="SKU">
+                            Recommended for
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={formData.recommended_for}
+                              onChange={(e) => setFormData({ ...formData, recommended_for: e.target.value })}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </Col>
-                    <Col md="6">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="sale-price">
-                          Actual Price (in ₹)
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="number"
-                            className="form-control"
-                            value={formData.actual_price}
-                            onChange={(e) => setFormData({ ...formData, actual_price: e.target.value })} />
+                      </Col>
+                      <Col md="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="SKU">
+                            What we will to bring
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={formData.what_we_will_bring}
+                              onChange={(e) => setFormData({ ...formData, what_we_will_bring: e.target.value })}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </Col>
-                    <Col md="6">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="stock">
-                          Discount (in %)
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="number"
-                            className="form-control"
-                            value={formData.discount}
-                            onChange={(e) => setFormData({ ...formData, discount: e.target.value })} />
+                      </Col>
+                      <Col md="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="SKU">
+                            Pre requirements
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={formData.pre_requirements}
+                              onChange={(e) => setFormData({ ...formData, pre_requirements: e.target.value })}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </Col>
-                    <Col md="6">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="SKU">
-                          Price (in ₹)
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="number"
-                            className="form-control"
-                            value={formData.price}
-                            onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
+                      </Col>
+                      <Col md="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="SKU">
+                            After Service Instructions
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={formData.after_service_instructions}
+                              onChange={(e) => setFormData({ ...formData, after_service_instructions: e.target.value })}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </Col>
-                    <Col md="6">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="SKU">
-                          Time
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="number"
-                            className="form-control"
-                            value={formData.time}
-                            onChange={(e) => setFormData({ ...formData, time: e.target.value })} />
+                      </Col>
+                      <Col md="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="SKU">
+                            User Select Number of Service <sanp style={{ color: "red" }}> * for Package </sanp>
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                              type="number"
+                              className="form-control"
+                              value={formData.subNo}
+                              onChange={(e) => setFormData({ ...formData, subNo: e.target.value })}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </Col>
+                      </Col>
+                      <Col md="12">
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="SKU">
+                            Add Sub-Services <sanp style={{ color: "red" }}> * for Package </sanp>
+                          </label>
+                          <div className="form-control-wrap">
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={inputText}
+                              onChange={handleInputChange}
+                            />
+                          </div>
+                        </div>
+                        <a
+                          style={{
+                            marginTop: "5px",
+                            padding: "11px 24px",
+                            background: "#fc3e84",
+                            color: "#ffff",
+                            fontFamily: "DM Sans, sans-serif",
+                            fontWeight: "700",
+                            fontSize: "0.8125rem",
+                            borderRadius: "6px",
+                            fontSize: "15px",
+                            cursor: "pointer",
+                          }}
+                          color="primary"
+                          size="lg"
+                          onClick={handleAddServer}
+                        >
+                          Add Sub Service
+                        </a>
 
-                    <Col size="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="category">
-                          Category
-                        </label>
-                        <div className="form-control-wrap">
-                          <RSelect
-                            name="category"
-                            isMulti={false}
-                            options={categories.map(category => ({ value: category._id, label: category.name }))}
-                            onChange={handleCategoryChange}
-                            value={formData.category ? { value: formData.category, label: formData.category } : null}
-                          />
-                        </div>
-                      </div>
-                    </Col>
-                    <Col size="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="category">
-                          Subcategory
-                        </label>
-                        <div className="form-control-wrap">
-                          <RSelect
-                            name="category"
-                            isMulti={false}
-                            options={subcategories.map(subcategory => ({ value: subcategory._id, label: subcategory.name }))}
-                            onChange={handleSubcategoryChange}
-                            value={formData.subcategory ? { value: formData.subcategory, label: formData.subcategory } : null}
-                          />
-                        </div>
-                      </div>
-                    </Col>
+                        <ol style={{ marginTop: "15px", marginLeft: "15px", listStyleType: "decimal" }}>
+                          {formData.subService.map((server, index) => (
+                            <li key={index}>{server}</li>
+                          ))}
+                        </ol>
+                      </Col>
 
-                    <Col md="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="SKU">
-                          Tags
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="text"
-                            className="form-control"
-
-                            onChange={handleTagChange} />
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="SKU">
-                          Recommended for
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={formData.recommended_for}
-                            onChange={(e) => setFormData({ ...formData, recommended_for: e.target.value })} />
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="SKU">
-                          What we will to bring
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={formData.what_we_will_bring}
-                            onChange={(e) => setFormData({ ...formData, what_we_will_bring: e.target.value })} />
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="SKU">
-                          Pre requirements
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={formData.pre_requirements}
-                            onChange={(e) => setFormData({ ...formData, pre_requirements: e.target.value })} />
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="SKU">
-                          After Service Instructions
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={formData.after_service_instructions}
-                            onChange={(e) => setFormData({ ...formData, after_service_instructions: e.target.value })} />
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="SKU">
-                          User Select Number of Service <sanp style={{ color: "red" }}>  * for Package </sanp>
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="number"
-                            className="form-control"
-                            value={formData.subNo}
-                            onChange={(e) => setFormData({ ...formData, subNo: e.target.value })} />
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md="12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="SKU">
-                          Add Sub-Services <sanp style={{ color: "red" }}>  * for Package </sanp>
-                        </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={inputText}
-                            onChange={handleInputChange} />
-
-
-                        </div>
-
-                      </div>
-                      <a style={{
-                        marginTop: "5px",
-                        padding: "11px 24px", background: "#fc3e84", color: "#ffff", fontFamily: "DM Sans, sans-serif", fontWeight: "700", fontSize: "0.8125rem", borderRadius: "6px", fontSize: "15px", cursor: "pointer"
-                      }} color="primary" size="lg" onClick={handleAddServer}>
-                        Add Sub Service
-                      </a>
-
-                      <ol style={{ marginTop: "15px", marginLeft: "15px", listStyleType: "decimal" }}>
-                        {formData.subService.map((server, index) => (
-                          <li key={index}>{server}</li>
-                        ))}
-                      </ol>
-                    </Col>
-
-
-                    <Col size="12">
-                      <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
-                        {({ getRootProps, getInputProps }) => (
-                          <section>
-                            <div {...getRootProps()} className="dropzone upload-zone small bg-lighter my-2 dz-clickable">
-                              <input {...getInputProps()} />
-                              {formData.image ? (
-                                <div className="dz-preview dz-processing dz-image-preview dz-complete">
-                                  <div className="dz-image">
-                                    <img src={formData.image} alt="preview" />
+                      <Col size="12">
+                        <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
+                          {({ getRootProps, getInputProps }) => (
+                            <section>
+                              <div
+                                {...getRootProps()}
+                                className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
+                              >
+                                <input {...getInputProps()} />
+                                {formData.image ? (
+                                  <div className="dz-preview dz-processing dz-image-preview dz-complete">
+                                    <div className="dz-image">
+                                      <img src={formData.image} alt="preview" />
+                                    </div>
                                   </div>
-                                </div>
-                              ) : (
-                                <p>Drag 'n' drop some files here, or click to select files</p>
-                              )}
-                            </div>
-                          </section>
-                        )}
-                      </Dropzone>
-                    </Col>
+                                ) : (
+                                  <p>Drag 'n' drop some files here, or click to select files</p>
+                                )}
+                              </div>
+                            </section>
+                          )}
+                        </Dropzone>
+                      </Col>
 
-                    <Col xl="12">
-                      <a style={{
-                        padding: "11px 24px", background: "#fc3e84", color: "#ffff", fontFamily: "DM Sans, sans-serif", fontWeight: "700", fontSize: "0.8125rem", borderRadius: "6px", fontSize: "15px", cursor: "pointer"
-                      }} color="primary" size="lg" onClick={handleAddProduct}>
-                        {loading ? <Spinner size="sm" color="light" /> : "Add Product"}
-                      </a>
-                    </Col>
-                  </Row>
-                </form>
-              </Block>
-            </>)}
+                      <Col xl="12">
+                        <a
+                          style={{
+                            padding: "11px 24px",
+                            background: "#fc3e84",
+                            color: "#ffff",
+                            fontFamily: "DM Sans, sans-serif",
+                            fontWeight: "700",
+                            fontSize: "0.8125rem",
+                            borderRadius: "6px",
+                            fontSize: "15px",
+                            cursor: "pointer",
+                          }}
+                          color="primary"
+                          size="lg"
+                          onClick={handleAddProduct}
+                        >
+                          {loading ? <Spinner size="sm" color="light" /> : "Add Product"}
+                        </a>
+                      </Col>
+                    </Row>
+                  </form>
+                </Block>
+              </>
+            )}
             {/* Add Product Form */}
-
           </SimpleBar>
         </div>
 
