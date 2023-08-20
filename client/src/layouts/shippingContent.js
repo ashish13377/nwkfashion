@@ -2,11 +2,13 @@ import React from "react";
 
 const ShippingContent = () => {
   return (
-    <div>
-      Standard Shipping. Currently, we are offering standard free shipping every
-      day to all our Indian customers across the Indian sub- continent including
-      the 8 Indian Union territories alongside 28 states. This free shipping
-      offer excludes jewelry and any orders whose value is less than Rs.1000 INR
+    <div style={{ padding: "2em" }}>
+      <b>Shipping &amp; Delivery</b>
+      <br />
+      Currently, we are offering standard free shipping every day to all our
+      Indian customers across the Indian sub- continent including the 8 Indian
+      Union territories alongside 28 states. This free shipping offer
+      excludes jewelry and any orders whose value is less than Rs.1000 INR
       excluding taxes. Most standard orders ship within 1-2 business days. Your
       final shipping cost and estimated delivery timeframe will be available to
       you during checkout. Please note, some items may require a longer ship-out
