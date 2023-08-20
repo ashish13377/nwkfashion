@@ -8,6 +8,10 @@ import ShopPage from "./pages/shopPage";
 import CartPage from "./pages/cartPage";
 import WishlistPage from "./pages/wishlistPage";
 import CheckoutPage from "./pages/checkoutPage";
+import AboutUs from "./pages/aboutUs";
+import Faq from "./pages/faq";
+import ReturnRefund from "./pages/returnRefund";
+import Shipping from "./pages/shipping";
 export const serverAPILocal = "http://localhost:5904/api";
 
 function App() {
@@ -23,6 +27,10 @@ function App() {
           <Route path="/products/:productId" element={<SingleProductPage />} />
           <Route path="/wishlistPage" element={<WishlistPage />} />
           <Route path="/checkoutPage" element={<CheckoutPage />} />
+          <Route path="/aboutUs" element={<AboutUs />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/return" element={<ReturnRefund />} />
+          <Route path="/shipping" element={<Shipping />} />
         </Routes>
       </Router>
     </div>
