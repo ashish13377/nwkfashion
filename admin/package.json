@@ -1,6 +1,6 @@
 {
-  "name": "DashliteReact-Demo2",
-  "version": "1.6.2",
+  "name": "nwkfashion",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",

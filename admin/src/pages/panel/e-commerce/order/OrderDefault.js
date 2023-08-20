@@ -23,9 +23,15 @@ import {
 import { getDateStructured } from "../../../../utils/Utils";
 import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem, Button, Modal, ModalBody, Badge } from "reactstrap";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { serverAPI } from "../../../..";
+import { Spinner } from "reactstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
 const OrderDefault = () => {
-  const [data, setData] = useState(orderData);
+  const [data, setData] = useState([]);
   const [smOption, setSmOption] = useState(false);
   const [formData, setFormData] = useState({
     id: null,
@@ -44,6 +50,22 @@ const OrderDefault = () => {
   const [onSearchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(7);
+  const getOrdersdata = async () => {
+    // Make the API call to fetch the product
+    await axios
+      .get(`${serverAPI}services`)
+      .then((response) => {
+        // Assuming the response data is in the format you provided
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching product:", error);
+      });
+  };
+  useEffect(() => {
+    getOrdersdata();
+  }, []); // Fetch subcategories when selected category changes
+
 
   // Changing state value when searching name
   useEffect(() => {

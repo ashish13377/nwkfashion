@@ -4,7 +4,7 @@ import { removeFromCart } from "../utils/cartSlice";
 import { Link } from "react-router-dom";
 const CartTable = () => {
   const products = useSelector((state) => state.cart.products);
-  console.log(products);
+ 
 
   const dispatch = useDispatch();
 
