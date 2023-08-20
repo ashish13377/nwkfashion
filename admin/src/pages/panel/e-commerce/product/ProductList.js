@@ -92,7 +92,7 @@ const ProductList = () => {
     }
   };
 
-  console.log(formData);
+  
   const [catFormData, setCatFormData] = useState({
     name: "",
     image: "",
