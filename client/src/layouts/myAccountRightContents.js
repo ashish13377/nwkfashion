@@ -131,25 +131,20 @@ const MyAccountRightContents = () => {
         <div className="tab-pane fade" id="payment-method" role="tabpanel">
           <div className="myaccount-content">
             <h3>Payment Method</h3>
-            <p className="saved-message">
-              You Can't Saved Your Payment Method yet.
-            </p>
+            <p className="saved-message">{orders?.paymentMethod}</p>
           </div>
         </div>
         {/* Single Tab Content End */}
         {/* Single Tab Content Start */}
         <div className="tab-pane fade" id="address-edit" role="tabpanel">
           <div className="myaccount-content">
-            <h3>Billing Address</h3>
+            <h3>Address</h3>
             <address>
               <p>
-                <strong>Alex Tuntuni</strong>
+                <strong>{orders?.address?.address?.firstName}</strong>
               </p>
-              <p>
-                1355 Market St, Suite 900 <br />
-                San Francisco, CA 94103
-              </p>
-              <p>Mobile: (123) 456-7890</p>
+              <p>{orders?.address}</p>
+              <p>{orders?.address?.phoneNo}</p>
             </address>
             <a href="#" className="btn btn-dark btn-round d-inline-block">
               <i className="fa fa-edit" />
