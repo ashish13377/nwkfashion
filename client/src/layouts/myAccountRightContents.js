@@ -128,12 +128,7 @@ const MyAccountRightContents = () => {
 
         {/* Single Tab Content End */}
         {/* Single Tab Content Start */}
-        <div className="tab-pane fade" id="payment-method" role="tabpanel">
-          <div className="myaccount-content">
-            <h3>Payment Method</h3>
-            <p className="saved-message">{orders?.paymentMethod}</p>
-          </div>
-        </div>
+
         {/* Single Tab Content End */}
         {/* Single Tab Content Start */}
         <div className="tab-pane fade" id="address-edit" role="tabpanel">

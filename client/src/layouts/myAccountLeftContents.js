@@ -62,9 +62,6 @@ const MyAccountLeftContents = () => {
           <i className="fa fa-cart-arrow-down" /> Orders
         </a>
 
-        <a href="#payment-method" data-bs-toggle="tab">
-          <i className="fa fa-credit-card" /> Payment Method
-        </a>
         <a href="#address-edit" data-bs-toggle="tab">
           <i className="fa fa-map-marker" /> address
         </a>
