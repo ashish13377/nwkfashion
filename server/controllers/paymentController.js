@@ -12,8 +12,9 @@ const razorpay = new Razorpay({
 
 // Function to generate the Razorpay order
 const createOrder = (req, res) => {
+  
   const options = {
-    amount: req.body.amount, // Amount in paise (100 paise = 1 rupee)
+    amount: parseInt(req.body.amount), // Amount in paise (100 paise = 1 rupee)
     currency: "INR",
     receipt: "order_receipt",
   };
@@ -30,7 +31,6 @@ const createOrder = (req, res) => {
 // Function to confirm the payment after success
 const confirmPayment = (req, res) => {
   const paymentData = req.body;
-  console.log(paymentData);
   // // Verify the payment using Razorpay's utility function
   const generatedSignature = crypto
     .createHmac("sha256", "MEUwA5dXwpQMcLggdReCQr7O")

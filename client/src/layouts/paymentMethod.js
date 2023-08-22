@@ -12,9 +12,9 @@ const PaymentMethod = ({
   calculateSubtotal,
   calculateTotal,
 }) => {
-  console.log(formData);
+  console.log(calculateTotal);
   const calculateTotalInPaise = calculateTotal * 100;
-  console.log("amount:", calculateTotalInPaise);
+  console.log(calculateTotalInPaise);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [selectedMethod, setSelectedMethod] = useState("");
@@ -62,7 +62,6 @@ const PaymentMethod = ({
                   // console.log(res.data);
                   Swal.fire(
                     "Payment successful!",
-
                     "success"
                   );
                 })

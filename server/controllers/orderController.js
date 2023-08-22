@@ -1,10 +1,13 @@
 // controllers/orderController.js
 const Order = require("../config/models/order"); // Assuming the path to the order.js file
+const User = require("../config/models/user");
+const Product = require('../config/models/product');
+const moment = require("moment"); // Import the moment library for date formatting
 
 // Create a new order
 async function createOrder(req, res) {
+  console.log(req.body)
   try {
-    console.log(req.body);
     const lastOrder = await Order.findOne({}, {}, { sort: { orderID: -1 } });
     let lastOrderIDNumber = 0;
 
@@ -16,16 +19,47 @@ async function createOrder(req, res) {
     }
 
     const newOrderNumber = lastOrderIDNumber + 1;
-    const newOrderID = `OIDNWK${String("0000000" + newOrderNumber).slice(-7)}`;
+    const newOrderID = `OIDNWK${String("000" + newOrderNumber).slice(-3)}`;
+
+    // Get customer data by userId
+    const customer = await User.findOne({ _id: req.body.userId });
+
+    // Sample product data (replace this with actual product data retrieval)
+    const productInfo = [];
+    for (const productDetail of req.body.productDetails) {
+      const product = await Product.findOne({ _id: productDetail.productID });
+      if (product) {
+        productInfo.push(product.toObject());
+      } else {
+        console.log(`Product not found for ID: ${productDetail.productID}`);
+      }
+    }
+
+    // Format the date when the order is made as "Jun 4, 2020"
+    const orderDate = moment().format("MMM D, YYYY");
+
+    // // Calculate total price based on productDetails
+    // const totalPrice = req.body.productDetails.reduce(
+    //   (total, productDetail) => {
+    //     const price = parseFloat(productDetail.price.replace("$", ""));
+    //     return total + price;
+    //   },
+    //   0
+    // );
+    
 
     const orderData = {
       orderID: newOrderID,
       razorpay: req.body.razorpay,
       address: req.body.address,
       paymentMethod: req.body.paymentMethod,
+      date: orderDate,
       userId: req.body.userId,
-      productID: req.body.productID,
-      productDetails: req.body.productDetails,
+      productID: productInfo.map((product) => product._id),
+      productDetails: productInfo, // Include the full product data
+      orderStatus: 'Pending',
+      customerInfo: customer.toObject(), // Include the full customer data
+      totalPrice: req.body.totalPrice,
     };
 
     const order = new Order(orderData);
@@ -107,9 +141,9 @@ async function updateOrder(req, res) {
   try {
     const orderId = req.params.orderId;
     const updates = req.body;
-    
+
     const order = await Order.findByIdAndUpdate(orderId, updates, { new: true });
-    
+
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
     }

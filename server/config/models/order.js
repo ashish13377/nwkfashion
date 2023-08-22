@@ -1,11 +1,10 @@
-// order.js
 const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
   orderID: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   razorpay: {
     type: String,
@@ -15,74 +14,72 @@ const orderSchema = new mongoose.Schema({
   address: {
     firstName: {
       type: String,
-      required: true
     },
     lastName: {
       type: String,
-      required: true
     },
     emailAddress: {
       type: String,
-      required: true
     },
     phoneNo: {
       type: String,
-      required: true
     },
-    address: {
+    streetAddress: {
       type: String,
-      required: true
     },
     country: {
       type: String,
-      required: true
     },
     townCity: {
       type: String,
-      required: true
     },
     state: {
       type: String,
-      required: true
     },
     zipCode: {
       type: String,
-      required: true
-    }
+    },
   },
   paymentMethod: {
     type: String,
-    required: true
+    required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: "User",
+    required: true,
   },
-  productID: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product',
-    required: true
-  }],
-  productDetails: [{
-    product: {
-      type: String,
-      required: true
+  productID: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+      required: true,
     },
-    name: {
-      type: String,
-      required: true
+  ],
+  productDetails: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product", // Assuming Product schema contains all product info
+      required: true,
     },
-    price: {
-      type: String,
-      required: true
-    }
-  }],
+  ],
   orderStatus: {
     type: String,
-    enum: ['Pending', 'Confirmed', 'Shipped', 'Delivered'],
-    default: 'Pending'
-  }
+    enum: ["Pending", "Confirmed", "Shipped", "Delivered"],
+    default: "Pending",
+  },
+  date: {
+    type: String,
+    required: true,
+  },
+  customerInfo: {
+    type: Object, // You can adjust this based on your customer schema
+    required: true,
+  },
+  totalPrice: {
+    type: String,
+    required: true,
+  },
 });
 
 const Order = mongoose.model("Order", orderSchema);

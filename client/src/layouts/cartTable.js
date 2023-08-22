@@ -13,7 +13,6 @@ const CartTable = () => {
 
     dispatch(removeFromCart(_id));
 
-    console.log(products);
   };
 
   const calculateSubtotal = () => {

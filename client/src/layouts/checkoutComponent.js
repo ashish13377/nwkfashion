@@ -24,6 +24,7 @@ const CheckoutComponent = () => {
     userId: user ? user._id : "",
     productID: [],
     productDetails: [], // Initialize productDetails as an empty array
+    totalPrice: ""
   });
 
   console.log(formData);
@@ -68,13 +69,7 @@ const CheckoutComponent = () => {
     // Set the orderDetails in formData's razorpay key
   };
 
-  const handleOrderDetailsChange = (orderDetails) => {
-    // Set the orderDetails in formData's razorpay key
-    setFormData({
-      ...formData,
-      razorpay: orderDetails,
-    });
-  };
+  
 
   // console.log(formData);
 
@@ -117,6 +112,14 @@ const CheckoutComponent = () => {
     return subtotal + shippingFee + totalGST;
   };
 
+  const handleOrderDetailsChange = (orderDetails) => {
+    // Set the orderDetails in formData's razorpay key
+    setFormData({
+      ...formData,
+      razorpay: orderDetails,
+      totalPrice: calculateTotal()
+    });
+  };
   return (
     <div>
       <div>

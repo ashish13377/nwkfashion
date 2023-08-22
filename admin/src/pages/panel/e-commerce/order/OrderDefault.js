@@ -50,11 +50,46 @@ const OrderDefault = () => {
   const [onSearchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(7);
+
+  const [orders, setOrders] = useState([]);
+
+  function getColorForStatus(status) {
+    const colorMappings = {
+      'Confirmed': 'info',
+      'Shipped': 'warning',
+      'Delivered': 'success'
+    };
+
+    return colorMappings[status] || 'danger'; // Default to 'danger' for unrecognized statuses
+  }
+
+  // useEffect(() => {
+  //   axios.get('your-api-endpoint')
+  //     .then(response => {
+  //       // Assuming the response data is in the format you provided
+  //       setData(response.data);
+  //       const updatedOrders = response.data.map(order => ({
+  //         ...order,
+  //         color: getColorForStatus(order.orderStatus)
+  //       }));
+  //       setOrders(updatedOrders);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching data:', error);
+  //     });
+  // }, []);
+
+
   const getOrdersdata = async () => {
     // Make the API call to fetch the product
     await axios
-      .get(`${serverAPI}services`)
+      .get(`${serverAPI}orders`)
       .then((response) => {
+        const updatedOrders = response.data.map(order => ({
+          ...order,
+          color: getColorForStatus(order.orderStatus)
+        }));
+        setOrders(updatedOrders);
         // Assuming the response data is in the format you provided
         setData(response.data);
       })
@@ -65,8 +100,7 @@ const OrderDefault = () => {
   useEffect(() => {
     getOrdersdata();
   }, []); // Fetch subcategories when selected category changes
-
-
+  console.log(data);
   // Changing state value when searching name
   useEffect(() => {
     if (onSearchText !== "") {
@@ -398,7 +432,7 @@ const OrderDefault = () => {
                   </DataTableRow>
                   <DataTableRow>
                     <a href="#id" onClick={(ev) => ev.preventDefault()}>
-                      #{item.orderId}
+                      #{item.orderID}
                     </a>
                   </DataTableRow>
                   <DataTableRow size="md">
@@ -424,7 +458,7 @@ const OrderDefault = () => {
                     <span className="tb-sub text-primary">{item.purchased}</span>
                   </DataTableRow>
                   <DataTableRow>
-                    <span className="tb-lead">$ {item.total}</span>
+                    <span className="tb-lead">₹ {item.total}</span>
                   </DataTableRow>
                   <DataTableRow className="nk-tb-col-tools">
                     <ul className="nk-tb-actions gx-1">
