@@ -1,12 +1,12 @@
 // controllers/orderController.js
 const Order = require("../config/models/order"); // Assuming the path to the order.js file
 const User = require("../config/models/user");
-const Product = require('../config/models/product');
+const Product = require("../config/models/product");
 const moment = require("moment"); // Import the moment library for date formatting
 
 // Create a new order
 async function createOrder(req, res) {
-  console.log(req.body)
+  console.log(req.body);
   try {
     const lastOrder = await Order.findOne({}, {}, { sort: { orderID: -1 } });
     let lastOrderIDNumber = 0;
@@ -46,7 +46,6 @@ async function createOrder(req, res) {
     //   },
     //   0
     // );
-    
 
     const orderData = {
       orderID: newOrderID,
@@ -57,12 +56,13 @@ async function createOrder(req, res) {
       userId: req.body.userId,
       productID: productInfo.map((product) => product._id),
       productDetails: productInfo, // Include the full product data
-      orderStatus: 'Pending',
+      orderStatus: "Pending",
       customerInfo: customer.toObject(), // Include the full customer data
       totalPrice: req.body.totalPrice,
     };
 
     const order = new Order(orderData);
+
     await order.save();
     console.log(orderData);
     res.status(201).json(order);
@@ -142,15 +142,17 @@ async function updateOrder(req, res) {
     const orderId = req.params.orderId;
     const updates = req.body;
 
-    const order = await Order.findByIdAndUpdate(orderId, updates, { new: true });
+    const order = await Order.findByIdAndUpdate(orderId, updates, {
+      new: true,
+    });
 
     if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
+      return res.status(404).json({ message: "Order not found" });
     }
 
     res.json(order);
   } catch (err) {
-    res.status(500).json({ error: 'Unable to update order' });
+    res.status(500).json({ error: "Unable to update order" });
   }
 }
 

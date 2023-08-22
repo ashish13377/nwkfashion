@@ -58,8 +58,8 @@ const orderSchema = new mongoose.Schema({
   ],
   productDetails: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product", // Assuming Product schema contains all product info
+      type: mongoose.Schema.Types.Mixed,
+      // ref: "Product", // Assuming Product schema contains all product info
       required: true,
     },
   ],
