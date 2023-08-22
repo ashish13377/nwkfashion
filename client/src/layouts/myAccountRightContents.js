@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { serverAPILocal } from "../App";
+import axios from "axios";
 const MyAccountRightContents = () => {
   const [user, setUser] = useState({});
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,6 +18,24 @@ const MyAccountRightContents = () => {
     }
     console.log(data);
   }, []);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        if (user._id) {
+          const response = await axios.get(
+            `${serverAPILocal}/users/${user._id}/orders`
+          );
+          setOrders(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    };
+
+    fetchOrders();
+  }, [user]);
+  console.log(orders);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -76,46 +96,28 @@ const MyAccountRightContents = () => {
                     <th>Date</th>
                     <th>Status</th>
                     <th>Total</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Moisturizing Oil</td>
-                    <td>Aug 22, 2022</td>
-                    <td>Pending</td>
-                    <td>$45</td>
-                    <td>
-                      <a href="cart.html" className="btn btn-dark btn-round">
-                        View
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Katopeno Altuni</td>
-                    <td>July 22, 2022</td>
-                    <td>Approved</td>
-                    <td>$100</td>
-                    <td>
-                      <a href="cart.html" className="btn btn-dark btn-round">
-                        View
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Murikhete Paris</td>
-                    <td>June 12, 2022</td>
-                    <td>On Hold</td>
-                    <td>$99</td>
-                    <td>
-                      <a href="cart.html" className="btn btn-dark btn-round">
-                        View
-                      </a>
-                    </td>
-                  </tr>
+                  {orders.map((order, index) => (
+                    <tr key={order.orderId}>
+                      <td>{index + 1}</td>
+                      <td>
+                        {" "}
+                        {order.productDetails.map((product) => (
+                          <div key={product.productId}>{product.name}</div>
+                        ))}
+                      </td>
+                      <td>{order.orderDate}</td>
+                      <td>{order.orderStatus}</td>
+                      <td>
+                        {" "}
+                        {order.productDetails.map((product) => (
+                          <div key={product.productId}>{product.price}</div>
+                        ))}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -126,28 +128,18 @@ const MyAccountRightContents = () => {
 
         {/* Single Tab Content End */}
         {/* Single Tab Content Start */}
-        <div className="tab-pane fade" id="payment-method" role="tabpanel">
-          <div className="myaccount-content">
-            <h3>Payment Method</h3>
-            <p className="saved-message">
-              You Can't Saved Your Payment Method yet.
-            </p>
-          </div>
-        </div>
+
         {/* Single Tab Content End */}
         {/* Single Tab Content Start */}
         <div className="tab-pane fade" id="address-edit" role="tabpanel">
           <div className="myaccount-content">
-            <h3>Billing Address</h3>
+            <h3>Address</h3>
             <address>
               <p>
-                <strong>Alex Tuntuni</strong>
+                <strong>{orders?.address?.address?.firstName}</strong>
               </p>
-              <p>
-                1355 Market St, Suite 900 <br />
-                San Francisco, CA 94103
-              </p>
-              <p>Mobile: (123) 456-7890</p>
+              <p>{orders?.address}</p>
+              <p>{orders?.address?.phoneNo}</p>
             </address>
             <a href="#" className="btn btn-dark btn-round d-inline-block">
               <i className="fa fa-edit" />
