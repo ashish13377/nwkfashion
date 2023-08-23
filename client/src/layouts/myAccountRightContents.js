@@ -99,25 +99,32 @@ const MyAccountRightContents = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.map((order, index) => (
-                    <tr key={order.orderId}>
-                      <td>{index + 1}</td>
-                      <td>
-                        {" "}
-                        {order.productDetails.map((product) => (
-                          <div key={product.productId}>{product.name}</div>
-                        ))}
-                      </td>
-                      <td>{order.orderDate}</td>
-                      <td>{order.orderStatus}</td>
-                      <td>
-                        {" "}
-                        {order.productDetails.map((product) => (
-                          <div key={product.productId}>{product.price}</div>
-                        ))}
-                      </td>
-                    </tr>
-                  ))}
+                  {orders.length < 0 ? (
+                    <>
+                      {" "}
+                      {orders.map((order, index) => (
+                        <tr key={order?.orderId}>
+                          <td>{index + 1}</td>
+                          <td>
+                            {" "}
+                            {order?.productDetails.map((product) => (
+                              <div key={product.productId}>{product.name}</div>
+                            ))}
+                          </td>
+                          <td>{order?.orderDate}</td>
+                          <td>{order?.orderStatus}</td>
+                          <td>
+                            {" "}
+                            {order?.productDetails.map((product) => (
+                              <div key={product.productId}>{product.price}</div>
+                            ))}
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  ) : (
+                    <>No order found</>
+                  )}
                 </tbody>
               </table>
             </div>

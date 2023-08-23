@@ -17,7 +17,7 @@ const User = () => {
   const handleLogout = async () => {
     try {
       const res = await axios.get(`${serverAPI}admin/logout`, {
-        withCredentials: true
+        withCredentials: true,
       });
       if (res.status === 200) {
         // Store the JWT token in local storage
@@ -32,23 +32,22 @@ const User = () => {
         });
       }
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error("Logout failed:", error);
     }
   };
 
   const getRootUser = async () => {
     try {
       const res = await axios.get(`${serverAPI}admin/is-login`, {
-        withCredentials: true
+        withCredentials: true,
       });
       if (res.status === 200) {
-        setUserData(res.data.user)
+        setUserData(res.data.user);
       } else {
-        navigate("/dashboard/auth-login")
-
+        navigate("/dashboard/auth-login");
       }
     } catch (error) {
-      navigate("/dashboard/auth-login")
+      navigate("/dashboard/auth-login");
 
       console.log(error);
     }
@@ -56,7 +55,7 @@ const User = () => {
 
   useEffect(() => {
     getRootUser();
-  }, [userData])
+  }, [userData]);
   const handleSignout = () => {
     localStorage.removeItem("accessToken");
   };
@@ -91,7 +90,7 @@ const User = () => {
             </div>
           </div>
         </div>
-        <div className="dropdown-inner">
+        {/* <div className="dropdown-inner">
           <LinkList>
             <LinkItem link="/user-profile-regular" icon="user-alt" onClick={toggle}>
               View Profile
@@ -103,11 +102,11 @@ const User = () => {
               Login Activity
             </LinkItem>
           </LinkList>
-        </div>
+        </div> */}
         <div className="dropdown-inner" onClick={handleLogout}>
-          <LinkList >
+          <LinkList>
             <Icon name="signout"></Icon>
-            <span>Sign Out</span>
+            <span style={{ cursor: "pointer" }}>Sign Out</span>
           </LinkList>
         </div>
       </DropdownMenu>

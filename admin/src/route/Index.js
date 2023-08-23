@@ -1,5 +1,5 @@
-import React, { useLayoutEffect, } from "react";
-import { Routes, Route, useLocation, } from "react-router-dom";
+import React, { useLayoutEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { CustomerProvider } from "../pages/panel/e-commerce/customer/CustomerContext";
 import { ProductContextProvider } from "../pages/pre-built/products/ProductContext";
 import { UserContextProvider } from "../pages/pre-built/user-manage/UserContext";
@@ -141,10 +141,7 @@ const Router = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
-
   // Redirect to login when the app starts, except for the home page
-
-
 
   return (
     <Routes>
@@ -183,7 +180,7 @@ const Router = () => {
         <Route path={`${process.env.PUBLIC_URL}/integration`} element={<EcomIntegration />} />
         <Route path={`${process.env.PUBLIC_URL}/whatsapp-config`} element={<WhatsappConfig />} />
 
-        <Route element={<CustomerProvider />} >
+        <Route element={<CustomerProvider />}>
           <Route path="customer" element={<EcomCustomer />}></Route>y
           <Route path="customer-details/:customerId" element={<EcomCustomerDetails />}></Route>y
         </Route>
@@ -191,18 +188,18 @@ const Router = () => {
         <Route path="project-card" element={<ProjectCardPage />}></Route>
         <Route path="project-list" element={<ProjectListPage />}></Route>
 
-        <Route element={<UserContextProvider />} >
+        <Route element={<UserContextProvider />}>
           <Route path="user-list-default" element={<UserListDefault />}></Route>
           <Route path="user-list-regular" element={<UserListRegular />}></Route>
           <Route path="user-list-compact" element={<UserListCompact />}></Route>
           <Route path="user-contact-card" element={<UserContactCard />}></Route>
           <Route path="user-details-regular/:userId" element={<UserDetails />}></Route>
         </Route>
-        <Route >
-          <Route path="user-profile-notification" element={<UserProfileNotification />} ></Route>
+        <Route>
+          {/* <Route path="user-profile-notification" element={<UserProfileNotification />} ></Route>
           <Route path="user-profile-regular" element={<UserProfileRegular />}></Route>
           <Route path="user-profile-activity" element={<UserProfileActivity />}></Route>
-          <Route path="user-profile-setting" element={<UserProfileSetting />}></Route>
+          <Route path="user-profile-setting" element={<UserProfileSetting />}></Route> */}
         </Route>
 
         <Route path="order-list-default" element={<OrderDefault />}></Route>

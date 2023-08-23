@@ -46,12 +46,12 @@ const Dashboard = () => {
             <Col xxl="8">
               <RecentOrders />
             </Col>
-            <Col xxl="4" md="6">
+            {/* <Col xxl="4" md="6">
               <TopProducts />
-            </Col>
-            <Col xxl="3" md="6">
+            </Col> */}
+            {/* <Col xxl="3" md="6">
               <StoreStatistics />
-            </Col>
+            </Col> */}
             {/* <Col xxl="5" lg="6">
               <TrafficSources />
             </Col>
