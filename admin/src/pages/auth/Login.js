@@ -19,12 +19,12 @@ import {
 } from "../../components/Component";
 import { Form, Spinner, Alert } from "reactstrap";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [passState, setPassState] = useState();
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -35,14 +35,16 @@ const Login = () => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const api = serverAPIn
+  const api = serverAPI;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       // Make a POST request to the login API endpoint
-      const response = await axios.post(`${api}admin/login`, formData);
+      const response = await axios.post(`${api}admin/login`,formData,{
+        withCredentials: true
+      });
 
       if (response.status === 200) {
         // Store the JWT token in local storage
@@ -55,7 +57,7 @@ const Login = () => {
           draggable: true,
           theme: "light",
         });
-        getRootUser();
+       
       } else {
 
       }
@@ -75,24 +77,14 @@ const Login = () => {
 
     setLoading(true);
     setTimeout(() => {
+      navigate("/dashboard");
       setLoading(false);
     }, 1500);
   };
 
-  const [userData, setUserData] = useState({});
-  const getRootUser = async () => {
-    try {
-      const res = await axios.get(`${serverAPI}user/islogin`, {
-        withCredentials: true,
-      });
-      console.log(res);
-      if (res.status === 200) {
-        setUserData(res.data.user);
-      }
-    } catch (err) {
+  
 
-    };
-  }
+  
   return <>
     <Head title="Login" />
     <Block className="nk-block-middle nk-auth-body  wide-xs">
@@ -117,7 +109,7 @@ const Login = () => {
           <div className="form-group">
             <div className="form-label-group">
               <label className="form-label" htmlFor="default-01">
-                Email or Username
+                Email
               </label>
             </div>
             <div className="form-control-wrap">
@@ -128,7 +120,7 @@ const Login = () => {
                 onChange={handleChange}
                 id="default-01"
                 defaultValue="info@softnio.com"
-                placeholder="Enter your email address or username"
+                placeholder="Enter your email address"
                 className="form-control-lg form-control" />
 
             </div>
@@ -171,9 +163,7 @@ const Login = () => {
             </Button>
           </div>
         </Form>
-        <div className="form-note-s2 text-center pt-4">
-          New on our platform? <Link to={`${process.env.PUBLIC_URL}/auth-register`}>Create an account</Link>
-        </div>
+
 
       </PreviewCard>
     </Block>

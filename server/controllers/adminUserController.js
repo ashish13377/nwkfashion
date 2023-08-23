@@ -21,23 +21,36 @@ const adminUserController = {
     try {
       const { email, password } = req.body;
       const adminUser = await AdminUser.findOne({ email });
-
+  
       if (!adminUser) {
         return res.status(401).json({ message: 'Authentication failed' });
       }
-
+  
       const isPasswordValid = await bcrypt.compare(password, adminUser.password);
       if (!isPasswordValid) {
         return res.status(401).json({ message: 'Authentication failed' });
       }
+  
+      // Generate JWT token
+      const token = await adminUser.generateAuthToken();
+  
+      // Set the JWT token as a cookie
+      res.cookie("jwt", token, {
+        expires: new Date(Date.now() + 50000000),
+        sameSite: "None",
+        secure: true,
+        httpOnly: true,
+      });
+  
+      // Send response
+      res.status(200).json({ message: "User Login Succesfully 😃!", token });
 
-      const token = jwt.sign({ userId: adminUser._id }, process.env.JWT_TOKEN, { expiresIn: '1h' });
-      res.json({ token });
-
+  
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
   },
+  
 
   // Get admin profile
   getProfile: async (req, res) => {
@@ -75,6 +88,39 @@ const adminUserController = {
     }
   },
 
+  
+  isLogin: async (req, res) => {
+    try {
+      const loggedInAdmin = req.rootUser; // Access the root admin user attached by the auth middleware
+      if (!loggedInAdmin) {
+        return res.status(401).json({ message: 'Authentication failed' });
+      }
+      res.status(200).json({ message: 'User is logged in', user: loggedInAdmin });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  },
+
+  logOut: async (req, res) => {
+    try {
+      
+      req.rootUser.tokens = req.rootUser.tokens.filter((curelem) => {
+        return curelem.token !== req.token;
+      });
+
+      res.clearCookie("jwt", { path: "/" });
+
+      await req.rootUser.save();
+
+      res.status(200).json({ message: "Logout successful 😃" });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+  
+
 };
+
+
 
 module.exports = adminUserController;

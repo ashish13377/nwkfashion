@@ -58,7 +58,6 @@ const loginUser = async (req, res) => {
                 res.status(422).json({ message: "Invalid Password" });
             } else {
                 const token = await userLogin.generateAuthToken();
-                log(token)
                 res.cookie("jwt", token, {
                     expires: new Date(Date.now() + 50000000),
                     sameSite: "None",

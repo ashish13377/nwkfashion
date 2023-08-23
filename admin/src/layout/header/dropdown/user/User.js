@@ -1,13 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DropdownToggle, DropdownMenu, Dropdown } from "reactstrap";
 import { Icon } from "../../../../components/Component";
 import { LinkList, LinkItem } from "../../../../components/links/Links";
 import UserAvatar from "../../../../components/user/UserAvatar";
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { serverAPI } from "../../../..";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const User = () => {
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen((prevState) => !prevState);
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState({});
 
+  const handleLogout = async () => {
+    try {
+      const res = await axios.get(`${serverAPI}admin/logout`, {
+        withCredentials: true
+      });
+      if (res.status === 200) {
+        // Store the JWT token in local storage
+        toast.success(res.data.message, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
+  const getRootUser = async () => {
+    try {
+      const res = await axios.get(`${serverAPI}admin/is-login`, {
+        withCredentials: true
+      });
+      if (res.status === 200) {
+        setUserData(res.data.user)
+      } else {
+        navigate("/dashboard/auth-login")
+
+      }
+    } catch (error) {
+      navigate("/dashboard/auth-login")
+
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getRootUser();
+  }, [userData])
   const handleSignout = () => {
     localStorage.removeItem("accessToken");
   };
@@ -26,7 +75,7 @@ const User = () => {
           <UserAvatar icon="user-alt" className="sm" />
           <div className="user-info d-none d-md-block">
             <div className="user-status">Administrator</div>
-            <div className="user-name dropdown-indicator">Abu Bin Ishityak</div>
+            <div className="user-name dropdown-indicator">{userData.name}</div>
           </div>
         </div>
       </DropdownToggle>
@@ -37,8 +86,8 @@ const User = () => {
               <span>AB</span>
             </div>
             <div className="user-info">
-              <span className="lead-text">Abu Bin Ishtiyak</span>
-              <span className="sub-text">info@softnio.com</span>
+              <span className="lead-text">{userData.name}</span>
+              <span className="sub-text">{userData.email}</span>
             </div>
           </div>
         </div>
@@ -55,15 +104,14 @@ const User = () => {
             </LinkItem>
           </LinkList>
         </div>
-        <div className="dropdown-inner">
-          <LinkList>
-            <a href={`${process.env.PUBLIC_URL}/auth-login`} onClick={handleSignout}>
-              <Icon name="signout"></Icon>
-              <span>Sign Out</span>
-            </a>
+        <div className="dropdown-inner" onClick={handleLogout}>
+          <LinkList >
+            <Icon name="signout"></Icon>
+            <span>Sign Out</span>
           </LinkList>
         </div>
       </DropdownMenu>
+      <ToastContainer />
     </Dropdown>
   );
 };

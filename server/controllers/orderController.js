@@ -117,7 +117,8 @@ async function deleteOrder(req, res) {
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
-    res.json({ message: "Order deleted successfully" });
+    const orders = await Order.find();
+    res.json({ message: "Order deleted successfully",  orders});
   } catch (err) {
     res.status(500).json({ error: "Unable to delete order" });
   }
@@ -156,6 +157,25 @@ async function updateOrder(req, res) {
   }
 }
 
+// Update the order status by ID
+async function updateOrderStatus(req, res) {
+  try {
+    const orderId = req.params.orderId;
+    const newStatus = req.body.status; // Assuming you provide the new status in the request body
+    // Find the order by ID and update the status
+    const order = await Order.findByIdAndUpdate(orderId, { orderStatus: newStatus }, { new: true });
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ error: 'Unable to update order status' });
+  }
+}
+
+
 module.exports = {
   createOrder,
   getAllOrders,
@@ -164,4 +184,5 @@ module.exports = {
   deleteOrder,
   getOrdersByUserId,
   updateOrder,
+  updateOrderStatus,
 };

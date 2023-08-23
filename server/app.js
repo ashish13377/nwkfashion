@@ -15,12 +15,8 @@ const PORT = process.env.PORT || 5904;
 const URL = `http://localhost:${PORT}/`;
 
 connectMongo();
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
-    credentials: true,
-  })
-);
+app.use(cors({ origin: true, credentials: true }));
+
 
 // Other middleware and configurations
 

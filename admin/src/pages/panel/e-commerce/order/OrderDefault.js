@@ -32,6 +32,7 @@ import Swal from "sweetalert2";
 
 const OrderDefault = () => {
   const [data, setData] = useState([]);
+  const [resData, setResData] = useState([]);
   const [smOption, setSmOption] = useState(false);
   const [formData, setFormData] = useState({
     id: null,
@@ -62,7 +63,6 @@ const OrderDefault = () => {
 
     return colorMappings[status] || 'danger'; // Default to 'danger' for unrecognized statuses
   }
-
   // useEffect(() => {
   //   axios.get('your-api-endpoint')
   //     .then(response => {
@@ -79,7 +79,6 @@ const OrderDefault = () => {
   //     });
   // }, []);
 
-
   const getOrdersdata = async () => {
     // Make the API call to fetch the product
     await axios
@@ -92,6 +91,7 @@ const OrderDefault = () => {
         setOrders(updatedOrders);
         // Assuming the response data is in the format you provided
         setData(response.data);
+        setResData(response.data)
       })
       .catch((error) => {
         console.error("Error fetching product:", error);
@@ -100,17 +100,17 @@ const OrderDefault = () => {
   useEffect(() => {
     getOrdersdata();
   }, []); // Fetch subcategories when selected category changes
-  console.log(data);
+
   // Changing state value when searching name
   useEffect(() => {
     if (onSearchText !== "") {
-      const filteredObject = orderData.filter((item) => {
-        return item.orderId.includes(onSearchText);
+      const filteredObject = data.filter((item) => {
+        return item.orderID.includes(onSearchText);
       });
       setData([...filteredObject]);
-    } else {
-      setData([...orderData]);
-    }
+    } else (
+      setData(resData)
+    )
   }, [onSearchText]);
 
   // toggle function to view order details
@@ -134,7 +134,7 @@ const OrderDefault = () => {
   // selects one order
   const onSelectChange = (e, id) => {
     let newData = data;
-    let index = newData.findIndex((item) => item.id === id);
+    let index = newData.findIndex((item) => item._id === id);
     newData[index].check = e.currentTarget.checked;
     setData([...newData]);
   };
@@ -197,40 +197,121 @@ const OrderDefault = () => {
   };
 
   // function to change to approve property for an item
-  const markAsDelivered = (id) => {
-    let newData = data;
-    let index = newData.findIndex((item) => item.id === id);
-    newData[index].status = "Delivered";
-    setData([...newData]);
+  const markChangesInStatus = async (id, status) => {
+    const result = await Swal.fire({
+      title: "Confirm Change Status",
+      text: `Are you sure you want to Change Status to ${status}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      axios.put(`${serverAPI}orders/${id}/status`, { status: status })
+        .then(response => {
+          // Assuming the API responds with the updated order data
+          let newData = data;
+          let index = newData.findIndex((item) => item._id === id);
+          newData[index].orderStatus = status;
+          setData([...newData]);
+        })
+        .catch(error => {
+          console.error('Error updating order status:', error);
+        });
+    }
+
   };
 
   // function to delete a Order
-  const deleteOrder = (id) => {
-    let defaultData = data;
-    defaultData = defaultData.filter((item) => item.id !== id);
-    setData([...defaultData]);
-    console.log(id);
-    // Remove the order from the orderData file
-    const updatedOrderData = orderData.filter((item) => item.id !== id);
-    orderData.length = 0;
-    orderData.push(...updatedOrderData);
+  const deleteOrder = async (id) => {
+    const result = await Swal.fire({
+      title: "Confirm Deletion",
+      text: "Are you sure you want to delete this Order?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+    if (result.isConfirmed) {
+      axios.delete(`${serverAPI}orders/${id}`)
+        .then(response => {
+          // Assuming the API responds with the updated order data
+          let defaultData = data;
+          defaultData = defaultData.filter((item) => item._id !== id);
+          setData([...defaultData]);
+        })
+        .catch(error => {
+          console.error('Error updating order status:', error);
+        });
+    }
   };
 
-  // function to delete the seletected item
-  const selectorDeleteOrder = () => {
-    let newData;
-    newData = data.filter((item) => item.check !== true);
-    setData([...newData]);
+
+  const selectorDeleteOrder = async () => {
+    const result = await Swal.fire({
+      title: "Confirm Deletion",
+      text: "Are you sure you want to delete this Order?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+    if (result.isConfirmed) {
+      const selectedOrderIds = data.filter(item => item.check === true).map(item => item._id);
+      const deletePromises = selectedOrderIds.map(orderId => (
+        axios.delete(`${serverAPI}orders/${orderId}`).then(res => {
+          setData(res.data.orders);
+        })
+      ));
+
+      Promise.all(deletePromises)
+        .then(responses => {
+          // Assuming the API responds with success messages
+          // setData(deletedOrderIds);
+        })
+        .catch(error => {
+          console.error('Error deleting orders:', error);
+        });
+    }
+
   };
 
   // function to change the complete property of an item
-  const selectorMarkAsDelivered = () => {
-    let newData;
-    newData = data.map((item) => {
-      if (item.check === true) item.status = "Delivered";
-      return item;
+  const selectorMarkAsDelivered = async (status) => {
+    const result = await Swal.fire({
+      title: "Confirm Change Status",
+      text: `Are you sure you want to Change Status to ${status}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
     });
-    setData([...newData]);
+    if (result.isConfirmed) {
+      const selectedOrderIds = data.filter(item => item.check === true).map(item => item._id);
+      const deletePromises = selectedOrderIds.map(orderId => (
+        axios.put(`${serverAPI}orders/${orderId}/status`, { status: status }).then(res => {
+          let newData = data;
+          let index = newData.findIndex((item) => item._id === orderId);
+          newData[index].orderStatus = status;
+          setData([...newData]);
+        })
+      ));
+
+      Promise.all(deletePromises)
+        .then(responses => {
+          // Assuming the API responds with success messages
+          // setData(deletedOrderIds);
+        })
+        .catch(error => {
+          console.error('Error deleting orders:', error);
+        });
+    }
+    // setData([...newData]);
   };
 
   // Get current list, pagination
@@ -280,7 +361,7 @@ const OrderDefault = () => {
                         />
                       </div>
                     </li>
-                    <li>
+                    {/* <li>
                       <UncontrolledDropdown>
                         <DropdownToggle
                           color="transparent"
@@ -308,7 +389,7 @@ const OrderDefault = () => {
                           </ul>
                         </DropdownMenu>
                       </UncontrolledDropdown>
-                    </li>
+                    </li> */}
                     <li className="nk-block-tools-opt">
                       <Button
                         className="toggle btn-icon d-md-none"
@@ -385,7 +466,50 @@ const OrderDefault = () => {
                               href="#markasdone"
                               onClick={(ev) => {
                                 ev.preventDefault();
-                                selectorMarkAsDelivered();
+                                const status = "Pending"
+                                selectorMarkAsDelivered(status);
+                              }}
+                            >
+                              <Icon name="repeat-v"></Icon>
+                              <span>Mark As Pending</span>
+                            </DropdownItem>
+                          </li>
+                          <li>
+                            <DropdownItem
+                              tag="a"
+                              href="#markasdone"
+                              onClick={(ev) => {
+                                ev.preventDefault();
+                                const status = "Confirmed"
+                                selectorMarkAsDelivered(status);
+                              }}
+                            >
+                              <Icon name="check-circle-cut"></Icon>
+                              <span>Mark As Confirmed</span>
+                            </DropdownItem>
+                          </li>
+                          <li>
+                            <DropdownItem
+                              tag="a"
+                              href="#markasdone"
+                              onClick={(ev) => {
+                                ev.preventDefault();
+                                const status = "Shipped"
+                                selectorMarkAsDelivered(status);
+                              }}
+                            >
+                              <Icon name="package-fill"></Icon>
+                              <span>Mark As Shipped</span>
+                            </DropdownItem>
+                          </li>
+                          <li>
+                            <DropdownItem
+                              tag="a"
+                              href="#markasdone"
+                              onClick={(ev) => {
+                                ev.preventDefault();
+                                const status = "Delivered"
+                                selectorMarkAsDelivered(status);
                               }}
                             >
                               <Icon name="truck"></Icon>
@@ -416,6 +540,7 @@ const OrderDefault = () => {
 
             {currentItems.length > 0
               ? currentItems.map((item) => (
+
                 <DataTableItem key={item.id}>
                   <DataTableRow className="nk-tb-col-check">
                     <div className="custom-control custom-control-sm custom-checkbox notext">
@@ -423,11 +548,11 @@ const OrderDefault = () => {
                         type="checkbox"
                         className="custom-control-input"
                         defaultChecked={item.check}
-                        id={item.id + "oId-all"}
+                        id={item._id + "oId-all"}
                         key={Math.random()}
-                        onChange={(e) => onSelectChange(e, item.id)}
+                        onChange={(e) => onSelectChange(e, item._id)}
                       />
-                      <label className="custom-control-label" htmlFor={item.id + "oId-all"}></label>
+                      <label className="custom-control-label" htmlFor={item._id + "oId-all"}></label>
                     </div>
                   </DataTableRow>
                   <DataTableRow>
@@ -440,40 +565,40 @@ const OrderDefault = () => {
                   </DataTableRow>
                   <DataTableRow>
                     <span
-                      className={`dot bg-${item.status === "Delivered" ? "success" : "warning"} d-sm-none`}
+                      className={`dot bg-${getColorForStatus(item.orderStatus)} d-sm-none`}
                     ></span>
                     <Badge
                       className="badge-sm badge-dot has-bg d-none d-sm-inline-flex"
-                      color={
-                        item.status === "Delivered" ? "success" : "warning"
-                      }
+                      color={getColorForStatus(item.orderStatus)}
                     >
-                      {item.status}
+                      {item.orderStatus}
                     </Badge>
                   </DataTableRow>
                   <DataTableRow size="sm">
-                    <span className="tb-sub">{item.customer}</span>
+                    {item.customerInfo ? <span className="tb-sub">{item.customerInfo.name}</span> : null}
                   </DataTableRow>
                   <DataTableRow size="md">
-                    <span className="tb-sub text-primary">{item.purchased}</span>
+                    {item.productDetails ? <span className="tb-sub text-primary" > {item.productDetails.length} item</span> : null}
                   </DataTableRow>
                   <DataTableRow>
-                    <span className="tb-lead">₹ {item.total}</span>
+                    <span className="tb-lead">₹ {parseFloat(item.totalPrice).toFixed(2)}</span>
                   </DataTableRow>
                   <DataTableRow className="nk-tb-col-tools">
                     <ul className="nk-tb-actions gx-1">
-                      {item.status !== "Delivered" && (
-                        <li className="nk-tb-action-hidden" onClick={() => markAsDelivered(item.id)}>
+
+                      {item.orderStatus !== "Confirmed" && (
+                        <li className="nk-tb-action-hidden" onClick={() => markChangesInStatus(item._id, "Confirmed")}>
                           <TooltipComponent
                             tag="a"
                             containerClassName="btn btn-trigger btn-icon"
                             id={"delivery" + item.id}
-                            icon="truck"
+                            icon="check-circle-cut"
                             direction="top"
-                            text="Mark as Delivered"
+                            text="Mark as Confirmed"
                           />
                         </li>
                       )}
+
                       <li
                         className="nk-tb-action-hidden"
                         onClick={() => {
@@ -511,14 +636,68 @@ const OrderDefault = () => {
                                   <span>Order Details</span>
                                 </DropdownItem>
                               </li>
-                              {item.status !== "Delivered" && (
+
+                              {item.orderStatus !== "Pending" && (
                                 <li>
                                   <DropdownItem
                                     tag="a"
                                     href="#dropdown"
                                     onClick={(ev) => {
                                       ev.preventDefault();
-                                      markAsDelivered(item.id);
+                                      const status = "Pending";
+                                      markChangesInStatus(item._id, status);
+                                    }}
+                                  >
+                                    <Icon name="repeat-v"></Icon>
+                                    <span>Mark as Pending</span>
+                                  </DropdownItem>
+                                </li>
+                              )}
+
+                              {item.orderStatus !== "Confirmed" && (
+                                <li>
+                                  <DropdownItem
+                                    tag="a"
+                                    href="#dropdown"
+                                    onClick={(ev) => {
+                                      ev.preventDefault();
+                                      const orderStaust = "Confirmed";
+                                      markChangesInStatus(item._id, orderStaust);
+                                    }}
+                                  >
+                                    <Icon name="check-circle-cut"></Icon>
+                                    <span>Mark as Confirmed</span>
+                                  </DropdownItem>
+                                </li>
+                              )}
+
+                              {item.orderStatus !== "Shipped" && (
+                                <li>
+                                  <DropdownItem
+                                    tag="a"
+                                    href="#dropdown"
+                                    onClick={(ev) => {
+                                      ev.preventDefault();
+                                      const orderStaust = "Shipped";
+                                      markChangesInStatus(item._id, orderStaust);
+                                    }}
+                                  >
+                                    <Icon name="package-fill"></Icon>
+                                    <span>Mark as Shipped</span>
+                                  </DropdownItem>
+                                </li>
+                              )}
+
+
+                              {item.orderStatus !== "Delivered" && (
+                                <li>
+                                  <DropdownItem
+                                    tag="a"
+                                    href="#dropdown"
+                                    onClick={(ev) => {
+                                      ev.preventDefault();
+                                      const orderStaust = "Delivered";
+                                      markChangesInStatus(item._id, orderStaust);
                                     }}
                                   >
                                     <Icon name="truck"></Icon>
@@ -526,13 +705,14 @@ const OrderDefault = () => {
                                   </DropdownItem>
                                 </li>
                               )}
+
                               <li>
                                 <DropdownItem
                                   tag="a"
                                   href="#dropdown"
                                   onClick={(ev) => {
                                     ev.preventDefault();
-                                    deleteOrder(item.id);
+                                    deleteOrder(item._id);
                                   }}
                                 >
                                   <Icon name="trash"></Icon>
