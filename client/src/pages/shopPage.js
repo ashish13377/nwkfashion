@@ -33,6 +33,14 @@ const ShopPage = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("user"));
+    setUser(data);
+    // if (!data) {
+    //   navigate("/loginRegisterPage");
+    // }
+  }, []);
 
   useEffect(() => {
     const fetchProductsByCategory = async () => {
@@ -67,14 +75,14 @@ const ShopPage = () => {
                   <ShimmerEffect />
                 </>
               ) : (
-                <ShopRightPart products={products} />
+                <ShopRightPart products={products} user={user} />
               )}
             </div>
             <div className="col-xl-3 col-lg-4 col-12 order-2 order-lg-1 mb-40">
               {loading ? (
                 <ShimmerEffect />
               ) : (
-                <ShopLeftPart products={products} />
+                <ShopLeftPart products={products} user={user} />
               )}
             </div>
           </div>

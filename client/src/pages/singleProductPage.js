@@ -12,6 +12,14 @@ export default function SingleProductPage() {
   const { productId } = useParams();
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("user"));
+    setUser(data);
+    // if (!data) {
+    //   navigate("/loginRegisterPage");
+    // }
+  }, []);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -33,7 +41,11 @@ export default function SingleProductPage() {
     <div>
       <Header />
       <SingleProductHero />
-      <SingleProductDescription productDetails={product} loading={loading} />
+      <SingleProductDescription
+        productDetails={product}
+        loading={loading}
+        user={user}
+      />
 
       <Footer />
     </div>
