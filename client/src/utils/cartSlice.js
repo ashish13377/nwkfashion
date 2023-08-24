@@ -15,11 +15,16 @@ const cartSlice = createSlice({
     },
     removeFromCart: (state, action) => {
       const productId = action.payload;
+
+      // Filter out the product to be removed only if it belongs to the current user
       state.products = state.products.filter(
-        (product) => product._id !== productId
+        (product) =>
+          product._id !== productId || product.userId !== state.userId
       );
+
       localStorage.setItem("cart", JSON.stringify(state.products));
     },
+
     setUserId: (state, action) => {
       state.userId = action.payload;
     },
