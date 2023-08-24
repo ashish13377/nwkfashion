@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
 import { serverAPILocal } from "../App";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Rating = ({ value }) => {
   return (
@@ -16,7 +17,7 @@ const Rating = ({ value }) => {
   );
 };
 
-const BestDealItem = ({ imageSrc, title, rating, price }) => {
+const BestDealItem = ({ imageSrc, title, rating, price, _id }) => {
   return (
     <div className="slide-item">
       <div className="best-deal-product">
@@ -26,7 +27,7 @@ const BestDealItem = ({ imageSrc, title, rating, price }) => {
         <div className="content-top">
           <div className="content-top-left">
             <h4 className="title">
-              <a href="#">{title}</a>
+              <Link to={`/products/${_id}`}>{title}</Link>
             </h4>
             <Rating value={rating} />
           </div>
@@ -38,9 +39,11 @@ const BestDealItem = ({ imageSrc, title, rating, price }) => {
         </div>
         <div className="content-bottom">
           <div className="countdown" data-countdown="2023/06/20" />
-          <a href="#" data-hover="SHOP NOW">
+
+          <Link to={`/products/${_id}`} data-hover="SHOP NOW">
+            {" "}
             SHOP NOW
-          </a>
+          </Link>
         </div>
       </div>
     </div>
