@@ -43,7 +43,7 @@ const ProductItem = ({ _id, imageSrc, title, price, rating, colors, user }) => {
           <div className="content">
             <div className="content-left">
               <h4 className="title">
-                <Link to="/singleProductPage">{title}</Link>
+                <Link to={`/products/${_id}`}>{title}</Link>
               </h4>
               <div className="rating">
                 {Array.from({ length: rating }, (_, index) => (
