@@ -4,7 +4,11 @@ import { useSelector } from "react-redux";
 export default function Header() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const cartItemsCount = useSelector((state) => state.cart.products.length);
+  const userId = useSelector((state) => state.cart.userId);
+  const cartItemsCount = useSelector(
+    (state) =>
+      state.cart.products.filter((product) => product.userId === userId) // Filter products based on userId
+  );
   const wishlistItemsCount = useSelector(
     (state) => state.wishlist.wishlists.length
   );
@@ -93,7 +97,7 @@ export default function Header() {
                     <div className="header-mini-cart">
                       <Link to="/cart">
                         <img src="assets/images/icons/cart.png" alt="Cart" />
-                        <span>{cartItemsCount}</span>
+                        <span>{cartItemsCount.length}</span>
                       </Link>
                     </div>
                   </div>

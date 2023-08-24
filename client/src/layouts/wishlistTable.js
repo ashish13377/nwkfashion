@@ -4,8 +4,14 @@ import { removeFromWishlist } from "../utils/wishlistSlice";
 import { addToCart } from "../utils/cartSlice";
 
 const WishlistTable = () => {
-  const products = useSelector((state) => state.wishlist.wishlists);
+  const userId = useSelector((state) => state.wishlist.userId);
+
+  const products = useSelector(
+    (state) =>
+      state.wishlist.wishlists.filter((product) => product.userId === userId) // Filter products based on userId
+  );
   console.log(products);
+  console.log(userId);
   const dispatch = useDispatch();
 
   const handleRemove = (event, _id) => {

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { serverAPILocal } from "../App";
+import { useDispatch } from "react-redux";
+import { setUserId } from "../utils/cartSlice";
 import axios from "axios";
 const MyAccountRightContents = () => {
   const [user, setUser] = useState({});
@@ -9,7 +11,7 @@ const MyAccountRightContents = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("user"));
     setUser(data);
@@ -21,6 +23,7 @@ const MyAccountRightContents = () => {
 
   const clearAuthState = () => {
     localStorage.removeItem("user");
+    dispatch(setUserId(null));
     // Add any other logic to clear authentication state here
   };
 
