@@ -68,9 +68,9 @@ const MyAccountLeftContents = () => {
         <a href="#account-info" data-bs-toggle="tab">
           <i className="fa fa-user" /> Account Details
         </a>
-        <a href="login-register.html" onClick={logout}>
+        {/* <a href="login-register.html" onClick={logout}>
           <i className="fa fa-sign-out" /> Logout
-        </a>
+        </a> */}
       </div>
       <ToastContainer />
     </div>
