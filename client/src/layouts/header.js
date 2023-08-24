@@ -39,10 +39,7 @@ export default function Header() {
                   <div className="header-top-right">
                     <p>
                       <Link link to="/loginRegisterPage">
-                        Register
-                      </Link>
-                      <Link link to="/loginRegisterPage">
-                        Login
+                        Register | Login
                       </Link>
                     </p>
                   </div>
