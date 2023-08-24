@@ -38,11 +38,6 @@ export default function Header() {
                   {/* Header Shop Links Start */}
                   <div className="header-top-right">
                     <p>
-                      <Link link to="/myAccountPage">
-                        My Account
-                      </Link>
-                    </p>
-                    <p>
                       <Link link to="/loginRegisterPage">
                         Register
                       </Link>
