@@ -6,6 +6,7 @@ import { serverAPILocal } from "../App";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserId } from "../utils/cartSlice";
+import { setWishlistUserId } from "../utils/wishlistSlice";
 const LoginRegisterForm = () => {
   const navigate = useNavigate();
   // login
@@ -71,6 +72,8 @@ const LoginRegisterForm = () => {
           });
           dispatch(setUserId(loginres.data.userLogin._id));
           console.log("userId", loginres.data.userLogin._id);
+
+          dispatch(setWishlistUserId(loginres.data.userLogin._id));
           setTimeout(() => {
             navigate("/myAccountPage");
           }, 2500);

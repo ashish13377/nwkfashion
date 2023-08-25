@@ -9,8 +9,9 @@ export default function Header() {
     (state) =>
       state.cart.products.filter((product) => product.userId === userId) // Filter products based on userId
   );
-  const wishlistItemsCount = useSelector(
-    (state) => state.wishlist.wishlists.length
+
+  const wishlistItemsCount = useSelector((state) =>
+    state.wishlist.wishlists.filter((product) => product.userId === userId)
   );
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("user"));
@@ -91,7 +92,7 @@ export default function Header() {
                           src="assets/images/icons/wishlist.png"
                           alt="Wishlist"
                         />{" "}
-                        <span>{wishlistItemsCount}</span>
+                        <span>{wishlistItemsCount.length}</span>
                       </Link>
                     </div>
                     <div className="header-mini-cart">
