@@ -297,46 +297,8 @@ const CustomerList = () => {
               <DataTableRow size="lg">
                 <span className="sub-text">Last Order</span>
               </DataTableRow>
-              <DataTableRow size="md">
-                <span className="sub-text">Status</span>
-              </DataTableRow>
-              <DataTableRow className="nk-tb-col-tools text-end">
-                <UncontrolledDropdown>
-                  <DropdownToggle color="tranparent" className="dropdown-toggle btn btn-icon btn-trigger me-n1">
-                    <Icon name="more-h"></Icon>
-                  </DropdownToggle>
-                  <DropdownMenu end>
-                    <ul className="link-list-opt no-bdr">
-                      <li>
-                        <DropdownItem
-                          tag="a"
-                          href="#"
-                          onClick={(ev) => {
-                            ev.preventDefault();
-                            selectorDeleteUser();
-                          }}
-                        >
-                          <Icon name="na"></Icon>
-                          <span>Remove Selected</span>
-                        </DropdownItem>
-                      </li>
-                      <li>
-                        <DropdownItem
-                          tag="a"
-                          href="#"
-                          onClick={(ev) => {
-                            ev.preventDefault();
-                            selectorSuspendUser();
-                          }}
-                        >
-                          <Icon name="trash"></Icon>
-                          <span>Suspend Selected</span>
-                        </DropdownItem>
-                      </li>
-                    </ul>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </DataTableRow>
+             
+              
             </DataTableHead>
             {/*Head*/}
             {currentItems.length > 0
@@ -382,83 +344,7 @@ const CustomerList = () => {
                     <DataTableRow size="lg">
                       <span>{item.lastLogin}</span>
                     </DataTableRow>
-                    <DataTableRow size="md">
-                      <span
-                        className={`tb-status text-${
-                          item.status === "Active" ? "success" : item.status === "Pending" ? "warning" : "danger"
-                        }`}
-                      >
-                        {item.status}
-                      </span>
-                    </DataTableRow>
-                    <DataTableRow className="nk-tb-col-tools">
-                      <ul className="nk-tb-actions gx-1">
-                        <li className="nk-tb-action-hidden" onClick={() => onEditClick(item.id)}>
-                          <TooltipComponent
-                            tag="a"
-                            containerClassName="btn btn-trigger btn-icon"
-                            id={"edit" + item.id}
-                            icon="edit-alt-fill"
-                            direction="top"
-                            text="Edit"
-                          />
-                        </li>
-                        {item.status !== "Suspend" && (
-                          <React.Fragment>
-                            <li className="nk-tb-action-hidden" onClick={() => suspendUser(item.id)}>
-                              <TooltipComponent
-                                tag="a"
-                                containerClassName="btn btn-trigger btn-icon"
-                                id={"suspend" + item.id}
-                                icon="user-cross-fill"
-                                direction="top"
-                                text="Suspend"
-                              />
-                            </li>
-                          </React.Fragment>
-                        )}
-                        <li>
-                          <UncontrolledDropdown>
-                            <DropdownToggle tag="a" className="dropdown-toggle btn btn-icon btn-trigger">
-                              <Icon name="more-h"></Icon>
-                            </DropdownToggle>
-                            <DropdownMenu end>
-                              <ul className="link-list-opt no-bdr">
-                                <li onClick={() => onEditClick(item.id)}>
-                                  <DropdownItem
-                                    tag="a"
-                                    href="#edit"
-                                    onClick={(ev) => {
-                                      ev.preventDefault();
-                                    }}
-                                  >
-                                    <Icon name="edit"></Icon>
-                                    <span>Edit</span>
-                                  </DropdownItem>
-                                </li>
-                                {item.status !== "Suspend" && (
-                                  <React.Fragment>
-                                    <li className="divider"></li>
-                                    <li onClick={() => suspendUser(item.id)}>
-                                      <DropdownItem
-                                        tag="a"
-                                        href="#suspend"
-                                        onClick={(ev) => {
-                                          ev.preventDefault();
-                                        }}
-                                      >
-                                        <Icon name="na"></Icon>
-                                        <span>Suspend User</span>
-                                      </DropdownItem>
-                                    </li>
-                                  </React.Fragment>
-                                )}
-                              </ul>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </li>
-                      </ul>
-                    </DataTableRow>
+                  
                   </DataTableItem>
                 ))
               : null}

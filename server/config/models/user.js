@@ -34,6 +34,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    avatarBg: {
+        type: String,
+    },
+    lastOrderAmount: {
+        type: String,
+    },
+    lastOrderDate: {
+        type: String,
+    },
     tokens: [
         {
             token: {
@@ -58,15 +67,6 @@ userSchema.pre('save', async function (next) {
     } catch (err) {
         console.log(err)
     }
-
-    // if (this.isModified('password')) {
-    //     this.password = await bcrypt.hash(this.password, 12);
-    //     this.cfpassword = await bcrypt.hash(this.cfpassword, 12);
-    //     console.log(this)
-    //     await this.save();
-
-    //     next();
-    // }
 
 })
 userSchema.methods.generateAuthToken = async function () {

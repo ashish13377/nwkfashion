@@ -38,15 +38,6 @@ async function createOrder(req, res) {
     // Format the date when the order is made as "Jun 4, 2020"
     const orderDate = moment().format("MMM D, YYYY");
 
-    // // Calculate total price based on productDetails
-    // const totalPrice = req.body.productDetails.reduce(
-    //   (total, productDetail) => {
-    //     const price = parseFloat(productDetail.price.replace("$", ""));
-    //     return total + price;
-    //   },
-    //   0
-    // );
-
     const orderData = {
       orderID: newOrderID,
       razorpay: req.body.razorpay,
@@ -64,12 +55,50 @@ async function createOrder(req, res) {
     const order = new Order(orderData);
 
     await order.save();
+
+    // Find the user and check if avatarBg is already set
+    const user = await User.findById(req.body.userId);
+    if (user.avatarBg) {
+      // If avatarBg exists, only update lastOrderAmount and lastOrderDate
+      await User.findByIdAndUpdate(req.body.userId, {
+        $set: {
+          lastOrderAmount: req.body.totalPrice,
+          lastOrderDate: orderDate,
+        },
+      });
+    } else {
+      // If avatarBg doesn't exist, update lastOrderAmount, lastOrderDate, and avatarBg
+      await User.findByIdAndUpdate(req.body.userId, {
+        $set: {
+          lastOrderAmount: req.body.totalPrice,
+          lastOrderDate: orderDate,
+          avatarBg: pickRandomColor(),
+        },
+      });
+    }
+
     console.log(orderData);
     res.status(201).json(order);
   } catch (err) {
     console.error("Error creating order:", err);
     res.status(500).json({ error: "Unable to create order" });
   }
+}
+
+// Helper function to pick a random color from the predefined options
+function pickRandomColor() {
+  const colors = [
+    "purple",
+    "info",
+    "danger",
+    "primary",
+    "warning",
+    "pink",
+    "secondary",
+    "blue",
+  ];
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
 }
 
 // Get all orders
