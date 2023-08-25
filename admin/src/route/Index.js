@@ -219,8 +219,8 @@ const Router = () => {
         <Route path="image-gallery" element={<GalleryPreview />}></Route>
 
         <Route path="pages">
-          <Route path="terms-policy" element={<Terms />}></Route>
-          <Route path="faq" element={<Faq />}></Route>
+          {/* <Route path="terms-policy" element={<Terms />}></Route>
+          <Route path="faq" element={<Faq />}></Route> */}
           <Route path="regular-v1" element={<Regularv1 />}></Route>
           <Route path="regular-v2" element={<Regularv2 />}></Route>
         </Route>
