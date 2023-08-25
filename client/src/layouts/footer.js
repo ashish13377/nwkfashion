@@ -60,8 +60,8 @@ export default function footer() {
               <div className="footer-widget col-lg-3 col-md-6 col-12 mb-40">
                 <h5>FOLLOW US</h5>
                 <p className="footer-social">
-                  <a href="#">Facebook</a> - <a href="#">Twitter</a> -{" "}
-                  <a href="#">Google+</a>
+                  <a href="#">Facebook</a> - <a href="">Twitter</a> -{" "}
+                  <a href="#">Instagram</a>
                 </p>
               </div>
             </div>
