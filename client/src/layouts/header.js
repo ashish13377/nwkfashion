@@ -113,7 +113,7 @@ export default function Header() {
                         <Link to="/">HOME</Link>
                       </li>
                       <li>
-                        <a href="shop.html">SHOP</a>
+                        <a>SHOP</a>
                         <ul className="sub-menu">
                           <li>
                             <Link to="/Kurtas">Kurtas & Suits</Link>
@@ -152,9 +152,9 @@ export default function Header() {
                         </ul>
                       </li> */}
 
-                      <li>
+                      {/* <li>
                         <a href="contact.html">CONTACT</a>
-                      </li>
+                      </li> */}
                     </ul>
                   </nav>
                 </div>

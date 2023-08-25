@@ -225,7 +225,7 @@ const LoginRegisterForm = () => {
                     </div>
                   </div>
                 </form>
-                <h4>You can also login with...</h4>
+                {/* <h4>You can also login with...</h4>
                 <div className="social-login">
                   <a href="#">
                     <i className="fa fa-facebook" />
@@ -242,7 +242,7 @@ const LoginRegisterForm = () => {
                   <a href="#">
                     <i className="fa fa-linkedin" />
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
 
