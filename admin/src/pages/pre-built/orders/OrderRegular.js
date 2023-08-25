@@ -23,16 +23,7 @@ import {
   Row,
   Col,
 } from "../../../components/Component";
-import {
-  UncontrolledDropdown,
-  DropdownMenu,
-  DropdownToggle,
-  DropdownItem,
-  
-  ModalBody,
-  Modal,
-  Badge
-} from "reactstrap";
+import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem, ModalBody, Modal, Badge } from "reactstrap";
 import { useForm } from "react-hook-form";
 import { getDateStructured } from "../../../utils/Utils";
 
@@ -133,7 +124,7 @@ const OrderRegular = () => {
   };
 
   useEffect(() => {
-    reset(formData)
+    reset(formData);
   }, [formData]);
 
   // function to load detail data
@@ -206,7 +197,12 @@ const OrderRegular = () => {
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const { reset, register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    reset,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
     <React.Fragment>
@@ -551,9 +547,7 @@ const OrderRegular = () => {
                         ></span>
                         <Badge
                           className="badge-sm badge-dot has-bg d-none d-sm-inline-flex"
-                          color={
-                            item.status === "Delivered" ? "success" : "warning"
-                          }
+                          color={item.status === "Delivered" ? "success" : "warning"}
                         >
                           {item.status}
                         </Badge>
@@ -699,11 +693,12 @@ const OrderRegular = () => {
                           <input
                             type="text"
                             className="form-control"
-                            {...register('customer', {
+                            {...register("customer", {
                               required: "This field is required",
                             })}
                             onChange={(e) => setFormData({ ...formData, customer: e.target.value })}
-                            value={formData.customer} />
+                            value={formData.customer}
+                          />
                           {errors.customer && <span className="invalid">{errors.customer.message}</span>}
                         </div>
                       </div>
@@ -732,9 +727,10 @@ const OrderRegular = () => {
                           <input
                             type="text"
                             className="form-control"
-                            {...register('purchased', { required: "This is required" })}
+                            {...register("purchased", { required: "This is required" })}
                             value={formData.purchased}
-                            onChange={(e) => setFormData({ ...formData, purchased: e.target.value })}/>
+                            onChange={(e) => setFormData({ ...formData, purchased: e.target.value })}
+                          />
                           {errors.purchased && <span className="invalid">{errors.purchased.message}</span>}
                         </div>
                       </div>
@@ -748,9 +744,10 @@ const OrderRegular = () => {
                           <input
                             type="number"
                             className="form-control"
-                            {...register('total', { required: "This is required" })}
+                            {...register("total", { required: "This is required" })}
                             value={formData.total}
-                            onChange={(e) => setFormData({ ...formData, total: e.target.value })}/>
+                            onChange={(e) => setFormData({ ...formData, total: e.target.value })}
+                          />
                           {errors.total && <span className="invalid">{errors.total.message}</span>}
                         </div>
                       </div>
@@ -768,7 +765,7 @@ const OrderRegular = () => {
                               { value: "Delivered", label: "Delivered" },
                             ]}
                             onChange={(e) => setFormData({ ...formData, status: e.value })}
-                            value={{value: formData.status, label: formData.status}}
+                            value={{ value: formData.status, label: formData.status }}
                           />
                         </div>
                       </div>
@@ -815,9 +812,7 @@ const OrderRegular = () => {
                   ></span>
                   <Badge
                     className="badge-sm badge-dot has-bg d-none d-sm-inline-flex"
-                    color={
-                      formData.status === "Delivered" ? "success" : "warning"
-                    }
+                    color={formData.status === "Delivered" ? "success" : "warning"}
                   >
                     {formData.status}
                   </Badge>

@@ -72,18 +72,6 @@ const InvoiceList = () => {
           <BlockBetween>
             <BlockHeadContent>
               <BlockTitle page>Invoices</BlockTitle>
-              <BlockDes className="text-soft">
-                <p>You have total 937 invoices.</p>
-              </BlockDes>
-            </BlockHeadContent>
-            <BlockHeadContent>
-              <ul className="nk-block-tools g-3">
-                <li>
-                  <Button color="primary" className="btn-icon">
-                    <Icon name="plus"></Icon>
-                  </Button>
-                </li>
-              </ul>
             </BlockHeadContent>
           </BlockBetween>
         </BlockHead>
