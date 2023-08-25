@@ -4,18 +4,22 @@ import { useSelector } from "react-redux";
 export default function Header() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const cartItemsCount = useSelector((state) => state.cart.products.length);
+  const userId = useSelector((state) => state.cart.userId);
+  const cartItemsCount = useSelector(
+    (state) =>
+      state.cart.products.filter((product) => product.userId === userId) // Filter products based on userId
+  );
   const wishlistItemsCount = useSelector(
     (state) => state.wishlist.wishlists.length
   );
-  // useEffect(() => {
-  //   const data = JSON.parse(localStorage.getItem("user"));
-  //   setUser(data);
-  //   if (!data) {
-  //     navigate("/loginRegisterPage");
-  //   }
-  // }, []);
-
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("user"));
+    setUser(data);
+    // if (!data) {
+    //   navigate("/loginRegisterPage");
+    // }
+  }, []);
+  console.log(user);
   return (
     <div>
       {" "}
@@ -38,16 +42,8 @@ export default function Header() {
                   {/* Header Shop Links Start */}
                   <div className="header-top-right">
                     <p>
-                      <Link link to="/myAccountPage">
-                        My Account
-                      </Link>
-                    </p>
-                    <p>
                       <Link link to="/loginRegisterPage">
-                        Register
-                      </Link>
-                      <Link link to="/loginRegisterPage">
-                        Login
+                        Register | Login
                       </Link>
                     </p>
                   </div>
@@ -85,47 +81,27 @@ export default function Header() {
               </div>
               <div className="col order-2 order-lg-3">
                 {/* Header Advance Search Start */}
-                <div className="header-shop-links">
-                  <div className="header-search">
-                    <button className="search-toggle">
-                      <img
-                        src="assets/images/icons/search.png"
-                        alt="Search Toggle"
-                      />
-                      <img
-                        className="toggle-close"
-                        src="assets/images/icons/close.png"
-                        alt="Search Toggle"
-                      />
-                    </button>
-                    <div className="header-search-wrap">
-                      <form action="#">
-                        <input type="text" placeholder="Type and hit enter" />
-                        <button>
-                          <img
-                            src="assets/images/icons/search.png"
-                            alt="Search"
-                          />
-                        </button>
-                      </form>
+                {!user ? (
+                  <></>
+                ) : (
+                  <div className="header-shop-links">
+                    <div className="header-wishlist">
+                      <Link to="/wishlistPage">
+                        <img
+                          src="assets/images/icons/wishlist.png"
+                          alt="Wishlist"
+                        />{" "}
+                        <span>{wishlistItemsCount}</span>
+                      </Link>
+                    </div>
+                    <div className="header-mini-cart">
+                      <Link to="/cart">
+                        <img src="assets/images/icons/cart.png" alt="Cart" />
+                        <span>{cartItemsCount.length}</span>
+                      </Link>
                     </div>
                   </div>
-                  <div className="header-wishlist">
-                    <Link to="/wishlistPage">
-                      <img
-                        src="assets/images/icons/wishlist.png"
-                        alt="Wishlist"
-                      />{" "}
-                      <span>{wishlistItemsCount}</span>
-                    </Link>
-                  </div>
-                  <div className="header-mini-cart">
-                    <Link to="/cart">
-                      <img src="assets/images/icons/cart.png" alt="Cart" />
-                      <span>{cartItemsCount}</span>
-                    </Link>
-                  </div>
-                </div>
+                )}
                 {/* Header Advance Search End */}
               </div>
               <div className="col order-3 order-lg-2">

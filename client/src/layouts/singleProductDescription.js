@@ -20,7 +20,7 @@ const LoadingSpinner = () => {
   );
 };
 
-const SingleProductDescription = ({ productDetails, loading }) => {
+const SingleProductDescription = ({ productDetails, loading, user }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = (productDetails) => {
@@ -165,22 +165,33 @@ const SingleProductDescription = ({ productDetails, loading }) => {
                             </div>
                           </div>
                         </div>
-                        <div className="actions">
-                          <button
-                            onClick={() => handleAddToCart(productDetails)}
-                          >
-                            <i className="ti-shopping-cart" />
-                            <span>ADD TO CART</span>
-                          </button>
+                        {user ? (
+                          <div className="actions">
+                            <button
+                              onClick={() => handleAddToCart(productDetails)}
+                            >
+                              <i className="ti-shopping-cart" />
+                              <span>ADD TO CART</span>
+                            </button>
 
-                          <button
-                            onClick={() => handleAddToWishlist(productDetails)}
-                            className="box"
-                            data-tooltip="Wishlist"
-                          >
-                            <i className="ti-heart" />
-                          </button>
-                        </div>
+                            <button
+                              onClick={() =>
+                                handleAddToWishlist(productDetails)
+                              }
+                              className="box"
+                              data-tooltip="Wishlist"
+                            >
+                              <i className="ti-heart" />
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="actions">
+                            <button>
+                              <i className="ti-shopping-cart" />
+                              <span>Login/Signup</span>
+                            </button>
+                          </div>
+                        )}
 
                         {/* <div className="share">
                           <h5>Share: </h5>

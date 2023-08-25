@@ -3,8 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../utils/cartSlice";
 import { Link } from "react-router-dom";
 const CartTable = () => {
-  const products = useSelector((state) => state.cart.products);
- 
+  const userId = useSelector((state) => state.cart.userId);
+
+  const products = useSelector(
+    (state) =>
+      state.cart.products.filter((product) => product.userId === userId) // Filter products based on userId
+  );
+  console.log("UserId:", userId);
+  console.log("Products:", products);
 
   const dispatch = useDispatch();
 
@@ -12,7 +18,6 @@ const CartTable = () => {
     event.preventDefault();
 
     dispatch(removeFromCart(_id));
-
   };
 
   const calculateSubtotal = () => {

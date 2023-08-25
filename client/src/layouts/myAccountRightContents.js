@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { serverAPILocal } from "../App";
+import { useDispatch } from "react-redux";
+import { setUserId } from "../utils/cartSlice";
 import axios from "axios";
 const MyAccountRightContents = () => {
   const [user, setUser] = useState({});
@@ -9,7 +11,7 @@ const MyAccountRightContents = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("user"));
     setUser(data);
@@ -18,6 +20,20 @@ const MyAccountRightContents = () => {
     }
     console.log(data);
   }, []);
+
+  const clearAuthState = () => {
+    localStorage.removeItem("user");
+    dispatch(setUserId(null));
+    // Add any other logic to clear authentication state here
+  };
+
+  const handleLogout = () => {
+    // Clear user's authentication state (example: clearing tokens and user info)
+    // You can replace the following line with the appropriate method for your app
+    clearAuthState();
+
+    navigate("/loginRegisterPage");
+  };
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -68,10 +84,9 @@ const MyAccountRightContents = () => {
               <p>
                 Hello, <strong>{user.name}</strong> (If Not{" "}
                 <strong>{user.username} !</strong>
-                <a href="login-register.html" className="logout">
-                  {" "}
+                <button className="logout" onClick={handleLogout}>
                   Logout
-                </a>
+                </button>
                 )
               </p>
             </div>

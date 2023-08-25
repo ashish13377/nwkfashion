@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
 import { addToWishlist } from "../utils/wishlistSlice";
 // Product item component
-const ProductItem = ({ _id, imageSrc, title, price, rating, colors }) => {
+const ProductItem = ({ _id, imageSrc, title, price, rating, colors, user }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
@@ -25,17 +25,25 @@ const ProductItem = ({ _id, imageSrc, title, price, rating, colors }) => {
           <div className="image">
             {/* imageSrc */}
             <img src={"assets/images/product/product-3.jpg"} alt={title} />
-            <div className="image-overlay">
-              <div className="action-buttons">
-                <button onClick={handleAddToCart}>add to cart</button>
-                <button onClick={handleAddToWishlist}>add to wishlist</button>
+            {user ? (
+              <div className="image-overlay">
+                <div className="action-buttons">
+                  <button onClick={handleAddToCart}>add to cart</button>
+                  <button onClick={handleAddToWishlist}>add to wishlist</button>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="image-overlay">
+                <div className="action-buttons">
+                  <button onClick={handleAddToCart}>Login/Signup</button>
+                </div>
+              </div>
+            )}
           </div>
           <div className="content">
             <div className="content-left">
               <h4 className="title">
-                <Link to="/singleProductPage">{title}</Link>
+                <Link to={`/products/${_id}`}>{title}</Link>
               </h4>
               <div className="rating">
                 {Array.from({ length: rating }, (_, index) => (
@@ -69,7 +77,7 @@ const ProductItem = ({ _id, imageSrc, title, price, rating, colors }) => {
 };
 
 // Product list component
-const ProductList = ({ products, loading }) => {
+const ProductList = ({ products, loading, user }) => {
   const productsPerPage = 9; // Number of products to display per page
   const totalPages = Math.ceil(products.length / productsPerPage); // Calculate total pages
 
@@ -89,7 +97,7 @@ const ProductList = ({ products, loading }) => {
     <div>
       <div className="product-list row">
         {displayedProducts.map((product, index) => (
-          <ProductItem key={index} {...product} />
+          <ProductItem key={index} {...product} user={user} />
         ))}
       </div>
 

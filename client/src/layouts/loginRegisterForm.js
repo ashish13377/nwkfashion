@@ -4,7 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { serverAPILocal } from "../App";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { setUserId } from "../utils/cartSlice";
 const LoginRegisterForm = () => {
   const navigate = useNavigate();
   // login
@@ -17,7 +18,7 @@ const LoginRegisterForm = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const dispatch = useDispatch();
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     const loginData = {
@@ -68,6 +69,7 @@ const LoginRegisterForm = () => {
             draggable: true,
             theme: "light",
           });
+          dispatch(setUserId(loginres.data.userLogin._id));
           setTimeout(() => {
             navigate("/myAccountPage");
           }, 2500);

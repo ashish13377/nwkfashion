@@ -27,7 +27,7 @@ const OnSaleProducts = ({ products }) => {
               </a>
               <div className="content text-center">
                 <h4 className="title">
-                  <a href="single-product.html">{product.title}</a>
+                  <Link to={`/products/${product._id}`}>{product.title}</Link>
                 </h4>
                 <span className="price">
                   $<span className="old">$</span>

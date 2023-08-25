@@ -1,10 +1,18 @@
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
 import { addToWishlist } from "../utils/wishlistSlice";
 
 const PopularProducts = ({ products }) => {
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("user"));
+    setUser(data);
+    // if (!data) {
+    //   navigate("/loginRegisterPage");
+    // }
+  }, []);
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
@@ -57,14 +65,27 @@ const PopularProducts = ({ products }) => {
                         alt="Product"
                       />
                       <div className="image-overlay">
-                        <div className="action-buttons">
-                          <button onClick={() => handleAddToCart(product)}>
-                            add to cart
-                          </button>
-                          <button onClick={() => handleAddToWishlist(product)}>
-                            add to wishlist
-                          </button>
-                        </div>
+                        {user ? (
+                          <div className="action-buttons">
+                            <button onClick={() => handleAddToCart(product)}>
+                              add to cart
+                            </button>
+                            <button
+                              onClick={() => handleAddToWishlist(product)}
+                            >
+                              add to wishlist
+                            </button>
+                          </div>
+                        ) : (
+                          <>
+                            <div className="action-buttons">
+                              <Link to="/loginRegisterPage">
+                                {" "}
+                                <button>Login/Signup</button>
+                              </Link>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </div>
                     <div className="content">
