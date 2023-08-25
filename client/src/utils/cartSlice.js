@@ -15,11 +15,18 @@ const cartSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state.products));
     },
     removeFromCart: (state, action) => {
-      const index = action.payload; // Index of the product to be removed
-      state.products.splice(index, 1); // Remove the product at the given index
+      const indexToRemove = action.payload;
+      const userId = state.userId;
+
+      // Filter out the product to be removed only if it belongs to the current user and has the intended index
+      state.products = state.products.filter(
+        (product, index) =>
+          (product.userId === userId && index !== indexToRemove) ||
+          product.userId !== userId
+      );
+
       localStorage.setItem("cart", JSON.stringify(state.products));
     },
-
     setUserId: (state, action) => {
       state.userId = action.payload;
     },
