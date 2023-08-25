@@ -9,19 +9,14 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const product = action.payload;
-      product.userId = state.userId;
-      state.products.push(product);
+      const newProduct = { ...product, userId: state.userId };
+      state.products.push(newProduct);
+
       localStorage.setItem("cart", JSON.stringify(state.products));
     },
     removeFromCart: (state, action) => {
-      const productId = action.payload;
-
-      // Filter out the product to be removed only if it belongs to the current user
-      state.products = state.products.filter(
-        (product) =>
-          product._id !== productId || product.userId !== state.userId
-      );
-
+      const index = action.payload; // Index of the product to be removed
+      state.products.splice(index, 1); // Remove the product at the given index
       localStorage.setItem("cart", JSON.stringify(state.products));
     },
 

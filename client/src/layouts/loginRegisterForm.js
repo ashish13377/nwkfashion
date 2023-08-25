@@ -70,6 +70,7 @@ const LoginRegisterForm = () => {
             theme: "light",
           });
           dispatch(setUserId(loginres.data.userLogin._id));
+          console.log("userId", loginres.data.userLogin._id);
           setTimeout(() => {
             navigate("/myAccountPage");
           }, 2500);
