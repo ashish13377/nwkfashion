@@ -1,14 +1,9 @@
 import React from "react";
 import { Card, Badge } from "reactstrap";
-import {
-  DataTableHead,
-  DataTableRow,
-  DataTableItem,
-  UserAvatar,
-} from "../../../Component";
+import { DataTableHead, DataTableRow, DataTableItem, UserAvatar } from "../../../Component";
 import { recentOrderData } from "./OrderData";
 
-const RecentOrders = () => {
+const RecentOrders = ({ ordersData }) => {
   return (
     <Card className="card-full">
       <div className="card-inner">
@@ -36,25 +31,20 @@ const RecentOrders = () => {
             <span className="d-none d-sm-inline">Status</span>
           </DataTableRow>
         </DataTableHead>
-        {recentOrderData.map((item, idx) => (
+        {ordersData.map((item, idx) => (
           <DataTableItem key={idx}>
             <DataTableRow>
               <span className="tb-lead">
                 <a href="#order" onClick={(ev) => ev.preventDefault()}>
-                  {item.order}
+                  {item.orderID}
                 </a>
               </span>
             </DataTableRow>
             <DataTableRow size="sm">
               <div className="user-card">
-                <UserAvatar
-                  className="sm"
-                  theme={item.theme}
-                  text={item.initial}
-                  image={item.img}
-                ></UserAvatar>
+                <UserAvatar className="sm" theme={item.theme} text={item.initial} image={item.img}></UserAvatar>
                 <div className="user-name">
-                  <span className="tb-lead">{item.name}</span>
+                  <span className="tb-lead">{item.customerInfo.name}</span>
                 </div>
               </div>
             </DataTableRow>
@@ -63,21 +53,15 @@ const RecentOrders = () => {
             </DataTableRow>
             <DataTableRow>
               <span className="tb-sub tb-amount">
-                {item.amount} <span>USD</span>
+                {item.totalPrice} <span>INR</span>
               </span>
             </DataTableRow>
             <DataTableRow>
               <Badge
                 className="badge-dot badge-dot-xs"
-                color={
-                  item.status === "Paid"
-                    ? "success"
-                    : item.status === "Due"
-                    ? "warning"
-                    : "danger"
-                }
+                color={item.orderStatus === "Paid" ? "success" : item.status === "Due" ? "warning" : "danger"}
               >
-                {item.status}
+                {item.orderStatus}
               </Badge>
             </DataTableRow>
           </DataTableItem>

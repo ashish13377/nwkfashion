@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Content from "../../../layout/content/Content";
 import Head from "../../../layout/head/Head";
 import { Block, BlockBetween, BlockHead, BlockHeadContent, BlockTitle, Col, Row } from "../../../components/Component";
@@ -13,6 +14,19 @@ import TrafficSources from "../../../components/partials/e-commerce/traffic-sour
 import StoreVisitors from "../../../components/partials/e-commerce/store-visitors/StoreVisitors";
 
 const Dashboard = () => {
+  const [ordersData, setOrdersData] = useState([]);
+  useEffect(() => {
+    // Fetch data from the API
+    axios
+      .get("http://localhost:5904/api/orders")
+      .then((response) => {
+        setOrdersData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching orders data:", error);
+      });
+  }, []);
+  console.log(ordersData.length);
   return (
     <React.Fragment>
       <Head title="Dashboard"></Head>
@@ -36,15 +50,15 @@ const Dashboard = () => {
             <Col xxl="4">
               <Row className="g-gs">
                 <Col xxl="12" md="6">
-                  <Orders />
+                  <Orders ordersData={ordersData} />
                 </Col>
                 <Col xxl="12" md="6">
-                  <Customer />
+                  <Customer ordersData={ordersData} />
                 </Col>
               </Row>
             </Col>
             <Col xxl="8">
-              <RecentOrders />
+              <RecentOrders ordersData={ordersData} />
             </Col>
             {/* <Col xxl="4" md="6">
               <TopProducts />
