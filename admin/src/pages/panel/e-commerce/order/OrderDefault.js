@@ -205,7 +205,7 @@ const OrderDefault = () => {
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, Change it!",
     });
 
     if (result.isConfirmed) {
@@ -289,7 +289,7 @@ const OrderDefault = () => {
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, Change it!",
     });
     if (result.isConfirmed) {
       const selectedOrderIds = data.filter(item => item.check === true).map(item => item._id);
