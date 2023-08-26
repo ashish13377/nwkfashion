@@ -56,10 +56,12 @@ const LoginRegisterForm = () => {
             withCredentials: true,
           }
         );
-        localStorage.setItem("jwt", JSON.stringify(loginres.data.token));
-        localStorage.setItem("user", JSON.stringify(loginres.data.userLogin));
+
         // console.log(loginres.data.message)
         if (loginres.status === 200) {
+          localStorage.setItem("jwt", JSON.stringify(loginres.data.token));
+
+          localStorage.setItem("user", JSON.stringify(loginres.data.userLogin));
           const mess = loginres.data.message;
           toast.success(mess, {
             position: "top-center",
@@ -71,6 +73,7 @@ const LoginRegisterForm = () => {
             theme: "light",
           });
           dispatch(setUserId(loginres.data.userLogin._id));
+
           console.log("userId", loginres.data.userLogin._id);
 
           dispatch(setWishlistUserId(loginres.data.userLogin._id));
