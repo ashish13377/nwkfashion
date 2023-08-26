@@ -6,6 +6,7 @@ import { serverAPILocal } from "../App";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserId } from "../utils/cartSlice";
+import { setWishlistUserId } from "../utils/wishlistSlice";
 const LoginRegisterForm = () => {
   const navigate = useNavigate();
   // login
@@ -70,6 +71,9 @@ const LoginRegisterForm = () => {
             theme: "light",
           });
           dispatch(setUserId(loginres.data.userLogin._id));
+          console.log("userId", loginres.data.userLogin._id);
+
+          dispatch(setWishlistUserId(loginres.data.userLogin._id));
           setTimeout(() => {
             navigate("/myAccountPage");
           }, 2500);
@@ -221,7 +225,7 @@ const LoginRegisterForm = () => {
                     </div>
                   </div>
                 </form>
-                <h4>You can also login with...</h4>
+                {/* <h4>You can also login with...</h4>
                 <div className="social-login">
                   <a href="#">
                     <i className="fa fa-facebook" />
@@ -238,7 +242,7 @@ const LoginRegisterForm = () => {
                   <a href="#">
                     <i className="fa fa-linkedin" />
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
 

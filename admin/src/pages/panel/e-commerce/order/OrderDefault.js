@@ -21,7 +21,16 @@ import {
   RSelect,
 } from "../../../../components/Component";
 import { getDateStructured } from "../../../../utils/Utils";
-import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem, Button, Modal, ModalBody, Badge } from "reactstrap";
+import {
+  UncontrolledDropdown,
+  DropdownMenu,
+  DropdownToggle,
+  DropdownItem,
+  Button,
+  Modal,
+  ModalBody,
+  Badge,
+} from "reactstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { serverAPI } from "../../../..";
@@ -56,12 +65,12 @@ const OrderDefault = () => {
 
   function getColorForStatus(status) {
     const colorMappings = {
-      'Confirmed': 'info',
-      'Shipped': 'warning',
-      'Delivered': 'success'
+      Confirmed: "info",
+      Shipped: "warning",
+      Delivered: "success",
     };
 
-    return colorMappings[status] || 'danger'; // Default to 'danger' for unrecognized statuses
+    return colorMappings[status] || "danger"; // Default to 'danger' for unrecognized statuses
   }
   // useEffect(() => {
   //   axios.get('your-api-endpoint')
@@ -84,14 +93,14 @@ const OrderDefault = () => {
     await axios
       .get(`${serverAPI}orders`)
       .then((response) => {
-        const updatedOrders = response.data.map(order => ({
+        const updatedOrders = response.data.map((order) => ({
           ...order,
-          color: getColorForStatus(order.orderStatus)
+          color: getColorForStatus(order.orderStatus),
         }));
         setOrders(updatedOrders);
         // Assuming the response data is in the format you provided
         setData(response.data);
-        setResData(response.data)
+        setResData(response.data);
       })
       .catch((error) => {
         console.error("Error fetching product:", error);
@@ -108,9 +117,7 @@ const OrderDefault = () => {
         return item.orderID.includes(onSearchText);
       });
       setData([...filteredObject]);
-    } else (
-      setData(resData)
-    )
+    } else setData(resData);
   }, [onSearchText]);
 
   // toggle function to view order details
@@ -171,7 +178,7 @@ const OrderDefault = () => {
   };
 
   useEffect(() => {
-    reset(formData)
+    reset(formData);
   }, [formData]);
 
   // function to load detail data
@@ -209,19 +216,19 @@ const OrderDefault = () => {
     });
 
     if (result.isConfirmed) {
-      axios.put(`${serverAPI}orders/${id}/status`, { status: status })
-        .then(response => {
+      axios
+        .put(`${serverAPI}orders/${id}/status`, { status: status })
+        .then((response) => {
           // Assuming the API responds with the updated order data
           let newData = data;
           let index = newData.findIndex((item) => item._id === id);
           newData[index].orderStatus = status;
           setData([...newData]);
         })
-        .catch(error => {
-          console.error('Error updating order status:', error);
+        .catch((error) => {
+          console.error("Error updating order status:", error);
         });
     }
-
   };
 
   // function to delete a Order
@@ -236,19 +243,19 @@ const OrderDefault = () => {
       confirmButtonText: "Yes, delete it!",
     });
     if (result.isConfirmed) {
-      axios.delete(`${serverAPI}orders/${id}`)
-        .then(response => {
+      axios
+        .delete(`${serverAPI}orders/${id}`)
+        .then((response) => {
           // Assuming the API responds with the updated order data
           let defaultData = data;
           defaultData = defaultData.filter((item) => item._id !== id);
           setData([...defaultData]);
         })
-        .catch(error => {
-          console.error('Error updating order status:', error);
+        .catch((error) => {
+          console.error("Error updating order status:", error);
         });
     }
   };
-
 
   const selectorDeleteOrder = async () => {
     const result = await Swal.fire({
@@ -261,23 +268,22 @@ const OrderDefault = () => {
       confirmButtonText: "Yes, delete it!",
     });
     if (result.isConfirmed) {
-      const selectedOrderIds = data.filter(item => item.check === true).map(item => item._id);
-      const deletePromises = selectedOrderIds.map(orderId => (
-        axios.delete(`${serverAPI}orders/${orderId}`).then(res => {
+      const selectedOrderIds = data.filter((item) => item.check === true).map((item) => item._id);
+      const deletePromises = selectedOrderIds.map((orderId) =>
+        axios.delete(`${serverAPI}orders/${orderId}`).then((res) => {
           setData(res.data.orders);
         })
-      ));
+      );
 
       Promise.all(deletePromises)
-        .then(responses => {
+        .then((responses) => {
           // Assuming the API responds with success messages
           // setData(deletedOrderIds);
         })
-        .catch(error => {
-          console.error('Error deleting orders:', error);
+        .catch((error) => {
+          console.error("Error deleting orders:", error);
         });
     }
-
   };
 
   // function to change the complete property of an item
@@ -292,23 +298,23 @@ const OrderDefault = () => {
       confirmButtonText: "Yes, Change it!",
     });
     if (result.isConfirmed) {
-      const selectedOrderIds = data.filter(item => item.check === true).map(item => item._id);
-      const deletePromises = selectedOrderIds.map(orderId => (
-        axios.put(`${serverAPI}orders/${orderId}/status`, { status: status }).then(res => {
+      const selectedOrderIds = data.filter((item) => item.check === true).map((item) => item._id);
+      const deletePromises = selectedOrderIds.map((orderId) =>
+        axios.put(`${serverAPI}orders/${orderId}/status`, { status: status }).then((res) => {
           let newData = data;
           let index = newData.findIndex((item) => item._id === orderId);
           newData[index].orderStatus = status;
           setData([...newData]);
         })
-      ));
+      );
 
       Promise.all(deletePromises)
-        .then(responses => {
+        .then((responses) => {
           // Assuming the API responds with success messages
           // setData(deletedOrderIds);
         })
-        .catch(error => {
-          console.error('Error deleting orders:', error);
+        .catch((error) => {
+          console.error("Error deleting orders:", error);
         });
     }
     // setData([...newData]);
@@ -322,7 +328,12 @@ const OrderDefault = () => {
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const { reset, register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    reset,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
     <React.Fragment>
@@ -400,7 +411,7 @@ const OrderDefault = () => {
                       >
                         <Icon name="plus"></Icon>
                       </Button>
-                      <Button
+                      {/* <Button
                         className="toggle d-none d-md-inline-flex"
                         color="primary"
                         onClick={() => {
@@ -409,7 +420,7 @@ const OrderDefault = () => {
                       >
                         <Icon name="plus"></Icon>
                         <span>Add Order</span>
-                      </Button>
+                      </Button> */}
                     </li>
                   </ul>
                 </div>
@@ -466,7 +477,7 @@ const OrderDefault = () => {
                               href="#markasdone"
                               onClick={(ev) => {
                                 ev.preventDefault();
-                                const status = "Pending"
+                                const status = "Pending";
                                 selectorMarkAsDelivered(status);
                               }}
                             >
@@ -480,7 +491,7 @@ const OrderDefault = () => {
                               href="#markasdone"
                               onClick={(ev) => {
                                 ev.preventDefault();
-                                const status = "Confirmed"
+                                const status = "Confirmed";
                                 selectorMarkAsDelivered(status);
                               }}
                             >
@@ -494,7 +505,7 @@ const OrderDefault = () => {
                               href="#markasdone"
                               onClick={(ev) => {
                                 ev.preventDefault();
-                                const status = "Shipped"
+                                const status = "Shipped";
                                 selectorMarkAsDelivered(status);
                               }}
                             >
@@ -508,7 +519,7 @@ const OrderDefault = () => {
                               href="#markasdone"
                               onClick={(ev) => {
                                 ev.preventDefault();
-                                const status = "Delivered"
+                                const status = "Delivered";
                                 selectorMarkAsDelivered(status);
                               }}
                             >
@@ -523,7 +534,6 @@ const OrderDefault = () => {
                               onClick={(ev) => {
                                 ev.preventDefault();
                                 selectorDeleteOrder();
-
                               }}
                             >
                               <Icon name="trash"></Icon>
@@ -540,193 +550,193 @@ const OrderDefault = () => {
 
             {currentItems.length > 0
               ? currentItems.map((item) => (
+                  <DataTableItem key={item.id}>
+                    <DataTableRow className="nk-tb-col-check">
+                      <div className="custom-control custom-control-sm custom-checkbox notext">
+                        <input
+                          type="checkbox"
+                          className="custom-control-input"
+                          defaultChecked={item.check}
+                          id={item._id + "oId-all"}
+                          key={Math.random()}
+                          onChange={(e) => onSelectChange(e, item._id)}
+                        />
+                        <label className="custom-control-label" htmlFor={item._id + "oId-all"}></label>
+                      </div>
+                    </DataTableRow>
+                    <DataTableRow>
+                      <a href="#id" onClick={(ev) => ev.preventDefault()}>
+                        #{item.orderID}
+                      </a>
+                    </DataTableRow>
+                    <DataTableRow size="md">
+                      <span>{item.date}</span>
+                    </DataTableRow>
+                    <DataTableRow>
+                      <span className={`dot bg-${getColorForStatus(item.orderStatus)} d-sm-none`}></span>
+                      <Badge
+                        className="badge-sm badge-dot has-bg d-none d-sm-inline-flex"
+                        color={getColorForStatus(item.orderStatus)}
+                      >
+                        {item.orderStatus}
+                      </Badge>
+                    </DataTableRow>
+                    <DataTableRow size="sm">
+                      {item.customerInfo ? <span className="tb-sub">{item.customerInfo.name}</span> : null}
+                    </DataTableRow>
+                    <DataTableRow size="md">
+                      {item.productDetails ? (
+                        <span className="tb-sub text-primary"> {item.productDetails.length} item</span>
+                      ) : null}
+                    </DataTableRow>
+                    <DataTableRow>
+                      <span className="tb-lead">₹ {parseFloat(item.totalPrice).toFixed(2)}</span>
+                    </DataTableRow>
+                    <DataTableRow className="nk-tb-col-tools">
+                      <ul className="nk-tb-actions gx-1">
+                        {item.orderStatus !== "Confirmed" && (
+                          <li
+                            className="nk-tb-action-hidden"
+                            onClick={() => markChangesInStatus(item._id, "Confirmed")}
+                          >
+                            <TooltipComponent
+                              tag="a"
+                              containerClassName="btn btn-trigger btn-icon"
+                              id={"delivery" + item.id}
+                              icon="check-circle-cut"
+                              direction="top"
+                              text="Mark as Confirmed"
+                            />
+                          </li>
+                        )}
 
-                <DataTableItem key={item.id}>
-                  <DataTableRow className="nk-tb-col-check">
-                    <div className="custom-control custom-control-sm custom-checkbox notext">
-                      <input
-                        type="checkbox"
-                        className="custom-control-input"
-                        defaultChecked={item.check}
-                        id={item._id + "oId-all"}
-                        key={Math.random()}
-                        onChange={(e) => onSelectChange(e, item._id)}
-                      />
-                      <label className="custom-control-label" htmlFor={item._id + "oId-all"}></label>
-                    </div>
-                  </DataTableRow>
-                  <DataTableRow>
-                    <a href="#id" onClick={(ev) => ev.preventDefault()}>
-                      #{item.orderID}
-                    </a>
-                  </DataTableRow>
-                  <DataTableRow size="md">
-                    <span>{item.date}</span>
-                  </DataTableRow>
-                  <DataTableRow>
-                    <span
-                      className={`dot bg-${getColorForStatus(item.orderStatus)} d-sm-none`}
-                    ></span>
-                    <Badge
-                      className="badge-sm badge-dot has-bg d-none d-sm-inline-flex"
-                      color={getColorForStatus(item.orderStatus)}
-                    >
-                      {item.orderStatus}
-                    </Badge>
-                  </DataTableRow>
-                  <DataTableRow size="sm">
-                    {item.customerInfo ? <span className="tb-sub">{item.customerInfo.name}</span> : null}
-                  </DataTableRow>
-                  <DataTableRow size="md">
-                    {item.productDetails ? <span className="tb-sub text-primary" > {item.productDetails.length} item</span> : null}
-                  </DataTableRow>
-                  <DataTableRow>
-                    <span className="tb-lead">₹ {parseFloat(item.totalPrice).toFixed(2)}</span>
-                  </DataTableRow>
-                  <DataTableRow className="nk-tb-col-tools">
-                    <ul className="nk-tb-actions gx-1">
-
-                      {item.orderStatus !== "Confirmed" && (
-                        <li className="nk-tb-action-hidden" onClick={() => markChangesInStatus(item._id, "Confirmed")}>
+                        <li
+                          className="nk-tb-action-hidden"
+                          onClick={() => {
+                            loadDetail(item.id);
+                            toggle("details");
+                          }}
+                        >
                           <TooltipComponent
                             tag="a"
                             containerClassName="btn btn-trigger btn-icon"
-                            id={"delivery" + item.id}
-                            icon="check-circle-cut"
+                            id={"view" + item.id}
+                            icon="eye"
                             direction="top"
-                            text="Mark as Confirmed"
+                            text="View Details"
                           />
                         </li>
-                      )}
-
-                      <li
-                        className="nk-tb-action-hidden"
-                        onClick={() => {
-                          loadDetail(item.id);
-                          toggle("details");
-                        }}
-                      >
-                        <TooltipComponent
-                          tag="a"
-                          containerClassName="btn btn-trigger btn-icon"
-                          id={"view" + item.id}
-                          icon="eye"
-                          direction="top"
-                          text="View Details"
-                        />
-                      </li>
-                      <li>
-                        <UncontrolledDropdown>
-                          <DropdownToggle tag="a" className="btn btn-icon dropdown-toggle btn-trigger">
-                            <Icon name="more-h"></Icon>
-                          </DropdownToggle>
-                          <DropdownMenu end>
-                            <ul className="link-list-opt no-bdr">
-                              <li>
-                                <DropdownItem
-                                  tag="a"
-                                  href="#dropdown"
-                                  onClick={(ev) => {
-                                    ev.preventDefault();
-                                    loadDetail(item.id);
-                                    toggle("details");
-                                  }}
-                                >
-                                  <Icon name="eye"></Icon>
-                                  <span>Order Details</span>
-                                </DropdownItem>
-                              </li>
-
-                              {item.orderStatus !== "Pending" && (
+                        <li>
+                          <UncontrolledDropdown>
+                            <DropdownToggle tag="a" className="btn btn-icon dropdown-toggle btn-trigger">
+                              <Icon name="more-h"></Icon>
+                            </DropdownToggle>
+                            <DropdownMenu end>
+                              <ul className="link-list-opt no-bdr">
                                 <li>
                                   <DropdownItem
                                     tag="a"
                                     href="#dropdown"
                                     onClick={(ev) => {
                                       ev.preventDefault();
-                                      const status = "Pending";
-                                      markChangesInStatus(item._id, status);
+                                      loadDetail(item.id);
+                                      toggle("details");
                                     }}
                                   >
-                                    <Icon name="repeat-v"></Icon>
-                                    <span>Mark as Pending</span>
+                                    <Icon name="eye"></Icon>
+                                    <span>Order Details</span>
                                   </DropdownItem>
                                 </li>
-                              )}
 
-                              {item.orderStatus !== "Confirmed" && (
+                                {item.orderStatus !== "Pending" && (
+                                  <li>
+                                    <DropdownItem
+                                      tag="a"
+                                      href="#dropdown"
+                                      onClick={(ev) => {
+                                        ev.preventDefault();
+                                        const status = "Pending";
+                                        markChangesInStatus(item._id, status);
+                                      }}
+                                    >
+                                      <Icon name="repeat-v"></Icon>
+                                      <span>Mark as Pending</span>
+                                    </DropdownItem>
+                                  </li>
+                                )}
+
+                                {item.orderStatus !== "Confirmed" && (
+                                  <li>
+                                    <DropdownItem
+                                      tag="a"
+                                      href="#dropdown"
+                                      onClick={(ev) => {
+                                        ev.preventDefault();
+                                        const orderStaust = "Confirmed";
+                                        markChangesInStatus(item._id, orderStaust);
+                                      }}
+                                    >
+                                      <Icon name="check-circle-cut"></Icon>
+                                      <span>Mark as Confirmed</span>
+                                    </DropdownItem>
+                                  </li>
+                                )}
+
+                                {item.orderStatus !== "Shipped" && (
+                                  <li>
+                                    <DropdownItem
+                                      tag="a"
+                                      href="#dropdown"
+                                      onClick={(ev) => {
+                                        ev.preventDefault();
+                                        const orderStaust = "Shipped";
+                                        markChangesInStatus(item._id, orderStaust);
+                                      }}
+                                    >
+                                      <Icon name="package-fill"></Icon>
+                                      <span>Mark as Shipped</span>
+                                    </DropdownItem>
+                                  </li>
+                                )}
+
+                                {item.orderStatus !== "Delivered" && (
+                                  <li>
+                                    <DropdownItem
+                                      tag="a"
+                                      href="#dropdown"
+                                      onClick={(ev) => {
+                                        ev.preventDefault();
+                                        const orderStaust = "Delivered";
+                                        markChangesInStatus(item._id, orderStaust);
+                                      }}
+                                    >
+                                      <Icon name="truck"></Icon>
+                                      <span>Mark as Delivered</span>
+                                    </DropdownItem>
+                                  </li>
+                                )}
+
                                 <li>
                                   <DropdownItem
                                     tag="a"
                                     href="#dropdown"
                                     onClick={(ev) => {
                                       ev.preventDefault();
-                                      const orderStaust = "Confirmed";
-                                      markChangesInStatus(item._id, orderStaust);
+                                      deleteOrder(item._id);
                                     }}
                                   >
-                                    <Icon name="check-circle-cut"></Icon>
-                                    <span>Mark as Confirmed</span>
+                                    <Icon name="trash"></Icon>
+                                    <span>Remove Order</span>
                                   </DropdownItem>
                                 </li>
-                              )}
-
-                              {item.orderStatus !== "Shipped" && (
-                                <li>
-                                  <DropdownItem
-                                    tag="a"
-                                    href="#dropdown"
-                                    onClick={(ev) => {
-                                      ev.preventDefault();
-                                      const orderStaust = "Shipped";
-                                      markChangesInStatus(item._id, orderStaust);
-                                    }}
-                                  >
-                                    <Icon name="package-fill"></Icon>
-                                    <span>Mark as Shipped</span>
-                                  </DropdownItem>
-                                </li>
-                              )}
-
-
-                              {item.orderStatus !== "Delivered" && (
-                                <li>
-                                  <DropdownItem
-                                    tag="a"
-                                    href="#dropdown"
-                                    onClick={(ev) => {
-                                      ev.preventDefault();
-                                      const orderStaust = "Delivered";
-                                      markChangesInStatus(item._id, orderStaust);
-                                    }}
-                                  >
-                                    <Icon name="truck"></Icon>
-                                    <span>Mark as Delivered</span>
-                                  </DropdownItem>
-                                </li>
-                              )}
-
-                              <li>
-                                <DropdownItem
-                                  tag="a"
-                                  href="#dropdown"
-                                  onClick={(ev) => {
-                                    ev.preventDefault();
-                                    deleteOrder(item._id);
-                                  }}
-                                >
-                                  <Icon name="trash"></Icon>
-                                  <span>Remove Order</span>
-                                </DropdownItem>
-                              </li>
-                            </ul>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-                      </li>
-                    </ul>
-                  </DataTableRow>
-                </DataTableItem>
-              ))
+                              </ul>
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
+                        </li>
+                      </ul>
+                    </DataTableRow>
+                  </DataTableItem>
+                ))
               : null}
           </div>
           <PreviewAltCard>
@@ -771,11 +781,12 @@ const OrderDefault = () => {
                           <input
                             type="text"
                             className="form-control"
-                            {...register('customer', {
+                            {...register("customer", {
                               required: "This field is required",
                             })}
                             onChange={(e) => setFormData({ ...formData, customer: e.target.value })}
-                            value={formData.customer} />
+                            value={formData.customer}
+                          />
                           {errors.customer && <span className="invalid">{errors.customer.message}</span>}
                         </div>
                       </div>
@@ -804,9 +815,10 @@ const OrderDefault = () => {
                           <input
                             type="text"
                             className="form-control"
-                            {...register('purchased', { required: "This is required" })}
+                            {...register("purchased", { required: "This is required" })}
                             value={formData.purchased}
-                            onChange={(e) => setFormData({ ...formData, purchased: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, purchased: e.target.value })}
+                          />
                           {errors.purchased && <span className="invalid">{errors.purchased.message}</span>}
                         </div>
                       </div>
@@ -820,9 +832,10 @@ const OrderDefault = () => {
                           <input
                             type="number"
                             className="form-control"
-                            {...register('total', { required: "This is required" })}
+                            {...register("total", { required: "This is required" })}
                             value={formData.total}
-                            onChange={(e) => setFormData({ ...formData, total: e.target.value })} />
+                            onChange={(e) => setFormData({ ...formData, total: e.target.value })}
+                          />
                           {errors.total && <span className="invalid">{errors.total.message}</span>}
                         </div>
                       </div>
@@ -887,9 +900,7 @@ const OrderDefault = () => {
                   ></span>
                   <Badge
                     className="badge-sm badge-dot has-bg d-none d-sm-inline-flex"
-                    color={
-                      formData.status === "Delivered" ? "success" : "warning"
-                    }
+                    color={formData.status === "Delivered" ? "success" : "warning"}
                   >
                     {formData.status}
                   </Badge>

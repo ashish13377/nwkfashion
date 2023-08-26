@@ -3,7 +3,18 @@ import { Card } from "reactstrap";
 import { Icon } from "../../../Component";
 import { TotalCustomerChart } from "../../charts/e-commerce/EcomCharts";
 
-const Customer = () => {
+const Customer = ({ ordersData }) => {
+  console.log(ordersData);
+
+  const uniqueCustomerIds = new Set();
+
+  // Iterate through ordersData to extract unique customer IDs
+  ordersData.forEach((order) => {
+    uniqueCustomerIds.add(order.customerInfo._id);
+  });
+
+  // Convert the Set to an array to get the count of unique customers
+  const uniqueCustomerCount = uniqueCustomerIds.size;
   return (
     <Card>
       <div className="nk-ecwg nk-ecwg3">
@@ -15,14 +26,7 @@ const Customer = () => {
           </div>
           <div className="data">
             <div className="data-group">
-              <div className="amount">194</div>
-              <div className="info text-end">
-                <span className="change up text-danger">
-                  <Icon name="arrow-long-up"></Icon>4.63%
-                </span>
-                <br />
-                <span>vs. last week</span>
-              </div>
+              <div className="amount">{uniqueCustomerCount}</div>
             </div>
           </div>
         </div>

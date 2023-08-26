@@ -14,10 +14,10 @@ const CartTable = () => {
 
   const dispatch = useDispatch();
 
-  const handleRemove = (event, _id) => {
+  const handleRemove = (event, index) => {
     event.preventDefault();
 
-    dispatch(removeFromCart(_id));
+    dispatch(removeFromCart(index));
   };
 
   const calculateSubtotal = () => {
@@ -52,7 +52,7 @@ const CartTable = () => {
                   </thead>
                   <tbody>
                     {products &&
-                      products.map((product) => (
+                      products.map((product, index) => (
                         <tr key={product._id}>
                           <td className="pro-thumbnail">
                             <a href="/">
@@ -69,9 +69,7 @@ const CartTable = () => {
                           <td className="pro-remove">
                             <a
                               href="/"
-                              onClick={(event) =>
-                                handleRemove(event, product._id)
-                              }
+                              onClick={(event) => handleRemove(event, index)}
                             >
                               ×
                             </a>

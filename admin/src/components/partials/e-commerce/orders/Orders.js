@@ -2,8 +2,10 @@ import React from "react";
 import { Card } from "reactstrap";
 import { Icon } from "../../../Component";
 import { TotalOrderChart } from "../../charts/e-commerce/EcomCharts";
+import { orderData } from "../../../table/TableData";
 
-const Orders = () => {
+const Orders = ({ ordersData }) => {
+  // console.log(ordersData);
   return (
     <Card>
       <div className="nk-ecwg nk-ecwg3">
@@ -15,19 +17,12 @@ const Orders = () => {
           </div>
           <div className="data">
             <div className="data-group">
-              <div className="amount">329</div>
-              <div className="info text-end">
-                <span className="change up text-danger">
-                  <Icon name="arrow-long-up"></Icon>4.63%
-                </span>
-                <br />
-                <span>vs. last week</span>
-              </div>
+              <div className="amount">{ordersData.length}</div>
             </div>
           </div>
         </div>
         <div className="nk-ecwg3-ck">
-          <TotalOrderChart />
+          <TotalOrderChart ordersData={ordersData} />
         </div>
       </div>
     </Card>

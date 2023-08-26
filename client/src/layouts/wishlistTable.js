@@ -14,11 +14,11 @@ const WishlistTable = () => {
   console.log(userId);
   const dispatch = useDispatch();
 
-  const handleRemove = (event, _id) => {
+  const handleRemove = (event, index) => {
     event.preventDefault();
-    dispatch(removeFromWishlist(_id));
-  };
 
+    dispatch(removeFromWishlist(index));
+  };
   const handleAddToCart = (event, product) => {
     event.preventDefault();
     dispatch(addToCart(product));
@@ -38,14 +38,14 @@ const WishlistTable = () => {
                         <th className="pro-thumbnail">Image</th>
                         <th className="pro-title">Product</th>
                         <th className="pro-price">Price</th>
-                        <th className="pro-quantity">Quantity</th>
+
                         <th className="pro-subtotal">Total</th>
                         <th className="pro-remove">Remove</th>
                       </tr>
                     </thead>
                     <tbody>
                       {products &&
-                        products.map((product) => (
+                        products.map((product, index) => (
                           <tr key={product._id}>
                             <td className="pro-thumbnail">
                               <a href="#">
@@ -61,11 +61,7 @@ const WishlistTable = () => {
                             <td className="pro-price">
                               <span className="amount">{product.price}</span>
                             </td>
-                            <td className="pro-quantity">
-                              <div className="pro-qty">
-                                <input type="text" defaultValue={1} />
-                              </div>
-                            </td>
+
                             <td className="pro-add-cart">
                               <button
                                 onClick={(event) =>
@@ -77,9 +73,7 @@ const WishlistTable = () => {
                             </td>
                             <td className="pro-remove">
                               <button
-                                onClick={(event) =>
-                                  handleRemove(event, product._id)
-                                }
+                                onClick={(event) => handleRemove(event, index)}
                               >
                                 ×
                               </button>

@@ -1,12 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Content from "../../../../layout/content/Content";
 import Head from "../../../../layout/head/Head";
-import {
-  DropdownMenu,
-  DropdownToggle,
-  UncontrolledDropdown,
-  DropdownItem,
-} from "reactstrap";
+import { DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem } from "reactstrap";
 import {
   Block,
   BlockBetween,
@@ -67,7 +62,6 @@ const CustomerList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(10);
 
-
   const getOrdersdata = async () => {
     // Make the API call to fetch the product
     await axios
@@ -83,7 +77,6 @@ const CustomerList = () => {
   useEffect(() => {
     getOrdersdata();
   }, [data]); // Fetch subcategories when selected category changes
-
 
   // // unselects the data on mount
   // useEffect(() => {
@@ -259,34 +252,9 @@ const CustomerList = () => {
               <BlockTitle tag="h3" page>
                 Users Lists
               </BlockTitle>
-              <BlockDes className="text-soft">
-                <p>You have total 2,595 users.</p>
-              </BlockDes>
-            </BlockHeadContent>
-            <BlockHeadContent>
-              <div className="toggle-wrap nk-block-tools-toggle">
-                <Button
-                  className={`btn-icon btn-trigger toggle-expand me-n1 ${sm ? "active" : ""}`}
-                  onClick={() => updateSm(!sm)}
-                >
-                  <Icon name="menu-alt-r"></Icon>
-                </Button>
-                <div className="toggle-expand-content" style={{ display: sm ? "block" : "none" }}>
-                  <ul className="nk-block-tools g-3">
-                    <li>
-                      <Button color="light" outline className="btn-white">
-                        <Icon name="download-cloud"></Icon>
-                        <span>Export</span>
-                      </Button>
-                    </li>
-                    <li className="nk-block-tools-opt">
-                      <Button color="primary" className="btn-icon" onClick={() => setModal({ add: true })}>
-                        <Icon name="plus"></Icon>
-                      </Button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+              {/* <BlockDes className="text-soft">
+              
+              </BlockDes> */}
             </BlockHeadContent>
           </BlockBetween>
         </BlockHead>
@@ -294,17 +262,6 @@ const CustomerList = () => {
         <Block>
           <div className="nk-tb-list is-separate is-medium mb-3">
             <DataTableHead className="nk-tb-item">
-              <DataTableRow className="nk-tb-col-check">
-                <div className="custom-control custom-control-sm custom-checkbox notext">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    onChange={(e) => selectorCheck(e)}
-                    id="uid"
-                  />
-                  <label className="custom-control-label" htmlFor="uid"></label>
-                </div>
-              </DataTableRow>
               <DataTableRow>
                 <span className="sub-text">User</span>
               </DataTableRow>
@@ -323,27 +280,11 @@ const CustomerList = () => {
               <DataTableRow size="lg">
                 <span className="sub-text">Country</span>
               </DataTableRow>
-              
-             
-              
             </DataTableHead>
             {/*Head*/}
             {currentItems.length > 0
               ? currentItems.map((item) => (
                   <DataTableItem key={item._id}>
-                    <DataTableRow className="nk-tb-col-check">
-                      <div className="custom-control custom-control-sm custom-checkbox notext">
-                        <input
-                          type="checkbox"
-                          className="custom-control-input"
-                          defaultChecked={item.checked}
-                          id={item._id + "uid1"}
-                          key={Math.random()}
-                          onChange={(e) => onSelectChange(e, item._id)}
-                        />
-                        <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>
-                      </div>
-                    </DataTableRow>
                     <DataTableRow>
                       <Link to={`${process.env.PUBLIC_URL}/ecommerce/customer-details/${item._id}`}>
                         <div className="user-card">
@@ -359,7 +300,14 @@ const CustomerList = () => {
                     </DataTableRow>
                     <DataTableRow size="mb">
                       <span className="tb-amount">
-                        {item.lastOrderAmount? <> <span className="currency">₹ </span>  {item.lastOrderAmount}</> : <>not have</>}
+                        {item.lastOrderAmount ? (
+                          <>
+                            {" "}
+                            <span className="currency">₹ </span> {item.lastOrderAmount}
+                          </>
+                        ) : (
+                          <>not have</>
+                        )}
                       </span>
                     </DataTableRow>
                     <DataTableRow size="lg">
@@ -374,8 +322,6 @@ const CustomerList = () => {
                     <DataTableRow size="lg">
                       <span>{item.country ? <> {item.country}</> : <>not have</>}</span>
                     </DataTableRow>
-                    
-                  
                   </DataTableItem>
                 ))
               : null}
@@ -396,10 +342,8 @@ const CustomerList = () => {
           </PreviewAltCard>
         </Block>
 
-        
         {/* <AddModal modal={modal.add} formData={formData} setFormData={setFormData} closeModal={closeModal} onSubmit={onFormSubmit} filterStatus={filterStatus} />
         <EditModal modal={modal.edit} formData={editFormData} setFormData={setEditFormData} closeModal={closeEditModal} onSubmit={onEditSubmit} filterStatus={filterStatus} /> */}
-        
       </Content>
     </React.Fragment>
   );
