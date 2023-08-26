@@ -24,7 +24,7 @@ const CheckoutComponent = () => {
     userId: user ? user._id : "",
     productID: [],
     productDetails: [], // Initialize productDetails as an empty array
-    totalPrice: ""
+    totalPrice: "",
   });
 
   console.log(formData);
@@ -69,24 +69,35 @@ const CheckoutComponent = () => {
     // Set the orderDetails in formData's razorpay key
   };
 
-  
-
   // console.log(formData);
 
   const shippingCostThreshold = 1000; // The order total above which free shipping is applicable
   const shippingCost = 100; // Flat shipping cost for orders below the shippingCostThreshold
 
   // GST percentages for different categories
+  const calculateShippingCost = (subtotal) => {
+    if (subtotal >= 1000) {
+      return 0; // Free shipping for orders 1k or above
+    } else {
+      return 100; // Rs.100 flat shipping for orders below 1k
+    }
+  };
   const gstPercentages = {
     clothing: 5,
-    leather_goods: 18,
+    leathergoods: 18,
   };
 
+  const calculateGST = (price, compositions) => {
+    const gstPercentage = gstPercentages[compositions];
+    return (price * gstPercentage) / 100;
+  };
   const calculateSubtotal = () => {
     let subtotal = 0;
 
     products.forEach((product) => {
-      const price = parseFloat(product.price.replace("$", ""));
+      const price = parseFloat(
+        product.price.replace("$", "") * product.quantiti
+      );
       subtotal += price;
     });
 
@@ -95,21 +106,37 @@ const CheckoutComponent = () => {
 
   const calculateTotal = () => {
     const subtotal = calculateSubtotal();
-    // Calculate shipping cost based on the order total
-    const shippingFee = subtotal >= shippingCostThreshold ? 0 : shippingCost;
+    const shippingCost = calculateShippingCost(subtotal);
 
-    // Calculate GST based on the category of products
     let totalGST = 0;
     products.forEach((product) => {
-      const productType = product.productType;
-      if (gstPercentages.hasOwnProperty(productType)) {
-        const gstPercentage = gstPercentages[productType];
-        const price = parseFloat(product.price.replace("$", ""));
-        const gst = (price * gstPercentage) / 100;
+      const compositions = product.compositions;
+      if (gstPercentages.hasOwnProperty(compositions)) {
+        const price = parseFloat(
+          product.price.replace("$", "") * product.quantiti
+        );
+        const gst = calculateGST(price, compositions);
         totalGST += gst;
       }
     });
-    return subtotal + shippingFee + totalGST;
+
+    return subtotal + shippingCost + totalGST;
+  };
+
+  const calculateTotalGST = () => {
+    let totalGST = 0;
+    products.forEach((product) => {
+      const compositions = product.compositions;
+      if (gstPercentages.hasOwnProperty(compositions)) {
+        const price = parseFloat(
+          product.price.replace("$", "") * product.quantiti
+        );
+        const gst = calculateGST(price, compositions);
+        totalGST += gst;
+      }
+    });
+    console.log("totalGST:", totalGST);
+    return totalGST;
   };
 
   const handleOrderDetailsChange = (orderDetails) => {
@@ -117,7 +144,7 @@ const CheckoutComponent = () => {
     setFormData({
       ...formData,
       razorpay: orderDetails,
-      totalPrice: calculateTotal()
+      totalPrice: calculateTotal(),
     });
   };
   return (
@@ -141,6 +168,10 @@ const CheckoutComponent = () => {
                       shippingCost={shippingCost}
                       calculateSubtotal={calculateSubtotal()}
                       calculateTotal={calculateTotal()}
+                      calculateShippingCost={calculateShippingCost(
+                        calculateSubtotal
+                      )}
+                      calculateTotalGST={calculateTotalGST()}
                     />
                     {/* Payment Method */}
 

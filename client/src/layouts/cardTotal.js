@@ -7,8 +7,10 @@ const CardTotal = ({
   shippingCost,
   calculateSubtotal,
   calculateTotal,
+  calculateShippingCost,
+  calculateTotalGST,
 }) => {
-  console.log("total:", calculateTotal);
+  console.log("ShippingCost:", calculateShippingCost);
   return (
     <div>
       <div className="col-12 mb-40">
@@ -35,14 +37,14 @@ const CardTotal = ({
           <p>
             Shipping Fee{" "}
             <span>
-              ${calculateSubtotal >= shippingCostThreshold ? 0 : shippingCost}
+              $
+              {calculateSubtotal >= shippingCostThreshold
+                ? 0
+                : calculateShippingCost}
             </span>
           </p>
           <p>
-            GST{" "}
-            <span>
-              ${(calculateTotal - calculateSubtotal - shippingCost).toFixed(2)}
-            </span>
+            GST <span>${calculateTotalGST}</span>
           </p>
           <h4>
             Grand Total <span>${calculateTotal.toFixed(2)}</span>
