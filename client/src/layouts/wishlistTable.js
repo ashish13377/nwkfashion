@@ -1,8 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromWishlist } from "../utils/wishlistSlice";
-import { addToCart } from "../utils/cartSlice";
 
+import { addToCart } from "../utils/cartSlice";
+import {
+  removeFromWishlist,
+  increaseQuantiti,
+  decreaseQuantiti,
+} from "../utils/wishlistSlice";
 const WishlistTable = () => {
   const userId = useSelector((state) => state.wishlist.userId);
 
@@ -14,14 +18,22 @@ const WishlistTable = () => {
   console.log(userId);
   const dispatch = useDispatch();
 
-  const handleRemove = (event, index) => {
+  const handleRemove = (event, productId) => {
     event.preventDefault();
 
-    dispatch(removeFromWishlist(index));
+    dispatch(removeFromWishlist(productId));
   };
+
   const handleAddToCart = (event, product) => {
     event.preventDefault();
     dispatch(addToCart(product));
+  };
+  const handleIncreaseQuantiti = (productId) => {
+    dispatch(increaseQuantiti(productId)); // Dispatch the action with the product ID
+  };
+
+  const handleDecreaseQuantiti = (productId) => {
+    dispatch(decreaseQuantiti(productId)); // Dispatch the action with the product ID
   };
 
   return (
@@ -38,7 +50,7 @@ const WishlistTable = () => {
                         <th className="pro-thumbnail">Image</th>
                         <th className="pro-title">Product</th>
                         <th className="pro-price">Price</th>
-
+                        {/* <th class="pro-quantity">Quantiti</th> */}
                         <th className="pro-subtotal">Total</th>
                         <th className="pro-remove">Remove</th>
                       </tr>
@@ -62,6 +74,31 @@ const WishlistTable = () => {
                               <span className="amount">{product.price}</span>
                             </td>
 
+                            {/* <td className="pro-quantity">
+                              <div className="pro-qty">
+                                <a
+                                  onClick={() =>
+                                    handleIncreaseQuantiti(product._id)
+                                  }
+                                >
+                                  +
+                                </a>
+
+                                <input
+                                  type="text"
+                                  value={product.quantiti}
+                                  readOnly
+                                />
+                                <a
+                                  onClick={() =>
+                                    handleDecreaseQuantiti(product._id)
+                                  }
+                                >
+                                  -
+                                </a>
+                              </div>
+                            </td> */}
+
                             <td className="pro-add-cart">
                               <button
                                 onClick={(event) =>
@@ -71,12 +108,16 @@ const WishlistTable = () => {
                                 add to cart
                               </button>
                             </td>
+
                             <td className="pro-remove">
-                              <button
-                                onClick={(event) => handleRemove(event, index)}
+                              <a
+                                href="/"
+                                onClick={(event) =>
+                                  handleRemove(event, product._id)
+                                }
                               >
                                 ×
-                              </button>
+                              </a>
                             </td>
                           </tr>
                         ))}
