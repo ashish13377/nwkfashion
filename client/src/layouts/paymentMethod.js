@@ -12,9 +12,9 @@ const PaymentMethod = ({
   calculateSubtotal,
   calculateTotal,
 }) => {
-  console.log(calculateTotal);
+  // console.log(calculateTotal);
   const calculateTotalInPaise = calculateTotal * 100;
-  console.log(calculateTotalInPaise);
+  // console.log(calculateTotalInPaise);
   const user = JSON.parse(localStorage.getItem("user"));
   const [allInputsFilled, setAllInputsFilled] = useState(false);
   const [selectedMethod, setSelectedMethod] = useState("");
@@ -113,7 +113,7 @@ const PaymentMethod = ({
             contact: formData.address.phoneNo, // Replace with user's contact number
           },
         };
-        console.log(options);
+        // console.log(options);
         const rzp1 = new window.Razorpay(options);
         rzp1.open();
       } catch (error) {

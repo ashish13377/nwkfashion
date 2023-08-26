@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart } from "../utils/cartSlice";
+import {
+  removeFromCart,
+  increaseQuantiti,
+  decreaseQuantiti,
+} from "../utils/cartSlice";
 import { Link } from "react-router-dom";
+
 const CartTable = () => {
   const userId = useSelector((state) => state.cart.userId);
 
@@ -14,17 +19,19 @@ const CartTable = () => {
 
   const dispatch = useDispatch();
 
-  const handleRemove = (event, index) => {
+  const handleRemove = (event, productId) => {
     event.preventDefault();
 
-    dispatch(removeFromCart(index));
+    dispatch(removeFromCart(productId));
   };
 
   const calculateSubtotal = () => {
     let subtotal = 0;
 
     products.forEach((product) => {
-      const price = parseFloat(product.price.replace("$", ""));
+      const price = parseFloat(
+        product.price.replace("$", "") * product.quantiti
+      );
 
       subtotal += price;
     });
@@ -32,6 +39,14 @@ const CartTable = () => {
     return subtotal;
   };
   const shippingCost = 10;
+
+  const handleIncreaseQuantiti = (productId) => {
+    dispatch(increaseQuantiti(productId)); // Dispatch the action with the product ID
+  };
+
+  const handleDecreaseQuantiti = (productId) => {
+    dispatch(decreaseQuantiti(productId)); // Dispatch the action with the product ID
+  };
 
   return (
     <div className="page-section section section-padding">
@@ -46,7 +61,7 @@ const CartTable = () => {
                       <th className="pro-thumbnail">Image</th>
                       <th className="pro-title">Product</th>
                       <th className="pro-price">Price</th>
-
+                      <th class="pro-quantity">Quantiti</th>
                       <th className="pro-remove">Remove</th>
                     </tr>
                   </thead>
@@ -66,10 +81,37 @@ const CartTable = () => {
                             <span className="amount">{product.price}</span>
                           </td>
 
+                          <td className="pro-quantity">
+                            <div className="pro-qty">
+                              <a
+                                onClick={() =>
+                                  handleIncreaseQuantiti(product._id)
+                                }
+                              >
+                                +
+                              </a>
+
+                              <input
+                                type="text"
+                                value={product.quantiti}
+                                readOnly
+                              />
+                              <a
+                                onClick={() =>
+                                  handleDecreaseQuantiti(product._id)
+                                }
+                              >
+                                -
+                              </a>
+                            </div>
+                          </td>
+
                           <td className="pro-remove">
                             <a
                               href="/"
-                              onClick={(event) => handleRemove(event, index)}
+                              onClick={(event) =>
+                                handleRemove(event, product._id)
+                              }
                             >
                               ×
                             </a>

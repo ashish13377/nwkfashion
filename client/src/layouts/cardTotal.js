@@ -8,6 +8,7 @@ const CardTotal = ({
   calculateSubtotal,
   calculateTotal,
 }) => {
+  console.log("total:", calculateTotal);
   return (
     <div>
       <div className="col-12 mb-40">
@@ -19,8 +20,12 @@ const CardTotal = ({
           <ul>
             {products.map((product) => (
               <li key={product.id}>
-                {product.title}
-                <span>${parseFloat(product.price.replace("$", ""))}</span>
+                {product.title} (Quantiti: {product.quantiti})
+                <span>
+                  $
+                  {parseFloat(product.price.replace("$", "")) *
+                    product.quantiti}
+                </span>
               </li>
             ))}
           </ul>
@@ -35,10 +40,12 @@ const CardTotal = ({
           </p>
           <p>
             GST{" "}
-            <span>${calculateTotal - calculateSubtotal - shippingCost}</span>
+            <span>
+              ${(calculateTotal - calculateSubtotal - shippingCost).toFixed(2)}
+            </span>
           </p>
           <h4>
-            Grand Total <span>${calculateTotal}</span>
+            Grand Total <span>${calculateTotal.toFixed(2)}</span>
           </h4>
         </div>
       </div>
