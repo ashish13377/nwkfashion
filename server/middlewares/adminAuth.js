@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const auth = async (req, res, next) => {
   try {
-    // console.log(req.cookies);
+    
     const token = req.cookies.jwt; // Assuming you're using cookies for token storage
 
   
@@ -13,6 +13,7 @@ const auth = async (req, res, next) => {
 
     const decodedToken = jwt.verify(token, process.env.JWT_TOKEN); // Replace with your secret key
     // Find the admin user by ID
+    
     const rootAdminUser = await AdminUser.findOne({
       _id: decodedToken._id,
       isAdmin: true // Assuming you have a property to identify root admin users
@@ -22,6 +23,7 @@ const auth = async (req, res, next) => {
     }
 
     req.rootUser = rootAdminUser; // Attach the root admin user to the request object
+    
     next();
   } catch (error) {
     res.status(401).json({ error: 'Authentication failed' });

@@ -12,13 +12,14 @@ import TotalSales from "../../../components/partials/e-commerce/total-sales/Tota
 import StoreStatistics from "../../../components/partials/default/StoreStatistics";
 import TrafficSources from "../../../components/partials/e-commerce/traffic-sources/TrafficSources";
 import StoreVisitors from "../../../components/partials/e-commerce/store-visitors/StoreVisitors";
+import { serverAPI } from "../../..";
 
 const Dashboard = () => {
   const [ordersData, setOrdersData] = useState([]);
   useEffect(() => {
     // Fetch data from the API
     axios
-      .get("http://localhost:5904/api/orders")
+      .get(`${serverAPI}orders`)
       .then((response) => {
         setOrdersData(response.data);
       })

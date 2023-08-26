@@ -2,9 +2,25 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const adminUserSchema = new mongoose.Schema({
-    name: {
+    Companyname: {
         type: String,
-        required: true
+        default: "Please Update Profile"
+    },
+    Adminname: {
+        type: String,
+        default: "Please Update Profile"
+    },
+    phone: {
+        type: String,
+        default: "Please Update Profile"
+    },
+    dateofBirth:{
+        type: String,
+        default: "1980-08-10"
+    },
+    companyaddres:{
+        type: String,
+        default: "Please Update Profile"
     },
     email: {
         type: String,
