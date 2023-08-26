@@ -74,7 +74,7 @@ const User = () => {
           <UserAvatar icon="user-alt" className="sm" />
           <div className="user-info d-none d-md-block">
             <div className="user-status">Administrator</div>
-            <div className="user-name dropdown-indicator">{userData.name}</div>
+            <div className="user-name dropdown-indicator">{userData.Companyname}</div>
           </div>
         </div>
       </DropdownToggle>
@@ -85,7 +85,7 @@ const User = () => {
               <span>AB</span>
             </div>
             <div className="user-info">
-              <span className="lead-text">{userData.name}</span>
+              <span className="lead-text">{userData.Adminname}</span>
               <span className="sub-text">{userData.email}</span>
             </div>
           </div>

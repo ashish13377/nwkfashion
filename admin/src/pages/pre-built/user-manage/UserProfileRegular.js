@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Content from "../../../layout/content/Content";
-import { Card} from "reactstrap";
+import { Card } from "reactstrap";
 import Head from "../../../layout/head/Head";
 import DatePicker from "react-datepicker";
 import { Modal, ModalBody } from "reactstrap";
@@ -20,11 +20,14 @@ import {
 import { countryOptions, userData } from "./UserData";
 import { getDateStructured } from "../../../utils/Utils";
 import UserProfileAside from "./UserProfileAside";
-
+import axios from "axios";
+import { serverAPI } from "../../..";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 const UserProfileRegularPage = () => {
   const [sm, updateSm] = useState(false);
-  const [mobileView , setMobileView] = useState(false);
-  
+  const [mobileView, setMobileView] = useState(false);
+
   const [modalTab, setModalTab] = useState("1");
   const [userInfo, setUserInfo] = useState(userData[0]);
   const [formData, setFormData] = useState({
@@ -73,20 +76,69 @@ const UserProfileRegularPage = () => {
       window.removeEventListener("load", viewChange);
     };
   }, []);
+
+
+
+  const [profileData, setProfileData] = useState({
+    Companyname: '',
+    Adminname: '',
+    phone: '',
+    dateofBirth: '',
+    companyaddres: '',
+  });
+
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
+
+  const fetchProfileData = async () => {
+    try {
+      const response = await axios.get(`${serverAPI}admin/is-login`, {
+        withCredentials: true
+      });
+      setProfileData(response.data.user);
+    } catch (error) {
+      console.error('Error fetching profile data:', error);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setProfileData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const updateProfile = async () => {
+    try {
+      const response = await axios.put(`${serverAPI}admin/updateProfile/${profileData._id}`, profileData); // Replace _id with the actual user ID
+      if(response.status === 200){
+        toast.success("Profile update successful 😃", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+        fetchProfileData(); // Refresh the profile data
+        setModal(false);
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+  };
   
+
   return (
     <React.Fragment>
       <Head title="User List - Profile"></Head>
       <Content>
         <Card>
           <div className="card-aside-wrap">
-            <div
-              className={`card-aside card-aside-left user-aside toggle-slide toggle-slide-left toggle-break-lg ${
-                sm ? "content-active" : ""
-              }`}
-            >
-              <UserProfileAside updateSm={updateSm} sm={sm} />
-            </div>
+
             <div className="card-inner card-inner-lg">
               {sm && mobileView && <div className="toggle-overlay" onClick={() => updateSm(!sm)}></div>}
               <BlockHead size="lg">
@@ -115,8 +167,8 @@ const UserProfileRegularPage = () => {
                   </div>
                   <div className="data-item" onClick={() => setModal(true)}>
                     <div className="data-col">
-                      <span className="data-label">Full Name</span>
-                      <span className="data-value">{userInfo.name}</span>
+                      <span className="data-label">Company Name</span>
+                      <span className="data-value">{profileData.Companyname}</span>
                     </div>
                     <div className="data-col data-col-end">
                       <span className="data-more">
@@ -126,8 +178,8 @@ const UserProfileRegularPage = () => {
                   </div>
                   <div className="data-item" onClick={() => setModal(true)}>
                     <div className="data-col">
-                      <span className="data-label">Display Name</span>
-                      <span className="data-value">{userInfo.displayName}</span>
+                      <span className="data-label">Admin Name</span>
+                      <span className="data-value">{profileData.Adminname}</span>
                     </div>
                     <div className="data-col data-col-end">
                       <span className="data-more">
@@ -138,7 +190,7 @@ const UserProfileRegularPage = () => {
                   <div className="data-item">
                     <div className="data-col">
                       <span className="data-label">Email</span>
-                      <span className="data-value">info@softnio.com</span>
+                      <span className="data-value">{profileData.email}</span>
                     </div>
                     <div className="data-col data-col-end">
                       <span className="data-more disable">
@@ -149,7 +201,7 @@ const UserProfileRegularPage = () => {
                   <div className="data-item" onClick={() => setModal(true)}>
                     <div className="data-col">
                       <span className="data-label">Phone Number</span>
-                      <span className="data-value text-soft">{userInfo.phone}</span>
+                      <span className="data-value text-soft">{profileData.phone}</span>
                     </div>
                     <div className="data-col data-col-end">
                       <span className="data-more">
@@ -160,7 +212,7 @@ const UserProfileRegularPage = () => {
                   <div className="data-item" onClick={() => setModal(true)}>
                     <div className="data-col">
                       <span className="data-label">Date of Birth</span>
-                      <span className="data-value">{userInfo.dob}</span>
+                      <span className="data-value">{profileData.dateofBirth}</span>
                     </div>
                     <div className="data-col data-col-end">
                       <span className="data-more">
@@ -172,9 +224,7 @@ const UserProfileRegularPage = () => {
                     <div className="data-col">
                       <span className="data-label">Address</span>
                       <span className="data-value">
-                        {userInfo.address},
-                        <br />
-                        {userInfo.state}, {userInfo.country}
+                        {profileData.companyaddres},
                       </span>
                     </div>
                     <div className="data-col data-col-end">
@@ -184,75 +234,20 @@ const UserProfileRegularPage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="nk-data data-list">
-                  <div className="data-head">
-                    <h6 className="overline-title">Preferences</h6>
-                  </div>
-                  <div className="data-item">
-                    <div className="data-col">
-                      <span className="data-label">Language</span>
-                      <span className="data-value">English (United State)</span>
-                    </div>
-                    <div className="data-col data-col-end">
-                      <a
-                        href="#language"
-                        onClick={(ev) => {
-                          ev.preventDefault();
-                        }}
-                        className="link link-primary"
-                      >
-                        Change Language
-                      </a>
-                    </div>
-                  </div>
-                  <div className="data-item">
-                    <div className="data-col">
-                      <span className="data-label">Date Format</span>
-                      <span className="data-value">MM/DD/YYYY</span>
-                    </div>
-                    <div className="data-col data-col-end">
-                      <a
-                        href="#link"
-                        onClick={(ev) => {
-                          ev.preventDefault();
-                        }}
-                        className="link link-primary"
-                      >
-                        Change
-                      </a>
-                    </div>
-                  </div>
-                  <div className="data-item">
-                    <div className="data-col">
-                      <span className="data-label">Timezone</span>
-                      <span className="data-value">Bangladesh (GMT +6)</span>
-                    </div>
-                    <div className="data-col data-col-end">
-                      <a
-                        href="#link"
-                        onClick={(ev) => {
-                          ev.preventDefault();
-                        }}
-                        className="link link-primary"
-                      >
-                        Change
-                      </a>
-                    </div>
-                  </div>
-                </div>
+
               </Block>
 
               <Modal isOpen={modal} className="modal-dialog-centered" size="lg" toggle={() => setModal(false)}>
-                  <a
-                    href="#dropdownitem"
-                    onClick={(ev) => {
-                      ev.preventDefault();
-                      setModal(false);
-                    }}
-                    className="close"
-                  >
-                    <Icon name="cross-sm"></Icon>
-                  </a>
+                <a
+                  href="#dropdownitem"
+                  onClick={(ev) => {
+                    ev.preventDefault();
+                    setModal(false);
+                  }}
+                  className="close"
+                >
+                  <Icon name="cross-sm"></Icon>
+                </a>
                 <ModalBody>
                   <div className="p-2">
                     <h5 className="title">Update Profile</h5>
@@ -269,51 +264,56 @@ const UserProfileRegularPage = () => {
                           Personal
                         </a>
                       </li>
-                      <li className="nav-item">
-                        <a
-                          className={`nav-link ${modalTab === "2" && "active"}`}
-                          onClick={(ev) => {
-                            ev.preventDefault();
-                            setModalTab("2");
-                          }}
-                          href="#address"
-                        >
-                          Address
-                        </a>
-                      </li>
+
                     </ul>
                     <div className="tab-content">
                       <div className={`tab-pane ${modalTab === "1" ? "active" : ""}`} id="personal">
                         <Row className="gy-4">
                           <Col md="6">
                             <div className="form-group">
-                              <label className="form-label" htmlFor="full-name">
-                                Full Name
+                              <label className="form-label" htmlFor="company-name">
+                                Company Name
                               </label>
                               <input
                                 type="text"
-                                id="full-name"
+                                id="company-name"
                                 className="form-control"
-                                name="name"
-                                onChange={(e) => onInputChange(e)}
-                                defaultValue={formData.name}
-                                placeholder="Enter Full name"
+                                name="Companyname"
+                                value={profileData.Companyname}
+                                onChange={handleInputChange}
+                                placeholder="Enter Company Name"
                               />
                             </div>
                           </Col>
                           <Col md="6">
                             <div className="form-group">
-                              <label className="form-label" htmlFor="display-name">
-                                Display Name
+                              <label className="form-label" htmlFor="company-address">
+                                Company Address
                               </label>
                               <input
                                 type="text"
-                                id="display-name"
+                                id="company-address"
                                 className="form-control"
-                                name="displayName"
-                                onChange={(e) => onInputChange(e)}
-                                defaultValue={formData.displayName}
-                                placeholder="Enter display name"
+                                name="companyaddres"
+                                value={profileData.companyaddres}
+                                onChange={handleInputChange}
+                                placeholder="Enter Company Address"
+                              />
+                            </div>
+                          </Col>
+                          <Col md="6">
+                            <div className="form-group">
+                              <label className="form-label" htmlFor="admin-name">
+                                Admin Name
+                              </label>
+                              <input
+                                type="text"
+                                id="admin-name"
+                                className="form-control"
+                                name="Adminname"
+                                value={profileData.Adminname}
+                                onChange={handleInputChange}
+                                placeholder="Enter Admin Name"
                               />
                             </div>
                           </Col>
@@ -323,12 +323,12 @@ const UserProfileRegularPage = () => {
                                 Phone Number
                               </label>
                               <input
-                                type="number"
+                                type="text"
                                 id="phone-no"
                                 className="form-control"
                                 name="phone"
-                                onChange={(e) => onInputChange(e)}
-                                defaultValue={formData.phone}
+                                value={profileData.phone}
+                                onChange={handleInputChange}
                                 placeholder="Phone Number"
                               />
                             </div>
@@ -339,20 +339,11 @@ const UserProfileRegularPage = () => {
                                 Date of Birth
                               </label>
                               <DatePicker
-                                selected={new Date(formData.dob)}
+                                selected={new Date(profileData.dateofBirth)}
                                 className="form-control"
-                                onChange={(date) => setFormData({ ...formData, dob: getDateStructured(date) })}
+                                onChange={(date) => setProfileData({ ...profileData, dateofBirth: getDateStructured(date) })}
                                 maxDate={new Date()}
-                              />
-                            </div>
-                          </Col>
-                          <Col size="12">
-                            <div className="custom-control custom-switch">
-                              <input type="checkbox" className="custom-control-input" id="latest-sale" />
-                              <label className="custom-control-label" htmlFor="latest-sale">
-                                Use full name to display{" "}
-                              </label>
-                            </div>
+                              />                            </div>
                           </Col>
                           <Col size="12">
                             <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
@@ -362,7 +353,7 @@ const UserProfileRegularPage = () => {
                                   size="lg"
                                   onClick={(ev) => {
                                     ev.preventDefault();
-                                    submitForm();
+                                    updateProfile();
                                   }}
                                 >
                                   Update Profile
@@ -384,95 +375,8 @@ const UserProfileRegularPage = () => {
                           </Col>
                         </Row>
                       </div>
-                      <div className={`tab-pane ${modalTab === "2" ? "active" : ""}`} id="address">
-                        <Row className="gy-4">
-                          <Col md="6">
-                            <div className="form-group">
-                              <label className="form-label" htmlFor="address-l1">
-                                Address Line 1
-                              </label>
-                              <input
-                                type="text"
-                                id="address-l1"
-                                name="address"
-                                onChange={(e) => onInputChange(e)}
-                                defaultValue={formData.address}
-                                className="form-control"
-                              />
-                            </div>
-                          </Col>
-                          <Col md="6">
-                            <div className="form-group">
-                              <label className="form-label" htmlFor="address-l2">
-                                Address Line 2
-                              </label>
-                              <input
-                                type="text"
-                                id="address-l2"
-                                name="address2"
-                                onChange={(e) => onInputChange(e)}
-                                defaultValue={formData.address2}
-                                className="form-control"
-                              />
-                            </div>
-                          </Col>
-                          <Col md="6">
-                            <div className="form-group">
-                              <label className="form-label" htmlFor="address-st">
-                                State
-                              </label>
-                              <input
-                                type="text"
-                                id="address-st"
-                                name="state"
-                                onChange={(e) => onInputChange(e)}
-                                defaultValue={formData.state}
-                                className="form-control"
-                              />
-                            </div>
-                          </Col>
-                          <Col md="6">
-                            <div className="form-group">
-                              <label className="form-label" htmlFor="address-county">
-                                Country
-                              </label>
-                              <RSelect
-                                options={countryOptions}
-                                placeholder="Select a country"
-                                defaultValue={[
-                                  {
-                                    value: formData.country,
-                                    label: formData.country,
-                                  },
-                                ]}
-                                onChange={(e) => setFormData({ ...formData, country: e.value })}
-                              />
-                            </div>
-                          </Col>
-                          <Col size="12">
-                            <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
-                              <li>
-                                <Button color="primary" size="lg" onClick={() => submitForm()}>
-                                  Update Address
-                                </Button>
-                              </li>
-                              <li>
-                                <a
-                                  href="#dropdownitem"
-                                  onClick={(ev) => {
-                                    ev.preventDefault();
-                                    setModal(false);
-                                  }}
-                                  className="link link-light"
-                                >
-                                  Cancel
-                                </a>
-                              </li>
-                            </ul>
-                          </Col>
-                        </Row>
-                      </div>
                     </div>
+
                   </div>
                 </ModalBody>
               </Modal>

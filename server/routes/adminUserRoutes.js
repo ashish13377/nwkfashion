@@ -17,6 +17,8 @@ router.get('/is-login', auth, AdminUserController.isLogin);
 // Log out
 router.get('/logout', logOut, AdminUserController.logOut);
 
+router.put('/updateProfile/:userId', AdminUserController.updateProfile);
+
 // Get admin profile
 // router.get('/profile',  AdminUserController.getProfile);
 

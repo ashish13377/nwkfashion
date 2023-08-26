@@ -51,6 +51,17 @@ const OrderDefault = () => {
     customer: "",
     purchased: "",
     total: "",
+    productDetails: [],
+    address: {
+      firstName: "",
+      lastName: "",
+      emailAddress: "",
+      phoneNo: "",
+      country: "",
+      townCity: "",
+      state: "",
+      zipCode: ""
+    },
     check: false,
   });
   const [view, setView] = useState({
@@ -156,6 +167,17 @@ const OrderDefault = () => {
       customer: "",
       purchased: "",
       total: "",
+      productDetails: [],
+      address: {
+        firstName: "",
+        lastName: "",
+        emailAddress: "",
+        phoneNo: "",
+        country: "",
+        townCity: "",
+        state: "",
+        zipCode: ""
+      },
       check: false,
     });
   };
@@ -170,6 +192,17 @@ const OrderDefault = () => {
       customer: customer,
       purchased: purchased,
       total: total,
+      productDetails: [],
+      address: {
+        firstName: "",
+        lastName: "",
+        emailAddress: "",
+        phoneNo: "",
+        country: "",
+        townCity: "",
+        state: "",
+        zipCode: ""
+      },
       check: false,
     };
     setData([submittedData, ...data]);
@@ -183,7 +216,7 @@ const OrderDefault = () => {
 
   // function to load detail data
   const loadDetail = (id) => {
-    let index = data.findIndex((item) => item.id === id);
+    let index = data.findIndex((item) => item._id === id);
     setFormData(data[index]);
   };
 
@@ -335,6 +368,7 @@ const OrderDefault = () => {
     formState: { errors },
   } = useForm();
 
+  console.log(data);
   return (
     <React.Fragment>
       <Head title="Order Default"></Head>
@@ -550,193 +584,193 @@ const OrderDefault = () => {
 
             {currentItems.length > 0
               ? currentItems.map((item) => (
-                  <DataTableItem key={item.id}>
-                    <DataTableRow className="nk-tb-col-check">
-                      <div className="custom-control custom-control-sm custom-checkbox notext">
-                        <input
-                          type="checkbox"
-                          className="custom-control-input"
-                          defaultChecked={item.check}
-                          id={item._id + "oId-all"}
-                          key={Math.random()}
-                          onChange={(e) => onSelectChange(e, item._id)}
-                        />
-                        <label className="custom-control-label" htmlFor={item._id + "oId-all"}></label>
-                      </div>
-                    </DataTableRow>
-                    <DataTableRow>
-                      <a href="#id" onClick={(ev) => ev.preventDefault()}>
-                        #{item.orderID}
-                      </a>
-                    </DataTableRow>
-                    <DataTableRow size="md">
-                      <span>{item.date}</span>
-                    </DataTableRow>
-                    <DataTableRow>
-                      <span className={`dot bg-${getColorForStatus(item.orderStatus)} d-sm-none`}></span>
-                      <Badge
-                        className="badge-sm badge-dot has-bg d-none d-sm-inline-flex"
-                        color={getColorForStatus(item.orderStatus)}
-                      >
-                        {item.orderStatus}
-                      </Badge>
-                    </DataTableRow>
-                    <DataTableRow size="sm">
-                      {item.customerInfo ? <span className="tb-sub">{item.customerInfo.name}</span> : null}
-                    </DataTableRow>
-                    <DataTableRow size="md">
-                      {item.productDetails ? (
-                        <span className="tb-sub text-primary"> {item.productDetails.length} item</span>
-                      ) : null}
-                    </DataTableRow>
-                    <DataTableRow>
-                      <span className="tb-lead">₹ {parseFloat(item.totalPrice).toFixed(2)}</span>
-                    </DataTableRow>
-                    <DataTableRow className="nk-tb-col-tools">
-                      <ul className="nk-tb-actions gx-1">
-                        {item.orderStatus !== "Confirmed" && (
-                          <li
-                            className="nk-tb-action-hidden"
-                            onClick={() => markChangesInStatus(item._id, "Confirmed")}
-                          >
-                            <TooltipComponent
-                              tag="a"
-                              containerClassName="btn btn-trigger btn-icon"
-                              id={"delivery" + item.id}
-                              icon="check-circle-cut"
-                              direction="top"
-                              text="Mark as Confirmed"
-                            />
-                          </li>
-                        )}
-
+                <DataTableItem key={item._id}>
+                  <DataTableRow className="nk-tb-col-check">
+                    <div className="custom-control custom-control-sm custom-checkbox notext">
+                      <input
+                        type="checkbox"
+                        className="custom-control-input"
+                        defaultChecked={item.check}
+                        id={item._id + "oId-all"}
+                        key={Math.random()}
+                        onChange={(e) => onSelectChange(e, item._id)}
+                      />
+                      <label className="custom-control-label" htmlFor={item._id + "oId-all"}></label>
+                    </div>
+                  </DataTableRow>
+                  <DataTableRow>
+                    <a href="#id" onClick={(ev) => ev.preventDefault()}>
+                      #{item.orderID}
+                    </a>
+                  </DataTableRow>
+                  <DataTableRow size="md">
+                    <span>{item.date}</span>
+                  </DataTableRow>
+                  <DataTableRow>
+                    <span className={`dot bg-${getColorForStatus(item.orderStatus)} d-sm-none`}></span>
+                    <Badge
+                      className="badge-sm badge-dot has-bg d-none d-sm-inline-flex"
+                      color={getColorForStatus(item.orderStatus)}
+                    >
+                      {item.orderStatus}
+                    </Badge>
+                  </DataTableRow>
+                  <DataTableRow size="sm">
+                    {item.customerInfo ? <span className="tb-sub">{item.customerInfo.name}</span> : null}
+                  </DataTableRow>
+                  <DataTableRow size="md">
+                    {item.productDetails ? (
+                      <span className="tb-sub text-primary"> {item.productDetails.length} item</span>
+                    ) : null}
+                  </DataTableRow>
+                  <DataTableRow>
+                    <span className="tb-lead">₹ {parseFloat(item.totalPrice).toFixed(2)}</span>
+                  </DataTableRow>
+                  <DataTableRow className="nk-tb-col-tools">
+                    <ul className="nk-tb-actions gx-1">
+                      {item.orderStatus !== "Confirmed" && (
                         <li
                           className="nk-tb-action-hidden"
-                          onClick={() => {
-                            loadDetail(item.id);
-                            toggle("details");
-                          }}
+                          onClick={() => markChangesInStatus(item._id, "Confirmed")}
                         >
                           <TooltipComponent
                             tag="a"
                             containerClassName="btn btn-trigger btn-icon"
-                            id={"view" + item.id}
-                            icon="eye"
+                            id={"delivery" + item.id}
+                            icon="check-circle-cut"
                             direction="top"
-                            text="View Details"
+                            text="Mark as Confirmed"
                           />
                         </li>
-                        <li>
-                          <UncontrolledDropdown>
-                            <DropdownToggle tag="a" className="btn btn-icon dropdown-toggle btn-trigger">
-                              <Icon name="more-h"></Icon>
-                            </DropdownToggle>
-                            <DropdownMenu end>
-                              <ul className="link-list-opt no-bdr">
+                      )}
+
+                      <li
+                        className="nk-tb-action-hidden"
+                        onClick={() => {
+                          loadDetail(item._id);
+                          toggle("details");
+                        }}
+                      >
+                        <TooltipComponent
+                          tag="a"
+                          containerClassName="btn btn-trigger btn-icon"
+                          id={"view" + item.id}
+                          icon="eye"
+                          direction="top"
+                          text="View Details"
+                        />
+                      </li>
+                      <li>
+                        <UncontrolledDropdown>
+                          <DropdownToggle tag="a" className="btn btn-icon dropdown-toggle btn-trigger">
+                            <Icon name="more-h"></Icon>
+                          </DropdownToggle>
+                          <DropdownMenu end>
+                            <ul className="link-list-opt no-bdr">
+                              <li>
+                                <DropdownItem
+                                  tag="a"
+                                  href="#dropdown"
+                                  onClick={(ev) => {
+                                    ev.preventDefault();
+                                    loadDetail(item._id);
+                                    toggle("details");
+                                  }}
+                                >
+                                  <Icon name="eye"></Icon>
+                                  <span>Order Details</span>
+                                </DropdownItem>
+                              </li>
+
+                              {item.orderStatus !== "Pending" && (
                                 <li>
                                   <DropdownItem
                                     tag="a"
                                     href="#dropdown"
                                     onClick={(ev) => {
                                       ev.preventDefault();
-                                      loadDetail(item.id);
-                                      toggle("details");
+                                      const status = "Pending";
+                                      markChangesInStatus(item._id, status);
                                     }}
                                   >
-                                    <Icon name="eye"></Icon>
-                                    <span>Order Details</span>
+                                    <Icon name="repeat-v"></Icon>
+                                    <span>Mark as Pending</span>
                                   </DropdownItem>
                                 </li>
+                              )}
 
-                                {item.orderStatus !== "Pending" && (
-                                  <li>
-                                    <DropdownItem
-                                      tag="a"
-                                      href="#dropdown"
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                        const status = "Pending";
-                                        markChangesInStatus(item._id, status);
-                                      }}
-                                    >
-                                      <Icon name="repeat-v"></Icon>
-                                      <span>Mark as Pending</span>
-                                    </DropdownItem>
-                                  </li>
-                                )}
-
-                                {item.orderStatus !== "Confirmed" && (
-                                  <li>
-                                    <DropdownItem
-                                      tag="a"
-                                      href="#dropdown"
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                        const orderStaust = "Confirmed";
-                                        markChangesInStatus(item._id, orderStaust);
-                                      }}
-                                    >
-                                      <Icon name="check-circle-cut"></Icon>
-                                      <span>Mark as Confirmed</span>
-                                    </DropdownItem>
-                                  </li>
-                                )}
-
-                                {item.orderStatus !== "Shipped" && (
-                                  <li>
-                                    <DropdownItem
-                                      tag="a"
-                                      href="#dropdown"
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                        const orderStaust = "Shipped";
-                                        markChangesInStatus(item._id, orderStaust);
-                                      }}
-                                    >
-                                      <Icon name="package-fill"></Icon>
-                                      <span>Mark as Shipped</span>
-                                    </DropdownItem>
-                                  </li>
-                                )}
-
-                                {item.orderStatus !== "Delivered" && (
-                                  <li>
-                                    <DropdownItem
-                                      tag="a"
-                                      href="#dropdown"
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                        const orderStaust = "Delivered";
-                                        markChangesInStatus(item._id, orderStaust);
-                                      }}
-                                    >
-                                      <Icon name="truck"></Icon>
-                                      <span>Mark as Delivered</span>
-                                    </DropdownItem>
-                                  </li>
-                                )}
-
+                              {item.orderStatus !== "Confirmed" && (
                                 <li>
                                   <DropdownItem
                                     tag="a"
                                     href="#dropdown"
                                     onClick={(ev) => {
                                       ev.preventDefault();
-                                      deleteOrder(item._id);
+                                      const orderStaust = "Confirmed";
+                                      markChangesInStatus(item._id, orderStaust);
                                     }}
                                   >
-                                    <Icon name="trash"></Icon>
-                                    <span>Remove Order</span>
+                                    <Icon name="check-circle-cut"></Icon>
+                                    <span>Mark as Confirmed</span>
                                   </DropdownItem>
                                 </li>
-                              </ul>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </li>
-                      </ul>
-                    </DataTableRow>
-                  </DataTableItem>
-                ))
+                              )}
+
+                              {item.orderStatus !== "Shipped" && (
+                                <li>
+                                  <DropdownItem
+                                    tag="a"
+                                    href="#dropdown"
+                                    onClick={(ev) => {
+                                      ev.preventDefault();
+                                      const orderStaust = "Shipped";
+                                      markChangesInStatus(item._id, orderStaust);
+                                    }}
+                                  >
+                                    <Icon name="package-fill"></Icon>
+                                    <span>Mark as Shipped</span>
+                                  </DropdownItem>
+                                </li>
+                              )}
+
+                              {item.orderStatus !== "Delivered" && (
+                                <li>
+                                  <DropdownItem
+                                    tag="a"
+                                    href="#dropdown"
+                                    onClick={(ev) => {
+                                      ev.preventDefault();
+                                      const orderStaust = "Delivered";
+                                      markChangesInStatus(item._id, orderStaust);
+                                    }}
+                                  >
+                                    <Icon name="truck"></Icon>
+                                    <span>Mark as Delivered</span>
+                                  </DropdownItem>
+                                </li>
+                              )}
+
+                              <li>
+                                <DropdownItem
+                                  tag="a"
+                                  href="#dropdown"
+                                  onClick={(ev) => {
+                                    ev.preventDefault();
+                                    deleteOrder(item._id);
+                                  }}
+                                >
+                                  <Icon name="trash"></Icon>
+                                  <span>Remove Order</span>
+                                </DropdownItem>
+                              </li>
+                            </ul>
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
+                      </li>
+                    </ul>
+                  </DataTableRow>
+                </DataTableItem>
+              ))
               : null}
           </div>
           <PreviewAltCard>
@@ -891,31 +925,108 @@ const OrderDefault = () => {
               <Row className="gy-3">
                 <Col lg={6}>
                   <span className="sub-text">Order Id</span>
-                  <span className="caption-text">{formData.orderId}</span>
+                  <span className="caption-text">#{formData.orderID}</span>
                 </Col>
                 <Col lg={6}>
                   <span className="sub-text">Status</span>
-                  <span
-                    className={`dot bg-${formData.status === "Delivered" ? "success" : "warning"} d-sm-none`}
-                  ></span>
+                  <span className={`dot bg-${getColorForStatus(formData.orderStatus)} d-sm-none`}></span>
                   <Badge
                     className="badge-sm badge-dot has-bg d-none d-sm-inline-flex"
-                    color={formData.status === "Delivered" ? "success" : "warning"}
+                    color={getColorForStatus(formData.orderStatus)}
                   >
-                    {formData.status}
+                    {formData.orderStatus}
                   </Badge>
                 </Col>
-                <Col lg={6}>
-                  <span className="sub-text">Customer</span>
-                  <span className="caption-text">{formData.customer}</span>
+                <Col lg={12}>
+                  <div className="invoice-bills">
+                    <div className="table-responsive">
+                      <table className="table table-striped">
+                        <thead>
+                          <tr>
+                            <th className="w-150px">Item Name</th>
+                            <th className="w-60">Description</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>Amount</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {formData.productDetails.map((product, index) => (
+                            <tr key={index}>
+                              <td>{product.title}</td>
+                              <td>{product.description}</td>
+                              <td>₹ {product.price.replace('$', '')}</td>
+                              <td>1</td>
+                              <td>₹ {product.price.replace('$', '')}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colSpan="2"></td>
+                            <td colSpan="2">Subtotal</td>
+                            <td>
+                              ₹ {formData.productDetails.reduce((acc, product) => acc + parseFloat(product.price.slice(1)), 0).toFixed(2)}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="2"></td>
+                            <td colSpan="2">Processing fee</td>
+                            <td>$10.00</td>
+                          </tr>
+                          <tr>
+                            <td colSpan="2"></td>
+                            <td colSpan="2">TAX</td>
+                            <td>$50.00</td>
+                          </tr>
+                          <tr>
+                            <td colSpan="2"></td>
+                            <td colSpan="2">Grand Total</td>
+                            <td>₹ {formData.totalPrice}</td>
+                          </tr>
+                        </tfoot>
+                      </table>
+
+                    </div>
+                  </div>
                 </Col>
-                <Col lg={6}>
-                  <span className="sub-text">Purchased Product</span>
-                  <span className="caption-text">{formData.purchased}</span>
+
+              </Row>
+              <div className="nk-modal-head mb-3">
+                <h5 className="title">Address Details</h5>
+              </div>
+              <Row className="gy-3">
+                <Col lg={4}>
+                  <span className="sub-text">First Name</span>
+                  <span className="caption-text">{formData.address.firstName}</span>
                 </Col>
-                <Col lg={6}>
-                  <span className="sub-text">Total Price</span>
-                  <span className="caption-text">{formData.total}</span>
+                <Col lg={4}>
+                  <span className="sub-text">Last Name</span>
+                  <span className="caption-text">{formData.address.lastName}</span>
+                </Col>
+                <Col lg={4}>
+                  <span className="sub-text">Email Address</span>
+                  <span className="caption-text">{formData.address.emailAddress}</span>
+                </Col>
+                <Col lg={4}>
+                  <span className="sub-text">Phone Number</span>
+                  <span className="caption-text">{formData.address.phoneNo}</span>
+                </Col>
+                <Col lg={4}>
+                  <span className="sub-text">Country</span>
+                  <span className="caption-text">{formData.address.country}</span>
+                </Col>
+                <Col lg={4}>
+                  <span className="sub-text">Town/City</span>
+                  <span className="caption-text">{formData.address.townCity}</span>
+                </Col>
+                <Col lg={4}>
+                  <span className="sub-text">State</span>
+                  <span className="caption-text">{formData.address.state}</span>
+                </Col>
+                <Col lg={4}>
+                  <span className="sub-text">Zip Code</span>
+                  <span className="caption-text">{formData.address.zipCode}</span>
                 </Col>
               </Row>
             </div>
