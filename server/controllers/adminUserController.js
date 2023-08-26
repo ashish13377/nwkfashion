@@ -118,7 +118,7 @@ const adminUserController = {
   logOut: async (req, res) => {
     try {
       // The authenticated user's data is available from the middleware
-      req.user.tokens = req.rootUser.tokens.filter(token => token.token !== req.token);
+      req.rootUser.tokens = req.rootUser.tokens.filter(token => token.token !== req.token);
 
       // Clear JWT cookie
       res.clearCookie("jwt");
