@@ -90,19 +90,19 @@ const User = () => {
             </div>
           </div>
         </div>
-        {/* <div className="dropdown-inner">
+        <div className="dropdown-inner">
           <LinkList>
             <LinkItem link="/user-profile-regular" icon="user-alt" onClick={toggle}>
               View Profile
             </LinkItem>
-            <LinkItem link="/user-profile-setting" icon="setting-alt" onClick={toggle}>
+            {/* <LinkItem link="/user-profile-setting" icon="setting-alt" onClick={toggle}>
               Account Setting
             </LinkItem>
             <LinkItem link="/user-profile-activity" icon="activity-alt" onClick={toggle}>
               Login Activity
-            </LinkItem>
+            </LinkItem> */}
           </LinkList>
-        </div> */}
+        </div>
         <div className="dropdown-inner" onClick={handleLogout}>
           <LinkList>
             <Icon name="signout"></Icon>

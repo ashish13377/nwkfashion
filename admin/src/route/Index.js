@@ -196,10 +196,10 @@ const Router = () => {
           <Route path="user-details-regular/:userId" element={<UserDetails />}></Route>
         </Route>
         <Route>
-          {/* <Route path="user-profile-notification" element={<UserProfileNotification />} ></Route>
+          <Route path="user-profile-notification" element={<UserProfileNotification />}></Route>
           <Route path="user-profile-regular" element={<UserProfileRegular />}></Route>
           <Route path="user-profile-activity" element={<UserProfileActivity />}></Route>
-          <Route path="user-profile-setting" element={<UserProfileSetting />}></Route> */}
+          <Route path="user-profile-setting" element={<UserProfileSetting />}></Route>
         </Route>
 
         <Route path="order-list-default" element={<OrderDefault />}></Route>
