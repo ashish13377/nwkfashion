@@ -980,7 +980,7 @@ const ProductList = () => {
           </PreviewAltCard>
         </Block>
 
-        {/* <Modal isOpen={currentModal === "edit"} toggle={closeModalss} className="modal-dialog-centered" size="lg">
+        <Modal isOpen={currentModal === "edit"} toggle={closeModalss} className="modal-dialog-centered" size="lg">
           <ModalBody>
             <a href="#cancel" className="close">
               {" "}
@@ -1023,7 +1023,11 @@ const ProductList = () => {
                             isMulti={false}
                             options={categories.map((category) => ({ value: category._id, label: category.name }))}
                             onChange={handleCategoryChange}
-                            value={formData.category ? { value: formData.category, label: formData.category } : null}
+                            value={
+                              formData.categoryName
+                                ? { value: formData.categoryName, label: formData.categoryName }
+                                : null
+                            }
                           />
                         </div>
                       </div>
@@ -1121,42 +1125,87 @@ const ProductList = () => {
                       </div>
                     </Col>
 
-                    <Col size="12">
-                      <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
-                        {({ getRootProps, getInputProps }) => (
-                          <section>
-                            <div
-                              {...getRootProps()}
-                              className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
-                            >
-                              <input {...getInputProps()} />
-                              {formData.image ? (
-                                <div className="dz-preview dz-processing dz-image-preview dz-complete">
-                                  <div className="dz-image">
-                                    <img src={formData.image} alt="preview" />
+                    {/* <Col size="12">
+                        <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
+                          {({ getRootProps, getInputProps }) => (
+                            <section>
+                              <div
+                                {...getRootProps()}
+                                className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
+                              >
+                                <input {...getInputProps()} />
+                                {formData.image ? (
+                                  <div className="dz-preview dz-processing dz-image-preview dz-complete">
+                                    <div className="dz-image">
+                                      <img src={formData.image} alt="preview" />
+                                    </div>
                                   </div>
-                                </div>
-                              ) : (
-                                <p>Drag 'n' drop some files here, or click to select files</p>
-                              )}
-                            </div>
-                          </section>
-                        )}
-                      </Dropzone>
-                    </Col>
+                                ) : (
+                                  <p>Drag 'n' drop some files here, or click to select files</p>
+                                )}
+                              </div>
+                            </section>
+                          )}
+                        </Dropzone>
+                      </Col> */}
                     <Col size="12">
                       <div className="form-group">
                         <label className="form-label" htmlFor="product-title">
                           Colors and Images
                         </label>
-                        <div className="form-control-wrap">
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={formData.service_name}
-                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                          />
-                        </div>
+                        {formData.colors.map((colorPair, index) => (
+                          <div
+                            className="form-control-wrap"
+                            style={{ display: "flex", marginBottom: "10px", gap: "5px" }}
+                          >
+                            <input
+                              className="form-control"
+                              type="text"
+                              placeholder={`Color ${index + 1}`}
+                              value={colorPair.color}
+                              onChange={(e) => handleColorChange(index, e.target.value)}
+                            />
+                            <input
+                              className="form-control"
+                              type="text"
+                              placeholder={`Zoom Image ${index + 1}`}
+                              value={colorPair.zoomImage}
+                              onChange={(e) => handleZoomImageChange(index, e.target.value)}
+                            />
+                            <button
+                              style={{
+                                padding: "4px 6px",
+                                background: "#fff",
+                                color: "Black",
+                                fontFamily: "DM Sans, sans-serif",
+                                fontWeight: "400",
+                                borderRadius: "6px",
+                                fontSize: "12px",
+                                cursor: "pointer",
+                              }}
+                              type="button"
+                              onClick={() => removeColorPair(index)}
+                            >
+                              X
+                            </button>
+                          </div>
+                        ))}
+                        <button
+                          style={{
+                            padding: "4px 6px",
+                            background: "#fff",
+                            color: "Black",
+                            fontFamily: "DM Sans, sans-serif",
+                            fontWeight: "400",
+                            borderRadius: "6px",
+                            fontSize: "12px",
+                            cursor: "pointer",
+                          }}
+                          type="button"
+                          onClick={addColorPair}
+                        >
+                          Add Another color image pair
+                        </button>
                       </div>
                     </Col>
 
@@ -1185,7 +1234,7 @@ const ProductList = () => {
               </div>
             </div>
           </ModalBody>
-        </Modal> */}
+        </Modal>
 
         <Modal isOpen={currentModal === "editCat"} toggle={closeModalss} className="modal-dialog-centered" size="lg">
           <ModalBody>
