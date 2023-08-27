@@ -82,13 +82,17 @@ const CartTable = () => {
                           </td>
 
                           <td className="pro-quantity">
-                            <div className="pro-qty">
+                            <div
+                              className="pro-qty"
+                              style={{ display: "flex", padding: "0 14px" }}
+                            >
                               <a
                                 onClick={() =>
-                                  handleIncreaseQuantiti(product._id)
+                                  handleDecreaseQuantiti(product._id)
                                 }
+                                style={{ position: "relative", top: "5px" }}
                               >
-                                +
+                                -
                               </a>
 
                               <input
@@ -96,12 +100,14 @@ const CartTable = () => {
                                 value={product.quantiti}
                                 readOnly
                               />
+
                               <a
                                 onClick={() =>
-                                  handleDecreaseQuantiti(product._id)
+                                  handleIncreaseQuantiti(product._id)
                                 }
+                                style={{ position: "relative", top: "5px" }}
                               >
-                                -
+                                +
                               </a>
                             </div>
                           </td>
@@ -124,7 +130,7 @@ const CartTable = () => {
             </div>
             <div className="col-lg-8 col-md-7 col-12 mb-40">
               <div className="cart-buttons mb-30">
-                <a href="/">Continue Shopping</a>
+                <Link to="/">Continue Shopping</Link>
               </div>
             </div>
             <div className="col-lg-4 col-md-5 col-12 mb-40">
@@ -141,7 +147,13 @@ const CartTable = () => {
                   </tbody>
                 </table>
                 <div className="proceed-to-checkout section mt-30">
-                  <Link to="/checkoutPage">Proceed to checkout</Link>
+                  {products.length === 0 ? (
+                    <></>
+                  ) : (
+                    <>
+                      <Link to="/checkoutPage">Proceed to checkout</Link>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
