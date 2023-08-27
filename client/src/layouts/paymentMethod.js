@@ -73,6 +73,7 @@ const PaymentMethod = ({
         const response = await axios.post(`${serverAPILocal}/createOrder`, {
           amount: calculateTotalInPaise, // Replace with the actual total price (in paise)
         });
+        onOrderDetailsChange(response.data.id);
 
         // Initialize Razorpay payment dialog
 
@@ -114,7 +115,7 @@ const PaymentMethod = ({
             contact: formData.address.phoneNo, // Replace with user's contact number
           },
         };
-        onOrderDetailsChange(response.data.id);
+
         // console.log(options);
         const rzp1 = new window.Razorpay(options);
         rzp1.open();

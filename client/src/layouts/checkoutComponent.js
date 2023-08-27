@@ -38,8 +38,8 @@ const CheckoutComponent = () => {
   useEffect(() => {
     const productIDs = products.map((product) => product._id);
     const productDetails = products.map((product) => ({
-      productID: product.title,
-      name: product.name,
+      productID: product._id,
+      name: product.title,
       price: product.price,
       quantiti: product.quantiti,
     }));
