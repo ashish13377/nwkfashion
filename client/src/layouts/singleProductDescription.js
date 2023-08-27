@@ -141,7 +141,7 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                           <span>{productDetails.availability}</span>
                         </span>
                         <div className="quantity-colors">
-                          <div className="quantity">
+                          {/* <div className="quantity">
                             <h5>Quantity:</h5>
                             <div className="pro-qty">
                               <input
@@ -149,7 +149,7 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                                 defaultValue={productDetails.quantity}
                               />
                             </div>
-                          </div>
+                          </div> */}
                           <div className="colors">
                             <h5>Color:</h5>
                             <div className="color-options">
