@@ -25,7 +25,7 @@ const CheckoutComponent = () => {
       state: "",
       zipCode: "",
     },
-    quantiti: products.map((product) => product.quantiti),
+
     paymentMethod: "",
     userId: user ? user._id : "",
     productID: [],
@@ -38,14 +38,16 @@ const CheckoutComponent = () => {
   useEffect(() => {
     const productIDs = products.map((product) => product._id);
     const productDetails = products.map((product) => ({
-      productID: product._id,
+      productID: product.title,
       name: product.name,
       price: product.price,
+      quantiti: product.quantiti,
     }));
     setFormData((prevFormData) => ({
       ...prevFormData,
       productID: productIDs,
       productDetails: productDetails,
+      totalPrice: calculateTotal(),
     }));
   }, []);
 
@@ -150,7 +152,6 @@ const CheckoutComponent = () => {
     setFormData({
       ...formData,
       razorpay: orderDetails,
-      totalPrice: calculateTotal(),
     });
   };
   return (

@@ -12,6 +12,7 @@ const PaymentMethod = ({
   calculateSubtotal,
   calculateTotal,
 }) => {
+  console.log("paymentmethod", formData);
   // console.log(calculateTotal);
   const calculateTotalInPaise = calculateTotal * 100;
   // console.log(calculateTotalInPaise);
@@ -74,7 +75,7 @@ const PaymentMethod = ({
         });
 
         // Initialize Razorpay payment dialog
-        onOrderDetailsChange(response.data.id);
+
         const options = {
           key: "rzp_test_LyQl8cyV8Y1ACw",
           amount: response.data.amount,
@@ -113,6 +114,7 @@ const PaymentMethod = ({
             contact: formData.address.phoneNo, // Replace with user's contact number
           },
         };
+        onOrderDetailsChange(response.data.id);
         // console.log(options);
         const rzp1 = new window.Razorpay(options);
         rzp1.open();
