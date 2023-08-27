@@ -93,7 +93,6 @@ const ProductList = () => {
     }
   };
 
-  
   const [catFormData, setCatFormData] = useState({
     name: "",
     image: "",
@@ -919,18 +918,18 @@ const ProductList = () => {
               <DataTableRow size="sm">
                 <span>Name</span>
               </DataTableRow>
-              <DataTableRow>
+              {/* <DataTableRow>
                 <span>Actual Price</span>
               </DataTableRow>
               <DataTableRow>
                 <span>Discount</span>
-              </DataTableRow>
+              </DataTableRow> */}
               <DataTableRow>
                 <span>Price</span>
               </DataTableRow>
-              <DataTableRow>
+              {/* <DataTableRow>
                 <span>Time</span>
-              </DataTableRow>
+              </DataTableRow> */}
               <DataTableRow size="md">
                 <span>Category</span>
               </DataTableRow>
@@ -988,32 +987,24 @@ const ProductList = () => {
 
                       <DataTableRow size="sm">
                         <span className="tb-product">
-                          <img src={item.image ? item.image : ProductH} alt="product" className="thumb" />
-                          <span className="title">{item.service_name}</span>
+                          <img src={item.imageSrc} alt="product" className="thumb" />
+                          <span className="title">{item.title}</span>
                         </span>
                       </DataTableRow>
-                      <DataTableRow>
+                      {/* <DataTableRow>
                         <span className="tb-sub">₹ {item.actual_price}</span>
                       </DataTableRow>
                       <DataTableRow>
                         <span className="tb-sub">{item.discount} %</span>
-                      </DataTableRow>
+                      </DataTableRow> */}
                       <DataTableRow>
                         <span className="tb-sub">₹ {item.price}</span>
                       </DataTableRow>
-                      <DataTableRow>
+                      {/* <DataTableRow>
                         <span className="tb-sub">{item.time}</span>
-                      </DataTableRow>
+                      </DataTableRow> */}
                       <DataTableRow size="md">
-                        <span className="tb-sub">
-                          {
-                            typeof item.category === "string"
-                              ? item.category // If category is a string, display it directly
-                              : item.category && item.category.label
-                              ? item.category.label // If category is an object with 'label' property, display the label
-                              : " " // Handle the case where category is neither a string nor an object with 'label'
-                          }
-                        </span>
+                        <span className="tb-sub">{item.categoryName}</span>
                       </DataTableRow>
 
                       <DataTableRow className="nk-tb-col-tools">
@@ -1666,7 +1657,7 @@ const ProductList = () => {
                           </div>
                         </div>
                       </Col>
-                    
+
                       <Col size="12">
                         <div className="form-group">
                           <label className="form-label" htmlFor="category">
