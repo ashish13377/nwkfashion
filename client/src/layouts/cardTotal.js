@@ -10,7 +10,7 @@ const CardTotal = ({
   calculateShippingCost,
   calculateTotalGST,
 }) => {
-  console.log("ShippingCost:", calculateShippingCost);
+  // console.log("ShippingCost:", calculateShippingCost);
   return (
     <div>
       <div className="col-12 mb-40">

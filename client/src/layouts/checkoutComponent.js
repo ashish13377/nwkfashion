@@ -6,7 +6,12 @@ import { useSelector } from "react-redux";
 
 const CheckoutComponent = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-  const products = useSelector((state) => state.cart.products);
+  const userId = useSelector((state) => state.cart.userId);
+  const products = useSelector(
+    (state) =>
+      state.cart.products.filter((product) => product.userId === userId) // Filter products based on userId
+  );
+  console.log("products:", products.quantiti);
   const [formData, setFormData] = useState({
     razorpay: null,
     address: {
@@ -20,6 +25,7 @@ const CheckoutComponent = () => {
       state: "",
       zipCode: "",
     },
+    quantiti: products.map((product) => product.quantiti),
     paymentMethod: "",
     userId: user ? user._id : "",
     productID: [],
@@ -41,7 +47,7 @@ const CheckoutComponent = () => {
       productID: productIDs,
       productDetails: productDetails,
     }));
-  }, [products]);
+  }, []);
 
   const handleChange = (fieldName, value) => {
     // If the fieldName contains a dot (.), it means it's a nested field
@@ -135,7 +141,7 @@ const CheckoutComponent = () => {
         totalGST += gst;
       }
     });
-    console.log("totalGST:", totalGST);
+    // console.log("totalGST:", totalGST);
     return totalGST;
   };
 
