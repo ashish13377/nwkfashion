@@ -269,12 +269,8 @@ const ProductList = () => {
       sizes: ["S", "M", "L"],
       colors: [
         {
-          color: "Red",
-          zoomImage: "red_product_zoom_url.jpg",
-        },
-        {
-          color: "Blue",
-          zoomImage: "blue_product_zoom_url.jpg",
+          color: "",
+          zoomImage: "",
         },
       ],
       price: "",
@@ -388,7 +384,7 @@ const ProductList = () => {
       });
 
       if (result.isConfirmed) {
-        const res = await axios.delete(`${serverAPI}services/${_id}`, {
+        const res = await axios.delete(`${serverAPI}products/${_id}`, {
           withCredentials: true,
         });
         if (res.status === 204) {
@@ -505,7 +501,7 @@ const ProductList = () => {
         const response = await axios.post(`${serverAPI}products`, formData);
 
         // Once the product is successfully added, you might want to display a success message.
-        if (response.status === 200) {
+        if (response.status === 201) {
           toast.success("Product added successfully! 🥳", {
             position: "top-center",
             autoClose: 2000,
