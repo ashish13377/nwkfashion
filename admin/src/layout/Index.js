@@ -23,10 +23,10 @@ const Layout = ({title, ...props}) => {
       if(res.status === 200){
         setUserData(res.data.user)
       }else{
-        navigate("/dashboard/auth-login")
+        navigate("/admin/auth-login")
       }
     } catch (error) {
-      navigate("/dashboard/auth-login")
+      navigate("/admin/auth-login")
 
       console.log(error);
     }

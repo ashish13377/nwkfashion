@@ -146,13 +146,13 @@ const Router = () => {
   return (
     <Routes>
       {/*Panel */}
-      {/* <Route exact path={`${process.env.PUBLIC_URL}/ecommerce/index`} component={EcomDashboard}></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/ecommerce/orders`} component={EcomOrder}></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/ecommerce/products`} component={EcomProducts}></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/ecommerce/support`} component={EcomSupport}></Route>
+      {/* <Route exact path={`//ecommerce/index`} component={EcomDashboard}></Route>
+        <Route exact path={`//ecommerce/orders`} component={EcomOrder}></Route>
+        <Route exact path={`//ecommerce/products`} component={EcomProducts}></Route>
+        <Route exact path={`//ecommerce/support`} component={EcomSupport}></Route>
         <Route
           exact
-          path={`${process.env.PUBLIC_URL}/ecommerce/customer`}
+          path={`//ecommerce/customer`}
           render={() => (
             <CustomerProvider>
               <EcomCustomer />
@@ -161,24 +161,24 @@ const Router = () => {
         ></Route>
         <Route
           exact
-          path={`${process.env.PUBLIC_URL}/ecommerce/customer-details/:id`}
+          path={`//ecommerce/customer-details/:id`}
           render={(props) => (
             <CustomerProvider>
               <EcomCustomerDetails {...props} />
             </CustomerProvider>
           )}
         ></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/ecommerce/settings`} component={EcomSettings}></Route>
-        <Route exact path={`${process.env.PUBLIC_URL}/ecommerce/integration`} component={EcomIntegration}></Route> */}
+        <Route exact path={`//ecommerce/settings`} component={EcomSettings}></Route>
+        <Route exact path={`//ecommerce/integration`} component={EcomIntegration}></Route> */}
 
-      <Route path={`${process.env.PUBLIC_URL}`} element={<Layout />}>
-        <Route path={`${process.env.PUBLIC_URL}`} element={<EcomDashboard />} />
-        <Route path={`${process.env.PUBLIC_URL}/orders`} element={<EcomOrder />} />
-        <Route path={`${process.env.PUBLIC_URL}/products`} element={<EcomProducts />} />
-        <Route path={`${process.env.PUBLIC_URL}/support`} element={<EcomSupport />} />
-        <Route path={`${process.env.PUBLIC_URL}/settings`} element={<EcomSettings />} />
-        <Route path={`${process.env.PUBLIC_URL}/integration`} element={<EcomIntegration />} />
-        <Route path={`${process.env.PUBLIC_URL}/whatsapp-config`} element={<WhatsappConfig />} />
+      <Route path={'/admin'} element={<Layout />}>
+        <Route path={`/admin`} element={<EcomDashboard />} />
+        <Route path={`/admin/orders`} element={<EcomOrder />} />
+        <Route path={`/admin/products`} element={<EcomProducts />} />
+        <Route path={`/admin/support`} element={<EcomSupport />} />
+        <Route path={`/admin/settings`} element={<EcomSettings />} />
+        <Route path={`/admin/integration`} element={<EcomIntegration />} />
+        <Route path={`/admin/whatsapp-config`} element={<WhatsappConfig />} />
 
         <Route element={<CustomerProvider />}>
           <Route path="customer" element={<EcomCustomer />}></Route>y
@@ -314,7 +314,7 @@ const Router = () => {
         <Route path="svg-icons" element={<SVGIconPage />}></Route>
       </Route>
 
-      <Route path={`${process.env.PUBLIC_URL}`} element={<LayoutNoSidebar />}>
+      <Route path={`/admin`} element={<LayoutNoSidebar />}>
         {/* <Route path="auth-success" element={<Success />}></Route>
         <Route path="auth-reset" element={<ForgotPassword />}></Route>
         <Route path="auth-register" element={<Register />}></Route> */}

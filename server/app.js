@@ -26,8 +26,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
+app.use(express.static("client/build"));
+const path = require("path");
 app.get("/", (req, res) => {
-  res.json({ message: "Hello from this side 😂" });
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
+
+app.use(express.static("admin/build"));
+app.get("/admin", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "admin", "build", "index.html"));
 });
 
 app.use("/api/users", userRoutes);
