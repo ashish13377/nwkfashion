@@ -13,7 +13,7 @@ const CheckoutComponent = () => {
   );
   console.log("products:", products.quantiti);
   const [formData, setFormData] = useState({
-    razorpay: null,
+    razorpay: "test",
     address: {
       firstName: "",
       lastName: "",

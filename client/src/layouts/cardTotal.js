@@ -22,7 +22,7 @@ const CardTotal = ({
           <ul>
             {products.map((product) => (
               <li key={product.id}>
-                {product.title} (Quantiti: {product.quantiti})
+                {product.title} (X {product.quantiti})
                 <span>
                   $
                   {parseFloat(product.price.replace("$", "")) *

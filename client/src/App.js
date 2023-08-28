@@ -12,6 +12,7 @@ import AboutUs from "./pages/aboutUs";
 import Faq from "./pages/faq";
 import ReturnRefund from "./pages/returnRefund";
 import Shipping from "./pages/shipping";
+import NewCheckoutPage from "./pages/newCheckoutPage";
 export const serverAPILocal = "http://localhost:5904/api";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/products/:productId" element={<SingleProductPage />} />
           <Route path="/wishlistPage" element={<WishlistPage />} />
           <Route path="/checkoutPage" element={<CheckoutPage />} />
+          {/* <Route path="/newcheckoutPage" element={<NewCheckoutPage />} /> */}
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/return" element={<ReturnRefund />} />
