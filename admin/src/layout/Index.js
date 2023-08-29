@@ -17,7 +17,7 @@ const Layout = ({ title, ...props }) => {
 
   const getRootUser = async () => {
     try {
-      const res = await axios.get(`${process.env.serverAPI}admin/is-login`, {
+      const res = await axios.get(`${serverAPI}admin/is-login`, {
         withCredentials: true,
       });
       if (res.status === 200) {
