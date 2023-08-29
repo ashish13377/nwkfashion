@@ -51,8 +51,6 @@ const InvoiceDetails = () => {
     }
   }, [invoiceId, data]);
 
-  
-
   return (
     <React.Fragment>
       <Head title="Invoice Detail"></Head>
@@ -73,13 +71,13 @@ const InvoiceDetails = () => {
                 </BlockDes>
               </BlockHeadContent>
               <BlockHeadContent>
-                <Link to={`${process.env.PUBLIC_URL}/invoice-list`}>
+                <Link to={`/admin/invoice-list`}>
                   <Button color="light" outline className="bg-white d-none d-sm-inline-flex">
                     <Icon name="arrow-left"></Icon>
                     <span>Back</span>
                   </Button>
                 </Link>
-                <Link to={`${process.env.PUBLIC_URL}/invoice-list`}>
+                <Link to={`/admin/invoice-list`}>
                   <Button color="light" outline className="btn-icon bg-white d-inline-flex d-sm-none">
                     <Icon name="arrow-left"></Icon>
                   </Button>
@@ -91,7 +89,7 @@ const InvoiceDetails = () => {
           <Block>
             <div className="invoice">
               <div className="invoice-action">
-                <Link to={`${process.env.PUBLIC_URL}/invoice-print/${user._id}`} target="_blank">
+                <Link to={`/admin/invoice-print/${user._id}`} target="_blank">
                   <Button size="lg" color="primary" outline className="btn-icon btn-white btn-dim">
                     <Icon name="printer-fill"></Icon>
                   </Button>
@@ -153,9 +151,9 @@ const InvoiceDetails = () => {
                           <tr key={index}>
                             <td>{product.title}</td>
                             <td>{product.description}</td>
-                            <td>₹ {product.price.replace('$', '')}</td>
+                            <td>₹ {product.price.replace("$", "")}</td>
                             <td>1</td>
-                            <td>₹ {product.price.replace('$', '')}</td>
+                            <td>₹ {product.price.replace("$", "")}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -164,7 +162,10 @@ const InvoiceDetails = () => {
                           <td colSpan="2"></td>
                           <td colSpan="2">Subtotal</td>
                           <td>
-                            ₹ {user.productDetails.reduce((acc, product) => acc + parseFloat(product.price.slice(1)), 0).toFixed(2)}
+                            ₹{" "}
+                            {user.productDetails
+                              .reduce((acc, product) => acc + parseFloat(product.price.slice(1)), 0)
+                              .toFixed(2)}
                           </td>
                         </tr>
                         <tr>

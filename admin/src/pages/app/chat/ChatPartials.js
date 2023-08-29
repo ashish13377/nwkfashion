@@ -102,7 +102,7 @@ export const MetaChat = ({ item }) => {
 
 export const ChatItemHeader = ({ item }) => {
   return (
-    <Link to={`${process.env.PUBLIC_URL}/app-chat`} className="chat-link">
+    <Link to={`/admin/app-chat`} className="chat-link">
       {item.group === true ? (
         <div className="chat-media user-avatar user-avatar-multiple">
           {item.user.slice(0, 2).map((user, idx) => {
@@ -275,7 +275,7 @@ export const ContactItem = ({ item, setTab, setSelectedId }) => {
                 <div className="user-name">{contact.name}</div>
               </a>
               <div className="user-actions">
-                <Link to={`${process.env.PUBLIC_URL}/app-chat`}>Start Chat</Link>
+                <Link to={`/admin/app-chat`}>Start Chat</Link>
               </div>
             </div>
           </li>

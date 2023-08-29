@@ -55,7 +55,7 @@ export const BackTo = ({ className, link, icon, ...props }) => {
   const classes = [`back-to${className ? " " + className : ""}`];
   return (
     <div className="nk-block-head-sub">
-      <Link className={classes} to={process.env.PUBLIC_URL + link}>
+      <Link className={classes} to={"/admin" + link}>
         <Icon name={icon} />
         <span>{props.children}</span>
       </Link>

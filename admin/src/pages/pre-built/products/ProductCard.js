@@ -34,7 +34,7 @@ const ProductCard = () => {
   const [data, setData] = contextData;
 
   const [sm, updateSm] = useState(false);
-  const [formData,setFormData] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     img: null,
     title: "",
@@ -68,10 +68,10 @@ const ProductCard = () => {
     reset({});
   };
 
-    //scroll off when sidebar shows
-    useEffect(() => {
-      view ? document.body.classList.add("toggle-shown") : document.body.classList.remove("toggle-shown");
-    }, [view])
+  //scroll off when sidebar shows
+  useEffect(() => {
+    view ? document.body.classList.add("toggle-shown") : document.body.classList.remove("toggle-shown");
+  }, [view]);
 
   // Changing state value when searching name
   useEffect(() => {
@@ -119,7 +119,7 @@ const ProductCard = () => {
   };
 
   useEffect(() => {
-    reset(formData)
+    reset(formData);
   }, [formData]);
 
   // filter text
@@ -146,7 +146,12 @@ const ProductCard = () => {
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const { reset, register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    reset,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
     <React.Fragment>
@@ -237,7 +242,7 @@ const ProductCard = () => {
                   <Col xxl={3} lg={4} sm={6} key={item.id}>
                     <Card className="product-card">
                       <div className="product-thumb">
-                        <Link to={`${process.env.PUBLIC_URL}/product-details/${item.id}`}>
+                        <Link to={`/admin/product-details/${item.id}`}>
                           <img className="card-img-top" src={item.img} alt="" />
                         </Link>
                         <ul className="product-badges">
@@ -268,11 +273,11 @@ const ProductCard = () => {
                       <div className="card-inner text-center">
                         <ul className="product-tags">
                           <li>
-                            <Link to={`${process.env.PUBLIC_URL}/product-details/${item.id}`}>{item.name}</Link>
+                            <Link to={`/admin/product-details/${item.id}`}>{item.name}</Link>
                           </li>
                         </ul>
                         <h5 className="product-title">
-                          <Link to={`${process.env.PUBLIC_URL}/product-details/${item.id}`}>{item.title}</Link>
+                          <Link to={`/admin/product-details/${item.id}`}>{item.title}</Link>
                         </h5>
                         <div className="product-price text-primary h5">
                           {item.prevPrice && <small className="text-muted del fs-13px">${item.prevPrice}</small>} $
@@ -321,11 +326,11 @@ const ProductCard = () => {
                     <div className="form-control-wrap">
                       <input
                         type="text"
-                        {...register('name', { required: "This field is required" })}
+                        {...register("name", { required: "This field is required" })}
                         className="form-control"
-                        value={formData.name} 
+                        value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        />
+                      />
                       {errors.name && <span className="invalid">{errors.name.message}</span>}
                     </div>
                   </div>
@@ -338,10 +343,11 @@ const ProductCard = () => {
                     <div className="form-control-wrap">
                       <input
                         type="text"
-                        {...register('title', { required: "This field is required" })}
+                        {...register("title", { required: "This field is required" })}
                         value={formData.title}
                         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                        className="form-control" />
+                        className="form-control"
+                      />
                       {errors.title && <span className="invalid">{errors.title.message}</span>}
                     </div>
                   </div>
@@ -354,10 +360,11 @@ const ProductCard = () => {
                     <div className="form-control-wrap">
                       <input
                         type="number"
-                        {...register('prevPrice', { required: "This field is required" })}
+                        {...register("prevPrice", { required: "This field is required" })}
                         value={formData.prevPrice}
                         onChange={(e) => setFormData({ ...formData, prevPrice: e.target.value })}
-                        className="form-control" />
+                        className="form-control"
+                      />
                       {errors.prevPrice && <span className="invalid">{errors.prevPrice.message}</span>}
                     </div>
                   </div>
@@ -370,10 +377,11 @@ const ProductCard = () => {
                     <div className="form-control-wrap">
                       <input
                         type="number"
-                        {...register('newPrice', { required: "This field is required" })}
+                        {...register("newPrice", { required: "This field is required" })}
                         value={formData.newPrice}
                         onChange={(e) => setFormData({ ...formData, newPrice: e.target.value })}
-                        className="form-control" />
+                        className="form-control"
+                      />
                       {errors.newPrice && <span className="invalid">{errors.newPrice.message}</span>}
                     </div>
                   </div>
@@ -387,10 +395,10 @@ const ProductCard = () => {
                       <input
                         type="text"
                         className="form-control"
-                        {...register('type', { required: "This field is required" })}
-                        value={formData.type} 
+                        {...register("type", { required: "This field is required" })}
+                        value={formData.type}
                         onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                        />
+                      />
                       {errors.type && <span className="invalid">{errors.type.message}</span>}
                     </div>
                   </div>

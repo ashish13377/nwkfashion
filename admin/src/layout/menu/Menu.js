@@ -5,7 +5,6 @@ import Icon from "../../components/icon/Icon";
 import classNames from "classnames";
 
 const MenuHeading = ({ heading }) => {
-
   return (
     <li className="nk-menu-heading">
       <h6 className="overline-title text-primary-alt">{heading}</h6>
@@ -138,17 +137,12 @@ const MenuItem = ({ icon, link, text, sub, subPanel, panel, newTab, mobileView, 
   const menuItemClass = classNames({
     "nk-menu-item": true,
     "has-sub": sub,
-    "active current-page": currentUrl === process.env.PUBLIC_URL + link,
+    "active current-page": currentUrl === "/admin" + link,
   });
   return (
     <li className={menuItemClass} onClick={(e) => toggleActionSidebar(e)}>
       {newTab ? (
-        <Link
-          to={`${process.env.PUBLIC_URL + link}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="nk-menu-link"
-        >
+        <Link to={`${"/admin" + link}`} target="_blank" rel="noopener noreferrer" className="nk-menu-link">
           {icon ? (
             <span className="nk-menu-icon">
               <Icon name={icon} />
@@ -158,7 +152,7 @@ const MenuItem = ({ icon, link, text, sub, subPanel, panel, newTab, mobileView, 
         </Link>
       ) : (
         <NavLink
-          to={`${process.env.PUBLIC_URL + link}`}
+          to={`${"/admin" + link}`}
           className={`nk-menu-link${sub ? " nk-menu-toggle" : ""}`}
           onClick={sub ? menuToggle : null}
         >
@@ -188,11 +182,7 @@ const PanelItem = ({ icon, link, text, subPanel, index, data, setMenuData, ...pr
   if (data === menu) {
     return (
       <li className={menuItemClass}>
-        <Link
-          to={`${process.env.PUBLIC_URL}${link}`}
-          className="nk-menu-link"
-          onClick={() => setMenuData([menu[index]])}
-        >
+        <Link to={`${"/admin"}${link}`} className="nk-menu-link" onClick={() => setMenuData([menu[index]])}>
           {icon ? (
             <span className="nk-menu-icon">
               <Icon name={icon} />
@@ -218,7 +208,7 @@ const PanelItem = ({ icon, link, text, subPanel, index, data, setMenuData, ...pr
         ))}
         <MenuHeading heading="Return to" />
         <li className={menuItemClass}>
-          <Link to={`${process.env.PUBLIC_URL}/`} className="nk-menu-link" onClick={() => setMenuData(menu)}>
+          <Link to={`${"/admin"}/`} className="nk-menu-link" onClick={() => setMenuData(menu)}>
             <span className="nk-menu-icon">
               <Icon name="dashlite-alt" />
             </span>
@@ -226,7 +216,7 @@ const PanelItem = ({ icon, link, text, subPanel, index, data, setMenuData, ...pr
           </Link>
         </li>
         <li className={menuItemClass}>
-          <Link to={`${process.env.PUBLIC_URL}/`} className="nk-menu-link" onClick={() => setMenuData(menu)}>
+          <Link to={`${"/admin"}/`} className="nk-menu-link" onClick={() => setMenuData(menu)}>
             <span className="nk-menu-icon">
               <Icon name="layers-fill" />
             </span>
@@ -265,7 +255,7 @@ const Menu = ({ sidebarToggle, mobileView }) => {
   useEffect(() => {
     data.forEach((item, index) => {
       if (item.panel) {
-        let found = item.subPanel.find((sPanel) => process.env.PUBLIC_URL + sPanel.link === window.location.pathname);
+        let found = item.subPanel.find((sPanel) => "/admin" + sPanel.link === window.location.pathname);
         if (found) {
           setMenuData([menu[index]]);
         }
@@ -292,21 +282,21 @@ const Menu = ({ sidebarToggle, mobileView }) => {
             sidebarToggle={sidebarToggle}
           />
         ) : (
-           // Conditional rendering based on user's role
-           (!userRole || userRole === "admin" || item.text === "Dashboard" || item.text === "Orders") && (
-          <MenuItem
-            key={item.text}
-            link={item.link}
-            icon={item.icon}
-            text={item.text}
-            sub={item.subMenu}
-            badge={item.badge}
-            panel={item.panel}
-            subPanel={item.subPanel}
-            sidebarToggle={sidebarToggle}
-            mobileView={mobileView}
-          />
-        )
+          // Conditional rendering based on user's role
+          (!userRole || userRole === "admin" || item.text === "Dashboard" || item.text === "Orders") && (
+            <MenuItem
+              key={item.text}
+              link={item.link}
+              icon={item.icon}
+              text={item.text}
+              sub={item.subMenu}
+              badge={item.badge}
+              panel={item.panel}
+              subPanel={item.subPanel}
+              sidebarToggle={sidebarToggle}
+              mobileView={mobileView}
+            />
+          )
         )
       )}
     </ul>

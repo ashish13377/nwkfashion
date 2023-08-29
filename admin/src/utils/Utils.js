@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === "development") {
   url = window.location.host.split("/")[1];
   if (url) {
     url = `/${window.location.host.split("/")[1]}`;
-  } else url = process.env.PUBLIC_URL; /// ADD YOUR CPANEL SUB-URL
+  } else url = "/admin"; /// ADD YOUR CPANEL SUB-URL
 }
 
 //Function to validate and return errors for a form

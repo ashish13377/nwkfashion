@@ -11,7 +11,7 @@ import {
   BackTo,
   PreviewTable,
   CodeBlock,
-  PreviewCard
+  PreviewCard,
 } from "../../components/Component";
 import { Row, Col } from "reactstrap";
 
@@ -32,7 +32,7 @@ const Typography = () => {
               <p className="lead">
                 These examples for typography, including global settings, headings, body text, lists, and more. When
                 more control is needed, check out the{" "}
-                <Link to={`${process.env.PUBLIC_URL}/components/util-text`}>textual utility classes.</Link>
+                <Link to={`/admin/components/util-text`}>textual utility classes.</Link>
               </p>
             </BlockDes>
           </BlockHeadContent>
@@ -132,8 +132,8 @@ const Typography = () => {
             <BlockHeadContent>
               <BlockTitle tag="h5">Customize headings</BlockTitle>
               <p>
-                Use the <Link to={`${process.env.PUBLIC_URL}/components/util-text`}>text utitlity classes</Link> to
-                customize the heading text further.
+                Use the <Link to={`/admin/components/util-text`}>text utitlity classes</Link> to customize the heading
+                text further.
               </p>
             </BlockHeadContent>
           </BlockHead>
@@ -156,8 +156,8 @@ const Typography = () => {
               <BlockTitle tag="h5">Inline Element & Text Style</BlockTitle>
               <p>
                 Change text alignment, transform, style, weight, and color with our{" "}
-                <Link to={`${process.env.PUBLIC_URL}/components/util-text`}>text utitlity classes</Link> and{" "}
-                <Link to={`${process.env.PUBLIC_URL}/components/util-colors`}>color utilities</Link>.
+                <Link to={`/admin/components/util-text`}>text utitlity classes</Link> and{" "}
+                <Link to={`/admin/components/util-colors`}>color utilities</Link>.
               </p>
             </BlockHeadContent>
           </BlockHead>
@@ -299,9 +299,7 @@ const Typography = () => {
           </BlockHead>
           <PreviewCard>
             <blockquote className="blockquote text-center">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-              </p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
               <footer className="blockquote-footer">
                 Someone famous in <cite title="Source Title">Source Title</cite>
               </footer>
@@ -309,9 +307,7 @@ const Typography = () => {
           </PreviewCard>
           <PreviewCard>
             <blockquote className="blockquote text-start">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-              </p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
               <footer className="blockquote-footer">
                 Someone famous in <cite title="Source Title">Source Title</cite>
               </footer>
@@ -451,8 +447,7 @@ const Typography = () => {
           <BlockHead>
             <BlockHeadContent>
               <BlockTitle tag="h5">Description list alignment</BlockTitle>
-              <p>
-                Align terms and descriptions horizontally by using Row Col components</p>
+              <p>Align terms and descriptions horizontally by using Row Col components</p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect }  from "react";
+import React, { useRef, useEffect } from "react";
 import SimpleBar from "simplebar-react";
 import data from "../Data";
 import { Icon } from "../../../../components/Component";
@@ -6,11 +6,11 @@ import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from
 import { Link } from "react-router-dom";
 import { useFileManager, useFileManagerUpdate } from "./Context";
 
-const FileManagerAside = ({...props}) =>  {
-  const {fileManager} = useFileManager();
-  const {fileManagerUpdate} = useFileManagerUpdate();
+const FileManagerAside = ({ ...props }) => {
+  const { fileManager } = useFileManager();
+  const { fileManagerUpdate } = useFileManagerUpdate();
 
-  const asideWrap = useRef(null)
+  const asideWrap = useRef(null);
 
   useEffect(() => {
     fileManagerUpdate.contentHeight(asideWrap.current.clientHeight + 10);
@@ -30,11 +30,9 @@ const FileManagerAside = ({...props}) =>  {
                       ev.preventDefault();
                       fileManagerUpdate.asideHide();
                     }}
-                    className={`${
-                      window.location.pathname === `${process.env.PUBLIC_URL}/app-file-manager${item.link}` ? "active" : ""
-                    }`}
+                    className={`${window.location.pathname === `/admin/app-file-manager${item.link}` ? "active" : ""}`}
                   >
-                    <Link className="nk-fmg-menu-item" to={`${process.env.PUBLIC_URL}/app-file-manager${item.link}`}>
+                    <Link className="nk-fmg-menu-item" to={`/admin/app-file-manager${item.link}`}>
                       <Icon name={item.icon}></Icon>
                       <span className="nk-fmg-menu-text">{item.text}</span>
                     </Link>
@@ -51,14 +49,19 @@ const FileManagerAside = ({...props}) =>  {
                 <div className="progress progress-md bg-light">
                   <div
                     className="progress-bar"
-                    style={{ width: `${1200 / fileManager.data.plans.find((item) => item.id === fileManager.currentPlan).memory}%` }}
+                    style={{
+                      width: `${
+                        1200 / fileManager.data.plans.find((item) => item.id === fileManager.currentPlan).memory
+                      }%`,
+                    }}
                   ></div>
                 </div>
                 <div className="nk-fmg-status-info">
-                  12.47 GB of {fileManager.data.plans.find((item) => item.id === fileManager.currentPlan).memory} GB used
+                  12.47 GB of {fileManager.data.plans.find((item) => item.id === fileManager.currentPlan).memory} GB
+                  used
                 </div>
                 <div className="nk-fmg-status-action">
-                  <Link to={`${process.env.PUBLIC_URL}/app-file-manager/settings?tab=billing`} className="link link-primary link-sm">
+                  <Link to={`/admin/app-file-manager/settings?tab=billing`} className="link link-primary link-sm">
                     Upgrade Storage
                   </Link>
                 </div>
@@ -71,7 +74,9 @@ const FileManagerAside = ({...props}) =>  {
                     onClick={(ev) => ev.preventDefault()}
                     className="dropdown-toggle dropdown-indicator-unfold"
                   >
-                    <div className="lead-text">{fileManager.data.plans.find((item) => item.id === fileManager.currentPlan).title}</div>
+                    <div className="lead-text">
+                      {fileManager.data.plans.find((item) => item.id === fileManager.currentPlan).title}
+                    </div>
                     <div className="sub-text">Only you</div>
                   </DropdownToggle>
                   <DropdownMenu end>
@@ -92,7 +97,7 @@ const FileManagerAside = ({...props}) =>  {
                       ))}
                       <li className="divider"></li>
                       <li>
-                        <Link to={`${process.env.PUBLIC_URL}/app-file-manager/settings?tab=billing`} className="link">
+                        <Link to={`/admin/app-file-manager/settings?tab=billing`} className="link">
                           <span>Upgrade Plan</span>
                         </Link>
                       </li>
@@ -104,11 +109,15 @@ const FileManagerAside = ({...props}) =>  {
           </div>
         </div>
       </SimpleBar>
-      {fileManager.asideVisibility && <div className="toggle-overlay" 
-      onClick={(ev) => {
-        ev.preventDefault();
-        fileManagerUpdate.asideVisibility();
-      }}></div>}
+      {fileManager.asideVisibility && (
+        <div
+          className="toggle-overlay"
+          onClick={(ev) => {
+            ev.preventDefault();
+            fileManagerUpdate.asideVisibility();
+          }}
+        ></div>
+      )}
     </React.Fragment>
   );
 };

@@ -260,7 +260,7 @@ const Chat = () => {
                   <Icon name="chat" className="icon-circle icon-circle-xxl bg-white"></Icon>
                 </div>
                 <div className="nk-chat-blank-btn">
-                  <Link to={`${process.env.PUBLIC_URL}/app-chat`}>
+                  <Link to={`/admin/app-chat`}>
                     <Button color="primary" disabled={mainTab === "Contact"} onClick={() => setMainTab("Contact")}>
                       Start Chat
                     </Button>

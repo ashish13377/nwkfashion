@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Content from "../../../layout/content/Content";
 import Head from "../../../layout/head/Head";
-import {
-  Modal,
-  ModalBody,
-  UncontrolledDropdown,
-  DropdownMenu,
-  DropdownToggle,
-  
-  DropdownItem,
-  Badge,
-} from "reactstrap";
+import { Modal, ModalBody, UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem, Badge } from "reactstrap";
 import {
   Button,
   Block,
@@ -454,7 +445,7 @@ const KycListRegular = () => {
                           </div>
                         </DataTableRow>
                         <DataTableRow>
-                          <Link to={`${process.env.PUBLIC_URL}/kyc-details-regular/${item.id}`}>
+                          <Link to={`/admin/kyc-details-regular/${item.id}`}>
                             <div className="user-card">
                               <UserAvatar
                                 theme={item.avatarBg}
@@ -622,9 +613,7 @@ const KycListRegular = () => {
                                       </DropdownItem>
                                     </li>
                                     <li>
-                                    <Link
-                                        to={`${process.env.PUBLIC_URL}/kyc-details-regular/${item.id}`}
-                                      >
+                                      <Link to={`/admin/kyc-details-regular/${item.id}`}>
                                         <Icon name="focus"></Icon>
                                         <span>View Details</span>
                                       </Link>

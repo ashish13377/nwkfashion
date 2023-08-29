@@ -34,12 +34,12 @@ const InvoiceList = () => {
 
   function getColorForStatus(status) {
     const colorMappings = {
-      'Confirmed': 'info',
-      'Shipped': 'warning',
-      'Delivered': 'success'
+      Confirmed: "info",
+      Shipped: "warning",
+      Delivered: "success",
     };
 
-    return colorMappings[status] || 'danger'; // Default to 'danger' for unrecognized statuses
+    return colorMappings[status] || "danger"; // Default to 'danger' for unrecognized statuses
   }
 
   const getOrdersdata = async () => {
@@ -47,9 +47,9 @@ const InvoiceList = () => {
     await axios
       .get(`${serverAPI}orders`)
       .then((response) => {
-        const updatedOrders = response.data.map(order => ({
+        const updatedOrders = response.data.map((order) => ({
           ...order,
-          color: getColorForStatus(order.orderStatus)
+          color: getColorForStatus(order.orderStatus),
         }));
         setOrders(updatedOrders);
         setData(response.data);
@@ -82,9 +82,7 @@ const InvoiceList = () => {
         return item.orderID.includes(onSearchText);
       });
       setData([...filteredObject]);
-    } else (
-      setData(resData)
-    )
+    } else setData(resData);
   }, [onSearchText]);
 
   // onChange function for searching name
@@ -255,72 +253,71 @@ const InvoiceList = () => {
                         <span className="tb-odr-total">Amount</span>
                         <span className="tb-odr-status d-none d-md-inline-block">Status</span>
                       </th>
- 
+
                       <th className="tb-odr-action">&nbsp;</th>
                     </tr>
                   </thead>
                   <tbody className="tb-odr-body">
                     {currentItems.length > 0
                       ? currentItems.map((item) => {
-                        return (
-                          <tr className="tb-odr-item" key={item._id}>
-                            <td className="tb-odr-info">
-                              <span className="tb-odr-id">
-                                <Link to={`${process.env.PUBLIC_URL}/invoice-details/${item._id}`}>
-                                  #{item.orderID}
-                                </Link>
-                              </span>
-                              <span className="tb-odr-date">{item.date}</span>
-                            </td>
-                            <td className="tb-odr-amount">
-                              <span className="tb-odr-total">
-                                <span className="amount"> {item.productDetails ? <span className="tb-sub text-primary" > {item.productDetails.length} item</span> : null}
+                          return (
+                            <tr className="tb-odr-item" key={item._id}>
+                              <td className="tb-odr-info">
+                                <span className="tb-odr-id">
+                                  <Link to={`/admin/invoice-details/${item._id}`}>#{item.orderID}</Link>
                                 </span>
-                              </span>
-                              <span className="tb-odr-status">
-                                {item.customerInfo ? <span className="tb-sub">{item.customerInfo.name}</span> : null}
-                              </span>
-                            </td>
-                            <td className="tb-odr-amount">
-                              <span className="tb-odr-total">
-                                <span className="amount">₹ {parseFloat(item.totalPrice).toFixed(2)}</span>
-                              </span>
-                              <span className="tb-odr-status">
-                                <span
-                                  className={`dot bg-${getColorForStatus(item.orderStatus)} d-sm-none`}
-                                ></span>
-                                <Badge
-                                  className="badge-sm badge-dot has-bg d-none d-sm-inline-flex"
-                                  color={getColorForStatus(item.orderStatus)}
-                                >
-                                  {item.orderStatus}
-                                </Badge>
-                              </span>
-                            </td>
+                                <span className="tb-odr-date">{item.date}</span>
+                              </td>
+                              <td className="tb-odr-amount">
+                                <span className="tb-odr-total">
+                                  <span className="amount">
+                                    {" "}
+                                    {item.productDetails ? (
+                                      <span className="tb-sub text-primary"> {item.productDetails.length} item</span>
+                                    ) : null}
+                                  </span>
+                                </span>
+                                <span className="tb-odr-status">
+                                  {item.customerInfo ? <span className="tb-sub">{item.customerInfo.name}</span> : null}
+                                </span>
+                              </td>
+                              <td className="tb-odr-amount">
+                                <span className="tb-odr-total">
+                                  <span className="amount">₹ {parseFloat(item.totalPrice).toFixed(2)}</span>
+                                </span>
+                                <span className="tb-odr-status">
+                                  <span className={`dot bg-${getColorForStatus(item.orderStatus)} d-sm-none`}></span>
+                                  <Badge
+                                    className="badge-sm badge-dot has-bg d-none d-sm-inline-flex"
+                                    color={getColorForStatus(item.orderStatus)}
+                                  >
+                                    {item.orderStatus}
+                                  </Badge>
+                                </span>
+                              </td>
 
-                            
-                            <td className="tb-odr-action">
-                              <div className="tb-odr-btns d-none d-sm-inline">
-                                <Link to={`${process.env.PUBLIC_URL}/invoice-print/${item._id}`} target="_blank">
-                                  <Button color="primary" size="sm" className="btn-icon btn-white btn-dim">
-                                    <Icon name="printer-fill"></Icon>
+                              <td className="tb-odr-action">
+                                <div className="tb-odr-btns d-none d-sm-inline">
+                                  <Link to={`/admin/invoice-print/${item._id}`} target="_blank">
+                                    <Button color="primary" size="sm" className="btn-icon btn-white btn-dim">
+                                      <Icon name="printer-fill"></Icon>
+                                    </Button>
+                                  </Link>
+                                  <Link to={`/admin/invoice-details/${item._id}`}>
+                                    <Button color="primary" size="sm" className="btn btn-dim">
+                                      View
+                                    </Button>
+                                  </Link>
+                                </div>
+                                <Link to={`/admin/invoice-details/${item._id}`}>
+                                  <Button className="btn-pd-auto d-sm-none">
+                                    <Icon name="chevron-right"></Icon>
                                   </Button>
                                 </Link>
-                                <Link to={`${process.env.PUBLIC_URL}/invoice-details/${item._id}`}>
-                                  <Button color="primary" size="sm" className="btn btn-dim">
-                                    View
-                                  </Button>
-                                </Link>
-                              </div>
-                              <Link to={`${process.env.PUBLIC_URL}/invoice-details/${item._id}`}>
-                                <Button className="btn-pd-auto d-sm-none">
-                                  <Icon name="chevron-right"></Icon>
-                                </Button>
-                              </Link>
-                            </td>
-                          </tr>
-                        );
-                      })
+                              </td>
+                            </tr>
+                          );
+                        })
                       : null}
                   </tbody>
                 </table>

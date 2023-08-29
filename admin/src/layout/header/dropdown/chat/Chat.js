@@ -16,7 +16,7 @@ const ChatDropdown = () => {
       <DropdownMenu end className="dropdown-menu-xl">
         <div className="dropdown-head">
           <span className="sub-title nk-dropdown-title">Recent Chats</span>
-          <Link to={`${process.env.PUBLIC_URL}/user-profile-setting`}>Setting</Link>
+          <Link to={`/admin/user-profile-setting`}>Setting</Link>
         </div>
         <div className="dropdown-body">
           <ul className="chat-list">
@@ -26,7 +26,7 @@ const ChatDropdown = () => {
           </ul>
         </div>
         <div className="dropdown-foot center">
-          <Link to={`${process.env.PUBLIC_URL}/app-chat`}>View All</Link>
+          <Link to={`/admin/app-chat`}>View All</Link>
         </div>
       </DropdownMenu>
     </UncontrolledDropdown>

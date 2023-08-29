@@ -286,7 +286,7 @@ const CustomerList = () => {
               ? currentItems.map((item) => (
                   <DataTableItem key={item._id}>
                     <DataTableRow>
-                      <Link to={`${process.env.PUBLIC_URL}/ecommerce/customer-details/${item._id}`}>
+                      <Link to={`/admin/ecommerce/customer-details/${item._id}`}>
                         <div className="user-card">
                           <UserAvatar theme={item.avatarBg} text={findUpper(item.name)} image={item.image}></UserAvatar>
                           <div className="user-info">

@@ -1,10 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  DropdownMenu,
-  DropdownToggle,
-  UncontrolledDropdown,
-  DropdownItem,
-} from "reactstrap";
+import { DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem } from "reactstrap";
 import {
   Block,
   BlockBetween,
@@ -127,19 +122,19 @@ const UserListRegularPage = () => {
     setFormData({
       name: "",
       email: "",
-      balance:0,
+      balance: 0,
       phone: "",
       status: "Active",
     });
   };
 
   const closeModal = () => {
-    setModal({ add: false })
+    setModal({ add: false });
     resetForm();
   };
 
   const closeEditModal = () => {
-    setModal({ edit: false })
+    setModal({ edit: false });
     resetForm();
   };
 
@@ -396,11 +391,7 @@ const UserListRegularPage = () => {
                                     <Row className="gx-6 gy-3">
                                       <Col size="6">
                                         <div className="custom-control custom-control-sm custom-checkbox">
-                                          <input
-                                            type="checkbox"
-                                            className="custom-control-input"
-                                            id="hasBalance"
-                                          />
+                                          <input type="checkbox" className="custom-control-input" id="hasBalance" />
                                           <label className="custom-control-label" htmlFor="hasBalance">
                                             {" "}
                                             Have Balance
@@ -409,11 +400,7 @@ const UserListRegularPage = () => {
                                       </Col>
                                       <Col size="6">
                                         <div className="custom-control custom-control-sm custom-checkbox">
-                                          <input
-                                            type="checkbox"
-                                            className="custom-control-input"
-                                            id="hasKYC"
-                                          />
+                                          <input type="checkbox" className="custom-control-input" id="hasKYC" />
                                           <label className="custom-control-label" htmlFor="hasKYC">
                                             {" "}
                                             KYC Verified
@@ -662,7 +649,7 @@ const UserListRegularPage = () => {
                           </div>
                         </DataTableRow>
                         <DataTableRow>
-                          <Link to={`${process.env.PUBLIC_URL}/user-details-regular/${item.id}`}>
+                          <Link to={`/admin/user-details-regular/${item.id}`}>
                             <div className="user-card">
                               <UserAvatar
                                 theme={item.avatarBg}
@@ -840,10 +827,23 @@ const UserListRegularPage = () => {
             </div>
           </DataTable>
         </Block>
-        
-        <AddModal modal={modal.add} formData={formData} setFormData={setFormData} closeModal={closeModal} onSubmit={onFormSubmit} filterStatus={filterStatus} />
-        <EditModal modal={modal.edit} formData={editFormData} setFormData={setEditFormData} closeModal={closeEditModal} onSubmit={onEditSubmit} filterStatus={filterStatus} />
-        
+
+        <AddModal
+          modal={modal.add}
+          formData={formData}
+          setFormData={setFormData}
+          closeModal={closeModal}
+          onSubmit={onFormSubmit}
+          filterStatus={filterStatus}
+        />
+        <EditModal
+          modal={modal.edit}
+          formData={editFormData}
+          setFormData={setEditFormData}
+          closeModal={closeEditModal}
+          onSubmit={onEditSubmit}
+          filterStatus={filterStatus}
+        />
       </Content>
     </React.Fragment>
   );

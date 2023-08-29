@@ -13,7 +13,7 @@ const Support = () => {
             <h6 className="title">Support Requests</h6>
           </CardTitle>
           <div className="card-tools">
-            <Link to={`${process.env.PUBLIC_URL}/app-messages`} className="link">
+            <Link to={`/admin/app-messages`} className="link">
               All Tickets
             </Link>
           </div>
@@ -29,9 +29,7 @@ const Support = () => {
                   <span>{item.name}</span>
                   <Badge
                     className="badge-dot badge-dot-xs"
-                    color={
-                      item.status === "Solved" ? "success" : item.status === "Pending" ? "warning" : "info"
-                    }
+                    color={item.status === "Solved" ? "success" : item.status === "Pending" ? "warning" : "info"}
                   >
                     {item.status}
                   </Badge>

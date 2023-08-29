@@ -30,7 +30,17 @@ import {
   Progress,
 } from "../../../components/Component";
 import { findUpper } from "../../../utils/Utils";
-import { Card, Row, Col, Button, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle, Badge } from "reactstrap";
+import {
+  Card,
+  Row,
+  Col,
+  Button,
+  UncontrolledDropdown,
+  DropdownMenu,
+  DropdownItem,
+  DropdownToggle,
+  Badge,
+} from "reactstrap";
 
 const CardWidgets = () => {
   const [heart, setHeart] = useState(false);
@@ -67,7 +77,7 @@ const CardWidgets = () => {
               <Col md="5" sm="7">
                 <Card className="product-card">
                   <div className="product-thumb">
-                    <Link to={`${process.env.PUBLIC_URL}/product-details/1`}>
+                    <Link to={`/admin/product-details/1`}>
                       <img className="card-img-top" src={ProductLGA} alt="" />
                     </Link>
                     <ul className="product-actions">
@@ -86,11 +96,11 @@ const CardWidgets = () => {
                   <div className="card-inner text-center">
                     <ul className="product-tags">
                       <li>
-                        <Link to={`${process.env.PUBLIC_URL}/product-details/1`}>Smart Watch</Link>
+                        <Link to={`/admin/product-details/1`}>Smart Watch</Link>
                       </li>
                     </ul>
                     <h5 className="product-title">
-                      <Link to={`${process.env.PUBLIC_URL}/product-details/1`}>Classy Smart Watch</Link>
+                      <Link to={`/admin/product-details/1`}>Classy Smart Watch</Link>
                     </h5>
                     <div className="product-price text-primary h5">
                       <small className="text-muted del fs-13px">$350</small> $324
@@ -271,10 +281,7 @@ const CardWidgets = () => {
                       </li>
                     </ul>
                     <div className="team-view">
-                      <Link
-                        to={`${process.env.PUBLIC_URL}/user-details-regular/1`}
-                        className="btn btn-round btn-outline-light"
-                      >
+                      <Link to={`/admin/user-details-regular/1`} className="btn btn-round btn-outline-light">
                         <span>View Profile</span>
                       </Link>
                     </div>
@@ -441,7 +448,7 @@ const CardWidgets = () => {
                       </li>
                     </ul>
                     <div className="team-view">
-                      <Link to={`${process.env.PUBLIC_URL}/user-details-regular/1`}>
+                      <Link to={`/admin/user-details-regular/1`}>
                         <Button color="primary" className="btn-block btn-dim">
                           <span>View Profile</span>
                         </Button>

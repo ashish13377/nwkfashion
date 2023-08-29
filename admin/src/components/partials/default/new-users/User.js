@@ -51,7 +51,7 @@ const NewsUsers = () => {
             <h6 className="title">New Users</h6>
           </CardTitle>
           <div className="card-tools">
-            <Link to={`${process.env.PUBLIC_URL}/user-list-regular`} className="link">
+            <Link to={`/admin/user-list-regular`} className="link">
               View All
             </Link>
           </div>
