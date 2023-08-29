@@ -20,7 +20,7 @@ import { Rings } from 'react-loader-spinner'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function whatsappConfig() {
+function WhatsappConfig() {
     const [formData, setFormData] = useState({
         phone: "91",
         message: "",
@@ -341,4 +341,4 @@ function whatsappConfig() {
     )
 }
 
-export default whatsappConfig
+export default WhatsappConfig

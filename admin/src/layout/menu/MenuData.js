@@ -22,6 +22,11 @@ const menu = [
     text: "Customers",
     link: "/customer",
   },
+  {
+    icon: "whatsapp",
+    text: "WhatsApp Config",
+    link: "/whatsapp-config",
+  },
   // {
   //   icon: "chat-fill",
   //   text: "Support",
