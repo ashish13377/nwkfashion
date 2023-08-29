@@ -37,6 +37,11 @@ app.get("/admin", (req, res) => {
   res.sendFile(path.resolve(__dirname, "admin", "build", "index.html"));
 });
 
+app.use(express.static("404error"));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "404error", "index.html"));
+});
+
 app.use("/api/users", userRoutes);
 app.use("/api/admin", userAdmin);
 // Use the '/api/products' routes
