@@ -17,9 +17,7 @@ const URL = `http://localhost:${PORT}/`;
 connectMongo();
 app.use(cors({ origin: true, credentials: true }));
 
-//hello
 // Other middleware and configurations
-
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -37,10 +35,10 @@ app.get("/admin", (req, res) => {
   res.sendFile(path.resolve(__dirname, "admin", "build", "index.html"));
 });
 
-app.use(express.static("404error"));
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "404error", "index.html"));
-});
+// app.use(express.static("error"));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "error", "index.html"));
+// });
 
 app.use("/api/users", userRoutes);
 app.use("/api/admin", userAdmin);
