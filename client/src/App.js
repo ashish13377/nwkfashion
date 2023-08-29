@@ -13,7 +13,7 @@ import Faq from "./pages/faq";
 import ReturnRefund from "./pages/returnRefund";
 import Shipping from "./pages/shipping";
 import NewCheckoutPage from "./pages/newCheckoutPage";
-export const serverAPILocal = "http://localhost:5904/api";
+export const serverAPILocal = "https://myclassythreads.com/api";
 
 function App() {
   return (
