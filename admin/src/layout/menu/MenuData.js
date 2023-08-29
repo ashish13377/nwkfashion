@@ -5,22 +5,22 @@ const menu = [
   {
     icon: "dashboard-fill",
     text: "Dashboard",
-    link: "/admin",
+    link: "/",
   },
   {
     icon: "bag-fill",
     text: "Orders",
-    link: "/admin/orders",
+    link: "/orders",
   },
   {
     icon: "package-fill",
     text: "Products",
-    link: "/admin/products",
+    link: "/products",
   },
   {
     icon: "users-fill",
     text: "Customers",
-    link: "/admin/customer",
+    link: "/customer",
   },
   // {
   //   icon: "chat-fill",
@@ -35,7 +35,7 @@ const menu = [
   {
     icon: "file-docs",
     text: "Invoice List",
-    link: "/admin/invoice-list",
+    link: "/invoice-list",
   },
 
   // {
@@ -579,7 +579,7 @@ const menu = [
   {
     icon: "tag-alt-fill",
     text: "Email Template",
-    link: "/admin/email-template",
+    link: "/email-template",
     active: "false",
   },
 ];
