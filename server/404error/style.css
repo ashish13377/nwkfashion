@@ -29,15 +29,15 @@ span {
 }
 .grid-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  justify-content: center;
   place-items: center;
   grid-gap: 50px;
 }
 .colmun-left {
-  text-align: left;
+  text-align: center;
 }
 .colmun-right {
-  text-align: right;
+  text-align: center;
 }
 .px-spc-b-20 {
   padding-bottom: 20px;
