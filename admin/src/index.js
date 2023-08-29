@@ -7,7 +7,7 @@ import "./assets/scss/dashlite.scss";
 import "./assets/scss/style-email.scss";
 
 import reportWebVitals from "./reportWebVitals";
-export const serverAPI = "http://localhost:5904/api/";
+export const serverAPI = "https://myclassythreads.com/api/";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
