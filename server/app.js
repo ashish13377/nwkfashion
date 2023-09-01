@@ -35,10 +35,7 @@ app.get("/admin", (req, res) => {
   res.sendFile(path.resolve(__dirname, "admin", "build", "index.html"));
 });
 
-// app.use(express.static("error"));
-// app.use((req, res) => {
-//     res.sendFile(path.resolve(__dirname, "error", "index.html"));
-// });
+
 
 app.use("/api/users", userRoutes);
 app.use("/api/admin", userAdmin);
@@ -47,6 +44,12 @@ app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api", orderRoutes);
 app.use("/api", paymentRoutes);
+
+
+app.use(express.static("error"));
+app.use((req, res) => {
+    res.sendFile(path.resolve(__dirname, "error", "index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(
