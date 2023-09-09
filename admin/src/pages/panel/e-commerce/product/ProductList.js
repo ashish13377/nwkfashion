@@ -55,9 +55,8 @@ const ProductList = () => {
   useEffect(() => {
     getProductdata();
   }, []); // Fetch subcategories when selected category changes
-  console.log(data);
   const [categories, setCategories] = useState([]);
-
+  const [colorInput, setColorInput] = useState(""); // New state for color input
   const [sm, updateSm] = useState(false);
   const [formData, setFormData] = useState({
     imageSrc: "product_image_url_1.jpg",
@@ -65,10 +64,7 @@ const ProductList = () => {
     rating: "",
     sizes: ["S", "M", "L"],
     colors: [
-      {
-        color: "",
-        zoomImage: "",
-      },
+      
     ],
     price: 0,
     categoryId: "",
@@ -93,7 +89,7 @@ const ProductList = () => {
     image: "",
     productType: "Type 1",
   });
-  console.log(formData);
+
   const [inputText, setInputText] = useState("");
 
   const [catFormData, setCatFormData] = useState({
@@ -268,10 +264,7 @@ const ProductList = () => {
       rating: "",
       sizes: ["S", "M", "L"],
       colors: [
-        {
-          color: "",
-          zoomImage: "",
-        },
+
       ],
       price: "",
       categoryId: "",
@@ -298,6 +291,7 @@ const ProductList = () => {
     });
     reset({});
   };
+
 
   const [updateId, setUpdateId] = useState();
 
@@ -416,6 +410,7 @@ const ProductList = () => {
     newData = data.filter((item) => item.check !== true);
     setData([...newData]);
   };
+
   // handles ondrop function of dropzone
   const cloudName = "dy4hpcssz";
   const uploadPreset = "ypfu9qmr"; // Replace with your upload preset
@@ -439,7 +434,6 @@ const ProductList = () => {
       const imageUrl = data.secure_url;
       caTformDataCopy.image = imageUrl;
 
-      setCatFormData(caTformDataCopy);
     } catch (error) {
       console.error("Error uploading image to Cloudinary:", error);
     }
@@ -727,6 +721,41 @@ const ProductList = () => {
     closeModalss();
   };
 
+  const handleAddColor = () => {
+    const formDataCopy = { ...formData };
+    const newColor = {
+      color: colorInput, // Use the colorInput state
+      zoomImage: formData.image,
+    };
+
+    // Push the newColor object into the colors array
+    formDataCopy.colors.push(newColor);
+
+    // Clear the color input and reset the image URL
+    setColorInput("");
+    formDataCopy.image = "";
+
+    setFormData(formDataCopy);
+  };
+
+  const handleClear = () => {
+    const formDataCopy = { ...formData };
+
+    // Clear the color input and reset the zoomImage in the first color object
+    setColorInput("");
+    formDataCopy.colors[0].zoomImage = "";
+
+    setFormData(formDataCopy);
+  };
+
+  const handleDeleteColor = (index) => {
+    const formDataCopy = { ...formData };
+    formDataCopy.colors.splice(index, 1); // Remove the color at the specified index
+    setFormData(formDataCopy);
+  };
+
+  console.log(formData);
+
   return (
     <React.Fragment>
       <Head title="Products"></Head>
@@ -869,95 +898,95 @@ const ProductList = () => {
             </DataTableHead>
             {currentItems.length > 0
               ? currentItems.map((item) => {
-                  return (
-                    <DataTableItem key={item._id}>
-                      <DataTableRow className="nk-tb-col-check">
-                        <div className="custom-control custom-control-sm custom-checkbox notext">
-                          <input
-                            type="checkbox"
-                            className="custom-control-input"
-                            defaultChecked={item.check}
-                            id={item._id}
-                            key={Math.random()}
-                            onChange={(e) => onSelectChange(e, item._id)}
-                          />
-                          <label className="custom-control-label" htmlFor={item._id}></label>
-                        </div>
-                      </DataTableRow>
+                return (
+                  <DataTableItem key={item._id}>
+                    <DataTableRow className="nk-tb-col-check">
+                      <div className="custom-control custom-control-sm custom-checkbox notext">
+                        <input
+                          type="checkbox"
+                          className="custom-control-input"
+                          defaultChecked={item.check}
+                          id={item._id}
+                          key={Math.random()}
+                          onChange={(e) => onSelectChange(e, item._id)}
+                        />
+                        <label className="custom-control-label" htmlFor={item._id}></label>
+                      </div>
+                    </DataTableRow>
 
-                      <DataTableRow size="sm">
-                        <span className="tb-product">
-                          <img src={item.imageSrc} alt="product" className="thumb" />
-                          <span className="title">{item.title}</span>
-                        </span>
-                      </DataTableRow>
-                      {/* <DataTableRow>
+                    <DataTableRow size="sm">
+                      <span className="tb-product">
+                        <img src={item.imageSrc} alt="product" className="thumb" />
+                        <span className="title">{item.title}</span>
+                      </span>
+                    </DataTableRow>
+                    {/* <DataTableRow>
                         <span className="tb-sub">₹ {item.actual_price}</span>
                       </DataTableRow>
                       <DataTableRow>
                         <span className="tb-sub">{item.discount} %</span>
                       </DataTableRow> */}
-                      <DataTableRow>
-                        <span className="tb-sub">₹ {item.price}</span>
-                      </DataTableRow>
-                      {/* <DataTableRow>
+                    <DataTableRow>
+                      <span className="tb-sub">₹ {item.price}</span>
+                    </DataTableRow>
+                    {/* <DataTableRow>
                         <span className="tb-sub">{item.time}</span>
                       </DataTableRow> */}
-                      <DataTableRow size="md">
-                        <span className="tb-sub">{item.categoryName}</span>
-                      </DataTableRow>
+                    <DataTableRow size="md">
+                      <span className="tb-sub">{item.categoryName}</span>
+                    </DataTableRow>
 
-                      <DataTableRow className="nk-tb-col-tools">
-                        <ul className="nk-tb-actions gx-1 my-n1">
-                          <li className="me-n1">
-                            <UncontrolledDropdown>
-                              <DropdownToggle
-                                tag="a"
-                                href="#more"
-                                onClick={(ev) => ev.preventDefault()}
-                                className="dropdown-toggle btn btn-icon btn-trigger"
-                              >
-                                <Icon name="more-h"></Icon>
-                              </DropdownToggle>
-                              <DropdownMenu end>
-                                <ul className="link-list-opt no-bdr">
-                                  <li>
-                                    <DropdownItem
-                                      tag="a"
-                                      href="#edit"
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                        onEditClick(item._id);
-                                        openModal("edit");
-                                      }}
-                                    >
-                                      <Icon name="edit"></Icon>
-                                      <span>Edit Product</span>
-                                    </DropdownItem>
-                                  </li>
+                    <DataTableRow className="nk-tb-col-tools">
+                      <ul className="nk-tb-actions gx-1 my-n1">
+                        <li className="me-n1">
+                          <UncontrolledDropdown>
+                            <DropdownToggle
+                              tag="a"
+                              href="#more"
+                              onClick={(ev) => ev.preventDefault()}
+                              className="dropdown-toggle btn btn-icon btn-trigger"
+                            >
+                              <Icon name="more-h"></Icon>
+                            </DropdownToggle>
+                            <DropdownMenu end>
+                              <ul className="link-list-opt no-bdr">
+                                <li>
+                                  <DropdownItem
+                                    tag="a"
+                                    href="#edit"
+                                    onClick={(ev) => {
+                                      ev.preventDefault();
+                                      onEditClick(item._id);
+                                      openModal("edit");
+                                    }}
+                                  >
+                                    <Icon name="edit"></Icon>
+                                    <span>Edit Product</span>
+                                  </DropdownItem>
+                                </li>
 
-                                  <li>
-                                    <DropdownItem
-                                      tag="a"
-                                      href="#remove"
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                        deleteProduct(item._id);
-                                      }}
-                                    >
-                                      <Icon name="trash"></Icon>
-                                      <span>Remove Product</span>
-                                    </DropdownItem>
-                                  </li>
-                                </ul>
-                              </DropdownMenu>
-                            </UncontrolledDropdown>
-                          </li>
-                        </ul>
-                      </DataTableRow>
-                    </DataTableItem>
-                  );
-                })
+                                <li>
+                                  <DropdownItem
+                                    tag="a"
+                                    href="#remove"
+                                    onClick={(ev) => {
+                                      ev.preventDefault();
+                                      deleteProduct(item._id);
+                                    }}
+                                  >
+                                    <Icon name="trash"></Icon>
+                                    <span>Remove Product</span>
+                                  </DropdownItem>
+                                </li>
+                              </ul>
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
+                        </li>
+                      </ul>
+                    </DataTableRow>
+                  </DataTableItem>
+                );
+              })
               : null}
           </div>
           <PreviewAltCard>
@@ -1316,9 +1345,8 @@ const ProductList = () => {
 
         <div ref={sidebarRef}>
           <SimpleBar
-            className={`nk-add-product toggle-slide toggle-slide-right toggle-screen-any ${
-              view.add || view.category ? "content-active" : ""
-            }`}
+            className={`nk-add-product toggle-slide toggle-slide-right toggle-screen-any ${view.add || view.category ? "content-active" : ""
+              }`}
             style={{ width: "500px" }}
           >
             {view.category && (
@@ -1351,7 +1379,7 @@ const ProductList = () => {
                         </div>
                       </Col>
                       <Col size="12">
-                        <Dropzone onDrop={(acceptedFiless) => handleDropChanges(acceptedFiless)}>
+                        {/* <Dropzone onDrop={(acceptedFiless) => handleDropChanges(acceptedFiless)}>
                           {({ getRootProps, getInputProps }) => (
                             <section>
                               <div
@@ -1371,7 +1399,7 @@ const ProductList = () => {
                               </div>
                             </section>
                           )}
-                        </Dropzone>
+                        </Dropzone> */}
                       </Col>
                       <Col xl="12">
                         <a
@@ -1583,30 +1611,136 @@ const ProductList = () => {
                         </div>
                       </Col>
 
-                      {/* <Col size="12">
-                        <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
-                          {({ getRootProps, getInputProps }) => (
-                            <section>
-                              <div
-                                {...getRootProps()}
-                                className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
-                              >
-                                <input {...getInputProps()} />
-                                {formData.image ? (
-                                  <div className="dz-preview dz-processing dz-image-preview dz-complete">
-                                    <div className="dz-image">
-                                      <img src={formData.image} alt="preview" />
+                      {formData.colors.length > 0? <Block>
+                        <BlockHead>
+                          <BlockHeadContent>
+                            <BlockTitle tag="h5">Colors List</BlockTitle>
+                          </BlockHeadContent>
+                        </BlockHead>
+                        {formData.colors.map((color, index) => (
+                          <Row className="g-3" key={index}>
+                            <Col size="6">
+                              <div className="form-group">
+                                <small className="text-primary" style={{ fontSize: "15px" }}>
+                                  {color.color}
+                                </small>
+                              </div>
+                            </Col>
+                            <Col size="1">
+                              <div className="form-group">
+                                <div
+                                  className="form-control-wrap"
+                                  onClick={() => handleDeleteColor(index)}
+                                >
+                                  <Icon name="trash-alt" style={{ fontSize: "17px", color: "red", cursor: "pointer" }} />
+                                </div>
+                              </div>
+                            </Col>
+                          </Row>
+                        ))}
+
+                      </Block> : null }
+
+                      
+
+                      <div style={{ border: "1px dashed", borderRadius: " 2px" }}>
+
+
+                        <Col size="12">
+                          <label className="form-label" htmlFor="regular-price">
+                            Zoom Image
+                          </label>
+                          <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
+                            {({ getRootProps, getInputProps }) => (
+                              <section>
+                                <div
+                                  {...getRootProps()}
+                                  className="dropzone upload-zone small bg-lighter my-2 dz-clickable"
+                                >
+                                  <input {...getInputProps()} />
+                                  {formData.image ? (
+                                    <div className="dz-preview dz-processing dz-image-preview dz-complete">
+                                      <div className="dz-image">
+                                        <img src={formData.image} alt="preview" />
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <p>Drag 'n' drop some files here, or click to select files</p>
+                                  )}
+                                </div>
+                              </section>
+                            )}
+                          </Dropzone>
+
+                          <div style={{ margin: '20px 0px' }}>
+
+                            <Row >
+                              <div style={{ marginBottom: "20px" }}>
+                                <Col md="12">
+                                  <div className="form-group">
+                                    <label className="form-label" htmlFor="regular-price">
+                                      color
+                                    </label>
+                                    <div className="form-control-wrap">
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                        value={colorInput} // Bind value to the colorInput state
+                                        onChange={(e) => setColorInput(e.target.value)} // Update colorInput state
+                                      />
                                     </div>
                                   </div>
-                                ) : (
-                                  <p>Drag 'n' drop some files here, or click to select files</p>
-                                )}
+                                </Col>
                               </div>
-                            </section>
-                          )}
-                        </Dropzone>
-                      </Col> */}
-                      <Col size="12">
+                              <Col size={6}>
+                                <a
+
+                                  style={{
+                                    padding: "11px 24px",
+                                    background: "#fc3e84",
+                                    color: "#ffff",
+                                    fontFamily: "DM Sans, sans-serif",
+                                    fontWeight: "700",
+                                    fontSize: "0.8125rem",
+                                    borderRadius: "6px",
+                                    fontSize: "15px",
+                                    cursor: "pointer",
+                                  }}
+                                  color="primary"
+                                  size="lg"
+                                  onClick={handleAddColor}
+                                >
+                                  {loading ? <Spinner size="sm" color="light" /> : "Upload Image"}
+                                </a>
+                              </Col>
+                              <Col size={6}>
+                                <a
+
+                                  style={{
+                                    padding: "11px 24px",
+                                    background: "#fc3e84",
+                                    color: "#ffff",
+                                    fontFamily: "DM Sans, sans-serif",
+                                    fontWeight: "700",
+                                    fontSize: "0.8125rem",
+                                    borderRadius: "6px",
+                                    fontSize: "15px",
+                                    cursor: "pointer",
+                                  }}
+                                  color="primary"
+                                  size="lg"
+                                  onClick={handleAddColor}
+                                >
+                                  {loading ? <Spinner size="sm" color="light" /> : "Clear"}
+                                </a>
+                              </Col>
+                            </Row>
+                          </div>
+
+                        </Col>
+                      </div>
+
+                      {/* <Col size="12">
                         <div className="form-group">
                           <label className="form-label" htmlFor="product-title">
                             Colors and Images
@@ -1665,13 +1799,15 @@ const ProductList = () => {
                             Add Another color image pair
                           </button>
                         </div>
-                      </Col>
+                      </Col> */}
 
-                      <Col xl="12">
+                      <Col xl="12" >
                         <a
+                          href="#"
                           style={{
                             padding: "11px 24px",
                             background: "#fc3e84",
+                            marginTop: "20px",
                             color: "#ffff",
                             fontFamily: "DM Sans, sans-serif",
                             fontWeight: "700",
@@ -1682,7 +1818,7 @@ const ProductList = () => {
                           }}
                           color="primary"
                           size="lg"
-                          onClick={handleAddProduct}
+                          onClick={handleClear}
                         >
                           {loading ? <Spinner size="sm" color="light" /> : "Add Product"}
                         </a>
