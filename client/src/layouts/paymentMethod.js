@@ -12,7 +12,6 @@ const PaymentMethod = ({
   calculateSubtotal,
   calculateTotal,
 }) => {
-  console.log("paymentmethod", formData);
   // console.log(calculateTotal);
   const calculateTotalInPaise = calculateTotal * 100;
   // console.log(calculateTotalInPaise);
@@ -60,6 +59,7 @@ const PaymentMethod = ({
     if (selectedMethod === "Cash on Delivery") {
       try {
         const response = await axios.post(`${serverAPILocal}/orders`, formData);
+        formData = { ...formData, razorpay: response.data.id };
         // Handle the response data here
         Swal.fire("Order placed successfully!", "success");
         // You might want to clear the cart or perform other necessary actions here
@@ -73,7 +73,7 @@ const PaymentMethod = ({
         const response = await axios.post(`${serverAPILocal}/createOrder`, {
           amount: calculateTotalInPaise, // Replace with the actual total price (in paise)
         });
-        onOrderDetailsChange(response.data.id);
+        formData = { ...formData, razorpay: response.data.id };
 
         // Initialize Razorpay payment dialog
 
@@ -127,6 +127,7 @@ const PaymentMethod = ({
           "error"
         );
       }
+      console.log("formData:", formData);
     }
   };
 

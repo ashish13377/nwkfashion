@@ -14,6 +14,7 @@ import ReturnRefund from "./pages/returnRefund";
 import Shipping from "./pages/shipping";
 import NewCheckoutPage from "./pages/newCheckoutPage";
 export const serverAPILocal = "https://myclassythreads.com/api";
+// export const serverAPILocal = "http://localhost:5904/api";
 
 function App() {
   return (

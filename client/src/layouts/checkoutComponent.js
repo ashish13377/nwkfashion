@@ -11,9 +11,9 @@ const CheckoutComponent = () => {
     (state) =>
       state.cart.products.filter((product) => product.userId === userId) // Filter products based on userId
   );
-  console.log("products:", products.quantiti);
+
   const [formData, setFormData] = useState({
-    razorpay: "test",
+    razorpay: "",
     address: {
       firstName: "",
       lastName: "",
@@ -32,8 +32,6 @@ const CheckoutComponent = () => {
     productDetails: [], // Initialize productDetails as an empty array
     totalPrice: "",
   });
-
-  console.log(formData);
 
   useEffect(() => {
     const productIDs = products.map((product) => product._id);
@@ -149,10 +147,8 @@ const CheckoutComponent = () => {
 
   const handleOrderDetailsChange = (orderDetails) => {
     // Set the orderDetails in formData's razorpay key
-    setFormData({
-      ...formData,
-      razorpay: orderDetails,
-    });
+    const updatedFormData = { ...formData, razorpay: orderDetails };
+    setFormData(updatedFormData);
   };
   return (
     <div>
