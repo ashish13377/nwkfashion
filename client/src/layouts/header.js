@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { BiHeart } from "react-icons/bi";
+import { BiShoppingBag } from "react-icons/bi";
+import { BiUser } from "react-icons/bi";
+
 export default function Header() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
   const userId = useSelector((state) => state.cart.userId);
   const cartItemsCount = useSelector(
     (state) =>
-      state.cart.products.filter((product) => product.userId === userId) // Filter products based on userId
+      state?.cart?.products?.filter((product) => product?.userId === userId) // Filter products based on userId
   );
 
   const wishlistItemsCount = useSelector((state) =>
-    state.wishlist.wishlists.filter((product) => product.userId === userId)
+    state?.wishlist?.wishlists?.filter((product) => product?.userId === userId)
   );
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("user"));
@@ -26,48 +31,6 @@ export default function Header() {
       {" "}
       {/* Header Section Start */}
       <div className="header-section section">
-        {/* Header Top Start */}
-        <div className="header-top header-top-one bg-theme-two">
-          <div className="container-fluid">
-            <div className="row align-items-center justify-content-center">
-              <div className="col mt-10 mb-10 d-none d-md-flex">
-                {/* Header Top Left Start */}
-                <div className="header-top-left">
-                  <p>NWK FASHION</p>
-                </div>
-                {/* Header Top Left End */}
-              </div>
-
-              {!user ? (
-                <div className="col mt-10 mb-10">
-                  {/* Header Shop Links Start */}
-                  <div className="header-top-right">
-                    <p>
-                      <Link link to="/loginRegisterPage">
-                        Register | Login
-                      </Link>
-                    </p>
-                  </div>
-                  {/* Header Shop Links End */}
-                </div>
-              ) : (
-                <div className="col mt-10 mb-10">
-                  {/* Header Shop Links Start */}
-                  <div className="header-top-right">
-                    <p>
-                      <Link link to="/myAccountPage">
-                        Hello, {user.username}
-                      </Link>
-                    </p>
-                  </div>
-                  {/* Header Shop Links End */}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-        {/* Header Top End */}
-        {/* Header Bottom Start */}
         <div className="header-bottom header-bottom-one header-sticky">
           <div className="container-fluid">
             <div className="row menu-center align-items-center justify-content-between">
@@ -75,7 +38,7 @@ export default function Header() {
                 {/* Logo Start */}
                 <div className="header-logo">
                   <Link Link to="/">
-                    <img src="" alt="logo" />
+                    <img src="assets/images/logo png.png" alt="logo" />
                   </Link>
                 </div>
                 {/* Logo End */}
@@ -83,21 +46,43 @@ export default function Header() {
               <div className="col order-2 order-lg-3">
                 {/* Header Advance Search Start */}
                 {!user ? (
-                  <></>
+                  <>
+                    <div className="header-shop-links">
+                      <div className="header-profile">
+                        <Link to="/loginRegisterPage">
+                          <BiUser size="30px" />{" "}
+                        </Link>
+                      </div>
+                      <div className="header-wishlist">
+                        <Link to="/loginRegisterPage">
+                          <BiHeart size="30px" />{" "}
+                          <span>{wishlistItemsCount.length}</span>
+                        </Link>
+                      </div>
+                      <div className="header-mini-cart">
+                        <Link to="/loginRegisterPage">
+                          <BiShoppingBag size="30px" />{" "}
+                          <span>{cartItemsCount.length}</span>
+                        </Link>
+                      </div>
+                    </div>
+                  </>
                 ) : (
                   <div className="header-shop-links">
+                    <div className="header-profile">
+                      <Link to="/myAccountPage">
+                        <BiUser size="30px" />{" "}
+                      </Link>
+                    </div>
                     <div className="header-wishlist">
                       <Link to="/wishlistPage">
-                        <img
-                          src="assets/images/icons/wishlist.png"
-                          alt="Wishlist"
-                        />{" "}
+                        <BiHeart size="30px" />{" "}
                         <span>{wishlistItemsCount.length}</span>
                       </Link>
                     </div>
                     <div className="header-mini-cart">
                       <Link to="/cart">
-                        <img src="assets/images/icons/cart.png" alt="Cart" />
+                        <BiShoppingBag size="30px" />{" "}
                         <span>{cartItemsCount.length}</span>
                       </Link>
                     </div>
@@ -110,10 +95,37 @@ export default function Header() {
                   <nav>
                     <ul>
                       <li className="active">
-                        <Link to="/">HOME</Link>
+                        <Link to="/">My Classy Threads</Link>
                       </li>
                       <li>
-                        <a>SHOP</a>
+                        <Link to="/Gown">Gown</Link>
+                      </li>
+                      <li>
+                        <Link to="/Lehenga">Lehenga</Link>
+                      </li>
+                      <li>
+                        <Link to="/Suit">Suit</Link>
+                      </li>
+                      <li>
+                        <Link to="/Cord Set">Cord Set</Link>
+                      </li>
+
+                      {/* <li>
+                        <a>Couple Dressess</a>
+                        <ul className="sub-menu">
+                          <li>
+                            <Link to="/Gown">Gown</Link>
+                          </li>
+                          <li>
+                            <Link to="/Kurtis">Kurtis, Tunics & Tops</Link>
+                          </li>
+                          <li>
+                            <Link to="/Sarees">Sarees</Link>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a>Lehengas</a>
                         <ul className="sub-menu">
                           <li>
                             <Link to="/Kurtas">Kurtas & Suits</Link>
@@ -126,6 +138,35 @@ export default function Header() {
                           </li>
                         </ul>
                       </li>
+                      <li>
+                        <a>Salwar Kameez</a>
+                        <ul className="sub-menu">
+                          <li>
+                            <Link to="/Kurtas">Kurtas & Suits</Link>
+                          </li>
+                          <li>
+                            <Link to="/Kurtis">Kurtis, Tunics & Tops</Link>
+                          </li>
+                          <li>
+                            <Link to="/Sarees">Sarees</Link>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a>Palazzo suits</a>
+                        <ul className="sub-menu">
+                          <li>
+                            <Link to="/Kurtas">Kurtas & Suits</Link>
+                          </li>
+                          <li>
+                            <Link to="/Kurtis">Kurtis, Tunics & Tops</Link>
+                          </li>
+                          <li>
+                            <Link to="/Sarees">Sarees</Link>
+                          </li>
+                        </ul>
+                      </li> */}
+
                       {/* <li>
                         <a href="#">PAGES</a>
                         <ul className="sub-menu">
@@ -160,7 +201,111 @@ export default function Header() {
                 </div>
               </div>
               {/* Mobile Menu */}
-              <div className="mobile-menu order-4 d-block d-lg-none col" />
+              <div className="mobile-menu order-4 d-block d-lg-none col"></div>
+            </div>
+          </div>
+        </div>
+        {/* Header BOttom End */}
+      </div>
+      {/* mobile view */}
+      <div className="header-section-mobile section">
+        <div className="header-bottom header-bottom-one header-sticky">
+          <div className="container-fluid">
+            <div className="row flex-row justify-content-evenly">
+              <div className="header-logo">
+                <Link Link to="/">
+                  <img src="assets/images/logo png.png" alt="logo" />
+                </Link>
+              </div>
+              <div className="col mt-15 mb-15">
+                <Navbar collapseOnSelect expand="lg" bg="white" variant="light">
+                  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                  <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="mr-auto">
+                      <Nav.Link>
+                        <Link to="/">My Classy Threads</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/Gown">Gown</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/Lehenga">Lehenga</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/Suit">Suit</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/Cord Set">Cord Set</Link>
+                      </Nav.Link>
+                      {/* <NavDropdown
+                        title="Dropdown"
+                        id="collasible-nav-dropdown"
+                      >
+                        <NavDropdown.Item href="#action/3.1">
+                          Action
+                        </NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.2">
+                          Another action
+                        </NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.3">
+                          Something
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="#action/3.4">
+                          Separated link
+                        </NavDropdown.Item>
+                      </NavDropdown> */}
+                    </Nav>
+                  </Navbar.Collapse>
+                </Navbar>
+              </div>
+              <div className="col order-2 order-lg-3">
+                {/* Header Advance Search Start */}
+                {!user ? (
+                  <>
+                    <div className="header-shop-links">
+                      <div className="header-profile">
+                        <Link to="/loginRegisterPage">
+                          <BiUser size="30px" />{" "}
+                        </Link>
+                      </div>
+                      <div className="header-wishlist">
+                        <Link to="/loginRegisterPage">
+                          <BiHeart size="30px" />{" "}
+                          <span>{wishlistItemsCount.length}</span>
+                        </Link>
+                      </div>
+                      <div className="header-mini-cart">
+                        <Link to="/loginRegisterPage">
+                          <BiShoppingBag size="30px" />{" "}
+                          <span>{cartItemsCount.length}</span>
+                        </Link>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="header-shop-links">
+                    <div className="header-profile">
+                      <Link to="/myAccountPage">
+                        <BiUser size="30px" />{" "}
+                      </Link>
+                    </div>
+                    <div className="header-wishlist">
+                      <Link to="/wishlistPage">
+                        <BiHeart size="30px" />{" "}
+                        <span>{wishlistItemsCount.length}</span>
+                      </Link>
+                    </div>
+                    <div className="header-mini-cart">
+                      <Link to="/cart">
+                        <BiShoppingBag size="30px" />{" "}
+                        <span>{cartItemsCount.length}</span>
+                      </Link>
+                    </div>
+                  </div>
+                )}
+                {/* Header Advance Search End */}
+              </div>
             </div>
           </div>
         </div>

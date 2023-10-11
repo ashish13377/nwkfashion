@@ -9,9 +9,15 @@ const wishlistSlice = createSlice({
   reducers: {
     addToWishlist: (state, action) => {
       const productToAdd = action.payload;
-      const existingProduct = state.wishlists.find(
-        (product) => product._id === productToAdd._id
+
+      const existingProduct = state.wishlists.find((product) =>
+        product.colors.find((color) =>
+          productToAdd.colors.find(
+            (productColor) => color._id === productColor._id
+          )
+        )
       );
+      console.log("existing product:", existingProduct);
 
       if (existingProduct) {
         // If the product is already in the cart, increase its quantity
@@ -26,28 +32,33 @@ const wishlistSlice = createSlice({
         state.wishlists.push(newProduct);
       }
 
-      localStorage.setItem("wishlist", JSON.stringify(state.wishlists));
+      localStorage.setItem("cart", JSON.stringify(state.wishlists));
     },
 
     removeFromWishlist: (state, action) => {
-      const productIdToRemove = action.payload; // Assuming action.payload is the product ID (_id)
+      const productIdToRemove = action.payload;
       const userId = state.userId;
+      console.log("product to be removed", productIdToRemove);
 
-      // Filter out the product to be removed only if it belongs to the current user and has the intended product ID
+      // Filter the state.wishlists array to remove the product with the matching productIdToRemove
       state.wishlists = state.wishlists.filter(
         (product) =>
-          (product.userId === userId && product._id !== productIdToRemove) ||
-          product.userId !== userId
+          product.userId === userId &&
+          product.colors.every((color) => color._id !== productIdToRemove)
       );
 
-      localStorage.setItem("wishlist", JSON.stringify(state.wishlists));
+      console.log("state.selectedDressData", state.selectedDressData);
+
+      localStorage.setItem("cart", JSON.stringify(state.wishlists));
     },
 
     increaseQuantiti: (state, action) => {
       const productId = action.payload;
-      const product = state.wishlists.find(
-        (product) => product._id === productId
+
+      const product = state.wishlists.find((product) =>
+        product.colors.find((color) => color._id === productId)
       );
+
       if (product) {
         product.quantiti++; // Increment the quantity
       }
@@ -55,8 +66,8 @@ const wishlistSlice = createSlice({
 
     decreaseQuantiti: (state, action) => {
       const productId = action.payload;
-      const product = state.wishlists.find(
-        (product) => product._id === productId
+      const product = state.wishlists.find((product) =>
+        product.colors.find((color) => color._id === productId)
       );
       if (product && product.quantiti > 1) {
         product.quantiti--; // Decrement the quantity, ensuring it doesn't go below 1

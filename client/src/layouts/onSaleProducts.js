@@ -5,10 +5,10 @@ import { serverAPILocal } from "../App";
 
 const OnSaleProducts = ({ products }) => {
   const productIdsToRender = [
-    "64b64796c86d90418da92601",
-    "64b6479cc86d90418da92608",
-    "64b64747c86d90418da925c7",
-    "64b6474ac86d90418da925ce",
+    "65202ec50c24bf35ed99b3f7",
+    "65202f3c0c24bf35ed9a0a09",
+    "65202fb00c24bf35ed9a589e",
+    "6520304d0c24bf35ed9accb4",
   ];
 
   const filteredProducts = products.filter((product) =>
@@ -21,16 +21,25 @@ const OnSaleProducts = ({ products }) => {
         {filteredProducts.map((product, index) => (
           <div className="col mb-40" key={index}>
             <div className="on-sale-product">
-              <a href="single-product.html" className="image">
+              <a
+                href="single-product.html"
+                className="image"
+                // style={{ height: "206px" }}
+              >
                 {/* product.imageSrc */}
-                <img src={"assets/images/product/product-3.jpg"} alt="Image" />
+                <img
+                  src={product.colors[0].zoomImage}
+                  alt="Image"
+                  height={"206px"}
+                />
               </a>
               <div className="content text-center">
                 <h4 className="title">
                   <Link to={`/products/${product._id}`}>{product.title}</Link>
                 </h4>
                 <span className="price">
-                  $<span className="old">$</span>
+                  &#8377;{product.price}
+                  {/* <span className="old">&#8377;</span> */}
                 </span>
                 <div className="ratting">
                   {[...Array(5)].map((_, i) => (

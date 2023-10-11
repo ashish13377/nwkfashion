@@ -9,9 +9,16 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const productToAdd = action.payload;
-      const existingProduct = state.products.find(
-        (product) => product._id === productToAdd._id
+      console.log("product to add", productToAdd);
+
+      const existingProduct = state.products.find((product) =>
+        product.colors.find((color) =>
+          productToAdd.colors.find(
+            (productColor) => color._id === productColor._id
+          )
+        )
       );
+      console.log("existing product:", existingProduct);
 
       if (existingProduct) {
         // If the product is already in the cart, increase its quantity
@@ -28,24 +35,31 @@ const cartSlice = createSlice({
 
       localStorage.setItem("cart", JSON.stringify(state.products));
     },
-    removeFromCart: (state, action) => {
-      const productIdToRemove = action.payload; // Assuming action.payload is the product ID (_id)
-      const userId = state.userId;
 
-      // Filter out the product to be removed only if it belongs to the current user and has the intended product ID
+    removeFromCart: (state, action) => {
+      const productIdToRemove = action.payload;
+      const userId = state.userId;
+      console.log("product to be removed", productIdToRemove);
+
+      // Filter the state.products array to remove the product with the matching productIdToRemove
       state.products = state.products.filter(
         (product) =>
-          (product.userId === userId && product._id !== productIdToRemove) ||
-          product.userId !== userId
+          product.userId === userId &&
+          product.colors.every((color) => color._id !== productIdToRemove)
       );
+
+      console.log("state.selectedDressData", state.selectedDressData);
 
       localStorage.setItem("cart", JSON.stringify(state.products));
     },
+
     increaseQuantiti: (state, action) => {
       const productId = action.payload;
-      const product = state.products.find(
-        (product) => product._id === productId
+
+      const product = state.products.find((product) =>
+        product.colors.find((color) => color._id === productId)
       );
+
       if (product) {
         product.quantiti++; // Increment the quantity
       }
@@ -53,8 +67,8 @@ const cartSlice = createSlice({
 
     decreaseQuantiti: (state, action) => {
       const productId = action.payload;
-      const product = state.products.find(
-        (product) => product._id === productId
+      const product = state.products.find((product) =>
+        product.colors.find((color) => color._id === productId)
       );
       if (product && product.quantiti > 1) {
         product.quantiti--; // Decrement the quantity, ensuring it doesn't go below 1

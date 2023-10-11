@@ -7,10 +7,9 @@ const CardTotal = ({
   shippingCost,
   calculateSubtotal,
   calculateTotal,
-  calculateShippingCost,
+  shippingFee,
   calculateTotalGST,
 }) => {
-  // console.log("ShippingCost:", calculateShippingCost);
   return (
     <div>
       <div className="col-12 mb-40">
@@ -24,7 +23,7 @@ const CardTotal = ({
               <li key={product.id}>
                 {product.title} (X {product.quantiti})
                 <span>
-                  $
+                  ₹
                   {parseFloat(product.price.replace("$", "")) *
                     product.quantiti}
                 </span>
@@ -32,22 +31,16 @@ const CardTotal = ({
             ))}
           </ul>
           <p>
-            Sub Total <span>${calculateSubtotal}</span>
+            Sub Total <span>₹{calculateSubtotal}</span>
           </p>
           <p>
-            Shipping Fee{" "}
-            <span>
-              $
-              {calculateSubtotal >= shippingCostThreshold
-                ? 0
-                : calculateShippingCost}
-            </span>
+            Shipping Fee <span>₹{shippingFee}</span>
           </p>
           <p>
-            GST <span>${calculateTotalGST}</span>
+            GST <span>₹{calculateTotalGST}</span>
           </p>
           <h4>
-            Grand Total <span>${calculateTotal.toFixed(2)}</span>
+            Grand Total <span>₹{calculateTotal.toFixed(2)}</span>
           </h4>
         </div>
       </div>

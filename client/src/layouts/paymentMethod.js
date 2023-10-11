@@ -127,10 +127,9 @@ const PaymentMethod = ({
           "error"
         );
       }
-      console.log("formData:", formData);
     }
   };
-
+  console.log("formDatax:", formData);
   return (
     <div>
       <div className="col-12 mb-40">

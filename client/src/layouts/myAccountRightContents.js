@@ -18,7 +18,7 @@ const MyAccountRightContents = () => {
     if (!data) {
       navigate("/loginRegisterPage");
     }
-    console.log(data);
+    // console.log(data);
   }, []);
 
   const clearAuthState = () => {
@@ -83,7 +83,7 @@ const MyAccountRightContents = () => {
             <div className="welcome">
               <p>
                 Hello, <strong>{user.name}</strong> (If Not{" "}
-                <strong>{user.username} !</strong>
+                <strong>{user.username} !</strong>{" "}
                 <button className="logout" onClick={handleLogout}>
                   Logout
                 </button>
@@ -114,28 +114,34 @@ const MyAccountRightContents = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.length < 0 ? (
+                  {orders.length > 0 ? (
                     <>
                       {" "}
-                      {orders.map((order, index) => (
-                        <tr key={order?.orderId}>
-                          <td>{index + 1}</td>
-                          <td>
-                            {" "}
-                            {order?.productDetails.map((product) => (
-                              <div key={product.productId}>{product.name}</div>
-                            ))}
-                          </td>
-                          <td>{order?.orderDate}</td>
-                          <td>{order?.orderStatus}</td>
-                          <td>
-                            {" "}
-                            {order?.productDetails.map((product) => (
-                              <div key={product.productId}>{product.price}</div>
-                            ))}
-                          </td>
-                        </tr>
-                      ))}
+                      {orders
+                        .sort((a, b) => new Date(b.date) - new Date(a.date))
+                        .map((order, index) => (
+                          <tr key={order.orderId}>
+                            <td>{index + 1}</td>
+                            <td>
+                              {" "}
+                              {order.productDetails.map((product) => (
+                                <div key={product.productId}>
+                                  {product.title}
+                                </div>
+                              ))}
+                            </td>
+                            <td>{order.date}</td>
+                            <td>{order.orderStatus}</td>
+                            <td>
+                              {" "}
+                              {order.productDetails.map((product) => (
+                                <div key={product.productId}>
+                                  {product.price}
+                                </div>
+                              ))}
+                            </td>
+                          </tr>
+                        ))}
                     </>
                   ) : (
                     <>No order found</>
@@ -153,22 +159,22 @@ const MyAccountRightContents = () => {
 
         {/* Single Tab Content End */}
         {/* Single Tab Content Start */}
-        <div className="tab-pane fade" id="address-edit" role="tabpanel">
+        {/* <div className="tab-pane fade" id="address-edit" role="tabpanel">
           <div className="myaccount-content">
             <h3>Address</h3>
             <address>
               <p>
-                <strong>{orders?.address?.address?.firstName}</strong>
+                <strong>{orders[0]?.address?.firstName}</strong>
               </p>
-              <p>{orders?.address}</p>
-              <p>{orders?.address?.phoneNo}</p>
+              <p>{orders[0]?.address}</p>
+              <p>{orders[0]?.address?.phoneNo}</p>
             </address>
             <a href="#" className="btn btn-dark btn-round d-inline-block">
               <i className="fa fa-edit" />
               Edit Address
             </a>
           </div>
-        </div>
+        </div> */}
         {/* Single Tab Content End */}
         {/* Single Tab Content Start */}
         <div className="tab-pane fade" id="account-info" role="tabpanel">

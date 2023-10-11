@@ -3,12 +3,7 @@ import React from "react";
 const feature = () => {
   return (
     <div>
-      <div
-        className="feature-section bg-theme-two section section-padding fix"
-        style={{
-          backgroundImage: "url(assets/images/pattern/pattern-dot.png)",
-        }}
-      >
+      <div className="feature-section bg-theme-two-feature section section-padding fix">
         <div className="container">
           <div className="feature-wrap row justify-content-between mbn-30">
             <div className="col-md-4 col-12 mb-30">
@@ -18,7 +13,7 @@ const feature = () => {
                 </div>
                 <div className="content">
                   <h3>Free Shipping</h3>
-                  <p>Start from $100</p>
+                  <p>Start from &#8377;1000</p>
                 </div>
               </div>
             </div>

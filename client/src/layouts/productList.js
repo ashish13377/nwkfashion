@@ -3,13 +3,16 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
 import { addToWishlist } from "../utils/wishlistSlice";
+import { updateSelectedDress } from "../utils/selectedDressSlice";
 // Product item component
 const ProductItem = ({ _id, imageSrc, title, price, rating, colors, user }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
     const product = { _id, imageSrc, title, price, rating, colors };
-
+    // dispatch(
+    //   updateSelectedDress(product.colors[0].zoomImage, product.colors[0]._id)
+    // );
     dispatch(addToCart(product));
   };
   const handleAddToWishlist = () => {
@@ -21,22 +24,27 @@ const ProductItem = ({ _id, imageSrc, title, price, rating, colors, user }) => {
   return (
     <div className="col-xl-4 col-md-6 col-12 mb-40">
       <div className="product-item">
-        <div className="product-inner">
+        <div className="product-inner" style={{ height: "300px" }}>
           <div className="image">
             {/* imageSrc */}
-            <img src={"assets/images/product/product-3.jpg"} alt={title} />
+            {/* "assets/images/product/product-3.jpg" */}
+            <img
+              src={colors[0].zoomImage}
+              alt={title}
+              // height={"280px"}
+            />
             {user ? (
               <div className="image-overlay">
-                <div className="action-buttons">
+                {/* <div className="action-buttons">
                   <button onClick={handleAddToCart}>add to cart</button>
                   <button onClick={handleAddToWishlist}>add to wishlist</button>
-                </div>
+                </div> */}
               </div>
             ) : (
               <div className="image-overlay">
-                <div className="action-buttons">
+                {/* <div className="action-buttons">
                   <button onClick={handleAddToCart}>Login/Signup</button>
-                </div>
+                </div> */}
               </div>
             )}
           </div>
@@ -54,20 +62,20 @@ const ProductItem = ({ _id, imageSrc, title, price, rating, colors, user }) => {
                 ))}
               </div>
               <h5 className="size">
-                Size: <span>S</span>
+                {/* Size: <span>S</span>
                 <span>M</span>
                 <span>L</span>
-                <span>XL</span>
+                <span>XL</span> */}
               </h5>
               <h5 className="color">
                 Color:
                 {colors.map((color, index) => (
-                  <span key={index} style={{ backgroundColor: color }} />
+                  <span key={index} style={{ backgroundColor: color.color }} />
                 ))}
               </h5>
             </div>
             <div className="content-right">
-              <span className="price">{price}</span>
+              <span className="price">₹{price}</span>
             </div>
           </div>
         </div>
@@ -87,7 +95,7 @@ const ProductList = ({ products, loading, user }) => {
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
   const displayedProducts = products.slice(startIndex, endIndex);
-
+  console.log(displayedProducts);
   // Handle page navigation
   const goToPage = (page) => {
     setCurrentPage(page);
@@ -116,15 +124,13 @@ const ProductList = ({ products, loading, user }) => {
               key={index + 1}
               className={currentPage === index + 1 ? "active" : ""}
             >
-              <a href="#" onClick={() => goToPage(index + 1)}>
-                {index + 1}
-              </a>
+              <a onClick={() => goToPage(index + 1)}>{index + 1}</a>
             </li>
           ))}
 
           {currentPage < totalPages && (
             <li>
-              <a href="#" onClick={() => goToPage(currentPage + 1)}>
+              <a onClick={() => goToPage(currentPage + 1)}>
                 <i className="fa fa-angle-right" />
               </a>
             </li>

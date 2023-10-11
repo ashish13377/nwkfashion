@@ -27,16 +27,20 @@ const banner = () => {
               </div>
             </div>
             <div className="col-lg-4 col-md-6 col-12 mb-20">
-              <a href="#" className="banner banner-2">
-                <img
-                  src="assets/images/banner/banner-2.jpg"
-                  alt="Banner Image"
-                />
-                <div className="content bg-theme-one">
+              <div className="banner banner-1 content-left content-top">
+                <a href="#" className="image">
+                  <img
+                    src="assets/images/banner/banner-3.jpg"
+                    alt="Banner Image"
+                  />
+                </a>
+                <div className="content">
                   <h1>lorem epsum</h1>
+                  <a href="#" data-hover="SHOP NOW">
+                    SHOP NOW
+                  </a>
                 </div>
-                <span className="banner-offer">25% off</span>
-              </a>
+              </div>
             </div>
             <div className="col-lg-4 col-md-6 col-12 mb-20">
               <div className="banner banner-1 content-left content-top">

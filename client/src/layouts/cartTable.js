@@ -5,6 +5,7 @@ import {
   increaseQuantiti,
   decreaseQuantiti,
 } from "../utils/cartSlice";
+import { updateSelectedDressData } from "../utils/selectedDressSlice";
 import { Link } from "react-router-dom";
 
 const CartTable = () => {
@@ -14,8 +15,14 @@ const CartTable = () => {
     (state) =>
       state.cart.products.filter((product) => product.userId === userId) // Filter products based on userId
   );
-  console.log("UserId:", userId);
-  console.log("Products:", products);
+
+  const selectSelectedDressInfo = (state) =>
+    state.selectedDress.selectedDressData;
+
+  console.log("products:", products);
+
+  const selectedDressInfo = useSelector(selectSelectedDressInfo);
+  console.log(selectedDressInfo);
 
   const dispatch = useDispatch();
 
@@ -23,6 +30,7 @@ const CartTable = () => {
     event.preventDefault();
 
     dispatch(removeFromCart(productId));
+    dispatch(updateSelectedDressData(productId));
   };
 
   const calculateSubtotal = () => {
@@ -68,14 +76,34 @@ const CartTable = () => {
                   <tbody>
                     {products &&
                       products.map((product, index) => (
-                        <tr key={product._id}>
+                        <tr key={product.colors._id}>
                           <td className="pro-thumbnail">
-                            <a href="/">
-                              <img src={product.imageSrc} alt="productImage" />
-                            </a>
+                            <Link to={`/products/${product._id}`}>
+                              {product.colors.map((color) => {
+                                const selectedDress = selectedDressInfo.find(
+                                  (dress) => color._id === dress.selectedDressId
+                                );
+
+                                if (selectedDress) {
+                                  return (
+                                    <img
+                                      key={color._id}
+                                      src={selectedDress.selectedDressImg}
+                                      alt="productImage"
+                                      height="100px"
+                                    />
+                                  );
+                                }
+
+                                return null;
+                              })}
+                            </Link>
                           </td>
+
                           <td className="pro-title">
-                            <a href="/">{product.title}</a>
+                            <Link to={`/products/${product._id}`}>
+                              {product.title}
+                            </Link>
                           </td>
                           <td className="pro-price">
                             <span className="amount">{product.price}</span>
@@ -87,9 +115,29 @@ const CartTable = () => {
                               style={{ display: "flex", padding: "0 14px" }}
                             >
                               <a
-                                onClick={() =>
-                                  handleDecreaseQuantiti(product._id)
-                                }
+                                // onClick={() =>
+                                //   handleDecreaseQuantiti(product._id)
+                                // }
+
+                                onClick={() => {
+                                  // event.preventDefault(); // Prevent the default link behavior
+                                  product.colors.forEach((color) => {
+                                    const selectedDress =
+                                      selectedDressInfo.find(
+                                        (dress) =>
+                                          color._id === dress.selectedDressId
+                                      );
+
+                                    if (selectedDress) {
+                                      console.log(
+                                        selectedDress.selectedDressId
+                                      );
+                                      handleDecreaseQuantiti(
+                                        selectedDress.selectedDressId
+                                      );
+                                    }
+                                  });
+                                }}
                                 style={{ position: "relative", top: "5px" }}
                               >
                                 -
@@ -102,9 +150,24 @@ const CartTable = () => {
                               />
 
                               <a
-                                onClick={() =>
-                                  handleIncreaseQuantiti(product._id)
-                                }
+                                onClick={() => {
+                                  product.colors.forEach((color) => {
+                                    const selectedDress =
+                                      selectedDressInfo.find(
+                                        (dress) =>
+                                          color._id === dress.selectedDressId
+                                      );
+
+                                    if (selectedDress) {
+                                      console.log(
+                                        selectedDress.selectedDressId
+                                      );
+                                      handleIncreaseQuantiti(
+                                        selectedDress.selectedDressId
+                                      );
+                                    }
+                                  });
+                                }}
                                 style={{ position: "relative", top: "5px" }}
                               >
                                 +
@@ -115,9 +178,23 @@ const CartTable = () => {
                           <td className="pro-remove">
                             <a
                               href="/"
-                              onClick={(event) =>
-                                handleRemove(event, product._id)
-                              }
+                              onClick={(event) => {
+                                event.preventDefault(); // Prevent the default link behavior
+                                product.colors.forEach((color) => {
+                                  const selectedDress = selectedDressInfo.find(
+                                    (dress) =>
+                                      color._id === dress.selectedDressId
+                                  );
+
+                                  if (selectedDress) {
+                                    console.log(selectedDress.selectedDressId);
+                                    handleRemove(
+                                      event,
+                                      selectedDress.selectedDressId
+                                    );
+                                  }
+                                });
+                              }}
                             >
                               ×
                             </a>

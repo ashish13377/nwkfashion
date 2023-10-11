@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
 import { addToWishlist } from "../utils/wishlistSlice";
-
+import { updateSelectedDress } from "../utils/selectedDressSlice";
 const PopularProducts = ({ products }) => {
   const [user, setUser] = useState({});
   useEffect(() => {
@@ -17,6 +17,10 @@ const PopularProducts = ({ products }) => {
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
+    // dispatch(
+    //   updateSelectedDress(product.colors[0].zoomImage, product.colors[0]._id)
+    // );
+
     console.log(product);
   };
   const handleAddToWishlist = (product) => {
@@ -25,19 +29,20 @@ const PopularProducts = ({ products }) => {
   };
 
   const productIdsToRender = [
-    "64b646e0c86d90418da9258d",
-    "64b646e4c86d90418da92594",
-    "64ab9d3279afebbac80a854a",
-    "64ab9d3379afebbac80a854d",
-    "64b64796c86d90418da92601",
-    "64b6479cc86d90418da92608",
-    "64b64747c86d90418da925c7",
-    "64b6474ac86d90418da925ce",
+    "65202ec50c24bf35ed99b3f7",
+    "65202f3c0c24bf35ed9a0a09",
+    "65202fb00c24bf35ed9a589e",
+    "6520304d0c24bf35ed9accb4",
+    "652030e30c24bf35ed9b419f",
+    "652031960c24bf35ed9bcd70",
+    "652032020c24bf35ed9c1179",
+    "6520328c0c24bf35ed9c6b9e",
   ]; // Manually provide the product IDs to render
 
   const filteredProducts = products.filter((product) =>
     productIdsToRender.includes(product._id)
   );
+
   console.log(filteredProducts);
 
   return (
@@ -57,15 +62,17 @@ const PopularProducts = ({ products }) => {
                 key={index}
               >
                 <div className="product-item">
-                  <div className="product-inner">
+                  <div className="product-inner" style={{ height: "260px" }}>
                     <div className="image">
                       {/* product.imageSrc */}
+                      {/* product.colors[0].zoomImage */}
                       <img
-                        src={"assets/images/product/product-3.jpg"}
+                        src={product.colors[0].zoomImage}
                         alt="Product"
+                        // height={"300px"}
                       />
                       <div className="image-overlay">
-                        {user ? (
+                        {/* {user ? (
                           <div className="action-buttons">
                             <button onClick={() => handleAddToCart(product)}>
                               add to cart
@@ -85,7 +92,7 @@ const PopularProducts = ({ products }) => {
                               </Link>
                             </div>
                           </>
-                        )}
+                        )} */}
                       </div>
                     </div>
                     <div className="content">
@@ -106,20 +113,23 @@ const PopularProducts = ({ products }) => {
                           ))}
                         </div>
                         <h5 className="size">
-                          Size:{" "}
+                          {/* Size:{" "}
                           {product.sizes.map((size, i) => (
                             <span key={i}>{size}</span>
-                          ))}
+                          ))} */}
                         </h5>
                         <h5 className="color">
                           Color:{" "}
                           {product.colors.map((color, i) => (
-                            <span key={i} style={{ backgroundColor: color }} />
+                            <span
+                              key={i}
+                              style={{ backgroundColor: color.color }}
+                            />
                           ))}
                         </h5>
                       </div>
                       <div className="content-right">
-                        <span className="price">{product.price}</span>
+                        <span className="price">&#8377;{product.price}</span>
                       </div>
                     </div>
                   </div>

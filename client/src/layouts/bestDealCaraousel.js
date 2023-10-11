@@ -22,6 +22,7 @@ const BestDealItem = ({ imageSrc, title, rating, price, _id }) => {
     <div className="slide-item">
       <div className="best-deal-product">
         <div className="image">
+          {/* colors[0].zoomImage */}
           <img src={"assets/images/product/product-3.jpg"} alt="Image" />
         </div>
         <div className="content-top">
@@ -52,8 +53,8 @@ const BestDealItem = ({ imageSrc, title, rating, price, _id }) => {
 
 const BestDealCarousel = ({ products }) => {
   const productIdsToRender = [
-    "64b646e0c86d90418da9258d",
-    "64b646e4c86d90418da92594",
+    "652030e30c24bf35ed9b419f",
+    "652031960c24bf35ed9bcd70",
   ];
 
   const filteredProducts = products.filter((product) =>

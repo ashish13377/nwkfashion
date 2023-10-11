@@ -5,7 +5,7 @@ const CheckoutHero = () => {
     <div>
       <div
         className="page-banner-section section"
-        style={{ backgroundImage: "url(assets/images/hero/hero-1.jpg)" }}
+        // style={{ backgroundImage: "url(assets/images/hero/hero-1.jpg)" }}
       >
         <div className="container">
           <div className="row">

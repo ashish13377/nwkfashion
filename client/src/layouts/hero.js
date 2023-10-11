@@ -4,12 +4,12 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const products = [
   {
-    imageSrc: "assets/images/hero/hero-1.jpg",
+    imageSrc: "assets/images/hero/Banner-1.webp",
     title: "Product 1",
     buttonText: "Shop Now",
   },
   {
-    imageSrc: "assets/images/hero/hero-2.jpg",
+    imageSrc: "assets/images/hero/Banner-2.webp",
     title: "Product 2",
     buttonText: "Shop Now",
   },
@@ -28,8 +28,8 @@ const Hero = () => {
               }}
             >
               <div className="hero-content">
-                <h1>{product.title}</h1>
-                <a href="#">{product.buttonText}</a>
+                {/* <h1>{product.title}</h1>
+                <a href="#">{product.buttonText}</a> */}
               </div>
             </div>
           </div>

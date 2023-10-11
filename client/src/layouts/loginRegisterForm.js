@@ -7,11 +7,17 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserId } from "../utils/cartSlice";
 import { setWishlistUserId } from "../utils/wishlistSlice";
+import { HiEye } from "react-icons/hi";
 const LoginRegisterForm = () => {
   const navigate = useNavigate();
   // login
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   //registerName
   const [registerName, setRegisterName] = useState("");
@@ -217,11 +223,18 @@ const LoginRegisterForm = () => {
                     </div>
                     <div className="col-12 mb-15">
                       <input
-                        type="password"
+                        type={passwordVisible ? "text" : "password"}
                         placeholder="Password"
                         value={loginPassword}
                         onChange={(e) => setLoginPassword(e.target.value)}
-                      />
+                      />{" "}
+                      <HiEye
+                        className="passwrd-eye"
+                        onClick={togglePasswordVisibility}
+                      >
+                        {" "}
+                        {passwordVisible ? "Hide" : "Show"}
+                      </HiEye>
                     </div>
                     <div className="col-12">
                       <input type="submit" value="Login" />

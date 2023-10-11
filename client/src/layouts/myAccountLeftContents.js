@@ -62,9 +62,9 @@ const MyAccountLeftContents = () => {
           <i className="fa fa-cart-arrow-down" /> Orders
         </a>
 
-        <a href="#address-edit" data-bs-toggle="tab">
+        {/* <a href="#address-edit" data-bs-toggle="tab">
           <i className="fa fa-map-marker" /> address
-        </a>
+        </a> */}
         <a href="#account-info" data-bs-toggle="tab">
           <i className="fa fa-user" /> Account Details
         </a>

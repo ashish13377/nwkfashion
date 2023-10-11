@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import { updateSelectedDressData } from "../utils/selectedDressSlice";
 import { addToCart } from "../utils/cartSlice";
 import {
   removeFromWishlist,
@@ -14,26 +14,31 @@ const WishlistTable = () => {
     (state) =>
       state.wishlist.wishlists.filter((product) => product.userId === userId) // Filter products based on userId
   );
-  console.log(products);
-  console.log(userId);
+  // console.log(products);
+  // console.log(userId);
   const dispatch = useDispatch();
 
+  const selectSelectedDressInfo = (state) =>
+    state.selectedDress.selectedDressData;
+
+  const selectedDressInfo = useSelector(selectSelectedDressInfo);
+  console.log("selected dress info:", selectedDressInfo);
   const handleRemove = (event, productId) => {
     event.preventDefault();
 
     dispatch(removeFromWishlist(productId));
+    dispatch(updateSelectedDressData(productId));
   };
 
   const handleAddToCart = (event, product) => {
+    // console.log("add to cart", product);
     event.preventDefault();
-    dispatch(addToCart(product));
-  };
-  const handleIncreaseQuantiti = (productId) => {
-    dispatch(increaseQuantiti(productId)); // Dispatch the action with the product ID
-  };
 
-  const handleDecreaseQuantiti = (productId) => {
-    dispatch(decreaseQuantiti(productId)); // Dispatch the action with the product ID
+    // dispatch(updateSelectedDress({ selectedDressImg, selectedDressId }));
+    // Dispatch the addToCart action with the payload
+    dispatch(addToCart(product));
+
+    // console.log(product);
   };
 
   return (
@@ -62,8 +67,9 @@ const WishlistTable = () => {
                             <td className="pro-thumbnail">
                               <a href="#">
                                 <img
-                                  src={product.imageSrc}
+                                  src={product.colors[0].zoomImage}
                                   alt={product.title}
+                                  height="100px"
                                 />
                               </a>
                             </td>
@@ -104,6 +110,7 @@ const WishlistTable = () => {
                                 onClick={(event) =>
                                   handleAddToCart(event, product)
                                 }
+                                className="logout"
                               >
                                 add to cart
                               </button>
@@ -112,9 +119,23 @@ const WishlistTable = () => {
                             <td className="pro-remove">
                               <a
                                 href="/"
-                                onClick={(event) =>
-                                  handleRemove(event, product._id)
-                                }
+                                onClick={(event) => {
+                                  event.preventDefault(); // Prevent the default link behavior
+                                  product.colors.forEach((color) => {
+                                    const selectedDress =
+                                      selectedDressInfo.find(
+                                        (dress) =>
+                                          color._id === dress.selectedDressId
+                                      );
+
+                                    if (selectedDress) {
+                                      handleRemove(
+                                        event,
+                                        selectedDress.selectedDressId
+                                      );
+                                    }
+                                  });
+                                }}
                               >
                                 ×
                               </a>

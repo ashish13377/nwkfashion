@@ -13,11 +13,13 @@ export default function footer() {
               <div className="footer-widget col-lg-3 col-md-6 col-12 mb-40">
                 <h4 className="title">CONTACT US</h4>
 
-                <p>
+                {/* <p>
                   <a href="tel:01234567890">01234 567 890</a>
-                </p>
+                </p> */}
                 <p>
-                  <a href="mailto:info@example.com">info@example.com</a>
+                  <a href="mailto:customercare@myclassythreads.com">
+                    Email Support
+                  </a>
                 </p>
               </div>
               <div className="footer-widget col-lg-3 col-md-6 col-12 mb-40">
@@ -58,10 +60,21 @@ export default function footer() {
                 </ul>
               </div>
               <div className="footer-widget col-lg-3 col-md-6 col-12 mb-40">
-                <h5>FOLLOW US</h5>
+                <h5 className="title">FOLLOW US</h5>
                 <p className="footer-social">
-                  <a href="#">Facebook</a> - <a href="">Twitter</a> -{" "}
-                  <a href="#">Instagram</a>
+                  <img
+                    style={{ height: "33px" }}
+                    src="assets/images/fb-logo.png"
+                    alt="fb-logo"
+                  />
+                  <a href="#"> </a> -{" "}
+                  <Link to="https://instagram.com/mct_fashions?igshid=MzRlODBiNWFlZA==">
+                    <img
+                      style={{ height: "33px" }}
+                      src="assets/images/insta-logo.png"
+                      alt="insta-logo"
+                    />
+                  </Link>
                 </p>
               </div>
             </div>
@@ -74,10 +87,8 @@ export default function footer() {
             <div className="row">
               <div className="col text-center">
                 <p className="footer-copyright">
-                  © 2023 . Made with <i className="fa fa-heart heart-icon" /> By{" "}
-                  <a target="_blank" href="https://hasthemes.com">
-                    Ashish & Amaan
-                  </a>
+                  ©️ 2023 . <Link to="/">www.myclassythreads.com</Link>, NWK
+                  Fashion Pvt Ltd entity . All rights reserved.
                 </p>
               </div>
             </div>

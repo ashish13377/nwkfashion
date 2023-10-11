@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactImageMagnify from "react-image-magnify";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
 import { addToWishlist } from "../utils/wishlistSlice";
+import { updateSelectedDress } from "../utils/selectedDressSlice";
 
 const LoadingSpinner = () => {
   return (
@@ -25,53 +26,35 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
 
   const handleAddToCart = (productDetails) => {
     dispatch(addToCart(productDetails));
+    dispatch(updateSelectedDress({ selectedDressImg, selectedDressId }));
     console.log(productDetails);
   };
   const handleAddToWishlist = (productDetails) => {
     dispatch(addToWishlist(productDetails));
+    dispatch(updateSelectedDress({ selectedDressImg, selectedDressId }));
     console.log(productDetails);
   };
 
   console.log(productDetails);
+  const [selectedColor, setSelectedColor] = useState(null);
 
-  const product = {
-    title: "Lorem epsum",
-    price: "$",
-    description:
-      "enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora inform",
-    availability: "In Stock",
-    quantity: 1,
-    colors: [
-      {
-        color: "#2e3246",
-        zoomImage: "assets/images/product/product-zoom-black.jpeg",
-      },
-      {
-        color: "#0d6669",
-        zoomImage: "assets/images/product/product-zoom-blue.jpeg",
-      },
-      {
-        color: "#38132d",
-        zoomImage: "assets/images/product/product-zoom-violet.jpeg",
-      },
-    ],
-    tags: ["Electronic", "Smartphone", "Phone", "Charger", "Powerbank"],
-    socialMedia: [
-      { name: "Facebook", icon: "fa fa-facebook" },
-      { name: "Twitter", icon: "fa fa-twitter" },
-      { name: "Instagram", icon: "fa fa-instagram" },
-      { name: "Google+", icon: "fa fa-google-plus" },
-    ],
-    compositions: "Cotton",
-    styles: "Casual",
-    properties: "Short Sleeve",
-    rating: 4,
-  };
-  const [selectedColor, setSelectedColor] = useState(product.colors[0].color);
-  console.log(selectedColor);
+  useEffect(() => {
+    if (productDetails?.colors?.length > 0) {
+      setSelectedColor(productDetails.colors[0].color);
+    }
+  }, [productDetails]);
+
+  console.log(productDetails?.colors[0]?.color);
   const handleColorClick = (color) => {
     setSelectedColor(color);
   };
+
+  const selectedDressImg = productDetails?.colors?.find(
+    (item) => item.color === selectedColor
+  )?.zoomImage;
+  const selectedDressId = productDetails?.colors?.find(
+    (item) => item.color === selectedColor
+  )?._id;
 
   return (
     <div>
@@ -92,12 +75,12 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                             smallImage: {
                               alt: "",
                               isFluidWidth: true,
-                              src: product.colors.find(
+                              src: productDetails.colors.find(
                                 (item) => item.color === selectedColor
                               )?.zoomImage,
                             },
                             largeImage: {
-                              src: product.colors.find(
+                              src: productDetails.colors.find(
                                 (item) => item.color === selectedColor
                               )?.zoomImage,
                               width: 1200,
@@ -129,12 +112,17 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                           </div>
                           <div className="head-right">
                             <span className="price">
-                              {productDetails.price}
+                              &#8377;{productDetails.price}
                             </span>
                           </div>
                         </div>
+
                         <div className="description">
-                          <p>{productDetails.description}</p>
+                          {productDetails?.description
+                            .split(",")
+                            .map((item, index) => (
+                              <p key={index}>{item}</p>
+                            ))}
                         </div>
                         <span className="availability">
                           Availability:{" "}
@@ -153,7 +141,7 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                           <div className="colors">
                             <h5>Color:</h5>
                             <div className="color-options">
-                              {product.colors.map((colorObj, index) => (
+                              {productDetails.colors.map((colorObj, index) => (
                                 <button
                                   key={index}
                                   style={{ backgroundColor: colorObj.color }}
@@ -218,11 +206,11 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                           </a>
                         </li>
 
-                        <li>
+                        {/* <li>
                           <a href="#reviews" data-bs-toggle="tab">
                             Reviews
                           </a>
-                        </li>
+                        </li> */}
                       </ul>
                     </div>
                     {/* Tab panes */}
@@ -231,25 +219,22 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                         className="pro-info-tab tab-pane active"
                         id="more-info"
                       >
-                        <p>
-                          Fashion has been creating well-designed collections
-                          since 2010. The brand offers feminine designs
-                          delivering stylish separates and statement dresses
-                          which have since evolved into a full ready-to-wear
-                          collection in which every item is a vital part of a
-                          woman's wardrobe. The result? Cool, easy, chic looks
-                          with youthful elegance and unmistakable signature
-                          style. All the beautiful pieces are made in Italy and
-                          manufactured with the greatest attention. Now Fashion
-                          extends to a range of accessories including shoes,
-                          hats, belts and more!
-                        </p>
-                        ...
+                        <b> Wash & Care Instructions </b>
+                        <ul>
+                          <li>Do not bleach.</li>
+                          <li>Cool Iron.</li>
+                          <li>Do not tumble dry Delicate dry clean.</li>
+                          <li>
+                            {" "}
+                            Do not wring Professional wash with water Hang For
+                            drying in shade.
+                          </li>
+                        </ul>
                       </div>
 
-                      <div className="pro-info-tab tab-pane" id="reviews">
+                      {/* <div className="pro-info-tab tab-pane" id="reviews">
                         <a href="#">Be the first to write your review!</a>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

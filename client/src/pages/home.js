@@ -49,12 +49,10 @@ export default function Home() {
     <div>
       <Header />
       <Hero />
-      <Banner />
 
       {data.length === 0 ? (
         <>
           {" "}
-          <ShimmerEffect />
           <ShimmerEffect />
           <ShimmerEffect />
           <ShimmerEffect />
