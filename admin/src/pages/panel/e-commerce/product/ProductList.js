@@ -55,6 +55,7 @@ const ProductList = () => {
   useEffect(() => {
     getProductdata();
   }, []); // Fetch subcategories when selected category changes
+  console.log("data:", data);
   const [categories, setCategories] = useState([]);
   const [colorInput, setColorInput] = useState(""); // New state for color input
   const [sm, updateSm] = useState(false);
@@ -63,9 +64,7 @@ const ProductList = () => {
     title: "",
     rating: "",
     sizes: ["S", "M", "L"],
-    colors: [
-      
-    ],
+    colors: [],
     price: 0,
     categoryId: "",
     categoryName: "",
@@ -249,7 +248,7 @@ const ProductList = () => {
   // Get current list for pagination
   const indexOfLastItem = currentPage * itemPerPage;
   const indexOfFirstItem = indexOfLastItem - itemPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = data.reverse().slice(indexOfFirstItem, indexOfLastItem);
 
   // function to close the form modal
   const onFormCancel = () => {
@@ -263,9 +262,7 @@ const ProductList = () => {
       title: "",
       rating: "",
       sizes: ["S", "M", "L"],
-      colors: [
-
-      ],
+      colors: [],
       price: "",
       categoryId: "",
       categoryName: "",
@@ -291,7 +288,6 @@ const ProductList = () => {
     });
     reset({});
   };
-
 
   const [updateId, setUpdateId] = useState();
 
@@ -412,8 +408,8 @@ const ProductList = () => {
   };
 
   // handles ondrop function of dropzone
-  const cloudName = "dy4hpcssz";
-  const uploadPreset = "ypfu9qmr"; // Replace with your upload preset
+  const cloudName = "dyjxiseer"; //dyjxiseer
+  const uploadPreset = "gvbcxv5w"; // Replace with your upload preset //szpmnmch
 
   const handleDropChanges = async (acceptedFiless) => {
     try {
@@ -433,7 +429,6 @@ const ProductList = () => {
 
       const imageUrl = data.secure_url;
       caTformDataCopy.image = imageUrl;
-
     } catch (error) {
       console.error("Error uploading image to Cloudinary:", error);
     }
@@ -473,7 +468,16 @@ const ProductList = () => {
 
   const [loading, setLoading] = useState(false);
   const handleAddProduct = async () => {
-    const requiredFields = ["description"];
+    const requiredFields = [
+      "description",
+      "title",
+      "category",
+      "compositions",
+      "price",
+      "rating",
+      "description",
+      "availabilty",
+    ];
 
     const emptyFields = requiredFields.filter((field) => formData[field] === "");
 
@@ -563,7 +567,7 @@ const ProductList = () => {
           });
           setTimeout(() => {
             setLoading(false);
-            setCatFormData({ name: " " });
+            setCatFormData({ name: "" });
             resetForm();
             window.location.reload(false);
             getProductdata();
@@ -583,7 +587,7 @@ const ProductList = () => {
         });
         setTimeout(() => {
           setLoading(false);
-          setCatFormData({ name: " " });
+          setCatFormData({ name: "" });
         }, 1990);
       }
     }
@@ -642,6 +646,7 @@ const ProductList = () => {
     closeModalss();
   };
   const handleDelete = async (categoryId, categoriesName) => {
+    console.log(categoryId);
     try {
       const result = await Swal.fire({
         title: "Confirm Deletion",
@@ -898,95 +903,95 @@ const ProductList = () => {
             </DataTableHead>
             {currentItems.length > 0
               ? currentItems.map((item) => {
-                return (
-                  <DataTableItem key={item._id}>
-                    <DataTableRow className="nk-tb-col-check">
-                      <div className="custom-control custom-control-sm custom-checkbox notext">
-                        <input
-                          type="checkbox"
-                          className="custom-control-input"
-                          defaultChecked={item.check}
-                          id={item._id}
-                          key={Math.random()}
-                          onChange={(e) => onSelectChange(e, item._id)}
-                        />
-                        <label className="custom-control-label" htmlFor={item._id}></label>
-                      </div>
-                    </DataTableRow>
+                  return (
+                    <DataTableItem key={item._id}>
+                      <DataTableRow className="nk-tb-col-check">
+                        <div className="custom-control custom-control-sm custom-checkbox notext">
+                          <input
+                            type="checkbox"
+                            className="custom-control-input"
+                            defaultChecked={item.check}
+                            id={item._id}
+                            key={Math.random()}
+                            onChange={(e) => onSelectChange(e, item._id)}
+                          />
+                          <label className="custom-control-label" htmlFor={item._id}></label>
+                        </div>
+                      </DataTableRow>
 
-                    <DataTableRow size="sm">
-                      <span className="tb-product">
-                        <img src={item.imageSrc} alt="product" className="thumb" />
-                        <span className="title">{item.title}</span>
-                      </span>
-                    </DataTableRow>
-                    {/* <DataTableRow>
+                      <DataTableRow size="sm">
+                        <span className="tb-product">
+                          <img src={item.colors[0].zoomImage} alt="product" className="thumb" height="50px" />
+                          <span className="title">{item.title}</span>
+                        </span>
+                      </DataTableRow>
+                      {/* <DataTableRow>
                         <span className="tb-sub">₹ {item.actual_price}</span>
                       </DataTableRow>
                       <DataTableRow>
                         <span className="tb-sub">{item.discount} %</span>
                       </DataTableRow> */}
-                    <DataTableRow>
-                      <span className="tb-sub">₹ {item.price}</span>
-                    </DataTableRow>
-                    {/* <DataTableRow>
+                      <DataTableRow>
+                        <span className="tb-sub">₹ {item.price}</span>
+                      </DataTableRow>
+                      {/* <DataTableRow>
                         <span className="tb-sub">{item.time}</span>
                       </DataTableRow> */}
-                    <DataTableRow size="md">
-                      <span className="tb-sub">{item.categoryName}</span>
-                    </DataTableRow>
+                      <DataTableRow size="md">
+                        <span className="tb-sub">{item.categoryName}</span>
+                      </DataTableRow>
 
-                    <DataTableRow className="nk-tb-col-tools">
-                      <ul className="nk-tb-actions gx-1 my-n1">
-                        <li className="me-n1">
-                          <UncontrolledDropdown>
-                            <DropdownToggle
-                              tag="a"
-                              href="#more"
-                              onClick={(ev) => ev.preventDefault()}
-                              className="dropdown-toggle btn btn-icon btn-trigger"
-                            >
-                              <Icon name="more-h"></Icon>
-                            </DropdownToggle>
-                            <DropdownMenu end>
-                              <ul className="link-list-opt no-bdr">
-                                <li>
-                                  <DropdownItem
-                                    tag="a"
-                                    href="#edit"
-                                    onClick={(ev) => {
-                                      ev.preventDefault();
-                                      onEditClick(item._id);
-                                      openModal("edit");
-                                    }}
-                                  >
-                                    <Icon name="edit"></Icon>
-                                    <span>Edit Product</span>
-                                  </DropdownItem>
-                                </li>
+                      <DataTableRow className="nk-tb-col-tools">
+                        <ul className="nk-tb-actions gx-1 my-n1">
+                          <li className="me-n1">
+                            <UncontrolledDropdown>
+                              <DropdownToggle
+                                tag="a"
+                                href="#more"
+                                onClick={(ev) => ev.preventDefault()}
+                                className="dropdown-toggle btn btn-icon btn-trigger"
+                              >
+                                <Icon name="more-h"></Icon>
+                              </DropdownToggle>
+                              <DropdownMenu end>
+                                <ul className="link-list-opt no-bdr">
+                                  <li>
+                                    <DropdownItem
+                                      tag="a"
+                                      href="#edit"
+                                      onClick={(ev) => {
+                                        ev.preventDefault();
+                                        onEditClick(item._id);
+                                        openModal("edit");
+                                      }}
+                                    >
+                                      <Icon name="edit"></Icon>
+                                      <span>Edit Product</span>
+                                    </DropdownItem>
+                                  </li>
 
-                                <li>
-                                  <DropdownItem
-                                    tag="a"
-                                    href="#remove"
-                                    onClick={(ev) => {
-                                      ev.preventDefault();
-                                      deleteProduct(item._id);
-                                    }}
-                                  >
-                                    <Icon name="trash"></Icon>
-                                    <span>Remove Product</span>
-                                  </DropdownItem>
-                                </li>
-                              </ul>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </li>
-                      </ul>
-                    </DataTableRow>
-                  </DataTableItem>
-                );
-              })
+                                  <li>
+                                    <DropdownItem
+                                      tag="a"
+                                      href="#remove"
+                                      onClick={(ev) => {
+                                        ev.preventDefault();
+                                        deleteProduct(item._id);
+                                      }}
+                                    >
+                                      <Icon name="trash"></Icon>
+                                      <span>Remove Product</span>
+                                    </DropdownItem>
+                                  </li>
+                                </ul>
+                              </DropdownMenu>
+                            </UncontrolledDropdown>
+                          </li>
+                        </ul>
+                      </DataTableRow>
+                    </DataTableItem>
+                  );
+                })
               : null}
           </div>
           <PreviewAltCard>
@@ -1345,8 +1350,9 @@ const ProductList = () => {
 
         <div ref={sidebarRef}>
           <SimpleBar
-            className={`nk-add-product toggle-slide toggle-slide-right toggle-screen-any ${view.add || view.category ? "content-active" : ""
-              }`}
+            className={`nk-add-product toggle-slide toggle-slide-right toggle-screen-any ${
+              view.add || view.category ? "content-active" : ""
+            }`}
             style={{ width: "500px" }}
           >
             {view.category && (
@@ -1611,41 +1617,38 @@ const ProductList = () => {
                         </div>
                       </Col>
 
-                      {formData.colors.length > 0? <Block>
-                        <BlockHead>
-                          <BlockHeadContent>
-                            <BlockTitle tag="h5">Colors List</BlockTitle>
-                          </BlockHeadContent>
-                        </BlockHead>
-                        {formData.colors.map((color, index) => (
-                          <Row className="g-3" key={index}>
-                            <Col size="6">
-                              <div className="form-group">
-                                <small className="text-primary" style={{ fontSize: "15px" }}>
-                                  {color.color}
-                                </small>
-                              </div>
-                            </Col>
-                            <Col size="1">
-                              <div className="form-group">
-                                <div
-                                  className="form-control-wrap"
-                                  onClick={() => handleDeleteColor(index)}
-                                >
-                                  <Icon name="trash-alt" style={{ fontSize: "17px", color: "red", cursor: "pointer" }} />
+                      {formData.colors.length > 0 ? (
+                        <Block>
+                          <BlockHead>
+                            <BlockHeadContent>
+                              <BlockTitle tag="h5">Colors List</BlockTitle>
+                            </BlockHeadContent>
+                          </BlockHead>
+                          {formData.colors.map((color, index) => (
+                            <Row className="g-3" key={index}>
+                              <Col size="6">
+                                <div className="form-group">
+                                  <small className="text-primary" style={{ fontSize: "15px" }}>
+                                    {color.color}
+                                  </small>
                                 </div>
-                              </div>
-                            </Col>
-                          </Row>
-                        ))}
-
-                      </Block> : null }
-
-                      
+                              </Col>
+                              <Col size="1">
+                                <div className="form-group">
+                                  <div className="form-control-wrap" onClick={() => handleDeleteColor(index)}>
+                                    <Icon
+                                      name="trash-alt"
+                                      style={{ fontSize: "17px", color: "red", cursor: "pointer" }}
+                                    />
+                                  </div>
+                                </div>
+                              </Col>
+                            </Row>
+                          ))}
+                        </Block>
+                      ) : null}
 
                       <div style={{ border: "1px dashed", borderRadius: " 2px" }}>
-
-
                         <Col size="12">
                           <label className="form-label" htmlFor="regular-price">
                             Zoom Image
@@ -1672,9 +1675,8 @@ const ProductList = () => {
                             )}
                           </Dropzone>
 
-                          <div style={{ margin: '20px 0px' }}>
-
-                            <Row >
+                          <div style={{ margin: "20px 0px" }}>
+                            <Row>
                               <div style={{ marginBottom: "20px" }}>
                                 <Col md="12">
                                   <div className="form-group">
@@ -1694,7 +1696,6 @@ const ProductList = () => {
                               </div>
                               <Col size={6}>
                                 <a
-
                                   style={{
                                     padding: "11px 24px",
                                     background: "#fc3e84",
@@ -1715,7 +1716,6 @@ const ProductList = () => {
                               </Col>
                               <Col size={6}>
                                 <a
-
                                   style={{
                                     padding: "11px 24px",
                                     background: "#fc3e84",
@@ -1736,7 +1736,6 @@ const ProductList = () => {
                               </Col>
                             </Row>
                           </div>
-
                         </Col>
                       </div>
 
@@ -1801,7 +1800,7 @@ const ProductList = () => {
                         </div>
                       </Col> */}
 
-                      <Col xl="12" >
+                      <Col xl="12">
                         <a
                           href="#"
                           style={{
@@ -1818,7 +1817,7 @@ const ProductList = () => {
                           }}
                           color="primary"
                           size="lg"
-                          onClick={handleClear}
+                          onClick={handleAddProduct}
                         >
                           {loading ? <Spinner size="sm" color="light" /> : "Add Product"}
                         </a>

@@ -11,7 +11,7 @@ import {
 } from "../../../components/Component";
 import Content from "../../../layout/content/Content";
 import Head from "../../../layout/head/Head";
-import LogoDark from "../../../images/logo-dark.png";
+import LogoDark from "../../../images/logo png.png";
 import { invoiceData } from "./Invoice";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
@@ -39,6 +39,7 @@ const InvoiceDetails = () => {
     getOrdersdata();
   }, []); // Fetch subcategories when selected category changes
 
+  console.log("user:", user);
   let { invoiceId } = useParams();
 
   useEffect(() => {
@@ -152,7 +153,7 @@ const InvoiceDetails = () => {
                             <td>{product.title}</td>
                             <td>{product.description}</td>
                             <td>₹ {product.price.replace("$", "")}</td>
-                            <td>1</td>
+                            <td>{product.quantiti}</td>
                             <td>₹ {product.price.replace("$", "")}</td>
                           </tr>
                         ))}
@@ -161,22 +162,17 @@ const InvoiceDetails = () => {
                         <tr>
                           <td colSpan="2"></td>
                           <td colSpan="2">Subtotal</td>
-                          <td>
-                            ₹{" "}
-                            {user.productDetails
-                              .reduce((acc, product) => acc + parseFloat(product.price.slice(1)), 0)
-                              .toFixed(2)}
-                          </td>
+                          <td>₹{user.subTotal}</td>
                         </tr>
                         <tr>
                           <td colSpan="2"></td>
-                          <td colSpan="2">Processing fee</td>
-                          <td>$10.00</td>
+                          <td colSpan="2">Shipping fee</td>
+                          <td>₹{user.shippingFee}</td>
                         </tr>
                         <tr>
                           <td colSpan="2"></td>
-                          <td colSpan="2">TAX</td>
-                          <td>$50.00</td>
+                          <td colSpan="2">GST</td>
+                          <td>₹{user.gst}</td>
                         </tr>
                         <tr>
                           <td colSpan="2"></td>

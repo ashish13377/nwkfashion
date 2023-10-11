@@ -22,11 +22,11 @@ const menu = [
     text: "Customers",
     link: "/customer",
   },
-  {
-    icon: "whatsapp",
-    text: "WhatsApp Config",
-    link: "/whatsapp-config",
-  },
+  // {
+  //   icon: "whatsapp",
+  //   text: "WhatsApp Config",
+  //   link: "/whatsapp-config",
+  // },
   // {
   //   icon: "chat-fill",
   //   text: "Support",
@@ -581,11 +581,11 @@ const menu = [
   //     },
   //   ],
   // },
-  {
-    icon: "tag-alt-fill",
-    text: "Email Template",
-    link: "/email-template",
-    active: "false",
-  },
+  // {
+  //   icon: "tag-alt-fill",
+  //   text: "Email Template",
+  //   link: "/email-template",
+  //   active: "false",
+  // },
 ];
 export default menu;
