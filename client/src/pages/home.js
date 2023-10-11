@@ -52,11 +52,12 @@ export default function Home() {
 
       {data.length === 0 ? (
         <>
-          {" "}
-          <ShimmerEffect />
-          <ShimmerEffect />
-          <ShimmerEffect />
-          <ShimmerEffect />
+          <div style={{ textAlign: "center" }}>
+            <ShimmerEffect />
+            <ShimmerEffect />
+            <ShimmerEffect />
+            <ShimmerEffect />
+          </div>
         </>
       ) : (
         <>
@@ -65,6 +66,7 @@ export default function Home() {
           <Feature />
         </>
       )}
+
       <Footer />
     </div>
   );

@@ -144,7 +144,13 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                               {productDetails.colors.map((colorObj, index) => (
                                 <button
                                   key={index}
-                                  style={{ backgroundColor: colorObj.color }}
+                                  style={{
+                                    backgroundColor: colorObj.color,
+                                    border:
+                                      selectedColor === colorObj.color
+                                        ? "2px solid #ff0000"
+                                        : "none",
+                                  }}
                                   onClick={() =>
                                     handleColorClick(colorObj.color)
                                   }

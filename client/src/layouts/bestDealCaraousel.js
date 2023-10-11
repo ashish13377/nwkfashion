@@ -17,16 +17,16 @@ const Rating = ({ value }) => {
   );
 };
 
-const BestDealItem = ({ imageSrc, title, rating, price, _id }) => {
+const BestDealItem = ({ imageSrc, title, rating, price, _id, colors }) => {
   return (
     <div className="slide-item">
-      <div className="best-deal-product">
+      <div className="best-deal-product" style={{ height: "450px" }}>
         <div className="image">
           {/* colors[0].zoomImage */}
-          <img src={"assets/images/product/product-3.jpg"} alt="Image" />
+          <img src={colors[0].zoomImage} alt="Image" />
         </div>
         <div className="content-top">
-          <div className="content-top-left">
+          {/* <div className="content-top-left">
             <h4 className="title">
               <Link to={`/products/${_id}`}>{title}</Link>
             </h4>
@@ -36,11 +36,23 @@ const BestDealItem = ({ imageSrc, title, rating, price, _id }) => {
             <span className="price">
               $ <span className="old">{price}</span>
             </span>
-          </div>
+          </div> */}
         </div>
         <div className="content-bottom">
           <div className="countdown" data-countdown="2023/06/20" />
-
+          <div className="content-top-left">
+            <div className="content-top-left">
+              <h4 className="title">
+                <Link to={`/products/${_id}`}>{title}</Link>
+              </h4>
+              <Rating value={rating} />
+            </div>
+            <div className="content-top-right">
+              <span className="price">
+                &#8377; <span className="old">{price}</span>
+              </span>
+            </div>
+          </div>
           <Link to={`/products/${_id}`} data-hover="SHOP NOW">
             {" "}
             SHOP NOW
@@ -53,8 +65,8 @@ const BestDealItem = ({ imageSrc, title, rating, price, _id }) => {
 
 const BestDealCarousel = ({ products }) => {
   const productIdsToRender = [
-    "652030e30c24bf35ed9b419f",
-    "652031960c24bf35ed9bcd70",
+    "65202ec50c24bf35ed99b3f7",
+    "6520d2b20c24bf35eda497d6",
   ];
 
   const filteredProducts = products.filter((product) =>

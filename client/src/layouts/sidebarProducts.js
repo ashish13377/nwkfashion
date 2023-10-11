@@ -1,48 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const sidebarProducts = [
-  {
-    id: "64ab9d2979afebbac80a8544",
-    imageSrc: "assets/images/product/product-1.jpg",
-    title: "lorem ipsum",
-    price: "$25",
-    oldPrice: "$38",
-    rating: 4.5,
-  },
-  {
-    id: "64ab9d3279afebbac80a8547",
-    imageSrc: "assets/images/product/product-2.jpg",
-    title: "lorem ipsum",
-    price: "$09",
-    oldPrice: "$21",
-    rating: 4.5,
-  },
-  {
-    id: "64ab9d3279afebbac80a854a",
-    imageSrc: "assets/images/product/product-3.jpg",
-    title: "lorem ipsum",
-    price: "$18",
-    oldPrice: "$29",
-    rating: 4.5,
-  },
-  {
-    id: "64ab9d3379afebbac80a854d",
-    imageSrc: "assets/images/product/product-1.jpg",
-    title: "lorem ipsum",
-    price: "$25",
-    oldPrice: "$38",
-    rating: 4.5,
-  },
-];
 
-const SidebarProduct = ({ imageSrc, title, price, oldPrice, rating }) => (
+const SidebarProduct = ({
+  imageSrc,
+  title,
+  price,
+  oldPrice,
+  rating,
+  colors,
+  _id,
+}) => (
   <div className="sidebar-product">
     <a href="single-product.html" className="image">
       {/* imageSrc */}
-      <img src={"assets/images/product/product-3.jpg"} alt="" />
+      <img src={colors[0].zoomImage} alt="" />
     </a>
     <div className="content">
-      <Link link to="/singleProductPage" className="title">
+      <Link to={`/products/${_id}`} className="title">
         {title}
       </Link>
       <span className="price">
@@ -59,15 +33,26 @@ const SidebarProduct = ({ imageSrc, title, price, oldPrice, rating }) => (
 );
 
 const SidebarProductList = ({ products, loading }) => {
+  console.log(products);
   const SelectedProductIds = [
-    "64b646e0c86d90418da9258d",
-    "64b646e4c86d90418da92594",
-    "64ab9d3279afebbac80a854a",
-    "64ab9d3379afebbac80a854d",
-    "64b64796c86d90418da92601",
-    "64b6479cc86d90418da92608",
-    "64b64747c86d90418da925c7",
-    "64b6474ac86d90418da925ce",
+    // "6520d39b0c24bf35eda58916",
+    "6520d3250c24bf35eda5156e",
+    "6520d2b20c24bf35eda497d6",
+    "6520d22a0c24bf35eda40bec",
+    // "6520d1af0c24bf35eda3813a",
+    "6520d1370c24bf35eda31140",
+    // "6520d0b40c24bf35eda29c1f",
+    "6520d03d0c24bf35eda22307",
+    // "6520cfc40c24bf35eda1bfdc",
+    "6520cf390c24bf35eda13ba7",
+    "6520cebb0c24bf35eda0c105",
+    // "6520ce0b0c24bf35eda015d2",
+    // "6520cd6c0c24bf35ed9f802c",
+    "6520328c0c24bf35ed9c6b9e",
+    // "652032020c24bf35ed9c1179",
+    // "652031960c24bf35ed9bcd70",
+    // "652030e30c24bf35ed9b419f",
+    "6520304d0c24bf35ed9accb4",
   ];
 
   return (

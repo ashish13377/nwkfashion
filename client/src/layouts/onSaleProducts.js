@@ -30,7 +30,7 @@ const OnSaleProducts = ({ products }) => {
                 <img
                   src={product.colors[0].zoomImage}
                   alt="Image"
-                  height={"206px"}
+                  height={"170px"}
                 />
               </a>
               <div className="content text-center">

@@ -35,7 +35,7 @@ const PopularProducts = ({ products }) => {
     "6520304d0c24bf35ed9accb4",
     "652030e30c24bf35ed9b419f",
     "652031960c24bf35ed9bcd70",
-    "652032020c24bf35ed9c1179",
+    "6520d2b20c24bf35eda497d6",
     "6520328c0c24bf35ed9c6b9e",
   ]; // Manually provide the product IDs to render
 

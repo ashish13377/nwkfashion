@@ -154,7 +154,9 @@ ul {
 .hidden {
   display: none;
 }
-
+.selected-color {
+  background-color: yellow; /* Set the desired highlight color */
+}
 .clear {
   clear: both;
 }

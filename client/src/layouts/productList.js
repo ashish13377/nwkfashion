@@ -24,7 +24,7 @@ const ProductItem = ({ _id, imageSrc, title, price, rating, colors, user }) => {
   return (
     <div className="col-xl-4 col-md-6 col-12 mb-40">
       <div className="product-item">
-        <div className="product-inner" style={{ height: "300px" }}>
+        <div className="product-inner" style={{ height: "250px" }}>
           <div className="image">
             {/* imageSrc */}
             {/* "assets/images/product/product-3.jpg" */}
