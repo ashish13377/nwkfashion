@@ -80,6 +80,18 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  subTotal: {
+    type: String,
+    required: true,
+  },
+  shippingFee: {
+    type: String,
+    required: true,
+  },
+  gst: {
+    type: String,
+    required: true,
+  },
 });
 
 const Order = mongoose.model("Order", orderSchema);

@@ -6,7 +6,7 @@ const moment = require("moment"); // Import the moment library for date formatti
 
 // Create a new order
 async function createOrder(req, res) {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const lastOrder = await Order.findOne({}, {}, { sort: { orderID: -1 } });
     let lastOrderIDNumber = 0;
@@ -19,17 +19,21 @@ async function createOrder(req, res) {
     }
 
     const newOrderNumber = lastOrderIDNumber + 1;
+
     const newOrderID = `OIDNWK${String("000" + newOrderNumber).slice(-3)}`;
 
     // Get customer data by userId
     const customer = await User.findOne({ _id: req.body.userId });
 
     // Sample product data (replace this with actual product data retrieval)
+
     const productInfo = [];
     for (const productDetail of req.body.productDetails) {
       const product = await Product.findOne({ _id: productDetail.productID });
       if (product) {
-        productInfo.push(product.toObject());
+        const productData = product.toObject();
+        productData.quantiti = productDetail.quantiti; // Add quantiti to productData
+        productInfo.push(productData);
       } else {
         console.log(`Product not found for ID: ${productDetail.productID}`);
       }
@@ -50,6 +54,9 @@ async function createOrder(req, res) {
       orderStatus: "Pending",
       customerInfo: customer.toObject(), // Include the full customer data
       totalPrice: req.body.totalPrice,
+      subTotal: req.body.subTotal,
+      shippingFee: req.body.shippingFee,
+      gst: req.body.gst,
     };
 
     const order = new Order(orderData);
@@ -147,7 +154,7 @@ async function deleteOrder(req, res) {
       return res.status(404).json({ message: "Order not found" });
     }
     const orders = await Order.find();
-    res.json({ message: "Order deleted successfully",  orders});
+    res.json({ message: "Order deleted successfully", orders });
   } catch (err) {
     res.status(500).json({ error: "Unable to delete order" });
   }
@@ -192,18 +199,21 @@ async function updateOrderStatus(req, res) {
     const orderId = req.params.orderId;
     const newStatus = req.body.status; // Assuming you provide the new status in the request body
     // Find the order by ID and update the status
-    const order = await Order.findByIdAndUpdate(orderId, { orderStatus: newStatus }, { new: true });
+    const order = await Order.findByIdAndUpdate(
+      orderId,
+      { orderStatus: newStatus },
+      { new: true }
+    );
 
     if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
+      return res.status(404).json({ message: "Order not found" });
     }
 
     res.json(order);
   } catch (err) {
-    res.status(500).json({ error: 'Unable to update order status' });
+    res.status(500).json({ error: "Unable to update order status" });
   }
 }
-
 
 module.exports = {
   createOrder,
