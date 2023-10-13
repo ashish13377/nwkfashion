@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 const singleProductHero = () => {
   return (
     <div>
@@ -13,10 +13,10 @@ const singleProductHero = () => {
               <h1>Single Product</h1>
               <ul className="page-breadcrumb">
                 <li>
-                  <a href="index.html">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <a href="single-product.html">Single Product</a>
+                  <a>Single Product</a>
                 </li>
               </ul>
             </div>

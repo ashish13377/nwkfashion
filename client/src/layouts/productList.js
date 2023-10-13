@@ -23,63 +23,69 @@ const ProductItem = ({ _id, imageSrc, title, price, rating, colors, user }) => {
 
   return (
     <div className="col-xl-4 col-md-6 col-12 mb-40">
-      <div className="product-item">
-        <div className="product-inner" style={{ height: "250px" }}>
-          <div className="image">
-            {/* imageSrc */}
-            {/* "assets/images/product/product-3.jpg" */}
-            <img
-              src={colors[0].zoomImage}
-              alt={title}
-              // height={"280px"}
-            />
-            {user ? (
-              <div className="image-overlay">
-                {/* <div className="action-buttons">
+      <Link to={`/products/${_id}`}>
+        {" "}
+        <div className="product-item">
+          <div className="product-inner" style={{ height: "250px" }}>
+            <div className="image">
+              {/* imageSrc */}
+              {/* "assets/images/product/product-3.jpg" */}
+              <img
+                src={colors[0].zoomImage}
+                alt={title}
+                // height={"280px"}
+              />
+              {user ? (
+                <div className="image-overlay">
+                  {/* <div className="action-buttons">
                   <button onClick={handleAddToCart}>add to cart</button>
                   <button onClick={handleAddToWishlist}>add to wishlist</button>
                 </div> */}
-              </div>
-            ) : (
-              <div className="image-overlay">
-                {/* <div className="action-buttons">
+                </div>
+              ) : (
+                <div className="image-overlay">
+                  {/* <div className="action-buttons">
                   <button onClick={handleAddToCart}>Login/Signup</button>
                 </div> */}
-              </div>
-            )}
-          </div>
-          <div className="content">
-            <div className="content-left">
-              <h4 className="title">
-                <Link to={`/products/${_id}`}>{title}</Link>
-              </h4>
-              <div className="rating">
-                {Array.from({ length: rating }, (_, index) => (
-                  <i key={index} className="fa fa-star" />
-                ))}
-                {Array.from({ length: 5 - rating }, (_, index) => (
-                  <i key={index} className="fa fa-star-o" />
-                ))}
-              </div>
-              <h5 className="size">
-                {/* Size: <span>S</span>
+                </div>
+              )}
+            </div>
+            <div className="content">
+              <div className="content-left">
+                <h4 className="title">
+                  <Link to={`/products/${_id}`}>{title}</Link>
+                </h4>
+                <div className="rating">
+                  {Array.from({ length: rating }, (_, index) => (
+                    <i key={index} className="fa fa-star" />
+                  ))}
+                  {Array.from({ length: 5 - rating }, (_, index) => (
+                    <i key={index} className="fa fa-star-o" />
+                  ))}
+                </div>
+                <h5 className="size">
+                  {/* Size: <span>S</span>
                 <span>M</span>
                 <span>L</span>
                 <span>XL</span> */}
-              </h5>
-              <h5 className="color">
-                Color:
-                {colors.map((color, index) => (
-                  <span key={index} style={{ backgroundColor: color.color }} />
-                ))}
-              </h5>
-            </div>
-            <div className="content-right">
-              <span className="price">₹{price}</span>
+                </h5>
+                <h5 className="color">
+                  Color:
+                  {colors.map((color, index) => (
+                    <span
+                      key={index}
+                      style={{ backgroundColor: color.color }}
+                    />
+                  ))}
+                </h5>
+              </div>
+              <div className="content-right">
+                <span className="price">₹{price}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

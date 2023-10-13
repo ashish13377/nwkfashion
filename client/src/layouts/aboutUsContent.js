@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutUsContent = () => {
   return (
-    <div style={{ padding: "8em 4em", color: "black" }}>
+    <div style={{ padding: "12em 4em 8em 4em", color: "black" }}>
       {" "}
       <h4>
         <b>About My Classy Threads</b>

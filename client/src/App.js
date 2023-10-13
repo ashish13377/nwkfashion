@@ -13,6 +13,8 @@ import Faq from "./pages/faq";
 import ReturnRefund from "./pages/returnRefund";
 import Shipping from "./pages/shipping";
 import NewCheckoutPage from "./pages/newCheckoutPage";
+import Cancellation from "./pages/cancellation";
+import Privacy from "./pages/privacy";
 export const serverAPILocal = "https://myclassythreads.com/api";
 // export const serverAPILocal = "http://localhost:5904/api";
 
@@ -34,6 +36,8 @@ function App() {
           <Route path="/faq" element={<Faq />} />
           <Route path="/return" element={<ReturnRefund />} />
           <Route path="/shipping" element={<Shipping />} />
+          <Route path="/cancellation" element={<Cancellation />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes>
       </Router>
     </div>

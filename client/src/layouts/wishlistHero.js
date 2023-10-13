@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const WishlistHero = () => {
   return (
@@ -12,10 +13,10 @@ const WishlistHero = () => {
             <h1>Wishlist</h1>
             <ul className="page-breadcrumb">
               <li>
-                <a href="index.html">Home</a>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <a href="wishlist.html">Wishlist</a>
+                <a>Wishlist</a>
               </li>
             </ul>
           </div>

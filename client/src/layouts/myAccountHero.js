@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 const myAccountHero = () => {
   return (
     <div>
@@ -13,10 +13,10 @@ const myAccountHero = () => {
               <h1>My Account</h1>
               <ul className="page-breadcrumb">
                 <li>
-                  <a href="index.html">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <a href="my-account.html">My Account</a>
+                  <a>My Account</a>
                 </li>
               </ul>
             </div>

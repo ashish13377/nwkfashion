@@ -62,17 +62,18 @@ const PopularProducts = ({ products }) => {
                 key={index}
               >
                 <div className="product-item">
-                  <div className="product-inner" style={{ height: "260px" }}>
-                    <div className="image">
-                      {/* product.imageSrc */}
-                      {/* product.colors[0].zoomImage */}
-                      <img
-                        src={product.colors[0].zoomImage}
-                        alt="Product"
-                        // height={"300px"}
-                      />
-                      <div className="image-overlay">
-                        {/* {user ? (
+                  <Link to={`/products/${product._id}`}>
+                    <div className="product-inner" style={{ height: "260px" }}>
+                      <div className="image">
+                        {/* product.imageSrc */}
+                        {/* product.colors[0].zoomImage */}
+                        <img
+                          src={product.colors[0].zoomImage}
+                          alt="Product"
+                          // height={"300px"}
+                        />
+                        <div className="image-overlay">
+                          {/* {user ? (
                           <div className="action-buttons">
                             <button onClick={() => handleAddToCart(product)}>
                               add to cart
@@ -93,46 +94,47 @@ const PopularProducts = ({ products }) => {
                             </div>
                           </>
                         )} */}
-                      </div>
-                    </div>
-                    <div className="content">
-                      <div className="content-left">
-                        <h4 className="title">
-                          <Link to={`/products/${product._id}`}>
-                            {product.title}
-                          </Link>
-                        </h4>
-                        <div className="ratting">
-                          {[...Array(5)].map((_, i) => (
-                            <i
-                              key={i}
-                              className={`fa fa-star${
-                                i < product.rating ? "" : "-o"
-                              }`}
-                            />
-                          ))}
                         </div>
-                        <h5 className="size">
-                          {/* Size:{" "}
+                      </div>
+                      <div className="content">
+                        <div className="content-left">
+                          <h4 className="title">
+                            <Link to={`/products/${product._id}`}>
+                              {product.title}
+                            </Link>
+                          </h4>
+                          <div className="ratting">
+                            {[...Array(5)].map((_, i) => (
+                              <i
+                                key={i}
+                                className={`fa fa-star${
+                                  i < product.rating ? "" : "-o"
+                                }`}
+                              />
+                            ))}
+                          </div>
+                          <h5 className="size">
+                            {/* Size:{" "}
                           {product.sizes.map((size, i) => (
                             <span key={i}>{size}</span>
                           ))} */}
-                        </h5>
-                        <h5 className="color">
-                          Color:{" "}
-                          {product.colors.map((color, i) => (
-                            <span
-                              key={i}
-                              style={{ backgroundColor: color.color }}
-                            />
-                          ))}
-                        </h5>
-                      </div>
-                      <div className="content-right">
-                        <span className="price">&#8377;{product.price}</span>
+                          </h5>
+                          <h5 className="color">
+                            Color:{" "}
+                            {product.colors.map((color, i) => (
+                              <span
+                                key={i}
+                                style={{ backgroundColor: color.color }}
+                              />
+                            ))}
+                          </h5>
+                        </div>
+                        <div className="content-right">
+                          <span className="price">&#8377;{product.price}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </div>
             ))}

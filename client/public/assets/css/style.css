@@ -161,7 +161,7 @@ ul {
   clear: both;
 }
 .hero-section {
-  margin-top: 92px;
+  margin-top: 141px;
 }
 
 .section {
@@ -232,12 +232,12 @@ ul {
 
 /*-- Container Fluid --*/
 .container-fluid {
-  padding: 0 100px;
+  padding: 0 60px;
 }
 @media only screen and (min-width: 1200px) and (max-width: 1599px) {
   .container-fluid {
-    padding: 0 15px;
-    max-width: 1200px;
+    padding: 0 0px;
+    max-width: 1300px;
   }
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -263,8 +263,8 @@ ul {
 }
 @media only screen and (max-width: 479px) {
   .container-fluid {
-    padding: 0 15px;
-    width: 320px;
+    padding: 0 0px;
+    width: 336px;
   }
 }
 
@@ -537,14 +537,32 @@ img.mfp-img {
 .section-padding {
   padding: 61px 0;
 }
+.feature-section-padding {
+  padding: 22px 0;
+}
+.footer-section-padding {
+  padding: 34px 0;
+}
 @media only screen and (min-width: 992px) and (max-width: 1199px),
   only screen and (min-width: 768px) and (max-width: 991px) {
   .section-padding {
     padding: 70px 0;
   }
+  .feature-section-padding {
+    padding: 70px 0;
+  }
+  .footer-section-padding {
+    padding: 70px 0;
+  }
 }
 @media only screen and (max-width: 767px) {
   .section-padding {
+    padding: 45px 0;
+  }
+  .feature-section-padding {
+    padding: 45px 0;
+  }
+  .footer-section-padding {
     padding: 45px 0;
   }
 }
@@ -590,8 +608,8 @@ img.mfp-img {
     - Page Banner Section
 ------------------------------------------*/
 .page-banner-section {
-  padding: 100px 0;
-  margin-top: 92px;
+  padding: 20px 0;
+  margin-top: 141px;
   background-size: cover;
   background-position: center center;
   position: relative;
@@ -649,7 +667,7 @@ img.mfp-img {
   font-weight: 500;
 }
 .page-banner-content .page-breadcrumb li a:hover {
-  color: #ff708a;
+  color: black;
 }
 @media only screen and (max-width: 767px) {
   .page-banner-content h1 {
@@ -1110,7 +1128,7 @@ img.mfp-img {
   align-self: flex-end;
 }
 .header-logo img {
-  max-width: 23%;
+  max-width: 100px;
 }
 
 /*-- Header Shop Links --*/
@@ -1202,6 +1220,14 @@ img.mfp-img {
 .header-search-wrap form button img {
   width: 16px;
 }
+.shimmerMobile {
+  display: none;
+}
+.shimmerPC{
+  display: block;
+  text-align: center;
+  padding-bottom: 50px;
+}
 @media only screen and (max-width: 767px) {
   .header-search-wrap {
     left: 0;
@@ -1211,6 +1237,17 @@ img.mfp-img {
 @media only screen and (max-width: 479px) {
   .header-search-wrap input[type="text"] {
     max-width: 215px;
+  }
+  .header-logo img {
+    max-width: 80px;
+    position: relative;
+    right: 11px;
+  }
+  .shimmerMobile {
+    display: block;
+  }
+  .shimmerPC{
+    display: none;
   }
 }
 
@@ -1293,15 +1330,27 @@ img.mfp-img {
 .main-menu nav > ul > li:last-child {
   margin-right: 0;
 }
+.main-menu-new nav > ul > li {
+  display: block;
+  float: left;
+  margin-right: 22px;
+  position: relative;
+}
+.main-menu-new nav > ul > li:last-child {
+  margin-right: 0;
+}
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .main-menu nav > ul > li {
+    margin-right: 30px;
+  }
+  .main-menu-new nav > ul > li {
     margin-right: 30px;
   }
 }
 .main-menu nav > ul > li > a {
   display: block;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 34px;
   font-weight: 500;
   color: #1a161e;
   line-height: 90px;
@@ -1324,6 +1373,36 @@ img.mfp-img {
   margin-top: 0;
   z-index: 999;
 }
+
+/*  */
+
+.main-menu-new nav > ul > li > a {
+  display: block;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a161e;
+  line-height: 40px;
+  font-family: "Poppins", sans-serif;
+}
+.main-menu-new nav > ul > li.menu-item-has-children > a::after {
+  font-family: Fontawesome;
+  content: "";
+  margin-left: 5px;
+  float: right;
+}
+.main-menu-new nav > ul > li.active > a,
+.main-menu-new nav > ul > li:hover > a {
+  color: #ff708a;
+}
+.main-menu-new nav > ul > li:hover > .sub-menu,
+.main-menu-new nav > ul > li:hover > .mega-menu {
+  opacity: 1;
+  visibility: visible;
+  margin-top: 0;
+  z-index: 999;
+}
+
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .main-menu nav > ul > li {
     margin-right: 20px;
@@ -1332,6 +1411,16 @@ img.mfp-img {
     margin-right: 0;
   }
   .main-menu nav > ul > li > a {
+    font-size: 14px;
+  }
+  /*  */
+  .main-menu-new nav > ul > li {
+    margin-right: 20px;
+  }
+  .main-menu-new nav > ul > li:last-child {
+    margin-right: 0;
+  }
+  .main-menu-new nav > ul > li > a {
     font-size: 14px;
   }
 }
@@ -4316,13 +4405,17 @@ img.mfp-img {
     width: 100%;
     margin-top: 15px;
   }
+  .on-sale-product .image img {
+    width: 158px;
+  }
 }
 .single-product-content .description {
   margin-bottom: 25px;
 }
 .single-product-content .description p {
-  font-size: 16px;
-  line-height: 28px;
+  font-size: 14px;
+  line-height: 22px;
+  margin-bottom: 5px;
 }
 .single-product-content .availability {
   display: block;
@@ -5552,7 +5645,7 @@ img.mfp-img {
   margin-bottom: 20px;
 }
 .feature-item .content h3 {
-  font-size: 24px;
+  font-size: 21px;
   line-height: 30px;
   color: #1a161e;
   margin-bottom: 5px;

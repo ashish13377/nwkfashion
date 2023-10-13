@@ -2,7 +2,7 @@ import React from "react";
 
 const FaqContent = () => {
   return (
-    <div style={{ padding: "8em 4em", color: "black" }}>
+    <div style={{ padding: "12em 4em 8em 4em", color: "black" }}>
       <h4>
         <b>FAQ</b>
       </h4>

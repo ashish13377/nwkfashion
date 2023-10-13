@@ -2,13 +2,13 @@ import React from "react";
 
 const RrContent = () => {
   return (
-    <div style={{ padding: "8em 4em", color: "black" }}>
+    <div style={{ padding: "12em 4em 8em 4em", color: "black" }}>
       <h4>
         {" "}
         <b>Returns and Refunds Process</b>
       </h4>
       <br />
-      <b>Refunds</b>
+      <b>Returns</b>
       <br />
       <br />
       Any item which you wish to return should be returned within 7 days from
@@ -29,18 +29,42 @@ const RrContent = () => {
       <br />
       <b>Refunds</b> <br />
       <br />
-      Once the returned merchandise has been quality checked and approved, we
-      shall issue a refund to the original method of payment and a confirmation
-      e-mail will be sent to you. Please note that it can take up to 5 business
-      days to process the refund. It may take your financial institution
-      additional time to process the transaction and update your bank statement
-      accordingly.
+      Once we receive any returns from our customers, all products returned back
+      to us go through a stringent quality check. This is to ensure that the
+      products or items returned are in original condition and unused or unworn
+      to avoid any issues.
       <br />
       <br />
-      <b>
-        {" "}
-        <i>Please note: shipping fees will not be refunded.</i>
-      </b>
+      Please note that our warehouse team may require up to 5 business days to
+      complete the quality check and confirm the return/refund status back to
+      you via email. Once the quality check is completed our concerned team will
+      share the refund details with you accordingly via the registered email
+      address. Incase you wish to speak to us over a call, please book an
+      appointment so that our concerned team representative an reach out to you
+      and assist with your return accordingly.
+      <br />
+      <br />
+      Please note that we do not accept any returns and no refunds will be
+      honored if the return request is not booked with us prior to shipping the
+      products back to us.
+      <br />
+      <br />
+      Incase any product is found to be used, worn and not sent with the
+      original packaging; we will not be able to process the refunds back to
+      you.
+      <br />
+      <br />
+      All refunds for returned merchandise will be processed back to the
+      original form of payment. We will not be able to entertain any request to
+      process refunds to any other form of payments.
+      <br />
+      <br />
+      Once a confirmation email is sent back to your registered email address
+      with respect to your refund from our end, we would request all our
+      customers to allow 3-5 business days for the amount to reflect back in our
+      respective account. Some financial institutions may take excess than 5
+      business days. In this case please contact your bank to know the exact
+      credit posting time frame.
     </div>
   );
 };

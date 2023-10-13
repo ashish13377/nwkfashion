@@ -20,39 +20,40 @@ const OnSaleProducts = ({ products }) => {
       <div className="small-product-slider row row-7 mbn-40">
         {filteredProducts.map((product, index) => (
           <div className="col mb-40" key={index}>
-            <div className="on-sale-product">
-              <a
-                href="single-product.html"
-                className="image"
-                // style={{ height: "206px" }}
-              >
-                {/* product.imageSrc */}
-                <img
-                  src={product.colors[0].zoomImage}
-                  alt="Image"
-                  height={"170px"}
-                />
-              </a>
-              <div className="content text-center">
-                <h4 className="title">
-                  <Link to={`/products/${product._id}`}>{product.title}</Link>
-                </h4>
-                <span className="price">
-                  &#8377;{product.price}
-                  {/* <span className="old">&#8377;</span> */}
-                </span>
-                <div className="ratting">
-                  {[...Array(5)].map((_, i) => (
-                    <i
-                      className={`fa fa-star${
-                        i < Math.floor(product.rating) ? "" : "-half-o"
-                      }`}
-                      key={i}
-                    />
-                  ))}
+            <Link to={`/products/${product._id}`}>
+              <div className="on-sale-product">
+                <a
+                  className="image"
+                  // style={{ height: "206px" }}
+                >
+                  {/* product.imageSrc */}
+                  <img
+                    src={product.colors[0].zoomImage}
+                    alt="Image"
+                    height={"170px"}
+                  />
+                </a>
+                <div className="content text-center">
+                  <h4 className="title">
+                    <Link to={`/products/${product._id}`}>{product.title}</Link>
+                  </h4>
+                  <span className="price">
+                    &#8377;{product.price}
+                    {/* <span className="old">&#8377;</span> */}
+                  </span>
+                  <div className="ratting">
+                    {[...Array(5)].map((_, i) => (
+                      <i
+                        className={`fa fa-star${
+                          i < Math.floor(product.rating) ? "" : "-half-o"
+                        }`}
+                        key={i}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
         ))}
       </div>

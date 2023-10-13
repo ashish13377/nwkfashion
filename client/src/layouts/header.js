@@ -34,16 +34,16 @@ export default function Header() {
         <div className="header-bottom header-bottom-one header-sticky">
           <div className="container-fluid">
             <div className="row menu-center align-items-center justify-content-between">
-              <div className="col mt-15 mb-15">
+              <div className="col ">
                 {/* Logo Start */}
                 <div className="header-logo">
-                  <Link Link to="/">
+                  <Link to="/">
                     <img src="assets/images/logo png.png" alt="logo" />
                   </Link>
                 </div>
                 {/* Logo End */}
               </div>
-              <div className="col order-2 order-lg-3">
+              <div className="col  order-lg-3">
                 {/* Header Advance Search Start */}
                 {!user ? (
                   <>
@@ -90,27 +90,54 @@ export default function Header() {
                 )}
                 {/* Header Advance Search End */}
               </div>
-              <div className="col order-3 order-lg-2">
+              <div className="col  order-lg-2">
                 <div className="main-menu">
                   <nav>
                     <ul>
                       <li className="active">
                         <Link to="/">My Classy Threads</Link>
                       </li>
-                      <li>
-                        <Link to="/Gown">Gown</Link>
-                      </li>
-                      <li>
-                        <Link to="/Lehenga">Lehenga</Link>
-                      </li>
-                      <li>
-                        <Link to="/Suit">Suit</Link>
-                      </li>
-                      <li>
-                        <Link to="/Cord Set">Cord Set</Link>
-                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+              {/* Mobile Menu */}
+              <div className="mobile-menu order-4 d-block d-lg-none col"></div>
+            </div>
+          </div>
+        </div>
+        <div className="header-top header-top-one bg-theme-two">
+          <div className="container-fluid">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <div className="main-menu-new">
+                <nav>
+                  <ul>
+                    <li>
+                      <Link to="/Gown">Gown</Link>
+                    </li>
+                    <li>
+                      <Link to="/Lehenga">Lehenga</Link>
+                    </li>
+                    <li>
+                      <Link to="/Suit">Suite</Link>
+                    </li>
+                    <li>
+                      <Link to="/Cord Set">Cord Set</Link>
+                    </li>
+                    <li>
+                      <Link to="/Palazzo Set">Palazzo Set</Link>
+                    </li>
+                    {/* <li>
+                      <Link to="/Cotton Dresses">Cotton Dresses</Link>
+                    </li> */}
 
-                      {/* <li>
+                    {/* <li>
                         <a>Couple Dressess</a>
                         <ul className="sub-menu">
                           <li>
@@ -167,7 +194,7 @@ export default function Header() {
                         </ul>
                       </li> */}
 
-                      {/* <li>
+                    {/* <li>
                         <a href="#">PAGES</a>
                         <ul className="sub-menu">
                           <li>
@@ -193,18 +220,16 @@ export default function Header() {
                         </ul>
                       </li> */}
 
-                      {/* <li>
+                    {/* <li>
                         <a href="contact.html">CONTACT</a>
                       </li> */}
-                    </ul>
-                  </nav>
-                </div>
+                  </ul>
+                </nav>
               </div>
-              {/* Mobile Menu */}
-              <div className="mobile-menu order-4 d-block d-lg-none col"></div>
             </div>
           </div>
         </div>
+
         {/* Header BOttom End */}
       </div>
       {/* mobile view */}
@@ -217,7 +242,7 @@ export default function Header() {
                   <img src="assets/images/logo png.png" alt="logo" />
                 </Link>
               </div>
-              <div className="col mt-15 mb-15">
+              <div className="col mt-11 mb-15">
                 <Navbar collapseOnSelect expand="lg" bg="white" variant="light">
                   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                   <Navbar.Collapse id="responsive-navbar-nav">

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
 import { addToWishlist } from "../utils/wishlistSlice";
 import { updateSelectedDress } from "../utils/selectedDressSlice";
-
+import ContentLoader from "react-content-loader";
 const LoadingSpinner = () => {
   return (
     <div
@@ -20,6 +20,28 @@ const LoadingSpinner = () => {
     </div>
   );
 };
+
+const ShimmerEffect = () => (
+  <ContentLoader
+    speed={2}
+    width={800}
+    height={430}
+    viewBox="0 0 800 430"
+    backgroundColor="#f3f3f3"
+    foregroundColor="#ecebeb"
+  >
+    <rect x="500" y="91" rx="3" ry="3" width="158" height="11" />
+    <rect x="0" y="90" rx="0" ry="0" width="416" height="470" />
+    <rect x="176" y="158" rx="0" ry="0" width="7" height="13" />
+    <rect x="500" y="139" rx="0" ry="0" width="291" height="8" />
+    <rect x="152" y="69" rx="0" ry="0" width="2" height="0" />
+    <rect x="500" y="167" rx="0" ry="0" width="486" height="8" />
+    <rect x="500" y="201" rx="0" ry="0" width="486" height="8" />
+    <rect x="500" y="234" rx="0" ry="0" width="486" height="8" />
+    <rect x="500" y="267" rx="0" ry="0" width="486" height="8" />
+    <rect x="500" y="300" rx="0" ry="0" width="486" height="8" />
+  </ContentLoader>
+);
 
 const SingleProductDescription = ({ productDetails, loading, user }) => {
   const dispatch = useDispatch();
@@ -40,7 +62,7 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
 
   useEffect(() => {
     if (productDetails?.colors?.length > 0) {
-      setSelectedColor(productDetails.colors[0].color);
+      setSelectedColor(productDetails?.colors[0]?.color);
     }
   }, [productDetails]);
 
@@ -59,7 +81,14 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
   return (
     <div>
       {loading ? (
-        <LoadingSpinner />
+        <>
+          <div className="shimmerPC">
+            <ShimmerEffect />
+          </div>
+          <div className="shimmerMobile">
+            <LoadingSpinner />
+          </div>
+        </>
       ) : (
         <>
           {" "}
@@ -75,12 +104,12 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                             smallImage: {
                               alt: "",
                               isFluidWidth: true,
-                              src: productDetails.colors.find(
+                              src: productDetails?.colors.find(
                                 (item) => item.color === selectedColor
                               )?.zoomImage,
                             },
                             largeImage: {
-                              src: productDetails.colors.find(
+                              src: productDetails?.colors.find(
                                 (item) => item.color === selectedColor
                               )?.zoomImage,
                               width: 1200,
@@ -141,7 +170,7 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                           <div className="colors">
                             <h5>Color:</h5>
                             <div className="color-options">
-                              {productDetails.colors.map((colorObj, index) => (
+                              {productDetails?.colors.map((colorObj, index) => (
                                 <button
                                   key={index}
                                   style={{

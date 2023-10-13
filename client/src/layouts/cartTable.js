@@ -218,7 +218,7 @@ const CartTable = () => {
                     <tr className="cart-subtotal">
                       <th>Total</th>
                       <td>
-                        <span className="amount">${calculateSubtotal()}</span>
+                        <span className="amount">₹{calculateSubtotal()}</span>
                       </td>
                     </tr>
                   </tbody>

@@ -7,7 +7,7 @@ export default function footer() {
       {" "}
       <div>
         {/* Footer Top Section Start */}
-        <div className="footer-top-section section bg-theme-two-light section-padding">
+        <div className="footer-top-section section bg-theme-two-light footer-section-padding">
           <div className="container">
             <div className="row mbn-40">
               <div className="footer-widget col-lg-3 col-md-6 col-12 mb-40">
@@ -55,7 +55,13 @@ export default function footer() {
                   </li>
 
                   <li>
-                    <Link to="/shipping">Shipping &amp; Delivery</Link>
+                    <Link to="/shipping">Shipping &amp; Handling</Link>
+                  </li>
+                  <li>
+                    <Link to="/cancellation">Cancellation Policy</Link>
+                  </li>
+                  <li>
+                    <Link to="/privacy">Privacy Policy</Link>
                   </li>
                 </ul>
               </div>
@@ -82,7 +88,7 @@ export default function footer() {
         </div>
         {/* Footer Top Section End */}
         {/* Footer Bottom Section Start */}
-        <div className="footer-bottom-section section bg-theme-two pt-15 pb-15">
+        <div className="footer-bottom-section section bg-theme-two pt-8 pb-8">
           <div className="container">
             <div className="row">
               <div className="col text-center">
