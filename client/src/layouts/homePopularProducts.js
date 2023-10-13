@@ -63,7 +63,7 @@ const PopularProducts = ({ products }) => {
               >
                 <div className="product-item">
                   <Link to={`/products/${product._id}`}>
-                    <div className="product-inner" style={{ height: "260px" }}>
+                    <div className="product-inner">
                       <div className="image">
                         {/* product.imageSrc */}
                         {/* product.colors[0].zoomImage */}

@@ -3624,6 +3624,7 @@ img.mfp-img {
   padding-bottom: 65px;
   overflow: hidden;
   position: relative;
+  height: 260px;
   /*-- Image --*/
   /*-- Content --*/
 }
@@ -3707,7 +3708,7 @@ img.mfp-img {
   background-color: #ffffff;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
-  padding: 20px 0;
+  padding: 20px 0 20px 0;
   position: absolute;
   left: 0;
   width: 100%;
@@ -3824,6 +3825,21 @@ img.mfp-img {
 @media only screen and (max-width: 479px) {
   .deal-product-slider {
     padding: 40px 15px;
+  }
+  .product-item .product-inner .content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: #ffffff;
+    -webkit-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    padding: 20px 0 59px 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: -90px;
+    /*-- Content Left --*/
+    /*-- Content Left --*/
   }
 }
 
