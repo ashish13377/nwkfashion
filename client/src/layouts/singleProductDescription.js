@@ -98,7 +98,8 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                 <div className="col-12">
                   <div className="row row-20 mb-10">
                     <div className="col-lg-6 col-12 mb-40">
-                      <div className="pro-large-img mb-10 fix easyzoom easyzoom--overlay easyzoom--with-thumbnails">
+                      {/* className="pro-large-img mb-10 fix easyzoom easyzoom--overlay easyzoom--with-thumbnails" */}
+                      <div>
                         <ReactImageMagnify
                           {...{
                             smallImage: {
@@ -115,10 +116,12 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                               width: 1200,
                               height: 1800,
                             },
+                            isHintEnabled: true,
                           }}
                         />
                       </div>
                     </div>
+
                     <div className="col-lg-6 col-12 mb-40">
                       <div className="single-product-content">
                         <div className="head">
