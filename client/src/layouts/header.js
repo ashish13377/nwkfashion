@@ -257,10 +257,13 @@ export default function Header() {
                         <Link to="/Lehenga">Lehenga</Link>
                       </Nav.Link>
                       <Nav.Link>
-                        <Link to="/Suit">Suit</Link>
+                        <Link to="/Suit">Suite</Link>
                       </Nav.Link>
                       <Nav.Link>
                         <Link to="/Cord Set">Cord Set</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/Palazzo Set">Palazzo Set</Link>
                       </Nav.Link>
                       {/* <NavDropdown
                         title="Dropdown"
