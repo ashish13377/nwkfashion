@@ -3798,10 +3798,9 @@ img.mfp-img {
   text-decoration: line-through;
   display: block;
 }
-.product-item .product-inner:hover {
-  /*-- Image --*/
-  /*-- Content --*/
-}
+/* .product-item .product-inner:hover {
+
+} */
 .product-item .product-inner:hover .image .image-overlay {
   opacity: 1;
 }
@@ -4252,11 +4251,9 @@ img.mfp-img {
 .on-sale-product .image img {
   width: 100%;
 }
-.on-sale-product .content {
-  /*-- Title --*/
-  /*-- Price --*/
-  /*-- Ratting --*/
-}
+/* .on-sale-product .content {
+ 
+} */
 .on-sale-product .content .title {
   font-size: 16px;
   line-height: 22px;
@@ -4812,7 +4809,7 @@ img.mfp-img {
   font-weight: 500;
   padding: 15px;
   text-align: center;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   vertical-align: middle;
   white-space: nowrap;
 }
@@ -5791,9 +5788,9 @@ img.mfp-img {
 /*  11. Testimonial CSS
 /*----------------------------------------*/
 /*-- Testimonial Item --*/
-.testimonial-item {
-  /*-- Testimonial Author --*/
-}
+/* .testimonial-item {
+ 
+} */
 .testimonial-item > p {
   font-size: 16px;
   line-height: 28px;

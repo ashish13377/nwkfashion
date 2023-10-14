@@ -69,7 +69,7 @@ const CartTable = () => {
                       <th className="pro-thumbnail">Image</th>
                       <th className="pro-title">Product</th>
                       <th className="pro-price">Price</th>
-                      <th class="pro-quantity">Quantiti</th>
+                      <th class="pro-quantity">Quantity</th>
                       <th className="pro-remove">Remove</th>
                     </tr>
                   </thead>
