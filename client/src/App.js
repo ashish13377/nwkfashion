@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import SingleProductPage from "./pages/singleProductPage";
@@ -40,6 +41,14 @@ function App() {
           <Route path="/privacy" element={<Privacy />} />
         </Routes>
       </Router>
+      <a
+        href="https://wa.me/+919845988792/?text=Hello%20there,%20I%20have%20a%20question."
+        class="whatsapp_float"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="fa fa-whatsapp whatsapp-icon"></i>
+      </a>
     </div>
   );
 }
