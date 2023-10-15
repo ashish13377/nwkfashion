@@ -117,6 +117,7 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                               height: 1800,
                             },
                             isHintEnabled: true,
+                            enlargedImagePosition: "over",
                           }}
                         />
                       </div>
