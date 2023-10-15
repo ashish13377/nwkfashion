@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateSelectedDressData } from "../utils/selectedDressSlice";
 import { addToCart } from "../utils/cartSlice";
+import { updateSelectedDress } from "../utils/selectedDressSlice";
 import {
   removeFromWishlist,
   increaseQuantiti,
@@ -14,8 +15,8 @@ const WishlistTable = () => {
     (state) =>
       state.wishlist.wishlists.filter((product) => product.userId === userId) // Filter products based on userId
   );
-  // console.log(products);
-  // console.log(userId);
+  console.log("products", products);
+
   const dispatch = useDispatch();
 
   const selectSelectedDressInfo = (state) =>
@@ -23,6 +24,7 @@ const WishlistTable = () => {
 
   const selectedDressInfo = useSelector(selectSelectedDressInfo);
   console.log("selected dress info:", selectedDressInfo);
+
   const handleRemove = (event, productId) => {
     event.preventDefault();
 
@@ -34,12 +36,44 @@ const WishlistTable = () => {
     // console.log("add to cart", product);
     event.preventDefault();
 
-    // dispatch(updateSelectedDress({ selectedDressImg, selectedDressId }));
+    dispatch(updateSelectedDress({ selectedDressImg, selectedDressId }));
     // Dispatch the addToCart action with the payload
     dispatch(addToCart(product));
 
     // console.log(product);
   };
+
+  // const selectedDressImg = products?.colors?.find((item) =>
+  //   selectedDressInfo.find((dressInfo) => {
+  //     console.log("Selected Dress ID:", item);
+  //     if (dressInfo.selectedDressId === item._id) {
+  //       return true; // Include the item if the IDs match
+  //     }
+  //     return false;
+  //   })
+  // )?.zoomImage;
+  let selectedDressImg = null;
+  let selectedDressId = null;
+
+  products.some((product) => {
+    return product.colors.some((item) => {
+      return selectedDressInfo.some((dressInfo) => {
+        if (dressInfo.selectedDressId === item._id) {
+          selectedDressImg = dressInfo.selectedDressImg;
+          selectedDressId = dressInfo.selectedDressId;
+          return true; // Include the item if the IDs match
+        }
+        return false;
+      });
+    });
+  });
+
+  if (selectedDressImg) {
+    console.log("Selected Dress Img:", selectedDressImg);
+    console.log("Selected Dress Id:", selectedDressId);
+  } else {
+    console.log("No matching dress found.");
+  }
 
   return (
     <div>
