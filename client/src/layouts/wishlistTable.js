@@ -43,15 +43,6 @@ const WishlistTable = () => {
     // console.log(product);
   };
 
-  // const selectedDressImg = products?.colors?.find((item) =>
-  //   selectedDressInfo.find((dressInfo) => {
-  //     console.log("Selected Dress ID:", item);
-  //     if (dressInfo.selectedDressId === item._id) {
-  //       return true; // Include the item if the IDs match
-  //     }
-  //     return false;
-  //   })
-  // )?.zoomImage;
   let selectedDressImg = null;
   let selectedDressId = null;
 

@@ -31,7 +31,10 @@ export default function Header() {
       {" "}
       {/* Header Section Start */}
       <div className="header-section section">
-        <div className="header-bottom header-bottom-one header-sticky">
+        <div
+          className="header-bottom header-bottom-one header-sticky"
+          style={{ paddingTop: "5px", paddingBottom: "5px" }}
+        >
           <div className="container-fluid">
             <div className="row menu-center align-items-center justify-content-between">
               <div className="col ">
