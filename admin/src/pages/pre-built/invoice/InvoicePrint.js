@@ -146,9 +146,9 @@ const InvoicePrint = () => {
                               })}
                             </td>
                             <td>{product.description}</td>
-                            <td>₹ {product.price.replace("$", "")}</td>
-                            <td>1</td>
-                            <td>₹ {product.price.replace("$", "")}</td>
+                            <td>₹ {product.price}</td>
+                            <td>{product.quantiti}</td>
+                            <td>₹ {product.price * product.quantiti}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -156,22 +156,17 @@ const InvoicePrint = () => {
                         <tr>
                           <td colSpan="2"></td>
                           <td colSpan="2">Subtotal</td>
-                          <td>
-                            ₹{" "}
-                            {user.productDetails
-                              .reduce((acc, product) => acc + parseFloat(product.price.slice(1)), 0)
-                              .toFixed(2)}
-                          </td>
+                          <td>₹{user.subTotal}</td>
                         </tr>
                         <tr>
                           <td colSpan="2"></td>
-                          <td colSpan="2">Processing fee</td>
-                          <td>$10.00</td>
+                          <td colSpan="2">Shipping fee</td>
+                          <td>₹{user.shippingFee}</td>
                         </tr>
                         <tr>
                           <td colSpan="2"></td>
-                          <td colSpan="2">TAX</td>
-                          <td>$50.00</td>
+                          <td colSpan="2">GST</td>
+                          <td>₹{user.gst}</td>
                         </tr>
                         <tr>
                           <td colSpan="2"></td>

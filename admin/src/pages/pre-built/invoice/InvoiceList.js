@@ -116,9 +116,9 @@ const InvoiceList = () => {
             <BlockHeadContent>
               <ul className="nk-block-tools g-3">
                 <li>
-                  <Button color="primary" className="btn-icon">
+                  {/* <Button color="primary" className="btn-icon">
                     <Icon name="plus"></Icon>
-                  </Button>
+                  </Button> */}
                 </li>
               </ul>
             </BlockHeadContent>
@@ -135,11 +135,11 @@ const InvoiceList = () => {
                   </div>
                   <div className="card-tools me-n1">
                     <ul className="btn-toolbar">
-                      <li>
+                      {/* <li>
                         <Button onClick={toggle} className="btn-icon search-toggle toggle-search">
                           <Icon name="search"></Icon>
                         </Button>
-                      </li>
+                      </li> */}
                       <li className="btn-toolbar-sep"></li>
                       <li>
                         <UncontrolledDropdown>

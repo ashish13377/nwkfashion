@@ -986,7 +986,7 @@ const OrderDefault = () => {
                               </td>
                               <td>₹ {product.price}</td>
                               <td>{product.quantiti}</td>
-                              <td>₹ {product.price}</td>
+                              <td>₹ {product.price * product.quantiti}</td>
                             </tr>
                           ))}
                         </tbody>

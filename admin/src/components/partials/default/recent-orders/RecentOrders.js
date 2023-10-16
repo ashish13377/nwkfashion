@@ -31,7 +31,7 @@ const RecentOrders = ({ ordersData }) => {
             <span className="d-none d-sm-inline">Status</span>
           </DataTableRow>
         </DataTableHead>
-        {ordersData.map((item, idx) => (
+        {ordersData.reverse().map((item, idx) => (
           <DataTableItem key={idx}>
             <DataTableRow>
               <span className="tb-lead">
