@@ -33,6 +33,7 @@ async function createOrder(req, res) {
       if (product) {
         const productData = product.toObject();
         productData.quantiti = productDetail.quantiti; // Add quantiti to productData
+        productData.selectedDressInfo = productDetail.selectedDressInfo;
         productInfo.push(productData);
       } else {
         console.log(`Product not found for ID: ${productDetail.productID}`);
