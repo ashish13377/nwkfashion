@@ -71,6 +71,13 @@ const productSchema = new mongoose.Schema({
   productType: {
     type: String,
   },
+  reviews: [
+    {
+      text: {
+        type: String,
+      },
+    },
+  ],
 });
 
 // Create and export Product model

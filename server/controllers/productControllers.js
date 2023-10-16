@@ -287,6 +287,46 @@ const getProductsByCategory = async (req, res) => {
   }
 };
 
+// Create a review for a product
+const createReview = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const { text } = req.body;
+    console.log(text);
+    const product = await Product.findById(productId);
+    if (!text) {
+      return res.status(400).json({ error: "Review text is required" });
+    }
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    // Create a new review and add it to the product's reviews array
+    product.reviews.push({ text });
+    await product.save();
+
+    res.status(201).json(product.reviews);
+  } catch (error) {
+    console.error("Error creating review:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+// Get all reviews for a product
+const getReviews = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.json(product.reviews);
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
@@ -297,4 +337,6 @@ module.exports = {
   getCategoryById,
   createCategory,
   getProductsByCategory,
+  createReview,
+  getReviews,
 };
