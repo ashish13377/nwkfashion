@@ -150,7 +150,33 @@ const InvoiceDetails = () => {
                       <tbody>
                         {user.productDetails.map((product, index) => (
                           <tr key={index}>
-                            <td>{product.title}</td>
+                            <td>
+                              {product.title}
+                              {product.colors.map((color) => {
+                                const selectedDress = product.selectedDressInfo.find(
+                                  (dress) => color._id === dress.selectedDressId
+                                );
+
+                                if (selectedDress) {
+                                  return (
+                                    <>
+                                      <img
+                                        key={color._id}
+                                        src={selectedDress.selectedDressImg}
+                                        alt="productImage"
+                                        height="100px"
+                                      />
+                                      {/* <div>
+                                        <b>Selected dress Id:</b>
+                                        {selectedDress.selectedDressId}
+                                      </div> */}
+                                    </>
+                                  );
+                                }
+
+                                return null;
+                              })}
+                            </td>
                             <td>{product.description}</td>
                             <td>₹ {product.price.replace("$", "")}</td>
                             <td>{product.quantiti}</td>

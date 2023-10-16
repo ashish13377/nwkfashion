@@ -15,7 +15,6 @@ const InvoicePrint = () => {
   const [data, setData] = useState([]);
   const [user, setUser] = useState();
 
-  
   const getOrdersdata = async () => {
     // Make the API call to fetch the product
     await axios
@@ -34,7 +33,6 @@ const InvoicePrint = () => {
   let { invoiceId } = useParams();
 
   useEffect(() => {
-
     setTimeout(() => window.print(), 1000);
   }, [user]);
 
@@ -105,7 +103,6 @@ const InvoicePrint = () => {
                   </div>
                 </div>
 
-
                 <div className="invoice-bills">
                   <div className="table-responsive">
                     <table className="table table-striped">
@@ -121,11 +118,37 @@ const InvoicePrint = () => {
                       <tbody>
                         {user.productDetails.map((product, index) => (
                           <tr key={index}>
-                            <td>{product.title}</td>
+                            <td>
+                              {product.title}
+                              {product.colors.map((color) => {
+                                const selectedDress = product.selectedDressInfo.find(
+                                  (dress) => color._id === dress.selectedDressId
+                                );
+
+                                if (selectedDress) {
+                                  return (
+                                    <>
+                                      <img
+                                        key={color._id}
+                                        src={selectedDress.selectedDressImg}
+                                        alt="productImage"
+                                        height="100px"
+                                      />
+                                      {/* <div>
+                                        <b>Selected dress Id:</b>
+                                        {selectedDress.selectedDressId}
+                                      </div> */}
+                                    </>
+                                  );
+                                }
+
+                                return null;
+                              })}
+                            </td>
                             <td>{product.description}</td>
-                            <td>₹ {product.price.replace('$', '')}</td>
+                            <td>₹ {product.price.replace("$", "")}</td>
                             <td>1</td>
-                            <td>₹ {product.price.replace('$', '')}</td>
+                            <td>₹ {product.price.replace("$", "")}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -134,7 +157,10 @@ const InvoicePrint = () => {
                           <td colSpan="2"></td>
                           <td colSpan="2">Subtotal</td>
                           <td>
-                            ₹ {user.productDetails.reduce((acc, product) => acc + parseFloat(product.price.slice(1)), 0).toFixed(2)}
+                            ₹{" "}
+                            {user.productDetails
+                              .reduce((acc, product) => acc + parseFloat(product.price.slice(1)), 0)
+                              .toFixed(2)}
                           </td>
                         </tr>
                         <tr>
@@ -159,8 +185,6 @@ const InvoicePrint = () => {
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </Block>
