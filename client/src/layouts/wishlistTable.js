@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateSelectedDressData } from "../utils/selectedDressSlice";
 import { addToCart } from "../utils/cartSlice";
 import { updateSelectedDress } from "../utils/selectedDressSlice";
+import { Link } from "react-router-dom";
 import {
   removeFromWishlist,
   increaseQuantiti,
   decreaseQuantiti,
 } from "../utils/wishlistSlice";
+import { removeFromCart } from "../utils/cartSlice";
 const WishlistTable = () => {
   const userId = useSelector((state) => state.wishlist.userId);
 
@@ -27,7 +29,7 @@ const WishlistTable = () => {
 
   const handleRemove = (event, productId) => {
     event.preventDefault();
-
+    dispatch(removeFromCart(productId));
     dispatch(removeFromWishlist(productId));
     dispatch(updateSelectedDressData(productId));
   };
@@ -90,16 +92,33 @@ const WishlistTable = () => {
                         products.map((product, index) => (
                           <tr key={product._id}>
                             <td className="pro-thumbnail">
-                              <a href="#">
-                                <img
-                                  src={product.colors[0].zoomImage}
-                                  alt={product.title}
-                                  height="100px"
-                                />
-                              </a>
+                              <Link to={`/products/${product._id}`}>
+                                {product.colors.map((color) => {
+                                  const selectedDress = selectedDressInfo.find(
+                                    (dress) =>
+                                      color._id === dress.selectedDressId
+                                  );
+
+                                  if (selectedDress) {
+                                    return (
+                                      <img
+                                        key={color._id}
+                                        src={selectedDress.selectedDressImg}
+                                        alt="productImage"
+                                        height="100px"
+                                      />
+                                    );
+                                  }
+
+                                  return null;
+                                })}
+                              </Link>
                             </td>
+
                             <td className="pro-title">
-                              <a href="#">{product.title}</a>
+                              <Link to={`/products/${product._id}`}>
+                                {product.title}
+                              </Link>
                             </td>
                             <td className="pro-price">
                               <span className="amount">{product.price}</span>

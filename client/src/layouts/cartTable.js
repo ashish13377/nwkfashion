@@ -5,6 +5,7 @@ import {
   increaseQuantiti,
   decreaseQuantiti,
 } from "../utils/cartSlice";
+import { removeFromWishlist } from "../utils/wishlistSlice";
 import { updateSelectedDressData } from "../utils/selectedDressSlice";
 import { Link } from "react-router-dom";
 
@@ -28,7 +29,7 @@ const CartTable = () => {
 
   const handleRemove = (event, productId) => {
     event.preventDefault();
-
+    dispatch(removeFromWishlist(productId));
     dispatch(removeFromCart(productId));
     dispatch(updateSelectedDressData(productId));
   };
