@@ -16,8 +16,8 @@ import Shipping from "./pages/shipping";
 import NewCheckoutPage from "./pages/newCheckoutPage";
 import Cancellation from "./pages/cancellation";
 import Privacy from "./pages/privacy";
-export const serverAPILocal = "https://myclassythreads.com/api";
-// export const serverAPILocal = "http://localhost:5904/api";
+// export const serverAPILocal = "https://myclassythreads.com/api";
+export const serverAPILocal = "http://localhost:5904/api";
 
 function App() {
   return (
