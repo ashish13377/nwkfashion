@@ -16,11 +16,9 @@ const CartTable = () => {
     (state) =>
       state.cart.products.filter((product) => product.userId === userId) // Filter products based on userId
   );
-
+  console.log("products:", products);
   const selectSelectedDressInfo = (state) =>
     state.selectedDress.selectedDressData;
-
-  console.log("products:", products);
 
   const selectedDressInfo = useSelector(selectSelectedDressInfo);
   console.log(selectedDressInfo);

@@ -12,6 +12,12 @@ const CheckoutComponent = () => {
       state.cart.products.filter((product) => product.userId === userId) // Filter products based on userId
   );
 
+  const selectSelectedDressInfo = (state) =>
+    state.selectedDress.selectedDressData;
+
+  const selectedDressInfo = useSelector(selectSelectedDressInfo);
+  console.log(selectedDressInfo);
+
   const [formData, setFormData] = useState({
     razorpay: "",
     address: {
@@ -43,6 +49,7 @@ const CheckoutComponent = () => {
       name: product.title,
       price: product.price,
       quantiti: product.quantiti,
+      selectedDressInfo: selectedDressInfo,
     }));
     setFormData((prevFormData) => ({
       ...prevFormData,

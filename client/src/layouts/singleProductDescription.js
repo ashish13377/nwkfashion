@@ -5,6 +5,10 @@ import { addToCart } from "../utils/cartSlice";
 import { addToWishlist } from "../utils/wishlistSlice";
 import { updateSelectedDress } from "../utils/selectedDressSlice";
 import ContentLoader from "react-content-loader";
+import { serverAPILocal } from "../App";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
 const LoadingSpinner = () => {
   return (
     <div
@@ -44,6 +48,7 @@ const ShimmerEffect = () => (
 );
 
 const SingleProductDescription = ({ productDetails, loading, user }) => {
+  console.log("user:::", user);
   const dispatch = useDispatch();
 
   const handleAddToCart = (productDetails) => {
@@ -78,6 +83,44 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
     (item) => item.color === selectedColor
   )?._id;
 
+  //
+
+  const [reviews, setReviews] = useState([]);
+  const [reviewText, setReviewText] = useState("");
+  const { productId } = useParams();
+
+  // Function to fetch reviews and update the state
+  const fetchReviews = () => {
+    axios
+      .get(`${serverAPILocal}/products/${productId}/reviews`)
+      .then((response) => {
+        setReviews(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching reviews:", error);
+      });
+  };
+
+  // Function to post a new review
+  const postReview = () => {
+    const newReview = { text: reviewText, user: user.name };
+    axios
+      .post(`${serverAPILocal}/products/${productId}/reviews`, newReview)
+      .then((response) => {
+        // Append the new review to the existing reviews
+        setReviews([...reviews, response.data]);
+        setReviewText(""); // Clear the input fi eld
+      })
+      .catch((error) => {
+        console.error("Error posting review:", error);
+      });
+  };
+
+  useEffect(() => {
+    // Fetch reviews when the component mounts
+    fetchReviews();
+  }, []); // Empty dependency array ensures this effect runs once
+  console.log("reviews", reviews);
   return (
     <div>
       {loading ? (
@@ -245,11 +288,11 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                           </a>
                         </li>
 
-                        {/* <li>
+                        <li>
                           <a href="#reviews" data-bs-toggle="tab">
                             Reviews
                           </a>
-                        </li> */}
+                        </li>
                       </ul>
                     </div>
                     {/* Tab panes */}
@@ -271,9 +314,64 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                         </ul>
                       </div>
 
-                      {/* <div className="pro-info-tab tab-pane" id="reviews">
-                        <a href="#">Be the first to write your review!</a>
-                      </div> */}
+                      <div>
+                        <div className="pro-info-tab tab-pane" id="reviews">
+                          {reviews.length === 0 ? (
+                            <p>Be the first to write your review!</p>
+                          ) : (
+                            <ul>
+                              {reviews?.map((review) => (
+                                <ul>
+                                  {" "}
+                                  <li>
+                                    <b>{review?.user}</b>
+                                    <li
+                                      key={review?._id}
+                                      style={{
+                                        paddingLeft: "5px",
+                                        position: "relative",
+                                        bottom: "5px",
+                                      }}
+                                    >
+                                      {review?.text}
+                                    </li>
+                                  </li>
+                                </ul>
+                              ))}
+                            </ul>
+                          )}
+                          {user ? (
+                            <form>
+                              <input
+                                type="text"
+                                placeholder="Write your review"
+                                value={reviewText}
+                                onChange={(e) => setReviewText(e.target.value)}
+                                style={{
+                                  border: "1px solid #757575",
+                                  borderRadius: "4px",
+                                  fontSize: "12px",
+                                  paddingLeft: "4px",
+                                }}
+                              />
+                              <button
+                                type="button"
+                                onClick={postReview}
+                                style={{
+                                  border: "1px solid #757575",
+                                  borderRadius: "4px",
+                                  fontSize: "12px",
+                                  marginLeft: "4px",
+                                }}
+                              >
+                                Submit Review
+                              </button>
+                            </form>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
