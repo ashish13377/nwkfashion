@@ -316,11 +316,11 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
 
                       <div>
                         <div className="pro-info-tab tab-pane" id="reviews">
-                          {Array.isArray(reviews).reviews.length === 0 ? (
+                          {reviews.length === 0 ? (
                             <p>Be the first to write your review!</p>
                           ) : (
                             <ul>
-                              {reviews?.map((review) => (
+                              {Array.isArray(reviews).reviews?.map((review) => (
                                 <ul>
                                   {" "}
                                   <li>
