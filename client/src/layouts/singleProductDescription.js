@@ -320,7 +320,7 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                             <p>Be the first to write your review!</p>
                           ) : (
                             <ul>
-                              {Array.isArray(reviews).reviews?.map((review) => (
+                              {Array.from(reviews)?.map((review) => (
                                 <ul>
                                   {" "}
                                   <li>
