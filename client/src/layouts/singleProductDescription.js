@@ -315,8 +315,8 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                       </div>
 
                       <div>
-                        {/* <div className="pro-info-tab tab-pane" id="reviews">
-                          {reviews.length === 0 ? (
+                        <div className="pro-info-tab tab-pane" id="reviews">
+                          {Array.isArray(reviews).reviews.length === 0 ? (
                             <p>Be the first to write your review!</p>
                           ) : (
                             <ul>
@@ -370,7 +370,7 @@ const SingleProductDescription = ({ productDetails, loading, user }) => {
                           ) : (
                             <></>
                           )}
-                        </div> */}
+                        </div>
                       </div>
                     </div>
                   </div>
