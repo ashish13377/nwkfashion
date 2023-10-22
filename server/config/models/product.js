@@ -76,6 +76,10 @@ const productSchema = new mongoose.Schema({
       text: {
         type: String,
       },
+      user: {
+        type: String, // You may need to adjust the type based on how user IDs are stored
+        // Replace 'User' with the actual name of your user model
+      },
     },
   ],
 });

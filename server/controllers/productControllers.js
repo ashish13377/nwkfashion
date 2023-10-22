@@ -291,8 +291,9 @@ const getProductsByCategory = async (req, res) => {
 const createReview = async (req, res) => {
   try {
     const productId = req.params.productId;
-    const { text } = req.body;
-    console.log(text);
+    const { text, user } = req.body;
+    // Check if the user is authenticated and obtain the user ID
+
     const product = await Product.findById(productId);
     if (!text) {
       return res.status(400).json({ error: "Review text is required" });
@@ -302,7 +303,7 @@ const createReview = async (req, res) => {
     }
 
     // Create a new review and add it to the product's reviews array
-    product.reviews.push({ text });
+    product.reviews.push({ text, user });
     await product.save();
 
     res.status(201).json(product.reviews);
