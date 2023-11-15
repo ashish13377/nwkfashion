@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 import { serverAPILocal } from "../App";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -50,6 +51,8 @@ const PaymentMethod = ({
 
   const handleCheckout = () => {
     if (!allInputsFilled) {
+      Swal.fire("All inputs are not filled", "error");
+
       return; // Don't proceed if inputs are not filled
     }
 
@@ -129,7 +132,7 @@ const PaymentMethod = ({
       }
     }
   };
-  // console.log("formDatax:", formData);
+  console.log("formDatax:", formData);
   return (
     <div>
       <div className="col-12 mb-40">
