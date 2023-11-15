@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import { setDiscount } from "../utils/discountSlice";
+import { clearDiscount } from "../utils/discountSlice";
 import {
   removeFromCart,
   increaseQuantiti,
@@ -21,6 +24,7 @@ const CartTable = () => {
     state.selectedDress.selectedDressData;
 
   const selectedDressInfo = useSelector(selectSelectedDressInfo);
+  const discount = useSelector((state) => state.discount);
   console.log(selectedDressInfo);
 
   const dispatch = useDispatch();
@@ -55,10 +59,41 @@ const CartTable = () => {
     dispatch(decreaseQuantiti(productId)); // Dispatch the action with the product ID
   };
 
+  const [couponCode, setCouponCode] = useState(""); // State to hold the coupon code
+
+  const handleApplyCoupon = (event) => {
+    event.preventDefault();
+
+    // Replace the following logic with your actual coupon validation and discount application
+    if (couponCode === "EXAMPLECODE") {
+      dispatch(setDiscount(calculateSubtotal() * 0.1)); // Apply a 10% discount
+      toast.success("Coupon added!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      }); // Show success notification
+    } else {
+      dispatch(clearDiscount());
+      toast.warning("Invalid coupon code", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      }); // Show success notification // Show error notification
+    }
+  };
   return (
     <div className="page-section section section-padding">
+      <ToastContainer />
       <div className="container">
-        <form action="#">
+        <form>
           <div className="row mbn-40">
             <div className="col-12 mb-40">
               <div className="cart-table table-responsive">
@@ -208,6 +243,23 @@ const CartTable = () => {
               <div className="cart-buttons mb-30">
                 <Link to="/">Continue Shopping</Link>
               </div>
+              <div className="cart-coupon">
+                <h4>Coupon</h4>
+                <p>Enter your coupon code if you have one.</p>
+                <div className="cuppon-form">
+                  <input
+                    type="text"
+                    placeholder="Coupon code"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value)}
+                  />
+                  <input
+                    type="submit"
+                    value="Apply Coupon"
+                    onClick={handleApplyCoupon}
+                  />
+                </div>
+              </div>
             </div>
             <div className="col-lg-4 col-md-5 col-12 mb-40">
               <div className="cart-total fix">
@@ -215,9 +267,24 @@ const CartTable = () => {
                 <table>
                   <tbody>
                     <tr className="cart-subtotal">
-                      <th>Total</th>
+                      <th>Sub-total</th>
                       <td>
                         <span className="amount">₹{calculateSubtotal()}</span>
+                      </td>
+                    </tr>
+                    <tr className="cart-subtotal">
+                      <th>discount</th>
+
+                      <td>
+                        <span className="amount">₹{discount.toFixed(2)}</span>
+                      </td>
+                    </tr>
+                    <tr className="cart-subtotal">
+                      <th>Total:</th>
+                      <td>
+                        <span className="amount">
+                          ₹{calculateSubtotal() - discount}
+                        </span>
                       </td>
                     </tr>
                   </tbody>

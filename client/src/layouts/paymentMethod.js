@@ -129,7 +129,7 @@ const PaymentMethod = ({
       }
     }
   };
-  console.log("formDatax:", formData);
+  // console.log("formDatax:", formData);
   return (
     <div>
       <div className="col-12 mb-40">

@@ -10,6 +10,8 @@ const CardTotal = ({
   shippingFee,
   calculateTotalGST,
 }) => {
+  const discount = useSelector((state) => state.discount);
+  console.log("total gst", calculateTotalGST);
   return (
     <div>
       <div className="col-12 mb-40">
@@ -35,6 +37,9 @@ const CardTotal = ({
           </p>
           <p>
             Shipping Fee <span>₹{shippingFee}</span>
+          </p>
+          <p>
+            Discount <span>₹{discount.toFixed(2)}</span>
           </p>
           <p>
             GST <span>₹{calculateTotalGST}</span>

@@ -88,7 +88,7 @@ const CheckoutComponent = () => {
     // Set the orderDetails in formData's razorpay key
   };
 
-  // console.log(formData);
+  console.log("form data111", formData);
 
   const shippingCostThreshold = 1000; // The order total above which free shipping is applicable
   const shippingCost = 100; // Flat shipping cost for orders below the shippingCostThreshold
@@ -103,7 +103,7 @@ const CheckoutComponent = () => {
   };
 
   const gstPercentages = {
-    clothing: 5,
+    clothings: 5,
     leathergoods: 18,
   };
 
@@ -141,8 +141,12 @@ const CheckoutComponent = () => {
 
     products.forEach((product) => {
       const compositions = product.compositions;
+
+      console.log("compositions:", gstPercentages.hasOwnProperty(compositions));
+
       if (gstPercentages.hasOwnProperty(compositions)) {
         const price = product.price * product.quantiti;
+
         const gstPercentage = gstPercentages[compositions];
 
         totalGST += (price * gstPercentage) / 100;
@@ -161,7 +165,7 @@ const CheckoutComponent = () => {
 
   const shippingFee =
     calculateSubtotal() >= shippingCostThreshold ? 0 : calculateShippingCost();
-
+  // console.log("total gstttt", calculateTotalGST());
   return (
     <div>
       <div>
