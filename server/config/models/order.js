@@ -92,6 +92,12 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  couponCode: {
+    type: String,
+  },
+  discount: {
+    type: String,
+  },
 });
 
 const Order = mongoose.model("Order", orderSchema);

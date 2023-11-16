@@ -6,7 +6,7 @@ const moment = require("moment"); // Import the moment library for date formatti
 
 // Create a new order
 async function createOrder(req, res) {
-  // console.log(req.body);
+  console.log(req.body);
   try {
     const lastOrder = await Order.findOne({}, {}, { sort: { orderID: -1 } });
     let lastOrderIDNumber = 0;
@@ -58,6 +58,8 @@ async function createOrder(req, res) {
       subTotal: req.body.subTotal,
       shippingFee: req.body.shippingFee,
       gst: req.body.gst,
+      couponCode: req.body.couponCode,
+      discount: req.body.discount,
     };
 
     const order = new Order(orderData);
