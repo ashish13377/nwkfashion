@@ -69,6 +69,7 @@ const OrderDefault = () => {
     details: false,
   });
   const [onSearchText, setSearchText] = useState("");
+  const [onCouponSearchText, setCouponSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(7);
 
@@ -130,6 +131,15 @@ const OrderDefault = () => {
       setData([...filteredObject]);
     } else setData(resData);
   }, [onSearchText]);
+
+  useEffect(() => {
+    if (onCouponSearchText !== "") {
+      const filteredObject = data?.filter((item) => {
+        return item?.couponCode?.includes(onCouponSearchText);
+      });
+      setData([...filteredObject]);
+    } else setData(resData);
+  }, [onCouponSearchText]);
 
   // toggle function to view order details
   const toggle = (type) => {
@@ -228,6 +238,9 @@ const OrderDefault = () => {
   // onChange function for searching name
   const onFilterChange = (e) => {
     setSearchText(e.target.value);
+  };
+  const onCouponFilterChange = (e) => {
+    setCouponSearchText(e.target.value);
   };
 
   // function to close the form modal
@@ -406,6 +419,20 @@ const OrderDefault = () => {
                         />
                       </div>
                     </li>
+                    <li>
+                      <div className="form-control-wrap">
+                        <div className="form-icon form-icon-right">
+                          <Icon name="search"></Icon>
+                        </div>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="default-04"
+                          placeholder="Search by CouponCode"
+                          onChange={(e) => onCouponFilterChange(e)}
+                        />
+                      </div>
+                    </li>
                     {/* <li>
                       <UncontrolledDropdown>
                         <DropdownToggle
@@ -491,6 +518,12 @@ const OrderDefault = () => {
               </DataTableRow>
               <DataTableRow size="md">
                 <span className="sub-text">Purchased</span>
+              </DataTableRow>
+              <DataTableRow size="md">
+                <span className="sub-text">Discount</span>
+              </DataTableRow>
+              <DataTableRow size="md">
+                <span className="sub-text">Coupon Code</span>
               </DataTableRow>
               <DataTableRow>
                 <span className="sub-text">Total</span>
@@ -622,6 +655,14 @@ const OrderDefault = () => {
                       {item.productDetails ? (
                         <span className="tb-sub text-primary"> {item.productDetails.length} item</span>
                       ) : null}
+                    </DataTableRow>
+                    <DataTableRow>
+                      <span className="tb-lead">
+                        {item.discount ? <>₹{parseFloat(item.discount).toFixed(2)}</> : <>--</>}
+                      </span>
+                    </DataTableRow>
+                    <DataTableRow>
+                      <span className="tb-lead">{item.couponCode ? item.couponCode : <>--</>}</span>
                     </DataTableRow>
                     <DataTableRow>
                       <span className="tb-lead">₹ {parseFloat(item.totalPrice).toFixed(2)}</span>
