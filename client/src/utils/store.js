@@ -3,6 +3,7 @@ import cartReducer from "../utils/cartSlice";
 import wishlistReducer from "../utils/wishlistSlice";
 import selectedDressReducer from "../utils/selectedDressSlice";
 import discountReducer from "../utils/discountSlice";
+import couponReducer from "../utils/couponSlice";
 
 const storedCart = localStorage.getItem("cart");
 const storedWishlist = localStorage.getItem("wishlist");
@@ -21,6 +22,9 @@ const initialState = {
       : [],
   },
   discount: 0, // Add the discount property to the initialState
+  coupon: {
+    code: "", // Add the coupon property to the initialState
+  },
 };
 
 const store = configureStore({
@@ -29,6 +33,7 @@ const store = configureStore({
     wishlist: wishlistReducer,
     selectedDress: selectedDressReducer,
     discount: discountReducer,
+    coupon: couponReducer,
   },
   preloadedState: initialState,
 });

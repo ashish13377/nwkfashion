@@ -3,9 +3,10 @@ import BillingAddress from "./billingAddress";
 import CardTotal from "./cardTotal";
 import PaymentMethod from "./paymentMethod";
 import { useSelector } from "react-redux";
-
 const CheckoutComponent = () => {
   const user = JSON.parse(localStorage.getItem("user"));
+  const couponCode = useSelector((state) => state.coupon.code);
+  const discount = useSelector((state) => state.discount);
   const userId = useSelector((state) => state.cart.userId);
   const products = useSelector(
     (state) =>
@@ -40,6 +41,8 @@ const CheckoutComponent = () => {
     subTotal: "",
     shippingFee: "",
     gst: "",
+    couponCode: couponCode,
+    discount: discount,
   });
 
   useEffect(() => {

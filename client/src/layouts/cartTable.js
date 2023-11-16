@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { setDiscount } from "../utils/discountSlice";
 import { clearDiscount } from "../utils/discountSlice";
+import { setCouponCode, clearCouponCode } from "../utils/couponSlice"; // Import the new actions
+
 import {
   removeFromCart,
   increaseQuantiti,
@@ -14,7 +16,7 @@ import { Link } from "react-router-dom";
 
 const CartTable = () => {
   const userId = useSelector((state) => state.cart.userId);
-
+  const couponCode = useSelector((state) => state.coupon.code);
   const products = useSelector(
     (state) =>
       state.cart.products.filter((product) => product.userId === userId) // Filter products based on userId
@@ -58,8 +60,6 @@ const CartTable = () => {
   const handleDecreaseQuantiti = (productId) => {
     dispatch(decreaseQuantiti(productId)); // Dispatch the action with the product ID
   };
-
-  const [couponCode, setCouponCode] = useState(""); // State to hold the coupon code
 
   const handleApplyCoupon = (event) => {
     event.preventDefault();
@@ -251,7 +251,7 @@ const CartTable = () => {
                     type="text"
                     placeholder="Coupon code"
                     value={couponCode}
-                    onChange={(e) => setCouponCode(e.target.value)}
+                    onChange={(e) => dispatch(setCouponCode(e.target.value))}
                   />
                   <input
                     type="submit"
