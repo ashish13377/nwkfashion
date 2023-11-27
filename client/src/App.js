@@ -16,6 +16,7 @@ import Shipping from "./pages/shipping";
 import NewCheckoutPage from "./pages/newCheckoutPage";
 import Cancellation from "./pages/cancellation";
 import Privacy from "./pages/privacy";
+import Terms from "./pages/terms";
 export const serverAPILocal = "https://myclassythreads.com/api";
 // export const serverAPILocal = "http://localhost:5904/api";
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/cancellation" element={<Cancellation />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
         </Routes>
       </Router>
       <a

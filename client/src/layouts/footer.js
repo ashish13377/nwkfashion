@@ -13,12 +13,19 @@ export default function footer() {
               <div className="footer-widget col-lg-3 col-md-6 col-12 mb-40">
                 <h4 className="title">CONTACT US</h4>
 
-                {/* <p>
-                  <a href="tel:01234567890">01234 567 890</a>
-                </p> */}
                 <p>
-                  <a href="mailto:customercare@myclassythreads.com">
-                    Email Support
+                  <a href="tel: +91-984598872">+91-984598872</a>
+                  <p>( 12 PM IST to 12 AM IST)</p>
+                </p>
+                <p>
+                  <a
+                    href="mailto:customercare@myclassythreads.com"
+                    style={{ lineHeight: "18px" }}
+                  >
+                    {" "}
+                    customercare@
+                    <br />
+                    myclassythreads.com
                   </a>
                 </p>
               </div>
@@ -43,6 +50,9 @@ export default function footer() {
               <div className="footer-widget col-lg-3 col-md-6 col-12 mb-40">
                 <h4 className="title">INFORMATION</h4>
                 <ul>
+                  <li>
+                    <Link to="/terms">Terms of service & conditions</Link>
+                  </li>
                   <li>
                     <Link to="/aboutUs">About us</Link>
                   </li>
