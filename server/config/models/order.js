@@ -8,7 +8,7 @@ const orderSchema = new mongoose.Schema({
   },
   razorpay: {
     type: String,
-    required: true,
+    // required: true,
     unique: true,
   },
   address: {
@@ -86,11 +86,9 @@ const orderSchema = new mongoose.Schema({
   },
   shippingFee: {
     type: String,
-    required: true,
   },
   gst: {
     type: String,
-    required: true,
   },
   couponCode: {
     type: String,
