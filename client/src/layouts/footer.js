@@ -14,7 +14,16 @@ export default function footer() {
                 <h4 className="title">CONTACT US</h4>
 
                 <p>
-                  <a href="tel: +91-984598872">+91-984598872</a>
+                  <b>Operational Address :</b> NWK Fashion Pvt Ltd #2903, 1st &
+                  2nd floor, Madegowda Circle, Rajiv Nagar, Mysore, Karnataka -
+                  570019
+                </p>
+
+                <p>
+                  <a href="tel: +91-984598872">
+                    {" "}
+                    <b>Contact:</b>:+91-984598872
+                  </a>
                   <p>( 12 PM IST to 12 AM IST)</p>
                 </p>
                 <p>
@@ -23,7 +32,7 @@ export default function footer() {
                     style={{ lineHeight: "18px" }}
                   >
                     {" "}
-                    customercare@
+                    <b>Email :</b> customercare@
                     <br />
                     myclassythreads.com
                   </a>
