@@ -142,7 +142,7 @@ const InvoiceList = () => {
                       </li> */}
                       <li className="btn-toolbar-sep"></li>
                       <li>
-                        <UncontrolledDropdown>
+                        {/* <UncontrolledDropdown>
                           <DropdownToggle tag="a" className="dropdown-toggle btn btn-icon btn-trigger">
                             <Icon name="setting"></Icon>
                           </DropdownToggle>
@@ -208,7 +208,7 @@ const InvoiceList = () => {
                               </li>
                             </ul>
                           </DropdownMenu>
-                        </UncontrolledDropdown>
+                        </UncontrolledDropdown> */}
                       </li>
                     </ul>
                   </div>

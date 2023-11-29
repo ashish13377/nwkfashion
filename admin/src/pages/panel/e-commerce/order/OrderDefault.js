@@ -523,7 +523,16 @@ const OrderDefault = () => {
                 <span className="sub-text">Discount</span>
               </DataTableRow>
               <DataTableRow size="md">
+                <span className="sub-text">Shipping Fee</span>
+              </DataTableRow>
+              <DataTableRow size="md">
                 <span className="sub-text">Coupon Code</span>
+              </DataTableRow>
+              <DataTableRow>
+                <span className="sub-text">Sub total</span>
+              </DataTableRow>
+              <DataTableRow>
+                <span className="sub-text">GST</span>
               </DataTableRow>
               <DataTableRow>
                 <span className="sub-text">Total</span>
@@ -662,8 +671,18 @@ const OrderDefault = () => {
                       </span>
                     </DataTableRow>
                     <DataTableRow>
+                      <span className="tb-lead">₹{parseFloat(item.shippingFee).toFixed(2)}</span>
+                    </DataTableRow>
+                    <DataTableRow>
                       <span className="tb-lead">{item.couponCode ? item.couponCode : <>--</>}</span>
                     </DataTableRow>
+                    <DataTableRow>
+                      <span className="tb-lead">₹ {parseFloat(item.subTotal).toFixed(2)}</span>
+                    </DataTableRow>
+                    <DataTableRow>
+                      <span className="tb-lead">₹ {parseFloat(item.gst).toFixed(2)}</span>
+                    </DataTableRow>
+
                     <DataTableRow>
                       <span className="tb-lead">₹ {parseFloat(item.totalPrice).toFixed(2)}</span>
                     </DataTableRow>
@@ -1046,6 +1065,11 @@ const OrderDefault = () => {
                             <td colSpan="2"></td>
                             <td colSpan="2">GST</td>
                             <td>₹ {formData.gst}</td>
+                          </tr>
+                          <tr>
+                            <td colSpan="2"></td>
+                            <td colSpan="2">Discount</td>
+                            <td>₹ {formData.discount ? <>{formData.discount}</> : <></>}</td>
                           </tr>
                           <tr>
                             <td colSpan="2"></td>

@@ -202,6 +202,11 @@ const InvoiceDetails = () => {
                         </tr>
                         <tr>
                           <td colSpan="2"></td>
+                          <td colSpan="2">Discount</td>
+                          <td>{user.discount ? <>₹{user.discount}</> : <></>}</td>
+                        </tr>
+                        <tr>
+                          <td colSpan="2"></td>
                           <td colSpan="2">Grand Total</td>
                           <td>₹ {user.totalPrice}</td>
                         </tr>
