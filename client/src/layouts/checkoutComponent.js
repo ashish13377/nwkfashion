@@ -136,7 +136,7 @@ const CheckoutComponent = () => {
       }
     });
 
-    return subtotal + shippingCost + totalGST;
+    return subtotal + shippingCost + totalGST - discount.toFixed(2);
   };
 
   const calculateTotalGST = () => {

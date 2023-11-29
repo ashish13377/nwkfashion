@@ -11,7 +11,9 @@ const CardTotal = ({
   calculateTotalGST,
 }) => {
   const discount = useSelector((state) => state.discount);
+  console.log("subtotal", calculateSubtotal);
   console.log("total gst", calculateTotalGST);
+
   return (
     <div>
       <div className="col-12 mb-40">
