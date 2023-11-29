@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
-import { setDiscount } from "../utils/discountSlice";
-import { clearDiscount } from "../utils/discountSlice";
+import { calculateDiscount } from "../utils/discountSlice";
+import { applyCoupon, clearDiscount } from "../utils/discountSlice";
 import { setCouponCode, clearCouponCode } from "../utils/couponSlice"; // Import the new actions
 
 import {
@@ -52,21 +52,41 @@ const CartTable = () => {
     return subtotal;
   };
   const shippingCost = 10;
+  const subtotal = calculateSubtotal();
 
   const handleIncreaseQuantiti = (productId) => {
     dispatch(increaseQuantiti(productId)); // Dispatch the action with the product ID
   };
 
   const handleDecreaseQuantiti = (productId) => {
-    dispatch(decreaseQuantiti(productId)); // Dispatch the action with the product ID
+    dispatch(decreaseQuantiti(productId));
   };
+
+  ///
+
+  useEffect(() => {
+    // Trigger coupon application and display toast when 'subtotal' changes
+    const result = dispatch(
+      applyCoupon({
+        couponCode,
+        subtotal,
+      })
+    );
+  }, [subtotal]);
+
+  //
 
   const handleApplyCoupon = (event) => {
     event.preventDefault();
 
-    // Replace the following logic with your actual coupon validation and discount application
-    if (couponCode === "EXAMPLECODE") {
-      dispatch(setDiscount(calculateSubtotal() * 0.1)); // Apply a 10% discount
+    const result = dispatch(
+      applyCoupon({
+        couponCode,
+        subtotal,
+      })
+    );
+    console.log(result);
+    if (result.payload.subtotal > 0) {
       toast.success("Coupon added!", {
         position: "top-center",
         autoClose: 2000,
@@ -75,7 +95,7 @@ const CartTable = () => {
         pauseOnHover: true,
         draggable: true,
         theme: "light",
-      }); // Show success notification
+      });
     } else {
       dispatch(clearDiscount());
       toast.warning("Invalid coupon code", {
@@ -86,7 +106,7 @@ const CartTable = () => {
         pauseOnHover: true,
         draggable: true,
         theme: "light",
-      }); // Show success notification // Show error notification
+      });
     }
   };
   return (
